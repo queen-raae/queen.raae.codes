@@ -1,27 +1,76 @@
 ---
+import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import PageSection from "../components/PageSection.astro";
 import PageSectionHeader from "../components/PageSectionHeader.astro";
 import Prose from "../components/Prose.astro";
-import CtaSection from "../components/CtaSection.astro";
 import Newsletter from "../components/Newsletter.astro";
+import cover from "../content/landing/ruby/Cover.jpg";
+import family from "../content/landing/ruby/Family.jpg";
+
+// A testimonial is a block of its own here, so drop the margins meant for quotes inside running text.
+// The quotes sit in a flex column, so they need the full column width instead of the 65ch of .prose.
+const quote = "max-w-none [&>blockquote]:my-0!";
+
+// Rendered width of the reading column: 36rem (about 684px) from 800px up, full width minus gutters below
+const sizes = "(min-width: 800px) 684px, calc(100vw - 32px)";
 
 const title = "Transform yourself from a friendly frontend engineer to a proper princess-life-saving skill builder";
 const description =
   "Ruby's TimeShip - A story by @OlaHolstVea about skill building, time travel, and saving a princess.";
+
+const testimonials = [
+  {
+    quote:
+      "I'd be in prison in The Tower of London if it wasn't for Ruby's frontend skill building. She showed me how to build the right thing at the right time. And she did it with style.",
+    name: "Lizabeth",
+    role: "Princess of England and later Queen",
+  },
+  {
+    quote:
+      "Ruby is a wonderful opponent. Her frontend skills are annoyingly good. I almost caught her several times, but she always managed to build her way out of trouble.",
+    name: 'Fulvia "The Fox" Renard',
+    role: "Queen Mary's Super Spy",
+  },
+  {
+    quote:
+      "I wish I could turn back the clock and start my frontend skill building journey all over again. It was the most thrilling adventure of my life.",
+    name: "Ruby Reckless",
+    role: "Frontend Engineer on Ruby's TimeShip",
+  },
+  {
+    quote:
+      "Dammit, if it wasn't for Ruby's frontend skill building, I would have caught that treasonous sister of mine. Her builds were too fast, too good. I'll get her next time.",
+    name: "Mary 1",
+    role: "Her Murderous Majesty of Britannia And Badass Backend Engineer",
+  },
+  {
+    quote:
+      "Ruby Reckless, you finally convinced me that frontend skill building doesn't have to be boring. Your TimeShip adventure had me coding late into the night, and I loved every minute of it.",
+    name: "Ola Vea",
+    role: "Junior Frontend Engineer on POW!",
+  },
+];
 ---
 
-<BaseLayout title={title} description={description} image="/content/landing/ruby/Cover.jpg">
+<BaseLayout title={title} description={description} image={cover.src}>
   <SiteHeader />
-  <main>
+  <main class="pb-12">
     <!-- Header Section -->
     <PageSection component="header">
       <PageSectionHeader badge="Ruby's TimeShip" title={title} hLevel={1} />
 
-      <img src="/content/landing/ruby/Cover.jpg" alt="Ruby's TimeShip Cover: a collage" class="mt-6 max-w-xl" />
+      <Image
+        src={cover}
+        alt="Ruby's TimeShip Cover: a collage"
+        widths={[480, 720, 1200]}
+        sizes={sizes}
+        loading="eager"
+        class="h-auto w-full border-2 border-ink"
+      />
 
-      <Newsletter formKey="timeship" cta="Send me the prolog now" tagline="Storytime" class="mt-8" />
+      <Newsletter formKey="timeship" cta="Send me the prolog now" tagline="Storytime" class="mt-6" />
     </PageSection>
 
     <!-- Main Content Section -->
@@ -49,7 +98,14 @@ const description =
         </p>
         <p>But Ruby can't do it alone. She needs you. She needs your frontend skills. And she needs them now.</p>
 
-        <img src="/content/landing/ruby/Family.jpg" alt="The family, Ola, Lillian and Raae" />
+        <Image
+          src={family}
+          alt="The family, Ola, Lillian and Raae"
+          widths={[480, 720, 1200]}
+          sizes={sizes}
+          loading="eager"
+          class="border-2 border-ink"
+        />
 
         <h2>How It Works</h2>
         <p>
@@ -79,93 +135,28 @@ const description =
     <PageSection>
       <PageSectionHeader title="Wait! Don't take my word for it..." />
 
-      <Prose class="mt-2">
-        <p>
-          Here's what engineers back in 1554 said about getting motivated by Lillian (6
-          &#x1F3F4;&#x200D;&#x2620;&#xFE0F;&#x1F478; ) and me:
-        </p>
-      </Prose>
+      <div class="flex flex-col gap-8">
+        <Prose class="max-w-none">
+          <p>
+            Here's what engineers back in 1554 said about getting motivated by Lillian (6
+            &#x1F3F4;&#x200D;&#x2620;&#xFE0F;&#x1F478; ) and me:
+          </p>
+        </Prose>
 
-      <div class="mt-8 space-y-8">
-        <blockquote class="m-0 px-6 pt-3 pb-5 border-solid border-4 border-yellow-400">
-          <Prose>
-            <p>
-              I'd be in prison in The Tower of London if it wasn't for Ruby's frontend skill building. She showed me how
-              to build the right thing at the right time. And she did it with style.
-            </p>
-          </Prose>
-          <div class="flex items-center gap-4 mt-6">
-            <cite class="text-sm leading-tight">
-              <span class="font-semibold">Lizabeth</span>
-              <br />
-              <span>Princess of England and later Queen</span>
-            </cite>
-          </div>
-        </blockquote>
-
-        <blockquote class="m-0 px-6 pt-3 pb-5 border-solid border-4 border-yellow-400">
-          <Prose>
-            <p>
-              Ruby is a wonderful opponent. Her frontend skills are annoyingly good. I almost caught her several times,
-              but she always managed to build her way out of trouble.
-            </p>
-          </Prose>
-          <div class="flex items-center gap-4 mt-6">
-            <cite class="text-sm leading-tight">
-              <span class="font-semibold">Fulvia "The Fox" Renard</span>
-              <br />
-              <span>Queen Mary's Super Spy</span>
-            </cite>
-          </div>
-        </blockquote>
-
-        <blockquote class="m-0 px-6 pt-3 pb-5 border-solid border-4 border-yellow-400">
-          <Prose>
-            <p>
-              I wish I could turn back the clock and start my frontend skill building journey all over again. It was the
-              most thrilling adventure of my life.
-            </p>
-          </Prose>
-          <div class="flex items-center gap-4 mt-6">
-            <cite class="text-sm leading-tight">
-              <span class="font-semibold">Ruby Reckless</span>
-              <br />
-              <span>Frontend Engineer on Ruby's TimeShip</span>
-            </cite>
-          </div>
-        </blockquote>
-
-        <blockquote class="m-0 px-6 pt-3 pb-5 border-solid border-4 border-yellow-400">
-          <Prose>
-            <p>
-              Dammit, if it wasn't for Ruby's frontend skill building, I would have caught that treasonous sister of
-              mine. Her builds were too fast, too good. I'll get her next time.
-            </p>
-          </Prose>
-          <div class="flex items-center gap-4 mt-6">
-            <cite class="text-sm leading-tight">
-              <span class="font-semibold">Mary 1</span>
-              <br />
-              <span>Her Murderous Majesty of Britannia And Badass Backend Engineer</span>
-            </cite>
-          </div>
-        </blockquote>
-
-        <blockquote class="m-0 px-6 pt-3 pb-5 border-solid border-4 border-yellow-400">
-          <Prose>
-            <p>
-              Ruby Reckless, you finally convinced me that frontend skill building doesn't have to be boring. Your
-              TimeShip adventure had me coding late into the night, and I loved every minute of it.
-            </p>
-          </Prose>
-          <div class="flex items-center gap-4 mt-6">
-            <cite class="text-sm leading-tight">
-              <span class="font-semibold">Ola Vea</span>
-              <br />
-              <span>Junior Frontend Engineer on POW!</span>
-            </cite>
-          </div>
-        </blockquote>
+        {
+          testimonials.map((testimonial) => (
+            <Prose class={quote}>
+              <blockquote>
+                <p>{testimonial.quote}</p>
+                <cite>
+                  <strong>{testimonial.name}</strong>
+                  <br />
+                  {testimonial.role}
+                </cite>
+              </blockquote>
+            </Prose>
+          ))
+        }
       </div>
     </PageSection>
 
@@ -173,7 +164,7 @@ const description =
     <PageSection component="footer" id="signup">
       <PageSectionHeader title={title} />
 
-      <Newsletter formKey="timeship" cta="Send me the prolog now" tagline="Storytime" class="mt-8" />
+      <Newsletter formKey="timeship" cta="Send me the prolog now" tagline="Storytime" />
     </PageSection>
   </main>
 </BaseLayout>

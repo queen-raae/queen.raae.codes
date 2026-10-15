@@ -5,7 +5,9 @@ import PageSection from "../components/PageSection.astro";
 import PageSectionHeader from "../components/PageSectionHeader.astro";
 import Prose from "../components/Prose.astro";
 import CtaSection from "../components/CtaSection.astro";
-import Newsletter from "../components/Newsletter.astro";
+
+// A testimonial is a block of its own here, so drop the margins meant for quotes inside running text
+const quote = "[&>blockquote]:my-0!";
 
 const title = "Do you get customer requests for how to integrate your SaaS with Gatsby?";
 const description =
@@ -14,7 +16,7 @@ const description =
 
 <BaseLayout title={title} description={description}>
   <SiteHeader />
-  <main>
+  <main class="pb-12">
     <!-- Header Section -->
     <PageSection component="header">
       <PageSectionHeader
@@ -24,7 +26,7 @@ const description =
         hLevel={1}
       />
 
-      <Prose class="mt-4">
+      <Prose class="mt-6">
         <p>Imagine having a fully working <strong>integration demo done for you</strong>, created by Gatsby experts.</p>
         <p>Complete with a code repository on GitHub/CodeSandbox, and an engaging video walkthrough!</p>
         <p>Imagine spending less time on Gatsby support and more time on your product.</p>
@@ -32,10 +34,11 @@ const description =
       </Prose>
 
       <CtaSection
-        class="mt-8"
+        class="mt-10"
         label="Book a short call to kick things off"
         href="https://savvycal.com/raae/demo"
         note="or email queen@raae.codes if you would rather keep it all asynchronous"
+        variant="primary"
       />
     </PageSection>
 
@@ -43,36 +46,27 @@ const description =
     <PageSection>
       <PageSectionHeader title="But don't take our word for it..." />
 
-      <div class="mt-8 space-y-8">
-        <blockquote class="m-0 px-6 pt-3 pb-5 border-solid border-4 border-yellow-400">
-          <Prose>
-            <p>
-              We hired Queen Raae and Cap'n Ola to build a React integration project for us and couldn't have been
-              happier with the results. They understood the technical requirements immediately, executed with little
-              oversight needed on our end, and delivered a finished project that will benefit our customers for a long
-              time to come. We'd absolutely hire them again!
-            </p>
-          </Prose>
-          <div class="flex items-center gap-4 mt-6">
-            <cite class="text-sm leading-tight">
-              <span class="font-semibold">Geoff Roberts</span>
-              <br />
-              <a
-                class="font-semibold text-inherit underline underline-offset-2 decoration-transparent decoration-wavy hover:decoration-amber-600 transition-all ease-in-out duration-300"
-                href="https://www.outseta.com/"
-              >
-                Outseta
-              </a>
-            </cite>
-          </div>
+      <Prose class={quote}>
+        <blockquote>
+          <p>
+            We hired Queen Raae and Cap'n Ola to build a React integration project for us and couldn't have been happier
+            with the results. They understood the technical requirements immediately, executed with little oversight
+            needed on our end, and delivered a finished project that will benefit our customers for a long time to come.
+            We'd absolutely hire them again!
+          </p>
+          <cite>
+            <strong>Geoff Roberts</strong>
+            <br />
+            <a href="https://www.outseta.com/">Outseta</a>
+          </cite>
         </blockquote>
-      </div>
+      </Prose>
     </PageSection>
 
     <!-- How It Works Section -->
     <PageSection>
+      <PageSectionHeader title="Here's How It Works" />
       <Prose>
-        <h2>Here's How It Works</h2>
         <p>You let us know what comes up in support requests and point us towards relevant documentation.</p>
         <p>We propose a feature set for the demo showcasing solutions to the most costly support request.</p>
         <p>You approve the feature set, pay and we start coding!</p>
@@ -82,26 +76,31 @@ const description =
           <li>Unstyled demo in a transferable Code Sandbox or Github repository</li>
           <li>Unedited one-take engaging video walkthrough of the demo</li>
         </ul>
-
-        <h3>Pricing</h3>
-        <p>The base price is USD 4.500 paid in full before we start coding.</p>
-
-        <h4>Optional Extras</h4>
-        <ul>
-          <li>Styling using your brand guidelines: from USD 1.000</li>
-          <li>Additional framework (e.g. Next.js): from USD 2.500</li>
-          <li>Written tutorial/guide: from USD 1.500</li>
-        </ul>
-
-        <h4>100% Money-back Guarantee</h4>
-        <p>If you at any point are not happy with our service, let us know, and we will refund your money in full.</p>
       </Prose>
 
+      <div class="qr-card mt-10 p-5 sm:p-6">
+        <Prose>
+          <h3>Pricing</h3>
+          <p>The base price is USD 4.500 paid in full before we start coding.</p>
+
+          <h4>Optional Extras</h4>
+          <ul>
+            <li>Styling using your brand guidelines: from USD 1.000</li>
+            <li>Additional framework (e.g. Next.js): from USD 2.500</li>
+            <li>Written tutorial/guide: from USD 1.500</li>
+          </ul>
+
+          <h4>100% Money-back Guarantee</h4>
+          <p>If you at any point are not happy with our service, let us know, and we will refund your money in full.</p>
+        </Prose>
+      </div>
+
       <CtaSection
-        class="mt-8"
+        class="mt-10"
         label="Book a short call to kick things off"
         href="https://savvycal.com/raae/demo"
         note="or email queen@raae.codes if you would rather keep it all asynchronous"
+        variant="primary"
       />
     </PageSection>
 
@@ -109,7 +108,7 @@ const description =
     <PageSection>
       <PageSectionHeader title="Who are we?" />
 
-      <Prose class="mt-4">
+      <Prose>
         <p>
           Queen Raae is a seasoned web developer who has sailed the seas of the World Wide Web since 1995. She holds a
           Master of Computer Science from the Norwegian University of Science and Technology and has created apps
@@ -128,17 +127,18 @@ const description =
     <PageSection component="footer">
       <PageSectionHeader title="Let us take a plate off your SaaS founder hands" />
 
-      <Prose class="mt-4">
+      <Prose>
         <p>Imagine having a fully working <strong>integration demo done for you</strong>, created by Gatsby experts.</p>
         <p>Complete with a code repository on GitHub/CodeSandbox, and an engaging video walkthrough!</p>
         <p>Imagine spending less time on Gatsby support and more time on your product.</p>
       </Prose>
 
       <CtaSection
-        class="mt-8"
+        class="mt-10"
         label="Book a short call to kick things off"
         href="https://savvycal.com/raae/demo"
         note="or email queen@raae.codes if you would rather keep it all asynchronous"
+        variant="cta"
       />
     </PageSection>
   </main>

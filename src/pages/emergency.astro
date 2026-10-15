@@ -5,6 +5,24 @@ import PageSection from "../components/PageSection.astro";
 import PageSectionHeader from "../components/PageSectionHeader.astro";
 import Prose from "../components/Prose.astro";
 import CtaSection from "../components/CtaSection.astro";
+
+// A testimonial is a block of its own here, so drop the margins meant for quotes inside running text.
+// The quotes sit in a flex column, so they need the full column width instead of the 65ch of .prose.
+const quote = "max-w-none [&>blockquote]:my-0!";
+
+const tech = [
+  "JavaScript",
+  "HTML",
+  "CSS",
+  "JAMstack",
+  "Gatsby",
+  "Astro",
+  "React",
+  "WordPress",
+  "Website builders",
+  "Zapier/Make",
+  "Email tools",
+];
 ---
 
 <BaseLayout
@@ -12,7 +30,7 @@ import CtaSection from "../components/CtaSection.astro";
   description="Book a 1-on-1 Emergency Call with PirateWebDev Queen Raae. Friendly advice you can put into action immediately, guaranteed!"
 >
   <SiteHeader />
-  <main>
+  <main class="pb-12">
     <!-- Header Section -->
     <PageSection component="header">
       <PageSectionHeader
@@ -22,7 +40,7 @@ import CtaSection from "../components/CtaSection.astro";
         hLevel={1}
       />
 
-      <Prose>
+      <Prose class="mt-10">
         <h2>Imagine getting the help you need</h2>
         <p>
           Imagine this – Imagine getting pulled off the reef without damage. Imagine your web navigation skills
@@ -55,57 +73,46 @@ import CtaSection from "../components/CtaSection.astro";
         </p>
       </Prose>
 
-      <CtaSection class="mt-6" href="https://savvycal.com/raae/emergency" label="Book your call" />
+      <CtaSection class="mt-10" href="https://savvycal.com/raae/emergency" label="Book your call" variant="primary" />
     </PageSection>
 
     <!-- Testimonials Section -->
     <PageSection>
       <PageSectionHeader title="But don't take my word for it..." />
 
-      <div class="mt-8 space-y-8">
-        <blockquote class="m-0 px-6 pt-3 pb-5 border-solid border-4 border-yellow-400">
-          <Prose>
+      <div class="flex flex-col gap-8">
+        <Prose class={quote}>
+          <blockquote>
             <p>
               As a repeat customer of the Gatsby Emergency call I have seen my knowledge grow, and I'm much more
               confident about the right ways to do things. Scheduling is a breeze and it's much easier to just hop on a
               call than to recreate a long test case on Stack Overflow and get insulted half the time :p
             </p>
-          </Prose>
-          <div class="flex items-center gap-4 mt-6">
-            <cite class="text-sm leading-tight">
-              <span class="font-semibold">Aur&eacute;lien Botermans</span>
-            </cite>
-          </div>
-        </blockquote>
+            <cite><strong>Aur&eacute;lien Botermans</strong></cite>
+          </blockquote>
+        </Prose>
 
-        <blockquote class="m-0 px-6 pt-3 pb-5 border-solid border-4 border-yellow-400">
-          <Prose>
+        <Prose class={quote}>
+          <blockquote>
             <p>
               Queen Raae was able to both diagnose the issues I faced and help me understand what I was doing wrong (and
               learned something from it). Getting help on short notice is extremely valuable to me as a busy
               professional, and her wonderful personality, professionalism and expertise is a treat.
             </p>
-          </Prose>
-          <div class="flex items-center gap-4 mt-6">
-            <cite class="text-sm leading-tight">
-              <span class="font-semibold">Stephen Parker</span>
+            <cite>
+              <strong>Stephen Parker</strong>
               <br />
-              <a
-                class="font-semibold text-inherit underline underline-offset-2 decoration-transparent decoration-wavy hover:decoration-amber-600 transition-all ease-in-out duration-300"
-                href="https://sparker888.com/"
-              >
-                Sparker888
-              </a>
+              <a href="https://sparker888.com/">Sparker888</a>
             </cite>
-          </div>
-        </blockquote>
+          </blockquote>
+        </Prose>
       </div>
     </PageSection>
 
     <!-- About Section -->
     <PageSection>
+      <PageSectionHeader title="Why me?" />
       <Prose>
-        <h2>Why me?</h2>
         <ul>
           <li>I have been coding since 1995 and have been stuck on my fair share of reefs by now.</li>
           <li>I hold a Master of Computer Science from the Norwegian University of Science and Technology.</li>
@@ -119,7 +126,9 @@ import CtaSection from "../components/CtaSection.astro";
       <img
         src="/content/landing/raae.jpg"
         alt="Queen Raae holding a laptop and looking into the camera in her signature green dress."
-        class="mt-6 max-w-xl"
+        width="2180"
+        height="1430"
+        class="mt-6 h-auto w-full border-2 border-ink"
       />
     </PageSection>
 
@@ -127,19 +136,11 @@ import CtaSection from "../components/CtaSection.astro";
     <PageSection>
       <Prose>
         <p>I can help you with most things web (dev) related:</p>
-        <ul>
-          <li>JavaScript</li>
-          <li>HTML</li>
-          <li>CSS</li>
-          <li>JAMstack</li>
-          <li>Gatsby</li>
-          <li>Astro</li>
-          <li>React</li>
-          <li>WordPress</li>
-          <li>Website builders</li>
-          <li>Zapier/Make</li>
-          <li>Email tools</li>
-        </ul>
+      </Prose>
+      <ul role="list" class="m-0 mt-6 flex list-none flex-wrap gap-3 p-0">
+        {tech.map((item) => <li class="qr-label border-2 border-ink bg-paper px-3 py-2">{item}</li>)}
+      </ul>
+      <Prose class="mt-6">
         <p>
           And a whole lot more, if you are unsure <a href="https://savvycal.com/raae/emergency">book a call</a> and I'll cancel
           + refund if it's not my jam.
@@ -154,7 +155,7 @@ import CtaSection from "../components/CtaSection.astro";
         title="Friendly advice you can put into action immediately, guaranteed."
         tagline="Get Unstuck • Gain confidence • Take Action"
       />
-      <CtaSection class="mt-6" href="https://savvycal.com/raae/emergency" label="Book your call" />
+      <CtaSection class="mt-6" href="https://savvycal.com/raae/emergency" label="Book your call" variant="cta" />
     </PageSection>
   </main>
 </BaseLayout>

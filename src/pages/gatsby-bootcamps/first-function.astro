@@ -7,6 +7,9 @@ import Prose from "../../components/Prose.astro";
 import CtaSection from "../../components/CtaSection.astro";
 import Newsletter from "../../components/Newsletter.astro";
 
+// A testimonial is a block of its own here, so drop the margins meant for quotes inside running text
+const quote = "[&>blockquote]:my-0!";
+
 const title = "Develop and Deploy your first Serverless Function";
 const seoTitle = "Develop and Deploy your first Serverless Function";
 const description =
@@ -17,15 +20,15 @@ const lead = "Get started creating backend functionality by learning Gatsby Serv
 
 <BaseLayout title={seoTitle} description={description}>
   <SiteHeader />
-  <main>
+  <main class="pb-12">
     <PageSection component="header">
       <PageSectionHeader badge={badge} title={title} lead={lead} hLevel={1} />
 
-      <CtaSection href="#join" label="Join now" class="mt-6" />
+      <CtaSection to="#join" label="Join now" class="mt-6" variant="primary" />
     </PageSection>
 
     <PageSection>
-      <Prose>
+      <Prose class={quote}>
         <blockquote>
           <p>
             I had never worked with serverless before, I assumed it was a topic that was way out of my league. But you
@@ -35,12 +38,12 @@ const lead = "Get started creating backend functionality by learning Gatsby Serv
             amazing people.
           </p>
           <cite>
-            &mdash; <strong>Ineza Bont&eacute;</strong> (<a
+            <strong>Ineza Bont&eacute;</strong> (<a
               href="https://twitter.com/inezabonte"
               target="_blank"
               rel="noreferrer">@inezabonte</a
             >)
-            <br /><small>Attended: Gatsby Summer Functions 2021</small>
+            <br />Attended: Gatsby Summer Functions 2021
           </cite>
         </blockquote>
       </Prose>
@@ -77,7 +80,7 @@ const lead = "Get started creating backend functionality by learning Gatsby Serv
         </ul>
       </Prose>
 
-      <CtaSection href="#join" label="Join now" class="mt-6" />
+      <CtaSection to="#join" label="Join now" class="mt-10" variant="primary" />
     </PageSection>
 
     <PageSection>
@@ -115,11 +118,11 @@ const lead = "Get started creating backend functionality by learning Gatsby Serv
     <PageSection>
       <PageSectionHeader title="Who am I?" />
 
-      <div class="flex flex-col sm:flex-row gap-6 items-start">
+      <div class="flex flex-col items-start gap-6 sm:flex-row sm:gap-8">
         <img
           src="/content/landing/raae.jpg"
           alt="Queen Raae"
-          class="w-48 h-48 object-cover border-2 border-brown-900"
+          class="h-48 w-48 shrink-0 border-2 border-ink object-cover"
         />
 
         <Prose>
@@ -137,7 +140,7 @@ const lead = "Get started creating backend functionality by learning Gatsby Serv
     </PageSection>
 
     <PageSection>
-      <Prose>
+      <Prose class={quote}>
         <blockquote>
           <p>
             I would and I have recommended your bootcamps to others because for me, it wasn't just about creating
@@ -146,12 +149,10 @@ const lead = "Get started creating backend functionality by learning Gatsby Serv
             confidence delving into unfamiliar paths.
           </p>
           <cite>
-            &mdash; <strong>Aremu Smog</strong> (<a
-              href="https://twitter.com/aremu_smog"
-              target="_blank"
-              rel="noreferrer">@aremu_smog</a
+            <strong>Aremu Smog</strong> (<a href="https://twitter.com/aremu_smog" target="_blank" rel="noreferrer"
+              >@aremu_smog</a
             >)
-            <br /><small>Attended: Gatsby Summer Functions 2021</small>
+            <br />Attended: Gatsby Summer Functions 2021
           </cite>
         </blockquote>
       </Prose>
@@ -160,10 +161,12 @@ const lead = "Get started creating backend functionality by learning Gatsby Serv
     <PageSection id="join">
       <PageSectionHeader title={title} lead={lead} />
 
-      <Prose>
-        <p><strong>Registration is closed.</strong></p>
-        <p>This bootcamp is no longer accepting new registrations. Thank you for your interest!</p>
-      </Prose>
+      <div class="qr-card mt-6 p-5 sm:p-6">
+        <Prose>
+          <p><strong>Registration is closed.</strong></p>
+          <p>This bootcamp is no longer accepting new registrations. Thank you for your interest!</p>
+        </Prose>
+      </div>
     </PageSection>
 
     <PageSection component="footer">

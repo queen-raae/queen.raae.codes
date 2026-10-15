@@ -5,7 +5,6 @@ import PageSection from "../components/PageSection.astro";
 import PageSectionHeader from "../components/PageSectionHeader.astro";
 import Prose from "../components/Prose.astro";
 import CtaSection from "../components/CtaSection.astro";
-import Newsletter from "../components/Newsletter.astro";
 
 const title = "Stuck on a reef in the sharky waters around the Gatsby islands?";
 const description =
@@ -23,7 +22,7 @@ const description =
         lead="You have Googled. You have looked through Stack Overflow. You have tried to get help in the Gatsby Discord. But you are still stuck on that reef. You are ready to give up! To abandon ship!"
         hLevel={1}
       />
-      <Prose class="mt-4">
+      <Prose class="mt-10">
         <h2>Imagine getting the help you need</h2>
         <p>
           Imagine this – Imagine getting pulled off the reef without damage. Imagine your Gatsby navigation skills
@@ -55,13 +54,13 @@ const description =
           sooner you book your call, the sooner you'll get into clear waters again.
         </p>
       </Prose>
-      <CtaSection label="Book your call" href="https://savvycal.com/raae/emergency" class="mt-8" />
+      <CtaSection label="Book your call" href="https://savvycal.com/raae/emergency" class="mt-10" variant="primary" />
     </PageSection>
 
     <!-- About Section -->
     <PageSection>
+      <PageSectionHeader title="Why me?" />
       <Prose>
-        <h2>Why me?</h2>
         <ul>
           <li>I have worked on Gatsby projects since 2018.</li>
           <li>I enjoy figuring out how to get the most out of the frameworks I use.</li>
@@ -73,13 +72,14 @@ const description =
             Directorate, and others.
           </li>
         </ul>
-        <p>
-          <img
-            src="/content/landing/raae.jpg"
-            alt="Queen Raae holding a laptop and looking into the camera in her signature green dress."
-          />
-        </p>
       </Prose>
+      <img
+        src="/content/landing/raae.jpg"
+        alt="Queen Raae holding a laptop and looking into the camera in her signature green dress."
+        width="2180"
+        height="1430"
+        class="mt-6 h-auto w-full border-2 border-ink"
+      />
     </PageSection>
 
     <!-- CTA Footer Section -->
@@ -88,7 +88,7 @@ const description =
         title="Friendly advice you can put into action immediately, guaranteed."
         tagline="Get Unstuck • Gain confidence • Take Action"
       />
-      <CtaSection label="Book your call" href="https://savvycal.com/raae/emergency" class="mt-8" />
+      <CtaSection label="Book your call" href="https://savvycal.com/raae/emergency" class="mt-6" variant="cta" />
     </PageSection>
   </main>
 </BaseLayout>

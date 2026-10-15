@@ -4,7 +4,6 @@ import SiteHeader from "../../components/SiteHeader.astro";
 import PageSection from "../../components/PageSection.astro";
 import PageSectionHeader from "../../components/PageSectionHeader.astro";
 import Prose from "../../components/Prose.astro";
-import CtaSection from "../../components/CtaSection.astro";
 import Newsletter from "../../components/Newsletter.astro";
 
 const title = "Beyond Static Generation with Gatsby v4";
@@ -14,7 +13,7 @@ const lead = "Learn how and when to use Gatsby's new rendering modes SSR and DSG
 
 <BaseLayout title={title} description={lead}>
   <SiteHeader />
-  <main>
+  <main class="pb-12">
     <PageSection component="header">
       <PageSectionHeader badge={badge} title={title} lead={lead} hLevel={1} />
 
@@ -28,8 +27,8 @@ const lead = "Learn how and when to use Gatsby's new rendering modes SSR and DSG
     </PageSection>
 
     <PageSection>
+      <PageSectionHeader title="Still confused by the new rendering modes?" />
       <Prose>
-        <p><strong>Still confused by the new rendering modes?</strong></p>
         <p>There used to be only one rendering mode: Static Site Generation (SSG).</p>
         <p>With Gatsby v4 we got Server Side Rendering (SSR) and Deffered Static Generation (DSG).</p>
         <p>
