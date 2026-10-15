@@ -1,0 +1,53 @@
+---
+interface Blurb {
+  label: string;
+  tagSlug: string;
+  displayName?: string;
+  description?: string;
+  disclaimer?: string;
+  url?: string;
+}
+
+interface Props {
+  blurbs: Blurb[];
+  class?: string;
+}
+
+const { blurbs, class: className } = Astro.props;
+---
+
+{
+  blurbs.length > 0 && (
+    <aside class:list={["post-tag-blurbs", className]}>
+      <hr class="ornamental-hr" />
+      <ul class="font-body m-0 flex list-none flex-col gap-3 p-0 text-center text-[0.95rem] leading-relaxed text-balance text-plum-500 italic">
+        {blurbs.map((blurb) => (
+          <li>
+            <span class="qr-lily text-gold-deep" aria-hidden="true" />{" "}
+            <a href={blurb.tagSlug} class="qr-link font-semibold not-italic">
+              {blurb.displayName || blurb.label}
+            </a>
+            {blurb.description && <span>{` — ${blurb.description}`}</span>}
+            {blurb.disclaimer && <span>{` ${blurb.disclaimer}`}</span>}
+            {blurb.url && (
+              <span>
+                {" "}
+                <a href={blurb.url} class="qr-link" target="_blank" rel="noopener noreferrer">
+                  {blurb.url.replace(/^https?:\/\//, "")}
+                </a>
+              </span>
+            )}{" "}
+            <span class="qr-lily text-gold-deep" aria-hidden="true" />
+          </li>
+        ))}
+      </ul>
+    </aside>
+  )
+}
+
+<style>
+  /* The divider introduces the blurbs, so they sit closer to it than the article does */
+  .post-tag-blurbs > hr {
+    margin-bottom: 1.5rem;
+  }
+</style>
