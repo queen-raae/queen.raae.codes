@@ -13,15 +13,16 @@ export const getStaticPaths: GetStaticPaths = async () => {
         title: post.title,
         description: post.description,
         author: post.author,
+        date: post.dateFormatted,
       },
     };
   });
 };
 
 export const GET: APIRoute = async ({ props }) => {
-  const { title, description, author } = props as any;
+  const { title, description, author, date } = props as any;
 
-  const png = await generateOgImage({ title, description, author });
+  const png = await generateOgImage({ title, description, author, date });
 
   return new Response(png, {
     headers: { "Content-Type": "image/png" },
