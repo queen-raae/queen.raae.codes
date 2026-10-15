@@ -1,0 +1,24 @@
+---
+import Posts from "../Posts.astro";
+import type { ProcessedPost } from "../../lib/posts";
+
+interface Props {
+  posts: ProcessedPost[];
+  /** Visually hidden h2 above the rows: keeps the outline h1 → h2 → h3 (every row title is an h3) */
+  label?: string;
+  class?: string;
+}
+
+const { posts, label = "Posts", class: className } = Astro.props;
+---
+
+{
+  /*
+  One list for every archive page (all posts, tag, author): unnumbered.
+  01, 02, 03… suits a short curated list (the home page); on 260 posts the numbers only add noise.
+*/
+}
+<div class:list={[className]}>
+  <h2 class="sr-only">{label}</h2>
+  <Posts posts={posts} />
+</div>

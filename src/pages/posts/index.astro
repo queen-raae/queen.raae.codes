@@ -3,9 +3,9 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
 import PageSection from "../../components/PageSection.astro";
 import PageSectionHeader from "../../components/PageSectionHeader.astro";
-import Posts from "../../components/Posts.astro";
 import Newsletter from "../../components/Newsletter.astro";
 import PageLinks from "../../components/PageLinks.astro";
+import PostArchive from "../../components/listings/PostArchive.astro";
 import { getAllPosts } from "../../lib/posts";
 
 const BADGE = "Posts";
@@ -18,13 +18,10 @@ const allPosts = await getAllPosts();
 <BaseLayout title={TITLE} description={DESCRIPTION}>
   <SiteHeader />
   <main>
-    <PageSection component="header">
+    <PageSection component="section">
       <PageSectionHeader badge={BADGE} title={TITLE} lead={DESCRIPTION} hLevel={1} />
       <PageLinks rssHref="/posts/rss.xml" />
-    </PageSection>
-
-    <PageSection component="section">
-      <Posts posts={allPosts} />
+      <PostArchive posts={allPosts} label="All posts" />
     </PageSection>
 
     <PageSection component="footer">

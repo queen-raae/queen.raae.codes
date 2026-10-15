@@ -4,9 +4,10 @@ import SiteHeader from "../../components/SiteHeader.astro";
 import PageSection from "../../components/PageSection.astro";
 import PageSectionHeader from "../../components/PageSectionHeader.astro";
 import PageSectionBreadcrumbs from "../../components/PageSectionBreadcrumbs.astro";
-import Posts from "../../components/Posts.astro";
 import Newsletter from "../../components/Newsletter.astro";
 import PageLinks from "../../components/PageLinks.astro";
+import PostArchive from "../../components/listings/PostArchive.astro";
+import TagBlurb from "../../components/listings/TagBlurb.astro";
 import { getAllTags } from "../../lib/posts";
 import { getTagBlurbs } from "../../lib/tag-blurbs";
 
@@ -27,12 +28,17 @@ const { label, posts } = Astro.props;
 
 const blurbMap = await getTagBlurbs();
 const blurb = blurbMap.get(label);
+const hasBlurb = Boolean(blurb && (blurb.description || blurb.disclaimer || blurb.url));
 
 const title = `Posts tagged: "${label}"`;
 const description = blurb?.description || `Learn more about "${label}" by browsing the posts for the tag.`;
 ---
 
-<BaseLayout title={title} description={description} feeds={[{ title: `Posts tagged #${label}`, href: `/posts/${Astro.params.tag}.xml` }]}>
+<BaseLayout
+  title={title}
+  description={description}
+  feeds={[{ title: `Posts tagged #${label}`, href: `/posts/${Astro.params.tag}.xml` }]}
+>
   <SiteHeader />
 
   <main>
@@ -41,25 +47,9 @@ const description = blurb?.description || `Learn more about "${label}" by browsi
       <PageSectionHeader title={title} hLevel={1} />
       <PageLinks rssHref={`/posts/${Astro.params.tag}.xml`} />
 
-      {blurb && (blurb.description || blurb.disclaimer || blurb.url) && (
-        <aside class="my-6 text-sm italic text-plum-400 relative pl-6" style="font-family: var(--font-body); text-wrap: balance;">
-          <p>
-            <span class="absolute left-0 top-0 not-italic text-amber-500">✦</span>{" "}
-            <strong class="not-italic text-plum-600">{blurb.displayName || label}</strong>
-            {blurb.description && <span> — {blurb.description}</span>}
-            {blurb.disclaimer && <span> {blurb.disclaimer}</span>}
-            {blurb.url && (
-              <Fragment>
-                {" "}<span class="not-italic text-amber-500">✦</span>{" "}
-                <a href={blurb.url} class="underline decoration-plum-300 underline-offset-3 hover:text-[#f4511e] hover:decoration-[#f4511e] transition" target="_blank" rel="noopener noreferrer">{blurb.url.replace(/^https?:\/\//, "")}</a>
-              </Fragment>
-            )}
-            {" "}<span class="not-italic text-amber-500">✦</span>
-          </p>
-        </aside>
-      )}
+      {blurb && hasBlurb && <TagBlurb label={label} blurb={blurb} class="mb-8" />}
 
-      <Posts posts={posts} />
+      <PostArchive posts={posts} label={`Posts tagged ${label}`} />
     </PageSection>
 
     <PageSection component="footer">

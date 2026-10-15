@@ -1,0 +1,46 @@
+---
+import type { TagBlurb } from "../../lib/tag-blurbs";
+
+interface Props {
+  /** Tag label, used when the blurb has no display name */
+  label: string;
+  blurb: TagBlurb;
+  class?: string;
+}
+
+const { label, blurb, class: className } = Astro.props;
+
+const name = blurb.displayName || label;
+const host = blurb.url?.replace(/^https?:\/\//, "");
+
+// The link text is set with set:text (no children), so no whitespace can sneak inside the <a> and get underlined
+const externalLink = { class: "qr-link", target: "_blank", rel: "noopener noreferrer" };
+---
+
+{/* Disclosure note: who the brand is, and how Queen Raae and family relate to it */}
+<aside aria-label={`About ${name}`} class:list={["flex gap-3", className]}>
+  <span class="qr-lily mt-[0.3em] shrink-0 text-[1.15rem] text-gold-deep" aria-hidden="true"></span>
+  <p class="font-body m-0 text-[1.05rem] leading-snug text-pretty text-ink">
+    <strong class="font-bold">{name}</strong>
+    {
+      blurb.description && (
+        <Fragment>
+          {" "}
+          — <em class="text-plum-500">{blurb.description}</em>
+        </Fragment>
+      )
+    }
+    {blurb.disclaimer && <Fragment> {blurb.disclaimer}</Fragment>}
+    {
+      blurb.url && (
+        <Fragment>
+          {" "}
+          <span class="whitespace-nowrap">
+            <a href={blurb.url} {...externalLink} set:text={host} />
+            <span class="text-ember" aria-hidden="true" set:text="↗" />
+          </span>
+        </Fragment>
+      )
+    }
+  </p>
+</aside>

@@ -3,6 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
 import PageSection from "../../components/PageSection.astro";
 import PageSectionHeader from "../../components/PageSectionHeader.astro";
+import Posts from "../../components/Posts.astro";
 import Newsletter from "../../components/Newsletter.astro";
 import { getAllPosts } from "../../lib/posts";
 
@@ -15,53 +16,38 @@ const latestPosts = allPosts.slice(0, 3);
 <BaseLayout title={TITLE}>
   <SiteHeader />
   <main>
-    <PageSection component="header">
+    <PageSection component="section">
       <PageSectionHeader title="Search all posts" hLevel={1} />
-      <label for="search" class="sr-only">Search posts</label>
+
+      <label for="search" class="qr-label mb-2 block text-ink">Search posts</label>
       <input
         autofocus
         type="search"
         name="search"
         id="search"
-        class="font-medium w-full grow border-solid transition border-2 border-plum-500 focus:border-amber-500 focus-within:ring-1 focus-within:ring-amber-500"
+        class="font-body min-h-[3.25rem] w-full border-2 border-ink bg-paper px-4 text-[1.2rem] text-ink placeholder:text-plum-500 focus:border-ink focus:outline-3 focus:outline-offset-3 focus:outline-orangered focus:[box-shadow:none]"
         placeholder="Type to search..."
       />
 
-      <div id="no-results" class="hidden mt-12 pl-1 text-lg font-bold" aria-live="polite">
-        No results for <em id="search-term"></em>
+      {/* Empty state: dashed edge, like the newsletter's "hold on" */}
+      <div id="no-results" class="mt-8 hidden border-2 border-dashed border-ink bg-paper p-5" aria-live="polite">
+        <p class="font-body m-0 text-[1.15rem] text-ink">
+          No results for <em id="search-term" class="text-plum-500"></em>
+        </p>
       </div>
 
-      <ul id="search-results" class="list-none px-0 my-0 space-y-0 mt-8" aria-live="polite"></ul>
-    </PageSection>
-
-    <PageSection>
-      <PageSectionHeader badge="Latest posts" />
-      <ul id="latest-posts" class="list-none px-0 my-0 space-y-0 mt-8">
-        {
-          latestPosts.map((post) => (
-            <li class="relative border-0 border-b border-solid border-plum-900/10">
-              <a
-                href={post.slug}
-                class="search-list-link block py-3 no-underline text-inherit transition-colors focus:outline-hidden"
-              >
-                <h3
-                  class="search-list-title text-base my-0 font-extrabold text-plum-900"
-                  style="font-family: var(--font-heading);"
-                >
-                  {post.title}
-                  <span class="search-list-arrow text-amber-500 inline-block ml-1 transition-transform"> →</span>
-                </h3>
-                <p
-                  class="text-xs my-0 mt-1 font-semibold text-plum-400 uppercase"
-                  style="font-family: var(--font-label); letter-spacing: 0.08em;"
-                >
-                  {post.dateFormatted}
-                </p>
-              </a>
-            </li>
-          ))
-        }
+      {/* Result rows are built in the script below with the same markup as ContentList's detailed rows. */}
+      <ul
+        id="search-results"
+        class="m-0 mt-8 list-none border-t-4 border-ink p-0 empty:mt-0 empty:border-t-0 [&_mark]:bg-transparent [&_mark]:text-inherit [&_mark]:underline [&_mark]:decoration-orangered [&_mark]:decoration-2 [&_mark]:underline-offset-4"
+        aria-live="polite"
+      >
       </ul>
+
+      <div id="latest-posts" class="mt-10">
+        <h2 class="qr-label mb-3 text-plum-400">Latest posts</h2>
+        <Posts posts={latestPosts} />
+      </div>
     </PageSection>
 
     <PageSection component="footer">
@@ -137,7 +123,7 @@ const latestPosts = allPosts.slice(0, 3);
         if (term.length < 2) {
           resultsContainer.innerHTML = "";
           noResults.classList.add("hidden");
-          latestPosts.parentElement!.classList.remove("hidden");
+          latestPosts.classList.remove("hidden");
           return;
         }
 
@@ -147,10 +133,10 @@ const latestPosts = allPosts.slice(0, 3);
           resultsContainer.innerHTML = "";
           searchTermEl.textContent = term;
           noResults.classList.remove("hidden");
-          latestPosts.parentElement!.classList.add("hidden");
+          latestPosts.classList.add("hidden");
         } else {
           noResults.classList.add("hidden");
-          latestPosts.parentElement!.classList.add("hidden");
+          latestPosts.classList.add("hidden");
 
           resultsContainer.innerHTML = results
             .map((result) => {
@@ -169,25 +155,24 @@ const latestPosts = allPosts.slice(0, 3);
 
               const tagBadges = item.tags
                 .map(
-                  (tag) =>
-                    `<span class="inline-flex items-center font-semibold text-plum-500 uppercase" style="font-family: var(--font-label); letter-spacing: 0.1em; font-size: 0.65rem;"><span class="text-amber-500">#</span>${escapeHtml(tag.label)}</span>`,
+                  (tag: { label: string }) =>
+                    `<span class="qr-label text-plum-500"><span class="text-gold-deep">#</span>${escapeHtml(tag.label)}</span>`,
                 )
                 .join(" ");
 
+              // Same row as ContentList.astro (detailed): keep the two in step
               return `
-              <li class="relative border-0 border-b border-solid" style="border-color: rgba(61,18,48,0.1);">
-                <a href="${escapeHtml(item.slug)}" class="search-list-link block py-3 no-underline text-inherit transition-colors" style="color: inherit;">
-                  <h3 class="search-list-title text-base my-0 font-extrabold" style="font-family: var(--font-body); color: var(--color-plum-900);">
-                    ${title}
-                    <span class="search-list-arrow" style="color: var(--color-amber-500); display: inline-block; margin-left: 0.25rem; transition: transform 0.2s;"> →</span>
-                  </h3>
-                  <p class="my-2 text-sm">${description}</p>
-                  <div class="flex flex-wrap items-baseline gap-x-2 gap-y-1 mt-1">
-                    <p class="my-0 font-semibold uppercase" style="font-family: var(--font-label); letter-spacing: 0.1em; font-size: 0.65rem; color: var(--color-plum-400);">
-                      ${escapeHtml(item.date)}
-                    </p>
-                    <aside class="my-0 space-x-3">${tagBadges}</aside>
-                  </div>
+              <li class="content-list-item border-b border-ink">
+                <a href="${escapeHtml(item.slug)}" class="content-list-link group flex gap-4 px-1.5 py-3.5 text-ink no-underline transition-colors hover:bg-gold">
+                  <span class="flex min-w-0 flex-1 flex-col gap-1">
+                    <h3 class="content-list-title font-body my-0 text-[1.1rem] leading-snug font-bold text-balance text-ink">
+                      ${title}
+                      <span class="content-list-arrow ml-1 inline-block text-ember transition-transform group-hover:translate-x-1 group-hover:text-ink" aria-hidden="true">→</span>
+                    </h3>
+                    <p class="my-1 text-[0.95rem] leading-normal">${description}</p>
+                    ${tagBadges ? `<span class="flex flex-wrap gap-x-3 gap-y-1">${tagBadges}</span>` : ""}
+                    <p class="qr-meta my-0 group-hover:text-plum-500">${escapeHtml(item.date)}</p>
+                  </span>
                 </a>
               </li>
             `;
@@ -202,13 +187,20 @@ const latestPosts = allPosts.slice(0, 3);
 </script>
 
 <style>
-  .search-list-link:hover .search-list-title {
-    text-decoration: underline;
-    text-decoration-color: var(--color-amber-500);
-    text-underline-offset: 3px;
+  /* The browser draws its clear button in blue: redraw it as an ink cross with square ends */
+  #search::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 1.25rem;
+    height: 1.25rem;
+    cursor: pointer;
+    background-color: var(--color-ink);
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='square'%3E%3Cpath d='M5 5l14 14M19 5L5 19'/%3E%3C/svg%3E")
+      center / contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='square'%3E%3Cpath d='M5 5l14 14M19 5L5 19'/%3E%3C/svg%3E")
+      center / contain no-repeat;
   }
-  .search-list-link:hover .search-list-arrow {
-    color: var(--color-plum-500);
-    transform: translateX(4px);
+  #search::-webkit-search-cancel-button:hover {
+    background-color: var(--color-plum-500);
   }
 </style>
