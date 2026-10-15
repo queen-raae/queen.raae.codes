@@ -129,7 +129,7 @@ module.exports = {
               borderRadius: "0",
             },
             ol: {
-              listStylePosition: "inside",
+              listStylePosition: "outside",
             },
             li: {
               textWrap: "pretty",

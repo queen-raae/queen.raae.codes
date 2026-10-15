@@ -29,9 +29,9 @@ function getTag(type: string, baseLevel: number): string {
 function getTitleClass(level: number): string {
   // Visual styling based on the section's hLevel (not the actual tag)
   if (level === 1) {
-    return "font-heading text-[2.4rem] sm:text-[3.1rem] font-black leading-[0.98] tracking-[-0.04em] mt-4 mb-6 text-ink text-balance";
+    return "font-heading text-[2.4rem] sm:text-[3.1rem] font-black leading-[0.98] tracking-[-0.04em] mt-4 mb-6 text-ink text-balance break-words";
   }
-  return "font-heading text-[1.7rem] sm:text-[2rem] font-black leading-[1.05] tracking-[-0.025em] mt-2 mb-6 text-ink text-balance";
+  return "font-heading text-[1.7rem] sm:text-[2rem] font-black leading-[1.05] tracking-[-0.025em] mt-2 mb-6 text-ink text-balance break-words";
 }
 ---
 

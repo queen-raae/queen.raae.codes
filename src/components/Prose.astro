@@ -6,6 +6,6 @@ interface Props {
 const { class: className } = Astro.props;
 ---
 
-<div class:list={["prose prose-brown", "prose-p:leading-[1.65] prose-li:leading-[1.6]", className]}>
+<div class:list={["prose prose-brown break-words", "prose-p:leading-[1.65] prose-li:leading-[1.6]", className]}>
   <slot />
 </div>

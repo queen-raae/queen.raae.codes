@@ -9,6 +9,8 @@ export default defineConfig({
   trailingSlash: "always",
   markdown: {
     rehypePlugins: [rehypeBlockquoteClass],
+    // Code colours come from the palette via --astro-code-* variables in global.css
+    shikiConfig: { theme: "css-variables" },
   },
   image: {
     // Skip processing for GIF files which can be too large
