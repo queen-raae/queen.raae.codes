@@ -142,13 +142,18 @@ module.exports = {
             "div > ul > li::marker": {
               content: "''",
             },
+            // Lily bullets with a hanging indent, so wrapped lines align with the text
+            "div > ul > li": {
+              position: "relative",
+              paddingInlineStart: "calc(0.375em + 0.8em + 0.55rem)",
+            },
             "div > ul > li::before": {
               content: "''",
-              display: "inline-block",
+              position: "absolute",
+              left: "0.375em",
+              top: "0.42em",
               width: "0.8em",
               height: "0.8em",
-              marginRight: "0.55rem",
-              verticalAlign: "-0.05em",
               background: `${LILY} center / contain no-repeat`,
             },
             "div > ul ul": {

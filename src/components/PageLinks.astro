@@ -13,7 +13,7 @@ const ytIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" clas
 ---
 
 <div class="page-links mt-6 mb-8 flex items-center gap-4">
-  <div class="qr-label flex shrink-0 flex-wrap items-center gap-x-4 gap-y-2 text-plum-500">
+  <div class="qr-label flex min-w-0 flex-wrap items-center gap-x-4 gap-y-2 text-plum-500">
     {
       rssHref && (
         <a
@@ -26,10 +26,10 @@ const ytIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" clas
         </a>
       )
     }
-    {Astro.slots.has("default") && <div class="h-0.5 w-4 bg-ink" aria-hidden="true" />}
+    {Astro.slots.has("default") && <div class="h-0.5 w-4 bg-ink max-sm:hidden" aria-hidden="true" />}
     <slot />
   </div>
-  <div class="h-0.5 flex-1 bg-ink" aria-hidden="true"></div>
+  <div class:list={["h-0.5 flex-1 bg-ink", Astro.slots.has("default") && "max-sm:hidden"]} aria-hidden="true"></div>
 </div>
 
 <style>

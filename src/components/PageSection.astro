@@ -12,7 +12,7 @@ const Tag = component as any;
 ---
 
 <Tag class:list={["page-section bg-cream px-4 py-8 sm:px-6", className]} id={id}>
-  <div class:list={["container mx-auto", width === "wide" ? "max-w-6xl" : "max-w-2xl *:max-w-xl"]}>
+  <div class:list={["container mx-auto", width === "wide" ? "max-w-6xl" : "max-w-2xl *:max-w-[min(100%,36rem)]"]}>
     <slot />
   </div>
 </Tag>

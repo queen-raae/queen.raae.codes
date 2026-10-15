@@ -396,6 +396,16 @@
   text-align: center;
 }
 
+/* These prose rules are unlayered (so they beat the typography plugin), which also means utilities can't
+   override them. A quote that opens or closes a prose block shouldn't add extra margin to the section. */
+.prose > blockquote:first-child {
+  margin-top: 0;
+}
+
+.prose > blockquote:last-child {
+  margin-bottom: 0;
+}
+
 /* ── Editorial notes inside posts (<aside class="notice">) ── */
 .prose aside.notice {
   margin: 2rem 0;

@@ -23,7 +23,9 @@ const { href, to, label, note, noteTitle, class: className, variant } = Astro.pr
       </CtaButton>
 
       {noteTitle && <p class="qr-label mt-4 mb-1 text-ink">{noteTitle}</p>}
-      {note && <p class="font-body my-1 text-[0.95rem] text-plum-500 italic">{note}</p>}
+      {note && (
+        <p class:list={["font-body mb-0 text-[0.95rem] text-plum-500 italic", noteTitle ? "mt-1" : "mt-3"]}>{note}</p>
+      )}
     </div>
   )
 }
