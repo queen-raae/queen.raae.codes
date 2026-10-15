@@ -22,7 +22,10 @@ const { items = [], class: className } = Astro.props;
         return (
           <a
             href={to}
-            class:list={["inline-block leading-none no-underline group", isLast ? "text-ink" : "text-plum-500"]}
+            class:list={[
+              "inline-flex items-baseline leading-none no-underline group",
+              isLast ? "text-ink" : "text-plum-500",
+            ]}
           >
             <span class="decoration-orangered decoration-2 underline-offset-4 group-hover:underline">{label}</span>
             {!isLast && (
@@ -35,7 +38,7 @@ const { items = [], class: className } = Astro.props;
       }
 
       return (
-        <span class:list={["inline-block leading-none", isLast ? "text-ink" : "text-plum-500"]}>
+        <span class:list={["inline-flex items-baseline leading-none", isLast ? "text-ink" : "text-plum-500"]}>
           {datetime ? <time datetime={datetime}>{label}</time> : <span>{label}</span>}
           {!isLast && (
             <span aria-hidden="true" class="px-2 text-gold-deep">
