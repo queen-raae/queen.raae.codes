@@ -17,7 +17,7 @@ const latestPosts = allPosts.slice(0, 3);
   <SiteHeader />
   <main>
     <PageSection component="section">
-      <PageSectionHeader title="Search all posts" hLevel={1} />
+      <PageSectionHeader badge="Search" title="Search all posts" hLevel={1} />
 
       <label for="search" class="qr-label mb-2 block text-ink">Search posts</label>
       <input
@@ -45,7 +45,7 @@ const latestPosts = allPosts.slice(0, 3);
       </ul>
 
       <div id="latest-posts" class="mt-10">
-        <h2 class="qr-label mb-3 text-plum-400">Latest posts</h2>
+        <PageSectionHeader title="Latest posts" />
         <Posts posts={latestPosts} />
       </div>
     </PageSection>

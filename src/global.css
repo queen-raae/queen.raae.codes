@@ -170,11 +170,14 @@
       box-shadow 0.08s ease,
       background-color 0.08s ease;
   }
-  .qr-btn:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: var(--shadow-brutal-lg);
-    background-color: var(--color-gold);
-    color: var(--color-ink);
+  /* Hover only on devices that really hover, so a tap doesn't leave it lifted */
+  @media (hover: hover) {
+    .qr-btn:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: var(--shadow-brutal-lg);
+      background-color: var(--color-gold);
+      color: var(--color-ink);
+    }
   }
   .qr-btn:active {
     transform: translate(4px, 4px);
@@ -217,10 +220,12 @@
       box-shadow 0.08s ease,
       background-color 0.08s ease;
   }
-  .qr-icon-btn:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: var(--shadow-brutal);
-    background-color: var(--color-gold);
+  @media (hover: hover) {
+    .qr-icon-btn:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: var(--shadow-brutal);
+      background-color: var(--color-gold);
+    }
   }
   .qr-icon-btn:active {
     transform: translate(3px, 3px);
@@ -244,9 +249,11 @@
       transform 0.08s ease,
       box-shadow 0.08s ease;
   }
-  .qr-card-link:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: var(--shadow-brutal-lg);
+  @media (hover: hover) {
+    .qr-card-link:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: var(--shadow-brutal-lg);
+    }
   }
   .qr-card-link:active {
     transform: translate(4px, 4px);
@@ -262,9 +269,11 @@
     text-underline-offset: 3px;
     transition: background-color 0.08s ease;
   }
-  .qr-link:hover {
-    background-color: var(--color-gold);
-    text-decoration-color: var(--color-ink);
+  @media (hover: hover) {
+    .qr-link:hover {
+      background-color: var(--color-gold);
+      text-decoration-color: var(--color-ink);
+    }
   }
 
   /* Fleur-de-lis as an inline mark, coloured by currentColor */
@@ -422,4 +431,61 @@
 
 .prose aside.notice > :last-child {
   margin-bottom: 0;
+}
+
+/* ── Page rhythm ── */
+@layer base {
+  /* The last section's bottom padding plus this equals one section gap above the footer */
+  main {
+    padding-bottom: 2rem;
+  }
+}
+
+/* A section's last block never adds its margin to the gap between sections */
+.page-section > .container > :last-child {
+  margin-bottom: 0;
+}
+
+/* Nor does the last item of a list that ends a prose block */
+.prose > :is(ul, ol):last-child > li:last-child {
+  margin-bottom: 0;
+}
+
+/* Prose links turn gold on hover — only where hover exists, so taps don't stick */
+@media (hover: hover) {
+  .prose a:hover {
+    background-color: var(--color-gold);
+    text-decoration-color: var(--color-ink);
+  }
+}
+
+/* Embeds (podcast players) get air; a player right after the quote that points to it stays close */
+.prose iframe {
+  display: block;
+  margin: 2.25rem 0;
+}
+
+.prose blockquote + iframe {
+  margin-top: -1.5rem;
+}
+
+.prose pre {
+  line-height: 1.6;
+}
+
+/* Phones: lily lists start at the paragraph edge, code is a little denser, dividers take less height */
+@media (max-width: 39.99rem) {
+  .prose > ul {
+    padding-inline-start: 0;
+  }
+
+  .prose pre {
+    font-size: 0.8em;
+    line-height: 1.55;
+  }
+
+  .ornamental-hr,
+  .prose hr {
+    margin: 2rem 0;
+  }
 }

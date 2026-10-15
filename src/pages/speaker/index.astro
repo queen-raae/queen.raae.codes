@@ -79,9 +79,7 @@ const sortedTalks = allTalks.sort((a, b) => b.id.localeCompare(a.id));
             return (
               <li class="border-b border-ink py-5">
                 <article class="flex flex-col gap-3">
-                  <h3 class="font-heading m-0 text-[1.25rem] leading-[1.15] font-black tracking-[-0.02em] text-balance text-ink">
-                    {data.title}
-                  </h3>
+                  <h3 class="font-body m-0 text-[1.1rem] leading-snug font-bold text-balance text-ink">{data.title}</h3>
                   <TalkMeta
                     date={parseDateFromId(talk.id)}
                     event={data.event}

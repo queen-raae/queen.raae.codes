@@ -24,10 +24,10 @@ const links: { key: NavKey; label: string; href: string }[] = [
 ---
 
 <header class="border-t-8 border-orangered bg-cream px-4 sm:px-6">
-  <div class="mx-auto flex max-w-6xl items-center gap-2 py-2.5 sm:gap-4">
+  <div class="mx-auto flex max-w-6xl items-center gap-1 py-2.5 sm:gap-4">
     <a
       href="/"
-      class="mr-auto -ml-1 px-1 text-[1.75rem] leading-none no-underline transition-transform hover:scale-110"
+      class="mr-auto -ml-1 shrink-0 px-1 py-1.5 text-[1.75rem] leading-none no-underline transition-transform hover:scale-110"
       aria-label="Queen Raae, home"
     >
       <span aria-hidden="true">👑</span>
@@ -42,7 +42,7 @@ const links: { key: NavKey; label: string; href: string }[] = [
                 href={href}
                 aria-current={current === key ? "page" : undefined}
                 class:list={[
-                  "qr-label block border-b-4 px-2 pt-2.5 pb-1.5 text-ink no-underline transition-colors hover:bg-gold sm:px-3",
+                  "qr-label block border-b-4 px-1.5 pt-3 pb-2 text-ink no-underline transition-colors hover:bg-gold sm:px-3",
                   current === key ? "border-orangered" : "border-transparent",
                 ]}
               >
@@ -54,7 +54,7 @@ const links: { key: NavKey; label: string; href: string }[] = [
       </ul>
     </nav>
 
-    <a href="/search/" class="qr-icon-btn ml-1" aria-label="Search">
+    <a href="/search/" class="qr-icon-btn ml-1 shrink-0" aria-label="Search">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"

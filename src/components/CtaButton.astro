@@ -19,7 +19,7 @@ const isExternal = Boolean(href) && !isMailto;
   target={isExternal ? "_blank" : undefined}
   rel={isExternal ? "noreferrer" : undefined}
   class:list={[
-    "qr-btn justify-between",
+    "qr-btn justify-between max-sm:w-full",
     variant === "primary" && "qr-btn--primary",
     variant === "cta" && "qr-btn--cta",
     className,

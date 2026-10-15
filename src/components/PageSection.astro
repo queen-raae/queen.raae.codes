@@ -3,7 +3,7 @@ interface Props {
   component?: string;
   class?: string;
   id?: string;
-  /** "narrow" keeps the reading column; "wide" opens up to the full site width */
+  /** "narrow" is the centred 36rem reading column; "wide" opens up to the full site width (6xl) */
   width?: "narrow" | "wide";
 }
 
@@ -12,7 +12,7 @@ const Tag = component as any;
 ---
 
 <Tag class:list={["page-section bg-cream px-4 py-8 sm:px-6", className]} id={id}>
-  <div class:list={["container mx-auto", width === "wide" ? "max-w-6xl" : "max-w-2xl *:max-w-[min(100%,36rem)]"]}>
+  <div class:list={["container mx-auto", width === "wide" ? "max-w-6xl" : "max-w-xl"]}>
     <slot />
   </div>
 </Tag>

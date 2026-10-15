@@ -6,7 +6,6 @@ const BLUSH = "#f0c4d8";
 const PLUM_TINT = "#f8e8f0";
 const ORANGERED = "#ff4500";
 const EMBER = "#c23400";
-const GOLD = "#fbbf24";
 const LILY =
   "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23d97706'%3E%3Cpath d='M12 1l3.5 6-2 6h-3l-2-6z'/%3E%3Cpath d='M10 13L6 6 1.5 8v4.5L5 11l2.5 2z'/%3E%3Cpath d='M14 13l4-7 4.5 2v4.5L19 11l-2.5 2z'/%3E%3Crect x='6' y='13.5' width='12' height='2.5'/%3E%3Cpath d='M10.5 16.5h3L12 22z'/%3E%3Cpath d='M7 16.5h3L6 21l-2.5-1.5z'/%3E%3Cpath d='M17 16.5h-3l4 4.5 2.5-1.5z'/%3E%3C/svg%3E\")";
 
@@ -44,22 +43,29 @@ module.exports = {
               textDecorationThickness: "2px",
               textUnderlineOffset: "3px",
               transition: "background-color 0.08s ease",
-              "&:hover": {
-                backgroundColor: GOLD,
-                textDecorationColor: INK,
-              },
+              // hover colours live in global.css behind @media (hover: hover)
+            },
+            // A markdown "# heading" inside a post reads as a section heading, not a second page title
+            h1: {
+              fontSize: "1.8rem",
+              marginTop: "1.6em",
+              marginBottom: "0.8em",
+              fontWeight: "900",
+              lineHeight: "1.05",
+              letterSpacing: "-0.025em",
             },
             "h1, h2, h3, h4": {
               fontFamily: "var(--font-heading)",
               color: "var(--tw-prose-headings)",
             },
+            // Same size as section h2s (PageSectionHeader) so a page never shows two h2 scales
             h2: {
-              fontSize: "1.6em",
-              marginTop: "1.9em",
-              marginBottom: "0.6em",
+              fontSize: "1.8rem",
+              marginTop: "1.6em",
+              marginBottom: "0.8em",
               fontWeight: "900",
-              lineHeight: "1.1",
-              letterSpacing: "-0.02em",
+              lineHeight: "1.05",
+              letterSpacing: "-0.025em",
               textWrap: "balance",
             },
             h3: {
@@ -111,6 +117,7 @@ module.exports = {
             },
             img: {
               borderRadius: "0",
+              border: `2px solid ${INK}`,
             },
             ol: {
               listStylePosition: "outside",

@@ -15,7 +15,7 @@ const { badge, title } = about.data;
 
 <BaseLayout title={title}>
   <SiteHeader />
-  <main class="pb-12">
+  <main>
     <!-- About Section -->
     <PageSection component="header">
       <PageSectionHeader badge={badge} />
@@ -50,5 +50,9 @@ const { badge, title } = about.data;
   /* Photo: square corners, 2px ink edge (static, so no shadow) */
   .about-prose img {
     border: 2px solid var(--color-ink);
+  }
+  /* The photo closes the page; its prose margin shouldn't add to the gap above the footer */
+  .about-prose > p:last-child > img {
+    margin-bottom: 0;
   }
 </style>

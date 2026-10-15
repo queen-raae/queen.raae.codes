@@ -78,6 +78,8 @@ function opensWithDropCapParagraph(markdown: string): boolean {
   if (/^\d+[.)]\s/.test(firstBlock)) return false; // ordered list
   if (/\n\s*(=+|-+)\s*$/.test(firstBlock)) return false; // setext heading
   if (!/^(\*\*|__|\*|_)?["“‘']?[\p{L}\p{N}]/u.test(firstBlock)) return false;
+  // A one-letter opening word ("I woke up…") would turn into a lone initial
+  if (/^(\*\*|__|\*|_)?["“‘']?[\p{L}\p{N}](?![\p{L}\p{N}])/u.test(firstBlock)) return false;
   const text = firstBlock
     .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")
     .replace(/[*_`]/g, "")
@@ -97,6 +99,13 @@ const longestTitleRun = Math.max(
     .split(/[\s/-]+/)
     .map((run) => run.length),
 );
+// Same size tiers as PageSectionHeader: long titles step down so they don't run to 6+ lines on phones
+const titleSize =
+  post.title.length > 60
+    ? "text-[1.75rem] sm:text-[2.6rem]"
+    : post.title.length > 40 || longestTitleRun >= 13
+      ? "text-[2rem] sm:text-[3.1rem]"
+      : "text-[2.4rem] sm:text-[3.1rem]";
 const titleHtml = withSoftBreaks(
   post.title.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"),
   "<wbr>",
@@ -132,18 +141,13 @@ const schema = {
   <main>
     <PageSection component="article">
       <header class="flex flex-col">
-        <PageSectionBreadcrumbs
-          class="mt-4"
-          items={[
-            { label: "Posts", to: "/posts/" },
-            { label: post.dateFormatted, datetime: post.date },
-          ]}
-        />
+        {/* The date lives in the byline below, so the crumb is just the way back */}
+        <PageSectionBreadcrumbs class="mt-6" items={[{ label: "Posts", to: "/posts/" }]} />
 
         <h1
           class:list={[
-            "font-heading mt-4 leading-[0.98] font-black tracking-[-0.04em] text-balance break-words text-ink sm:text-[3.1rem]",
-            longestTitleRun >= 13 ? "text-[2rem]" : "text-[2.4rem]",
+            "font-heading mt-4 leading-[0.98] font-black tracking-[-0.04em] text-balance break-words text-ink",
+            titleSize,
           ]}
           set:html={titleHtml}
         />
@@ -153,7 +157,7 @@ const schema = {
             <ul class="mt-1 flex list-none flex-wrap gap-x-4" aria-label="Tags">
               {post.tags.map(({ label, slug }) => (
                 <li>
-                  <Badge href={slug} class="min-h-10">
+                  <Badge href={slug} class="min-h-8">
                     {label}
                   </Badge>
                 </li>

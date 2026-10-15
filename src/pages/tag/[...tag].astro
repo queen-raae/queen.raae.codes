@@ -30,7 +30,7 @@ const blurbMap = await getTagBlurbs();
 const blurb = blurbMap.get(label);
 const hasBlurb = Boolean(blurb && (blurb.description || blurb.disclaimer || blurb.url));
 
-const title = `Posts tagged: "${label}"`;
+const title = `Posts tagged: “${label}”`;
 const description = blurb?.description || `Learn more about "${label}" by browsing the posts for the tag.`;
 ---
 
@@ -43,7 +43,7 @@ const description = blurb?.description || `Learn more about "${label}" by browsi
 
   <main>
     <PageSection component="article">
-      <PageSectionBreadcrumbs class="mt-4" items={[{ label: "Posts", to: "/posts/" }, { label: label }]} />
+      <PageSectionBreadcrumbs class="mt-6" items={[{ label: "Posts", to: "/posts/" }, { label: label }]} />
       <PageSectionHeader title={title} hLevel={1} />
       <PageLinks rssHref={`/posts/${Astro.params.tag}.xml`} />
 

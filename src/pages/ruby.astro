@@ -17,6 +17,10 @@ const quote = "max-w-none [&>blockquote]:my-0!";
 const sizes = "(min-width: 800px) 684px, calc(100vw - 32px)";
 
 const title = "Transform yourself from a friendly frontend engineer to a proper princess-life-saving skill builder";
+const titleHtml = title.replace(
+  "princess-life-saving",
+  '<span class="sm:whitespace-nowrap">princess-life-saving</span>',
+);
 const description =
   "Ruby's TimeShip - A story by @OlaHolstVea about skill building, time travel, and saving a princess.";
 
@@ -56,10 +60,10 @@ const testimonials = [
 
 <BaseLayout title={title} description={description} image={cover.src}>
   <SiteHeader />
-  <main class="pb-12">
+  <main>
     <!-- Header Section -->
     <PageSection component="header">
-      <PageSectionHeader badge="Ruby's TimeShip" title={title} hLevel={1} />
+      <PageSectionHeader badge="Ruby's TimeShip" title={titleHtml} hLevel={1} />
 
       <Image
         src={cover}
@@ -162,7 +166,7 @@ const testimonials = [
 
     <!-- Final CTA Section -->
     <PageSection component="footer" id="signup">
-      <PageSectionHeader title={title} />
+      <PageSectionHeader title={titleHtml} />
 
       <Newsletter formKey="timeship" cta="Send me the prolog now" tagline="Storytime" />
     </PageSection>

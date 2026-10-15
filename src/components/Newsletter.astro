@@ -67,7 +67,7 @@ const emailId = `email-${crypto.randomUUID().slice(0, 8)}`;
   <label for={emailId} class:list={["qr-label mb-2 block text-ink", tagline || message ? "mt-4" : "mt-0"]}>
     Your email
   </label>
-  <div class="flex max-w-[52ch] flex-col gap-3 sm:flex-row">
+  <div class="flex flex-col gap-3 sm:flex-row">
     <input
       id={emailId}
       name="email"
@@ -96,7 +96,7 @@ const emailId = `email-${crypto.randomUUID().slice(0, 8)}`;
   >
     <button
       type="button"
-      class="newsletter-dismiss absolute top-2 right-2 inline-flex h-8 w-8 items-center justify-center text-ink transition-colors hover:bg-gold"
+      class="newsletter-dismiss absolute top-1 right-1 inline-flex size-10 items-center justify-center text-ink transition-colors hover:bg-gold"
       aria-label="Dismiss"
     >
       <span aria-hidden="true" class="font-label text-lg leading-none">×</span>
@@ -111,7 +111,7 @@ const emailId = `email-${crypto.randomUUID().slice(0, 8)}`;
   >
     <button
       type="button"
-      class="newsletter-dismiss absolute top-2 right-2 inline-flex h-8 w-8 items-center justify-center text-ink transition-colors hover:bg-gold"
+      class="newsletter-dismiss absolute top-1 right-1 inline-flex size-10 items-center justify-center text-ink transition-colors hover:bg-gold"
       aria-label="Dismiss"
     >
       <span aria-hidden="true" class="font-label text-lg leading-none">×</span>

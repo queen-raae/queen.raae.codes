@@ -96,7 +96,8 @@ const twitterCard = "summary_large_image";
 
     <style>
       html {
-        font-size: clamp(16px, 18px + 0.15vw, 19px);
+        /* rem-based so it follows the reader's browser font-size setting (same as 16–19px by default) */
+        font-size: clamp(1rem, 1.125rem + 0.15vw, 1.1875rem);
       }
     </style>
 
@@ -125,7 +126,7 @@ const twitterCard = "summary_large_image";
     </script>
   </head>
   <body class="bg-cream text-ink">
-    <div class="flex min-h-screen flex-col">
+    <div class="flex min-h-dvh flex-col">
       <slot />
       <SiteFooter />
     </div>

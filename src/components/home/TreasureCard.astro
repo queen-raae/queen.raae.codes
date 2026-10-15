@@ -1,8 +1,10 @@
 ---
 interface Props {
   title: string;
-  /** Category or strapline, first part of the mono kicker above the title */
+  /** Category, first part of the mono kicker above the title */
   kicker: string;
+  /** Optional strapline under the title */
+  body?: string;
   /** "by" or "with", rendered as the serif italic connector */
   by: string;
   name: string;
@@ -16,7 +18,7 @@ interface Props {
   class?: string;
 }
 
-const { title, kicker, by, name, emoji, to, href, spark = false, class: className } = Astro.props;
+const { title, kicker, body, by, name, emoji, to, href, spark = false, class: className } = Astro.props;
 const isExternal = Boolean(href);
 
 // Keep hyphenated words (e.g. "Non-Techies") from breaking at the hyphen
@@ -44,4 +46,5 @@ const kickerParts = kicker.split(/(\S+-\S+)/).filter(Boolean);
       aria-hidden="true">{isExternal ? "↗" : "→"}</span
     >
   </h3>
+  {body && <p class="font-body m-0 text-[1rem] leading-snug text-ink">{body}</p>}
 </a>

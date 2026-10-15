@@ -94,11 +94,13 @@ const labelId = `ap-label-${crypto.randomUUID().slice(0, 8)}`;
       color 0.08s ease;
   }
 
-  .ap-btn:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: var(--shadow-brutal);
-    background-color: var(--color-gold);
-    color: var(--color-ink);
+  @media (hover: hover) {
+    .ap-btn:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: var(--shadow-brutal);
+      background-color: var(--color-gold);
+      color: var(--color-ink);
+    }
   }
 
   .ap-btn:active {
@@ -169,8 +171,10 @@ const labelId = `ap-label-${crypto.randomUUID().slice(0, 8)}`;
     transition: width 0.1s linear;
   }
 
-  .ap-bar:hover .ap-track {
-    background-color: var(--color-gold);
+  @media (hover: hover) {
+    .ap-bar:hover .ap-track {
+      background-color: var(--color-gold);
+    }
   }
 
   .ap-bar:focus-visible {

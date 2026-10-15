@@ -26,12 +26,22 @@ function getTag(type: string, baseLevel: number): string {
   return "p";
 }
 
-function getTitleClass(level: number): string {
+function getTitleClass(level: number, text = ""): string {
   // Visual styling based on the section's hLevel (not the actual tag)
   if (level === 1) {
-    return "font-heading text-[2.4rem] sm:text-[3.1rem] font-black leading-[0.98] tracking-[-0.04em] mt-4 mb-6 text-ink text-balance break-words";
+    // Long titles step down so they don't run to 6+ lines on phones (or 4–5 on desktop)
+    const plain = text.replace(/<[^>]*>/g, "").trim();
+    const longestWord = Math.max(0, ...plain.split(/\s+/).map((word) => word.length));
+    const size =
+      plain.length > 60
+        ? "text-[1.75rem] sm:text-[2.6rem]"
+        : plain.length > 40 || longestWord >= 13
+          ? "text-[2rem] sm:text-[3.1rem]"
+          : "text-[2.4rem] sm:text-[3.1rem]";
+    return `font-heading ${size} font-black leading-[0.98] tracking-[-0.04em] mt-4 mb-6 text-ink text-balance break-words`;
   }
-  return "font-heading text-[1.7rem] sm:text-[2rem] font-black leading-[1.05] tracking-[-0.025em] mt-2 mb-6 text-ink text-balance break-words";
+  // One h2 size across the site (matches prose h2 in tailwind.config.js)
+  return "font-heading text-[1.8rem] font-black leading-[1.05] tracking-[-0.025em] mt-0 mb-6 text-ink text-balance break-words";
 }
 ---
 
@@ -40,12 +50,16 @@ function getTitleClass(level: number): string {
     const Tag = getTag(block.type, hLevel) as any;
 
     if (block.type === "badge") {
-      return <Tag class:list={["qr-label mt-6 mb-0 text-plum-400", className]}>{block.children}</Tag>;
+      return (
+        <Tag class:list={["qr-label text-plum-400", hLevel === 1 ? "mt-6 mb-0" : "mt-0 mb-2", className]}>
+          {block.children}
+        </Tag>
+      );
     }
 
     if (block.type === "title") {
       return (
-        <Tag class:list={[getTitleClass(hLevel), className]}>
+        <Tag class:list={[getTitleClass(hLevel, block.children), className]}>
           {block.path ? (
             <a
               href={block.path}
@@ -62,7 +76,7 @@ function getTitleClass(level: number): string {
 
     if (block.type === "lead") {
       return (
-        <Tag class:list={["font-body my-4 text-xl leading-snug text-plum-500 italic text-pretty", className]}>
+        <Tag class:list={["font-body mt-4 mb-6 text-xl leading-snug text-plum-500 italic text-pretty", className]}>
           {block.children}
         </Tag>
       );

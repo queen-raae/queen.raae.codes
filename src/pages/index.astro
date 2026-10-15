@@ -18,14 +18,16 @@ const { Content } = await landing.render();
 
 // Latest posts (5 only): the newest is featured, the next four are listed
 const allPosts = await getAllPosts();
-const [featuredPost, ...latestPosts] = allPosts.slice(0, 5);
+// Featured post + seven rows, so the Latest Posts column runs about as long as Treasures beside it
+const [featuredPost, ...latestPosts] = allPosts.slice(0, 8);
 
 // Treasures
 const treasures = [
   {
     title: "Book Me as a Speaker",
     to: "/speaker/",
-    kicker: "Joyful AI Talks for Devs & Non-Techies",
+    kicker: "Speaker",
+    body: "Joyful AI Talks for Devs & Non-Techies",
     by: "with",
     name: "Queen Raae",
     emoji: "👑",
@@ -65,7 +67,7 @@ const columns = "lg:grid-cols-[minmax(0,1fr)_var(--container-sm)]";
 
 <BaseLayout title={title}>
   <SiteHeader />
-  <main class="pb-12">
+  <main>
     <PageSection component="div" width="wide">
       <!-- Welcome + newsletter -->
       <header class:list={["grid gap-8 pt-6 lg:items-end lg:gap-12", columns]}>
@@ -100,7 +102,7 @@ const columns = "lg:grid-cols-[minmax(0,1fr)_var(--container-sm)]";
 
           <section>
             <PageSectionHeader title="Treasures" />
-            <ul class="m-0 flex list-none flex-col gap-6 p-0">
+            <ul class="m-0 grid list-none gap-6 p-0 sm:grid-cols-2 lg:grid-cols-1">
               {
                 treasures.map((treasure) => (
                   <li>
