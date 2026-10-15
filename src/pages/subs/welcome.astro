@@ -9,7 +9,7 @@ import { getAllPosts } from "../../lib/posts";
 
 const BADGE = "Emails";
 const TITLE = "Welcome";
-const DESCRIPTION = "You'll hear from us shortly\u00a0📬";
+const DESCRIPTION = "You'll hear from us shortly 📬";
 const META_DESCRIPTION = "You'll hear from us shortly 📬";
 
 const allPosts = await getAllPosts();
@@ -20,7 +20,7 @@ const latestPosts = allPosts.slice(0, 7);
   <SiteHeader />
   <main>
     <PageSection component="header">
-      <PageSectionBreadcrumbs class="mt-4" items={[{ label: BADGE, to: "/subs/" }, { label: TITLE }]} />
+      <PageSectionBreadcrumbs class="mt-6" items={[{ label: BADGE, to: "/subs/" }, { label: TITLE }]} />
       <PageSectionHeader title={DESCRIPTION} hLevel={1} />
     </PageSection>
     <PageSection>

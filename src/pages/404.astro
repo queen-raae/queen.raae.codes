@@ -9,34 +9,27 @@ import PageSectionHeader from "../components/PageSectionHeader.astro";
   <SiteHeader />
   <main>
     <PageSection component="header">
-      <PageSectionHeader badge="404" title="This page has sailed off the map 🗺️" lead="The treasure you're looking for might be elsewhere&hellip;" hLevel={1} />
-
-      <img
-        src="https://media.giphy.com/media/8P8u3gh2OJqog/giphy.gif"
-        alt="Confused pirate looking around"
-        width="480"
-        height="266"
-        class="my-8 max-w-full rounded"
-        loading="eager"
+      <PageSectionHeader
+        badge="404"
+        title="This page has sailed off the map 🗺️"
+        lead="The treasure you're looking for might be elsewhere…"
+        hLevel={1}
       />
-    </PageSection>
 
-    <PageSection>
-      <div class="flex flex-col sm:flex-row gap-3 max-w-md">
-        <a
-          href="/"
-          class="inline-flex items-center justify-center px-4 py-2 border-2 border-solid border-plum-500 bg-plum-500 text-white text-sm font-semibold no-underline hover:bg-plum-800 hover:border-plum-800 transition focus:outline-hidden focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
-          style="font-family: var(--font-label);"
-        >
-          Back to shore 👑
-        </a>
-        <a
-          href="/search/"
-          class="inline-flex items-center justify-center px-4 py-2 border-2 border-solid border-plum-500 bg-transparent text-plum-500 text-sm font-semibold no-underline hover:bg-plum-50 transition focus:outline-hidden focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
-          style="font-family: var(--font-label);"
-        >
-          Search for treasure 🔍
-        </a>
+      <div class="mt-6">
+        <img
+          src="https://media.giphy.com/media/8P8u3gh2OJqog/giphy.gif"
+          alt="Confused pirate looking around"
+          width="480"
+          height="266"
+          class="block h-auto max-w-full border-2 border-ink bg-paper"
+          loading="eager"
+        />
+      </div>
+
+      <div class="mt-10 flex flex-col gap-3 sm:flex-row">
+        <a href="/" class="qr-btn qr-btn--primary">Back to shore 👑</a>
+        <a href="/search/" class="qr-btn">Search for treasure 🔍</a>
       </div>
     </PageSection>
   </main>

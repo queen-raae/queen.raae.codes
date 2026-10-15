@@ -4,7 +4,6 @@ import SiteHeader from "../../components/SiteHeader.astro";
 import PageSection from "../../components/PageSection.astro";
 import PageSectionHeader from "../../components/PageSectionHeader.astro";
 import PageSectionBreadcrumbs from "../../components/PageSectionBreadcrumbs.astro";
-import Prose from "../../components/Prose.astro";
 import Newsletter from "../../components/Newsletter.astro";
 
 const BADGE = "Emails";
@@ -16,18 +15,22 @@ const DESCRIPTION = "Live stream reminders";
   <SiteHeader />
   <main>
     <PageSection component="header">
-      <PageSectionBreadcrumbs class="mt-4" items={[{ label: BADGE, to: "/subs/" }, { label: TITLE }]} />
+      <PageSectionBreadcrumbs class="mt-6" items={[{ label: BADGE, to: "/subs/" }, { label: TITLE }]} />
       <PageSectionHeader title={DESCRIPTION} hLevel={1} />
-      <Prose>
-        <p>
-          Receive a reminder via email 30 minutes before we go live on the{" "}
-          <a href="https://www.youtube.com/channel/UCDlrzlRdM1vGr8nO708KFmQ"> Queen Raae YouTube channel </a>.<br />
-          <small
-            >(The YouTube notfications system cannot be trusted <span role="img" aria-label="Facepalm emojii">🤦‍♀️</span> )</small
-          >
-        </p>
-      </Prose>
-      <Newsletter class="mt-8" formKey="reminders" cta="Yes, please" tagline="" message="" />
+      <!-- Same lead style as PageSectionHeader, written out because it holds a link -->
+      <p class="font-body my-4 text-xl leading-snug text-pretty text-plum-500 italic">
+        Receive a reminder via email 30 minutes before we go live on the
+        <a href="https://www.youtube.com/channel/UCDlrzlRdM1vGr8nO708KFmQ" class="qr-link text-plum-500"
+          >Queen Raae YouTube channel</a
+        >.
+      </p>
+      <p class="font-body my-4 text-ink">
+        <small class="text-[0.95rem]"
+          >(The YouTube notifications system cannot be trusted <span role="img" aria-label="Facepalm emoji">🤦‍♀️</span
+          >)</small
+        >
+      </p>
+      <Newsletter class="mt-6" formKey="reminders" cta="Yes, please" tagline="" message="" />
     </PageSection>
   </main>
 </BaseLayout>

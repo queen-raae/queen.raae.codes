@@ -18,10 +18,37 @@ const { badge, title } = about.data;
   <main class="pb-12">
     <!-- About Section -->
     <PageSection component="header">
-      <PageSectionHeader badge={badge} title="About" hLevel={1} class="opacity-0" />
-      <Prose>
+      <PageSectionHeader badge={badge} />
+      <!-- The content opens with its own greeting, styled as the headline below; the h1 is for screen readers -->
+      <h1 class="sr-only">{title || "About"}</h1>
+      <Prose class="about-prose mt-4">
         <Content />
       </Prose>
     </PageSection>
   </main>
 </BaseLayout>
+
+<style is:global>
+  /* "🖐️ Hi, I'm Queen Raae." — a lone bold line opening the content becomes the visual headline */
+  .about-prose > p:first-child:has(> strong:only-child) {
+    margin-bottom: 1.5rem;
+  }
+  .about-prose > p:first-child > strong:only-child {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 2.4rem;
+    font-weight: 900;
+    line-height: 0.98;
+    letter-spacing: -0.04em;
+    text-wrap: balance;
+  }
+  @media (min-width: 40rem) {
+    .about-prose > p:first-child > strong:only-child {
+      font-size: 3.1rem;
+    }
+  }
+  /* Photo: square corners, 2px ink edge (static, so no shadow) */
+  .about-prose img {
+    border: 2px solid var(--color-ink);
+  }
+</style>

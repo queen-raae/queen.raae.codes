@@ -1,0 +1,72 @@
+---
+// Date / event / recording for a talk, as a definition list with a mono label column.
+// Used by the talks archive on /speaker/ and by each /speaker/<talk>/ page.
+import { format } from "date-fns";
+import { getRecordingText } from "./talk-utils";
+
+interface Props {
+  date?: Date | null;
+  event?: string;
+  eventUrl?: string;
+  recording?: string;
+  class?: string;
+}
+
+const { date, event, eventUrl, recording, class: className } = Astro.props;
+
+const rowClass = "grid grid-cols-[5rem_minmax(0,1fr)] items-baseline gap-x-3 sm:grid-cols-[6.5rem_minmax(0,1fr)]";
+const dtClass = "qr-label text-plum-400";
+// text-pretty keeps the ↗ from wrapping onto a line of its own
+const ddClass = "font-body m-0 text-base leading-snug text-pretty text-ink";
+// The underline sits on the text only, so the arrow and the space before it stay clean
+const linkClass = "group text-ink no-underline transition-colors hover:bg-gold";
+const linkTextClass = "underline decoration-orangered decoration-2 underline-offset-3 group-hover:decoration-ink";
+const arrowClass = "text-ember group-hover:text-ink";
+---
+
+<dl class:list={["talk-meta m-0 flex flex-col gap-1.5", className]}>
+  {
+    date && (
+      <div class={rowClass}>
+        <dt class={dtClass}>Date</dt>
+        <dd class={ddClass}>
+          <time datetime={format(date, "yyyy-MM-dd")}>{format(date, "MMMM do, yyyy")}</time>
+        </dd>
+      </div>
+    )
+  }
+  {
+    event && (
+      <div class={rowClass}>
+        <dt class={dtClass}>Event</dt>
+        <dd class={ddClass}>
+          {eventUrl ? (
+            <a href={eventUrl} target="_blank" rel="noreferrer" class={linkClass}>
+              <span class={linkTextClass}>{event}</span>
+              <span class={arrowClass} aria-hidden="true">
+                ↗
+              </span>
+            </a>
+          ) : (
+            event
+          )}
+        </dd>
+      </div>
+    )
+  }
+  {
+    recording && (
+      <div class={rowClass}>
+        <dt class={dtClass}>Recording</dt>
+        <dd class={ddClass}>
+          <a href={recording} target="_blank" rel="noreferrer" class={linkClass}>
+            <span class={linkTextClass}>{getRecordingText(recording)}</span>
+            <span class={arrowClass} aria-hidden="true">
+              ↗
+            </span>
+          </a>
+        </dd>
+      </div>
+    )
+  }
+</dl>

@@ -6,9 +6,10 @@ import PageSectionHeader from "../../components/PageSectionHeader.astro";
 import PageSectionBreadcrumbs from "../../components/PageSectionBreadcrumbs.astro";
 import Prose from "../../components/Prose.astro";
 import Newsletter from "../../components/Newsletter.astro";
+import TalkMeta from "../../components/speaker/TalkMeta.astro";
+import { parseDateFromId } from "../../components/speaker/talk-utils";
 import { getCollection } from "astro:content";
 import { getImage } from "astro:assets";
-import { format } from "date-fns";
 
 export async function getStaticPaths() {
   const allTalks = await getCollection("talks", (entry) => entry.id !== "index.md");
@@ -26,17 +27,7 @@ export async function getStaticPaths() {
 const { talk } = Astro.props;
 const { Content } = await talk.render();
 const data = talk.data;
-
-function parseDateFromId(id: string): Date | null {
-  const match = id.match(/^(\d{4})-(\d{2})-(\d{2})/);
-  if (!match) return null;
-  return new Date(Number(match[1]), Number(match[2]) - 1, Number(match[3]));
-}
-
-function getRecordingText(url: string): string {
-  if (url.includes("youtu")) return "Watch the recording on YouTube";
-  return "Watch the recording";
-}
+const hasBody = Boolean(talk.body?.trim());
 
 const date = parseDateFromId(talk.id);
 const ogImage = data.image ? await getImage({ src: data.image, format: "jpeg" }) : null;
@@ -47,98 +38,27 @@ const ogImage = data.image ? await getImage({ src: data.image, format: "jpeg" })
   <main>
     <PageSection component="article">
       <PageSectionBreadcrumbs
-        class="mt-4"
+        class="mt-6"
         items={[{ label: "Speaker", to: "/speaker/" }, { label: data.event || "Talk" }]}
       />
 
       <PageSectionHeader title={data.title} lead={data.lead} hLevel={1} />
 
-      <dl class="my-4">
-        {
-          date && (
-            <div class="flex items-baseline gap-2 my-1">
-              <dt class="text-base leading-none">🗓️</dt>
-              <dd class="text-base">{format(date, "MMMM do, yyyy")}</dd>
-            </div>
-          )
-        }
-        {
-          data.event && (
-            <div class="flex items-baseline gap-2 my-1">
-              <dt class="text-base leading-none">📍</dt>
-              <dd class="text-base">
-                {data.eventUrl ? (
-                  <a
-                    href={data.eventUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    class="text-plum-500 underline hover:decoration-amber-600 group"
-                  >
-                    {data.event}
-                    <svg
-                      class="h-3.5 ml-1 fill-amber-600 opacity-30 inline-block translate-y-0.5 transition-opacity group-hover:opacity-100"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M4.25 5.5a.75.75 0 00-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 00.75-.75v-4a.75.75 0 011.5 0v4A2.25 2.25 0 0112.75 17h-8.5A2.25 2.25 0 012 14.75v-8.5A2.25 2.25 0 014.25 4h5a.75.75 0 010 1.5h-5z"
-                        clip-rule="evenodd"
-                      />
-                      <path
-                        fill-rule="evenodd"
-                        d="M6.194 12.753a.75.75 0 001.06.053L16.5 4.44v2.81a.75.75 0 001.5 0v-4.5a.75.75 0 00-.75-.75h-4.5a.75.75 0 000 1.5h2.553l-9.056 8.194a.75.75 0 00-.053 1.06z"
-                        clip-rule="evenodd"
-                      />
-                    </svg>
-                  </a>
-                ) : (
-                  data.event
-                )}
-              </dd>
-            </div>
-          )
-        }
-        {
-          data.recording && (
-            <div class="flex items-baseline gap-2 my-1">
-              <dt class="text-base leading-none">📺</dt>
-              <dd class="text-base">
-                <a
-                  href={data.recording}
-                  target="_blank"
-                  rel="noreferrer"
-                  class="text-plum-500 underline hover:decoration-amber-600 group"
-                >
-                  {getRecordingText(data.recording)}
-                  <svg
-                    class="h-3.5 ml-1 fill-amber-600 opacity-30 inline-block translate-y-0.5 transition-opacity group-hover:opacity-100"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M4.25 5.5a.75.75 0 00-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 00.75-.75v-4a.75.75 0 011.5 0v4A2.25 2.25 0 0112.75 17h-8.5A2.25 2.25 0 012 14.75v-8.5A2.25 2.25 0 014.25 4h5a.75.75 0 010 1.5h-5z"
-                      clip-rule="evenodd"
-                    />
-                    <path
-                      fill-rule="evenodd"
-                      d="M6.194 12.753a.75.75 0 001.06.053L16.5 4.44v2.81a.75.75 0 001.5 0v-4.5a.75.75 0 00-.75-.75h-4.5a.75.75 0 000 1.5h2.553l-9.056 8.194a.75.75 0 00-.053 1.06z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
-                </a>
-              </dd>
-            </div>
-          )
-        }
-      </dl>
+      <TalkMeta
+        class="mt-6 border-t-4 border-b border-ink py-4"
+        date={date}
+        event={data.event}
+        eventUrl={data.eventUrl}
+        recording={data.recording}
+      />
 
-      <Prose class="mt-8">
-        <Content />
-      </Prose>
+      {
+        hasBody && (
+          <Prose class="mt-10">
+            <Content />
+          </Prose>
+        )
+      }
     </PageSection>
 
     <PageSection component="footer">

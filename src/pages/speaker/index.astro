@@ -7,8 +7,9 @@ import Prose from "../../components/Prose.astro";
 import CtaSection from "../../components/CtaSection.astro";
 import CtaButton from "../../components/CtaButton.astro";
 import Newsletter from "../../components/Newsletter.astro";
+import TalkMeta from "../../components/speaker/TalkMeta.astro";
+import { parseDateFromId } from "../../components/speaker/talk-utils";
 import { getCollection, getEntry } from "astro:content";
-import { format } from "date-fns";
 
 // Get the speaker index page content
 const speakerIndex = await getEntry("talks", "index");
@@ -18,17 +19,6 @@ const page = speakerIndex.data;
 // Get all talks (excluding index.md)
 const allTalks = await getCollection("talks", (entry) => entry.id !== "index.md");
 const sortedTalks = allTalks.sort((a, b) => b.id.localeCompare(a.id));
-
-function parseDateFromId(id: string): Date | null {
-  const match = id.match(/^(\d{4})-(\d{2})-(\d{2})/);
-  if (!match) return null;
-  return new Date(Number(match[1]), Number(match[2]) - 1, Number(match[3]));
-}
-
-function getRecordingText(url: string): string {
-  if (url.includes("youtu")) return "Watch the recording on YouTube";
-  return "Watch the recording";
-}
 ---
 
 <BaseLayout title={page.title} description={page.lead}>
@@ -49,6 +39,7 @@ function getRecordingText(url: string): string {
             label={page.cta.label}
             noteTitle={page.cta.noteTitle}
             note={page.cta.note}
+            variant="cta"
           />
         )
       }
@@ -59,36 +50,20 @@ function getRecordingText(url: string): string {
         <PageSection>
           <PageSectionHeader badge={page.teaser.badge} title={page.teaser.title} />
 
-          <Prose>
-            <a href={page.teaser.recording}>
-              <img src="/content/talks/mpya-speaking.jpeg" alt={page.imageAlt} />
-            </a>
-          </Prose>
-
-          <a
-            class="mt-2 pl-1 block text-xs hover:decoration-amber-600 text-inherit group transition"
-            href={page.teaser.recording}
-            target="_blank"
-            rel="noreferrer"
-          >
-            {page.teaser.note}
-            <svg
-              class="h-4 ml-1.5 fill-amber-600 opacity-30 inline-block translate-y-1 transition-opacity group-hover:opacity-100"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M4.25 5.5a.75.75 0 00-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 00.75-.75v-4a.75.75 0 011.5 0v4A2.25 2.25 0 0112.75 17h-8.5A2.25 2.25 0 012 14.75v-8.5A2.25 2.25 0 014.25 4h5a.75.75 0 010 1.5h-5z"
-                clip-rule="evenodd"
-              />
-              <path
-                fill-rule="evenodd"
-                d="M6.194 12.753a.75.75 0 001.06.053L16.5 4.44v2.81a.75.75 0 001.5 0v-4.5a.75.75 0 00-.75-.75h-4.5a.75.75 0 000 1.5h2.553l-9.056 8.194a.75.75 0 00-.053 1.06z"
-                clip-rule="evenodd"
-              />
-            </svg>
+          <a href={page.teaser.recording} target="_blank" rel="noreferrer" class="qr-card-link group">
+            <img
+              src="/content/talks/mpya-speaking.jpeg"
+              alt={page.imageAlt}
+              width="800"
+              height="391"
+              class="block h-auto w-full border-b-2 border-ink"
+            />
+            <span class="flex items-baseline justify-between gap-4 px-4 py-3 sm:px-5">
+              <span class="font-body text-base leading-snug text-ink text-pretty">{page.teaser.note}</span>
+              <span class="text-ember group-hover:text-ink" aria-hidden="true">
+                ↗
+              </span>
+            </span>
           </a>
         </PageSection>
       )
@@ -97,99 +72,36 @@ function getRecordingText(url: string): string {
     <PageSection component="section">
       {page.archive && <PageSectionHeader title={page.archive.title} hLevel={2} />}
 
-      {
-        sortedTalks.map((talk) => {
-          const data = talk.data;
-          const date = parseDateFromId(talk.id);
-          return (
-            <article>
-              <h3 class="mb-1 mt-9 text-lg font-extrabold">{data.title}</h3>
-              <dl>
-                {date && (
-                  <div class="flex items-baseline gap-2 my-1">
-                    <dt class="text-base leading-none">🗓️</dt>
-                    <dd class="text-base">{format(date, "MMMM do, yyyy")}</dd>
-                  </div>
-                )}
-                {data.event && (
-                  <div class="flex items-baseline gap-2 my-1">
-                    <dt class="text-base leading-none">📍</dt>
-                    <dd class="text-base">
-                      {data.eventUrl ? (
-                        <a
-                          href={data.eventUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                          class="text-plum-500 underline hover:decoration-amber-600 group"
-                        >
-                          {data.event}
-                          <svg
-                            class="h-3.5 ml-1 fill-amber-600 opacity-30 inline-block translate-y-0.5 transition-opacity group-hover:opacity-100"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                          >
-                            <path
-                              fill-rule="evenodd"
-                              d="M4.25 5.5a.75.75 0 00-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 00.75-.75v-4a.75.75 0 011.5 0v4A2.25 2.25 0 0112.75 17h-8.5A2.25 2.25 0 012 14.75v-8.5A2.25 2.25 0 014.25 4h5a.75.75 0 010 1.5h-5z"
-                              clip-rule="evenodd"
-                            />
-                            <path
-                              fill-rule="evenodd"
-                              d="M6.194 12.753a.75.75 0 001.06.053L16.5 4.44v2.81a.75.75 0 001.5 0v-4.5a.75.75 0 00-.75-.75h-4.5a.75.75 0 000 1.5h2.553l-9.056 8.194a.75.75 0 00-.053 1.06z"
-                              clip-rule="evenodd"
-                            />
-                          </svg>
-                        </a>
-                      ) : (
-                        data.event
-                      )}
-                    </dd>
-                  </div>
-                )}
-                {data.recording && (
-                  <div class="flex items-baseline gap-2 my-1">
-                    <dt class="text-base leading-none">📺</dt>
-                    <dd class="text-base">
-                      <a
-                        href={data.recording}
-                        target="_blank"
-                        rel="noreferrer"
-                        class="text-plum-500 underline hover:decoration-amber-600 group"
-                      >
-                        {getRecordingText(data.recording)}
-                        <svg
-                          class="h-3.5 ml-1 fill-amber-600 opacity-30 inline-block translate-y-0.5 transition-opacity group-hover:opacity-100"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                        >
-                          <path
-                            fill-rule="evenodd"
-                            d="M4.25 5.5a.75.75 0 00-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 00.75-.75v-4a.75.75 0 011.5 0v4A2.25 2.25 0 0112.75 17h-8.5A2.25 2.25 0 012 14.75v-8.5A2.25 2.25 0 014.25 4h5a.75.75 0 010 1.5h-5z"
-                            clip-rule="evenodd"
-                          />
-                          <path
-                            fill-rule="evenodd"
-                            d="M6.194 12.753a.75.75 0 001.06.053L16.5 4.44v2.81a.75.75 0 001.5 0v-4.5a.75.75 0 00-.75-.75h-4.5a.75.75 0 000 1.5h2.553l-9.056 8.194a.75.75 0 00-.053 1.06z"
-                            clip-rule="evenodd"
-                          />
-                        </svg>
-                      </a>
-                    </dd>
-                  </div>
-                )}
-              </dl>
-            </article>
-          );
-        })
-      }
+      <ul class="m-0 list-none border-t-4 border-ink p-0">
+        {
+          sortedTalks.map((talk) => {
+            const data = talk.data;
+            return (
+              <li class="border-b border-ink py-5">
+                <article class="flex flex-col gap-3">
+                  <h3 class="font-heading m-0 text-[1.25rem] leading-[1.15] font-black tracking-[-0.02em] text-balance text-ink">
+                    {data.title}
+                  </h3>
+                  <TalkMeta
+                    date={parseDateFromId(talk.id)}
+                    event={data.event}
+                    eventUrl={data.eventUrl}
+                    recording={data.recording}
+                  />
+                </article>
+              </li>
+            );
+          })
+        }
+      </ul>
 
       {
         page.archive && (
-          <CtaButton href={page.archive.moreHref} class="mt-8 w-full">
-            {page.archive.more}
-          </CtaButton>
+          <div class="mt-10">
+            <CtaButton href={page.archive.moreHref} class="w-full">
+              {page.archive.more}
+            </CtaButton>
+          </div>
         )
       }
     </PageSection>

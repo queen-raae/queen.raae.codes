@@ -1,60 +1,62 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import SiteHeader from '../components/SiteHeader.astro';
-import QueenAiQuiz from '../components/QueenAiQuiz.astro';
-import PageSectionHeader from '../components/PageSectionHeader.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import PageSection from "../components/PageSection.astro";
+import PageSectionHeader from "../components/PageSectionHeader.astro";
+import Prose from "../components/Prose.astro";
+import QueenAiQuiz from "../components/QueenAiQuiz.astro";
+import LilyItem from "../components/quiz/LilyItem.astro";
 
-const title = 'Is it Queen or AI? Quiz';
-const description = 'Test your ability to distinguish between authentic Queen Raae quotes from her podcasts and AI-generated quotes that sound like her.';
-const ogImage = '/og/is-it-queen-or-ai.png';
+const title = "Is it Queen or AI? Quiz";
+const description =
+  "Test your ability to distinguish between authentic Queen Raae quotes from her podcasts and AI-generated quotes that sound like her.";
+const ogImage = "/og/is-it-queen-or-ai.png";
 ---
 
-<BaseLayout title={title} description={description} image={ogImage} imageAlt="Is it Queen or AI? — Queen Raae vs Jean-Claw quiz">
+<BaseLayout
+  title={title}
+  description={description}
+  image={ogImage}
+  imageAlt="Is it Queen or AI? — Queen Raae vs Jean-Claw quiz"
+>
   <SiteHeader />
-  <PageSectionHeader 
-    title="Is it Queen or AI?" 
-    lead="Can you tell the difference between authentic Queen&nbsp;Raae quotes and AI&#8209;generated ones?"
-    hLevel={1}
-    class="text-center"
-    breadcrumbs={[
-      { href: '/', title: 'Home' },
-      { href: '/is-it-queen-or-ai', title: 'Queen vs AI Quiz' }
-    ]} 
-  />
-  
-  <section class="py-6 md:py-12 px-4">
-    <div class="container mx-auto">
-      <QueenAiQuiz />
-    </div>
-  </section>
-  
-  <!-- Meta Info Section -->
-  <section class="py-8 px-4 bg-brown-50">
-    <div class="container mx-auto max-w-4xl">
-      <div class="grid md:grid-cols-2 gap-8">
-        <div>
-          <h3 class="text-xl font-heading font-bold text-plum-900 mb-4">About the Quiz</h3>
-          <p class="text-plum-700 mb-4">
-            This interactive quiz tests your ability to distinguish between authentic quotes 
-            from Queen Raae's "Slow & Steady" podcast and AI-generated quotes that mimic her voice.
-          </p>
-          <p class="text-plum-700">
-            Real quotes are extracted from actual podcast transcripts, while AI quotes are 
-            generated to match Queen's perspective on topics like bootstrapping, family integration, 
-            and developer experience.
-          </p>
-        </div>
-        
-        <div>
-          <h3 class="text-xl font-heading font-bold text-plum-900 mb-4">Data Sources</h3>
-          <ul class="text-plum-700 space-y-2">
-            <li>• <strong>30 curated quotes</strong> from Slow & Steady podcast episodes</li>
-            <li>• <strong>30 AI-generated quotes</strong> crafted in Queen's authentic voice</li>
-            <li>• <strong>Thematic categories</strong> including AI, bootstrapping, family life</li>
-            <li>• <strong>Open source</strong> - check the code on GitHub!</li>
-          </ul>
-        </div>
+  <main>
+    <PageSection component="header">
+      <!-- Eyebrow written out (not via PageSectionHeader) so the serif "by" renders -->
+      <p class="qr-label mt-6 mb-0 text-plum-400">Quiz game <em>by</em> Jean-Claw 🦀</p>
+      <PageSectionHeader
+        title="Is it Queen or AI?"
+        lead={"Can you tell the difference between authentic Queen\u00a0Raae quotes and AI\u2011generated ones?"}
+        hLevel={1}
+      />
+      <div class="mt-6">
+        <QueenAiQuiz />
       </div>
-    </div>
-  </section>
+    </PageSection>
+
+    <!-- Meta Info Section -->
+    <PageSection>
+      <PageSectionHeader title="About the Quiz" />
+      <Prose>
+        <p>
+          This interactive quiz tests your ability to distinguish between authentic quotes from Queen Raae's "Slow &
+          Steady" podcast and AI-generated quotes that mimic her voice.
+        </p>
+        <p>
+          Real quotes are extracted from actual podcast transcripts, while AI quotes are generated to match Queen's
+          perspective on topics like bootstrapping, family integration, and developer experience.
+        </p>
+      </Prose>
+
+      <div class="mt-10">
+        <PageSectionHeader title="Data Sources" />
+      </div>
+      <ul class="font-body m-0 flex list-none flex-col gap-2 p-0 text-base leading-relaxed text-ink">
+        <LilyItem><strong>30 curated quotes</strong> from Slow & Steady podcast episodes</LilyItem>
+        <LilyItem><strong>30 AI-generated quotes</strong> crafted in Queen's authentic voice</LilyItem>
+        <LilyItem><strong>Thematic categories</strong> including AI, bootstrapping, family life</LilyItem>
+        <LilyItem><strong>Open source</strong> - check the code on GitHub!</LilyItem>
+      </ul>
+    </PageSection>
+  </main>
 </BaseLayout>

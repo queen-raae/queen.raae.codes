@@ -1,105 +1,140 @@
 ---
-import Badge from './Badge.astro';
+import LilyItem from "./quiz/LilyItem.astro";
 ---
 
-<div class="max-w-4xl mx-auto">
-  <!-- Quiz Stats (hidden until first answer) -->
-  <div id="quiz-stats" class="hidden text-center mb-6">
-    <div class="flex justify-center gap-6 text-sm text-plum-600">
-      <span>Score: <span id="current-score" class="font-bold">0</span>/<span id="total-attempts" class="font-bold">0</span></span>
-      <span>Accuracy: <span id="accuracy" class="font-bold">0%</span></span>
-    </div>
-  </div>
-
+<!--
+  Elements that the script shows/hides with the `hidden` class carry no display utility of their own;
+  layout lives on an inner wrapper so `hidden` always wins.
+-->
+<div class="queen-ai-quiz">
   <!-- Quiz Card -->
-  <div id="quiz-card" class="bg-white rounded-lg shadow-lg border-2 border-plum-200 p-4 md:p-8 mb-6">
+  <div id="quiz-card" class="qr-card">
     <!-- Loading State -->
-    <div id="loading-state" class="text-center py-12">
-      <div class="animate-pulse">
-        <div class="h-4 bg-plum-200 rounded w-3/4 mx-auto mb-4"></div>
-        <div class="h-4 bg-plum-200 rounded w-1/2 mx-auto mb-4"></div>
-        <div class="h-10 bg-plum-200 rounded w-32 mx-auto"></div>
+    <div id="loading-state">
+      <div class="flex flex-col gap-4 p-5 motion-safe:animate-pulse sm:p-6" aria-hidden="true">
+        <div class="h-3 w-full bg-blush"></div>
+        <div class="mt-4 h-5 w-11/12 bg-blush"></div>
+        <div class="h-5 w-3/4 bg-blush"></div>
+        <div class="mt-4 grid grid-cols-2 gap-3 sm:gap-4">
+          <div class="h-[3.25rem] bg-blush"></div>
+          <div class="h-[3.25rem] bg-blush"></div>
+        </div>
       </div>
     </div>
 
     <!-- Quiz Content (hidden initially) -->
     <div id="quiz-content" class="hidden">
-      <!-- Quote Display -->
-      <div class="mb-4 md:mb-8">
-        <blockquote class="text-lg md:text-2xl font-body leading-relaxed text-plum-900 italic text-center px-2 md:px-6 mb-4">
-          "<span id="quote-text"></span>"
-        </blockquote>
-        
-        <!-- Context (shown after answer) -->
-        <div id="quote-context" class="hidden mt-4 p-4 bg-plum-50 rounded-lg">
-          <div class="flex flex-wrap gap-2 mb-3">
-            <span class="text-sm text-plum-600">Themes:</span>
-            <div id="quote-themes" class="flex flex-wrap gap-1"></div>
+      <!-- Progress + score -->
+      <div class="border-b-2 border-ink px-5 py-3.5 sm:px-6">
+        <div class="qr-label flex items-baseline justify-between gap-4">
+          <span id="progress-text" class="text-ink">Quote 1</span>
+          <span id="remaining-text" class="text-plum-400"></span>
+        </div>
+        <div class="mt-2 h-3 border-2 border-ink bg-cream" aria-hidden="true">
+          <div
+            id="progress-bar"
+            class="h-full bg-plum-500 transition-[width] duration-300 motion-reduce:transition-none"
+            style="width: 0%"
+          >
           </div>
-          <p id="context-text" class="text-sm text-plum-700"></p>
-          <div id="episode-info" class="text-xs text-plum-500 mt-2"></div>
+        </div>
+        <!-- Quiz Stats (hidden until first answer) -->
+        <div id="quiz-stats" class="hidden">
+          <div class="qr-label mt-2 flex items-baseline justify-between gap-4 text-plum-400">
+            <span
+              >Score: <span id="current-score" class="text-ink">0</span>/<span id="total-attempts" class="text-ink"
+                >0</span
+              ></span
+            >
+            <span>Accuracy: <span id="accuracy" class="text-ink">0%</span></span>
+          </div>
         </div>
       </div>
 
-      <!-- Answer Buttons -->
-      <div id="answer-buttons" class="flex gap-4 justify-center mb-6">
-        <button 
-          id="btn-queen" 
-          class="px-6 py-3 bg-plum-500 text-white font-heading font-bold rounded-lg hover:bg-plum-600 transition-colors border-2 border-plum-500"
-          data-answer="real"
-        >
-          👑 Real Queen
-        </button>
-        <button 
-          id="btn-ai" 
-          class="px-6 py-3 bg-amber-400 text-plum-900 font-heading font-bold rounded-lg hover:bg-amber-500 transition-colors border-2 border-amber-400"
-          data-answer="ai"
-        >
-          🤖 AI Generated
-        </button>
-      </div>
+      <div class="p-5 sm:p-6">
+        <!-- Quote Display -->
+        <blockquote id="quote-block" class="relative m-0 pl-9 sm:pl-12" tabindex="-1">
+          <span
+            class="font-heading absolute top-[-0.1rem] left-0 text-[3.2rem] leading-none font-black text-orangered sm:text-[3.8rem]"
+            aria-hidden="true">&ldquo;</span
+          >
+          <p
+            class="font-body m-0 text-[1.25rem] leading-[1.4] font-medium text-pretty text-plum-500 italic sm:text-[1.45rem]"
+          >
+            <span id="quote-text"></span>
+          </p>
+        </blockquote>
 
-      <!-- Result Display (hidden initially) -->
-      <div id="result-display" class="hidden text-center">
-        <div id="result-icon" class="text-4xl md:text-6xl mb-3"></div>
-        <div id="result-text" class="text-lg md:text-xl font-heading font-bold mb-3"></div>
-        <button 
-          id="next-btn"
-          class="px-6 py-3 bg-plum-500 text-white font-heading font-bold rounded-lg hover:bg-plum-600 transition-colors"
-        >
-          Next Quote →
-        </button>
-      </div>
-
-      <!-- Progress Bar -->
-      <div class="mt-6">
-        <div class="flex justify-between text-sm text-plum-600 mb-2">
-          <span id="progress-text">Quote 1</span>
-          <span id="remaining-text"></span>
+        <!-- Answer Buttons -->
+        <div id="answer-buttons">
+          <div class="mt-6 grid grid-cols-2 gap-3 sm:gap-4">
+            <button id="btn-queen" type="button" class="qr-btn min-h-[3.25rem] px-3 text-[0.8rem]" data-answer="real">
+              👑 Real Queen
+            </button>
+            <button id="btn-ai" type="button" class="qr-btn min-h-[3.25rem] px-3 text-[0.8rem]" data-answer="ai">
+              🤖 AI Generated
+            </button>
+          </div>
         </div>
-        <div class="w-full bg-plum-200 rounded-full h-2">
-          <div id="progress-bar" class="bg-plum-500 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+
+        <!-- Result Display (hidden initially) -->
+        <div id="result-display" class="hidden">
+          <!-- data-result="correct" → blush box, "wrong" → paper box with an ember edge -->
+          <div
+            id="result-panel"
+            class="mt-6 border-2 border-ink bg-paper p-4 data-[result=correct]:bg-blush data-[result=wrong]:border-ember sm:p-5"
+          >
+            <div class="flex items-start gap-3">
+              <span id="result-icon" class="text-[1.5rem] leading-none" aria-hidden="true"></span>
+              <p
+                id="result-text"
+                tabindex="-1"
+                class="font-heading m-0 text-[1.2rem] leading-tight font-black tracking-[-0.02em] text-ink sm:text-[1.35rem]"
+              >
+              </p>
+            </div>
+
+            <!-- Context (shown after answer) -->
+            <div id="quote-context" class="hidden">
+              <div class="mt-4 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                <span class="qr-label text-ink">Themes:</span>
+                <div id="quote-themes" class="flex flex-wrap gap-x-3 gap-y-1"></div>
+              </div>
+              <p id="context-text" class="font-body mt-2 mb-0 text-base leading-normal text-ink"></p>
+              <div id="episode-info" class="qr-label mt-3 leading-normal text-plum-500"></div>
+            </div>
+          </div>
+
+          <div class="mt-6">
+            <button id="next-btn" type="button" class="qr-btn qr-btn--primary w-full sm:w-auto">Next Quote →</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
   <!-- Instructions & About -->
-  <div class="bg-plum-50 rounded-lg p-6">
-    <h3 class="text-lg font-heading font-bold text-plum-900 mb-3">How it works:</h3>
-    <ul class="text-plum-700 space-y-2">
-      <li>• <strong>Real quotes</strong> are extracted from actual Slow & Steady podcast episodes</li>
-      <li>• <strong>AI quotes</strong> are generated to match Queen Raae's authentic voice and perspective</li>
-      <li>• Each quote includes themes and context after you answer</li>
+  <section class="mt-6 border-2 border-ink bg-blush p-5 sm:p-6" aria-labelledby="quiz-how-it-works">
+    <h2
+      id="quiz-how-it-works"
+      class="font-heading m-0 text-[1.3rem] leading-tight font-black tracking-[-0.02em] text-ink"
+    >
+      How it works:
+    </h2>
+    <ul class="font-body mt-3 mb-0 flex list-none flex-col gap-2 p-0 text-base leading-relaxed text-ink">
+      <LilyItem><strong>Real quotes</strong> are extracted from actual Slow & Steady podcast episodes</LilyItem>
+      <LilyItem><strong>AI quotes</strong> are generated to match Queen Raae's authentic voice and perspective</LilyItem
+      >
+      <LilyItem>Each quote includes themes and context after you answer</LilyItem>
     </ul>
-    <p class="text-sm text-plum-500 mt-4">
-      The source code and all answers live in the 
-      <a href="https://github.com/queen-raae/queen.raae.codes/pull/213" class="underline hover:text-plum-700">open repo</a>, 
-      so yes — you <em>could</em> cheat. A 
-      <a href="https://github.com/queen-raae/queen.raae.codes/issues/215" class="underline hover:text-plum-700">cheat-proof version</a> 
+    <p class="font-body mt-4 mb-0 text-[0.95rem] leading-relaxed text-ink">
+      The source code and all answers live in the
+      <a href="https://github.com/queen-raae/queen.raae.codes/pull/213" class="qr-link">open repo</a>, so yes — you
+      <em>could</em> cheat. A
+      <a href="https://github.com/queen-raae/queen.raae.codes/issues/215" class="qr-link">cheat-proof version</a>
       is on the roadmap. For now, we trust you. 🦀
     </p>
-  </div>
+  </section>
 </div>
 
 <script>
@@ -111,65 +146,66 @@ import Badge from './Badge.astro';
       this.totalAttempts = 0;
       this.currentQuote = null;
       this.hasAnswered = false;
-      
+
       this.elements = {
-        loadingState: document.getElementById('loading-state'),
-        quizContent: document.getElementById('quiz-content'),
-        quoteText: document.getElementById('quote-text'),
-        quoteContext: document.getElementById('quote-context'),
-        quoteThemes: document.getElementById('quote-themes'),
-        contextText: document.getElementById('context-text'),
-        episodeInfo: document.getElementById('episode-info'),
-        answerButtons: document.getElementById('answer-buttons'),
-        resultDisplay: document.getElementById('result-display'),
-        resultIcon: document.getElementById('result-icon'),
-        resultText: document.getElementById('result-text'),
-        nextBtn: document.getElementById('next-btn'),
-        quizStats: document.getElementById('quiz-stats'),
-        currentScore: document.getElementById('current-score'),
-        totalAttempts: document.getElementById('total-attempts'),
-        accuracy: document.getElementById('accuracy'),
-        progressText: document.getElementById('progress-text'),
-        remainingText: document.getElementById('remaining-text'),
-        progressBar: document.getElementById('progress-bar')
+        loadingState: document.getElementById("loading-state"),
+        quizContent: document.getElementById("quiz-content"),
+        quoteBlock: document.getElementById("quote-block"),
+        quoteText: document.getElementById("quote-text"),
+        quoteContext: document.getElementById("quote-context"),
+        quoteThemes: document.getElementById("quote-themes"),
+        contextText: document.getElementById("context-text"),
+        episodeInfo: document.getElementById("episode-info"),
+        answerButtons: document.getElementById("answer-buttons"),
+        resultDisplay: document.getElementById("result-display"),
+        resultPanel: document.getElementById("result-panel"),
+        resultIcon: document.getElementById("result-icon"),
+        resultText: document.getElementById("result-text"),
+        nextBtn: document.getElementById("next-btn"),
+        quizStats: document.getElementById("quiz-stats"),
+        currentScore: document.getElementById("current-score"),
+        totalAttempts: document.getElementById("total-attempts"),
+        accuracy: document.getElementById("accuracy"),
+        progressText: document.getElementById("progress-text"),
+        remainingText: document.getElementById("remaining-text"),
+        progressBar: document.getElementById("progress-bar"),
       };
-      
+
       this.init();
     }
-    
+
     async init() {
       try {
         // Load quiz data
-        const response = await fetch('/queen-ai-quiz.json');
+        const response = await fetch("/queen-ai-quiz.json");
         const data = await response.json();
         // Balanced selection: 10 real + 10 AI for fair 50/50 distribution
-        const realQuotes = this.shuffleArray(data.quotes.filter(q => q.isReal)).slice(0, 10);
-        const aiQuotes = this.shuffleArray(data.quotes.filter(q => !q.isReal)).slice(0, 10);
+        const realQuotes = this.shuffleArray(data.quotes.filter((q) => q.isReal)).slice(0, 10);
+        const aiQuotes = this.shuffleArray(data.quotes.filter((q) => !q.isReal)).slice(0, 10);
         this.quotes = this.shuffleArray([...realQuotes, ...aiQuotes]);
-        
+
         // Hide loading and show quiz
-        this.elements.loadingState.classList.add('hidden');
-        this.elements.quizContent.classList.remove('hidden');
-        
+        this.elements.loadingState.classList.add("hidden");
+        this.elements.quizContent.classList.remove("hidden");
+
         // Set up event listeners
         this.setupEventListeners();
-        
+
         // Start first question
         this.displayCurrentQuote();
-        
       } catch (error) {
-        console.error('Failed to load quiz data:', error);
+        console.error("Failed to load quiz data:", error);
         this.elements.loadingState.innerHTML = `
-          <div class="text-center py-12">
-            <p class="text-red-600 mb-4">Failed to load quiz data</p>
-            <button onclick="location.reload()" class="px-4 py-2 bg-plum-500 text-white rounded hover:bg-plum-600">
+          <div class="flex flex-col items-start gap-4 p-5 sm:p-6">
+            <p class="font-heading m-0 text-[1.2rem] font-black text-ink">🙈 Failed to load quiz data</p>
+            <button type="button" onclick="location.reload()" class="qr-btn qr-btn--primary">
               Try Again
             </button>
           </div>
         `;
       }
     }
-    
+
     shuffleArray(array) {
       const shuffled = [...array];
       for (let i = shuffled.length - 1; i > 0; i--) {
@@ -178,179 +214,191 @@ import Badge from './Badge.astro';
       }
       return shuffled;
     }
-    
+
     setupEventListeners() {
       // Answer buttons
-      document.getElementById('btn-queen').addEventListener('click', () => this.handleAnswer(true));
-      document.getElementById('btn-ai').addEventListener('click', () => this.handleAnswer(false));
-      
+      document.getElementById("btn-queen").addEventListener("click", () => this.handleAnswer(true));
+      document.getElementById("btn-ai").addEventListener("click", () => this.handleAnswer(false));
+
       // Next button
-      this.elements.nextBtn.addEventListener('click', () => this.nextQuestion());
+      this.elements.nextBtn.addEventListener("click", () => this.nextQuestion());
     }
-    
+
     displayCurrentQuote() {
       if (this.currentQuoteIndex >= this.quotes.length) {
         this.showFinalResults();
         return;
       }
-      
+
       this.currentQuote = this.quotes[this.currentQuoteIndex];
       this.hasAnswered = false;
-      
+
       // Update quote display
       this.elements.quoteText.textContent = this.currentQuote.text;
-      
+
       // Reset UI state
-      this.elements.answerButtons.classList.remove('hidden');
-      this.elements.resultDisplay.classList.add('hidden');
-      this.elements.quoteContext.classList.add('hidden');
-      
+      this.elements.answerButtons.classList.remove("hidden");
+      this.elements.resultDisplay.classList.add("hidden");
+      this.elements.quoteContext.classList.add("hidden");
+
       // Update progress
       this.updateProgress();
-      
-      // Reset button states
-      document.querySelectorAll('[data-answer]').forEach(btn => {
-        btn.classList.remove('opacity-50');
+
+      // Reset button states (including the previous question's correct-answer marker)
+      document.querySelectorAll("[data-answer]").forEach((btn) => {
+        btn.classList.remove("opacity-50");
         btn.disabled = false;
+        delete btn.dataset.correct;
       });
     }
-    
+
     handleAnswer(userGuessedReal) {
       if (this.hasAnswered) return;
-      
+
       this.hasAnswered = true;
       this.totalAttempts++;
-      
+
       const isCorrect = userGuessedReal === this.currentQuote.isReal;
       if (isCorrect) {
         this.score++;
       }
-      
+
       // Show result
       this.showResult(isCorrect, this.currentQuote.isReal);
-      
+
       // Disable buttons and show context
-      document.querySelectorAll('[data-answer]').forEach(btn => {
+      document.querySelectorAll("[data-answer]").forEach((btn) => {
         btn.disabled = true;
-        if ((btn.dataset.answer === 'real') === this.currentQuote.isReal) {
-          btn.classList.add('ring-4', 'ring-green-400');
+        if ((btn.dataset.answer === "real") === this.currentQuote.isReal) {
+          btn.dataset.correct = "true";
         }
       });
-      
-      this.elements.answerButtons.classList.add('hidden');
-      this.elements.quoteContext.classList.remove('hidden');
-      
+
+      this.elements.answerButtons.classList.add("hidden");
+      this.elements.quoteContext.classList.remove("hidden");
+
       // Update context display
       this.displayContext();
-      
+
       // Update stats
       this.updateStats();
+
+      // The answer buttons are gone: move focus to the verdict so keyboard and screen reader users land on it
+      this.elements.resultText.focus();
     }
-    
+
     showResult(isCorrect, wasReal) {
-      this.elements.resultDisplay.classList.remove('hidden');
-      
+      this.elements.resultDisplay.classList.remove("hidden");
+      this.elements.resultPanel.dataset.result = isCorrect ? "correct" : "wrong";
+
       if (isCorrect) {
-        this.elements.resultIcon.textContent = '✅';
-        this.elements.resultText.textContent = `Correct! This was ${wasReal ? 'a real Queen quote' : 'AI generated'}.`;
-        this.elements.resultText.className = 'text-xl font-heading font-bold mb-4 text-green-600';
+        this.elements.resultIcon.textContent = "✅";
+        this.elements.resultText.textContent = `Correct! This was ${wasReal ? "a real Queen quote" : "AI generated"}.`;
       } else {
-        this.elements.resultIcon.textContent = '❌';
-        this.elements.resultText.textContent = `Oops! This was ${wasReal ? 'a real Queen quote' : 'AI generated'}.`;
-        this.elements.resultText.className = 'text-xl font-heading font-bold mb-4 text-red-600';
+        this.elements.resultIcon.textContent = "❌";
+        this.elements.resultText.textContent = `Oops! This was ${wasReal ? "a real Queen quote" : "AI generated"}.`;
       }
     }
-    
+
     displayContext() {
       // Themes
       if (this.currentQuote.themes && this.currentQuote.themes.length > 0) {
         this.elements.quoteThemes.innerHTML = this.currentQuote.themes
-          .map(theme => `<span class="px-2 py-1 bg-plum-200 text-plum-800 text-xs rounded">${theme.replace('-', ' ')}</span>`)
-          .join(' ');
+          .map(
+            (theme) =>
+              `<span class="qr-label text-plum-500"><span class="text-gold-deep" aria-hidden="true">#</span>${theme.replace(/-/g, " ")}</span>`,
+          )
+          .join(" ");
       }
-      
+
       // Context
-      this.elements.contextText.textContent = this.currentQuote.context || 'No additional context available.';
-      
+      this.elements.contextText.textContent = this.currentQuote.context || "No additional context available.";
+
       // Episode info (for real quotes)
       if (this.currentQuote.isReal && this.currentQuote.episode) {
         this.elements.episodeInfo.innerHTML = `
-          From: Episode ${this.currentQuote.episode} - "${this.currentQuote.title}" 
-          ${this.currentQuote.timestamp ? `(${this.currentQuote.timestamp})` : ''}
+          From: Episode ${this.currentQuote.episode} - <em>"${this.currentQuote.title}"</em>
+          ${this.currentQuote.timestamp ? `(${this.currentQuote.timestamp})` : ""}
         `;
-        this.elements.episodeInfo.classList.remove('hidden');
+        this.elements.episodeInfo.classList.remove("hidden");
       } else {
-        this.elements.episodeInfo.classList.add('hidden');
+        this.elements.episodeInfo.classList.add("hidden");
       }
     }
-    
+
     nextQuestion() {
       this.currentQuoteIndex++;
       this.displayCurrentQuote();
+      // The Next button is now hidden: put focus on the new quote (or on the results heading at the end)
+      if (this.currentQuoteIndex < this.quotes.length) {
+        this.elements.quoteBlock.focus();
+      }
     }
-    
+
     updateProgress() {
       const progress = ((this.currentQuoteIndex + 1) / this.quotes.length) * 100;
       const remaining = this.quotes.length - this.currentQuoteIndex - 1;
-      
+
       this.elements.progressText.textContent = `Quote ${this.currentQuoteIndex + 1} of ${this.quotes.length}`;
       this.elements.remainingText.textContent = `${remaining} remaining`;
       this.elements.progressBar.style.width = `${progress}%`;
     }
-    
+
     updateStats() {
       // Show stats after first answer
-      this.elements.quizStats.classList.remove('hidden');
+      this.elements.quizStats.classList.remove("hidden");
       this.elements.currentScore.textContent = this.score;
       this.elements.totalAttempts.textContent = this.totalAttempts;
-      
+
       const accuracy = this.totalAttempts > 0 ? Math.round((this.score / this.totalAttempts) * 100) : 0;
       this.elements.accuracy.textContent = `${accuracy}%`;
     }
-    
+
     showFinalResults() {
       const accuracy = Math.round((this.score / this.totalAttempts) * 100);
-      
+
       this.elements.quizContent.innerHTML = `
-        <div class="text-center py-12">
-          <h2 class="text-3xl font-heading font-bold text-plum-900 mb-6">Quiz Complete! 🎉</h2>
-          
-          <div class="bg-plum-50 rounded-lg p-8 max-w-md mx-auto mb-8">
-            <div class="text-4xl mb-4">${accuracy >= 80 ? '👑' : accuracy >= 60 ? '🤖' : '🤔'}</div>
-            <div class="text-2xl font-bold text-plum-900 mb-2">
-              ${this.score}/${this.totalAttempts} Correct
-            </div>
-            <div class="text-lg text-plum-700">
-              ${accuracy}% Accuracy
-            </div>
-            <div class="mt-4 text-sm text-plum-600">
-              ${accuracy >= 80 ? 'Queen Expert! You know her voice well!' : 
-                accuracy >= 60 ? 'Pretty good! You can spot some patterns.' : 
-                'Tricky, right? AI is getting quite good at mimicking!'}
+        <div class="p-5 sm:p-6">
+          <h2 id="quiz-final-heading" tabindex="-1" class="font-heading m-0 text-[1.7rem] sm:text-[2rem] leading-[1.05] font-black tracking-[-0.025em] text-ink">Quiz Complete! 🎉</h2>
+
+          <div class="mt-6 flex items-start gap-4 border-2 border-ink bg-blush p-5 sm:p-6">
+            <div class="text-[2.2rem] leading-none" aria-hidden="true">${accuracy >= 80 ? "👑" : accuracy >= 60 ? "🤖" : "🤔"}</div>
+            <div class="flex flex-col gap-1.5">
+              <div class="font-heading text-[2rem] sm:text-[2.4rem] leading-none font-black tracking-[-0.03em] text-ink">
+                ${this.score}/${this.totalAttempts} Correct
+              </div>
+              <div class="qr-label text-plum-500">
+                ${accuracy}% Accuracy
+              </div>
+              <div class="font-body mt-1.5 text-[1.05rem] leading-snug text-ink italic">
+                ${
+                  accuracy >= 80
+                    ? "Queen Expert! You know her voice well!"
+                    : accuracy >= 60
+                      ? "Pretty good! You can spot some patterns."
+                      : "Tricky, right? AI is getting quite good at mimicking!"
+                }
+              </div>
             </div>
           </div>
-          
-          <div class="flex gap-4 justify-center">
-            <button 
-              onclick="location.reload()" 
-              class="px-6 py-3 bg-plum-500 text-white font-heading font-bold rounded-lg hover:bg-plum-600 transition-colors"
-            >
+
+          <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+            <button type="button" onclick="location.reload()" class="qr-btn qr-btn--primary">
               Try Again
             </button>
-            <a 
-              href="/" 
-              class="px-6 py-3 bg-amber-400 text-plum-900 font-heading font-bold rounded-lg hover:bg-amber-500 transition-colors no-underline"
-            >
-              Back to Home
+            <a href="/" class="qr-btn">
+              Back to Home <span aria-hidden="true">→</span>
             </a>
           </div>
         </div>
       `;
+
+      document.getElementById("quiz-final-heading")?.focus();
     }
   }
-  
+
   // Initialize quiz when page loads
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener("DOMContentLoaded", () => {
     new QueenAiQuiz();
   });
 </script>
