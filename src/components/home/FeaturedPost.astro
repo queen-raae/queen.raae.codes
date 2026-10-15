@@ -1,0 +1,56 @@
+---
+import { getAuthorInfo, type ProcessedPost } from "../../lib/posts";
+
+interface Props {
+  post: ProcessedPost;
+  /** Small orangered stamp above the title */
+  stamp?: string;
+  class?: string;
+}
+
+const { post, stamp = "New", class: className } = Astro.props;
+const { name, emoji } = getAuthorInfo(post.author);
+---
+
+<!--
+  The newest post: a clickable card with the orangered "newest" top rule.
+  On desktop the inner rule lines up with the home page's side column
+  (side column = --container-sm, minus this card's 2rem padding and 2px border).
+-->
+<a
+  href={post.slug}
+  class:list={[
+    "featured-post qr-card-link group grid gap-5 border-t-[10px] border-t-orangered p-5 sm:p-8",
+    "lg:grid-cols-[minmax(0,1fr)_calc(var(--container-sm)_-_2rem_-_2px)] lg:gap-12",
+    className,
+  ]}
+>
+  <div class="flex flex-col items-start gap-4">
+    <span class="qr-label border-2 border-ink bg-orangered px-2 py-1 font-extrabold text-ink">{stamp}</span>
+    <h2
+      class="font-heading m-0 text-[1.85rem] leading-none font-black tracking-[-0.035em] text-balance text-ink sm:text-[2.2rem] xl:text-[2.7rem]"
+    >
+      {post.title}
+      <span
+        class="inline-block text-ember transition-transform group-hover:translate-x-1 group-hover:text-ink"
+        aria-hidden="true">→</span
+      >
+    </h2>
+    <p class="qr-meta m-0">
+      <time datetime={post.dateISO}>{post.dateFormatted}</time>
+      <em>by</em>
+      {name}
+      {emoji}
+    </p>
+  </div>
+
+  {
+    post.description && (
+      <div class="border-t-2 border-ink pt-5 lg:border-t-0 lg:border-l-2 lg:pt-0 lg:pl-10">
+        <p class="font-body m-0 max-w-prose text-[1.1rem] leading-[1.6] text-pretty text-ink first-letter:float-left first-letter:mt-1 first-letter:mr-2 first-letter:font-heading first-letter:text-[3.5rem] first-letter:leading-[0.8] first-letter:font-black first-letter:text-orangered">
+          {post.description}
+        </p>
+      </div>
+    )
+  }
+</a>

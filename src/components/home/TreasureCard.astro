@@ -1,0 +1,47 @@
+---
+interface Props {
+  title: string;
+  /** Category or strapline, first part of the mono kicker above the title */
+  kicker: string;
+  /** "by" or "with", rendered as the serif italic connector */
+  by: string;
+  name: string;
+  emoji: string;
+  /** Internal link (shows →) */
+  to?: string;
+  /** External link (opens in a new tab, shows ↗) */
+  href?: string;
+  /** The page's spark: an orangered top rule (never an orangered or gold fill) */
+  spark?: boolean;
+  class?: string;
+}
+
+const { title, kicker, by, name, emoji, to, href, spark = false, class: className } = Astro.props;
+const isExternal = Boolean(href);
+
+// Keep hyphenated words (e.g. "Non-Techies") from breaking at the hyphen
+const kickerParts = kicker.split(/(\S+-\S+)/).filter(Boolean);
+---
+
+<a
+  href={to || href}
+  target={isExternal ? "_blank" : undefined}
+  rel={isExternal ? "noreferrer" : undefined}
+  class:list={[
+    "treasure-card qr-card-link group flex flex-col gap-2 p-5 sm:p-6",
+    spark && "border-t-8 border-t-orangered",
+    className,
+  ]}
+>
+  <p class:list={["qr-label m-0", spark ? "text-ember" : "text-plum-500"]}>
+    {kickerParts.map((part) => (part.includes("-") ? <span class="whitespace-nowrap">{part}</span> : part))}
+    <span class="whitespace-nowrap"><em>{by}</em> {name} {emoji}</span>
+  </p>
+  <h3 class="font-heading m-0 text-[1.3rem] leading-[1.1] font-black tracking-[-0.02em] text-balance text-ink">
+    {title}
+    <span
+      class="ml-0.5 inline-block text-ember transition-transform group-hover:translate-x-1 group-hover:text-ink"
+      aria-hidden="true">{isExternal ? "↗" : "→"}</span
+    >
+  </h3>
+</a>

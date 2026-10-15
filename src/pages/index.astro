@@ -4,91 +4,115 @@ import SiteHeader from "../components/SiteHeader.astro";
 import PageSection from "../components/PageSection.astro";
 import PageSectionHeader from "../components/PageSectionHeader.astro";
 import Prose from "../components/Prose.astro";
-import ContentList from "../components/ContentList.astro";
+import Posts from "../components/Posts.astro";
+import CtaButton from "../components/CtaButton.astro";
 import Newsletter from "../components/Newsletter.astro";
-import { getAllPosts, getAuthorInfo } from "../lib/posts";
+import FeaturedPost from "../components/home/FeaturedPost.astro";
+import TreasureCard from "../components/home/TreasureCard.astro";
+import { getAllPosts } from "../lib/posts";
 import { getEntry } from "astro:content";
 
 // Get landing page content
 const landing = await getEntry("landing", "index");
 const { Content } = await landing.render();
 
-// Get latest posts (5 only)
+// Latest posts (5 only): the newest is featured, the next four are listed
 const allPosts = await getAllPosts();
-const latestPosts = allPosts.slice(0, 5);
+const [featuredPost, ...latestPosts] = allPosts.slice(0, 5);
 
-// Treasures — interleaved with posts
+// Treasures
 const treasures = [
   {
-    primary: "Book Me as a Speaker",
+    title: "Book Me as a Speaker",
     to: "/speaker/",
-    secondary: 'Joyful AI Talks for Devs & Non-Techies <em class="font-body normal-case">with</em> Queen Raae 👑',
+    kicker: "Joyful AI Talks for Devs & Non-Techies",
+    by: "with",
+    name: "Queen Raae",
+    emoji: "👑",
+    spark: true,
   },
   {
-    primary: "Is it Queen or AI?",
-    to: "/is-it-queen-or-ai",
-    secondary: 'Quiz Game <em class="font-body normal-case">by</em> Jean-Claw 🦀',
+    title: "Is it Queen or AI?",
+    to: "/is-it-queen-or-ai/",
+    kicker: "Quiz Game",
+    by: "by",
+    name: "Jean-Claw",
+    emoji: "🦀",
   },
   {
-    primary: "POW! — The Privacy-First Menstrual Cycle Journal",
+    title: "POW! — The Privacy-First Menstrual Cycle Journal",
     href: "https://usepow.app",
-    secondary: 'Side Project <em class="font-body normal-case">by</em> Queen Raae 👑',
+    kicker: "Side Project",
+    by: "by",
+    name: "Queen Raae",
+    emoji: "👑",
   },
   {
-    primary: "Slow & Steady Podcast",
+    title: "Slow & Steady Podcast",
     href: "https://slowandsteadypodcast.com/",
-    secondary: 'Podcast <em class="font-body normal-case">by</em> Benedikt Deicke 🎙️',
+    kicker: "Podcast",
+    by: "by",
+    name: "Benedikt Deicke",
+    emoji: "🎙️",
   },
 ];
 
-// Convert posts to feed items
-const postItems = latestPosts.map((post) => {
-  const authorInfo = getAuthorInfo(post.author);
-  return {
-    primary: post.title,
-    to: post.slug,
-    secondary: `Blog Post · ${post.dateFormatted} <em class="font-body normal-case">by</em> ${authorInfo.name} ${authorInfo.emoji}`,
-  };
-});
-
-// Alternate: speaker first, then post/treasure/post/treasure...
-const feedItems: typeof postItems = [];
-let tIdx = 0;
-let pIdx = 0;
-feedItems.push(treasures[tIdx++]);
-while (pIdx < postItems.length || tIdx < treasures.length) {
-  if (pIdx < postItems.length) feedItems.push(postItems[pIdx++]);
-  if (tIdx < treasures.length) feedItems.push(treasures[tIdx++]);
-}
-
 const { badge, title } = landing.data;
+
+// Two columns on desktop: a flexible main column and a newsletter-wide side column
+const columns = "lg:grid-cols-[minmax(0,1fr)_var(--container-sm)]";
 ---
 
 <BaseLayout title={title}>
   <SiteHeader />
   <main class="pb-12">
-    <!-- Welcome Section -->
-    <PageSection component="header">
-      <PageSectionHeader badge={badge} title={title} hLevel={1} />
-      <Prose>
-        <Content />
-      </Prose>
-    </PageSection>
+    <PageSection component="div" width="wide">
+      <!-- Welcome + newsletter -->
+      <header class:list={["grid gap-8 pt-6 lg:items-end lg:gap-12", columns]}>
+        <div>
+          {badge && <p class="qr-label m-0 text-plum-400">{badge}</p>}
+          <h1
+            class="font-heading mt-4 mb-0 text-[2.75rem] leading-[0.92] font-black tracking-[-0.04em] text-balance text-ink sm:text-[3.5rem] xl:text-[4.25rem]"
+          >
+            {title}
+          </h1>
+          <Prose
+            class="mt-6 prose-a:font-semibold [&>p:first-child]:text-xl [&>p:first-child]:leading-snug [&>p:first-child]:text-pretty [&>p:first-child]:text-plum-500 [&>p:first-child]:italic"
+          >
+            <Content />
+          </Prose>
+        </div>
 
-    <!-- Newsletter Section -->
-    <PageSection>
-      <Newsletter />
-    </PageSection>
+        <Newsletter />
+      </header>
 
-    <!-- Mixed Feed Section -->
-    <PageSection>
-      <ContentList
-        items={feedItems}
-        ctas={[
-          { to: "/posts/", label: "Read all posts" },
-          { to: "/speaker/", label: "See all talks" },
-        ]}
-      />
+      <hr class="ornamental-hr" />
+
+      <div class="flex flex-col gap-12">
+        {featuredPost && <FeaturedPost post={featuredPost} />}
+
+        <div class:list={["grid gap-12", columns]}>
+          <section>
+            <PageSectionHeader title="Latest Posts" />
+            <Posts posts={latestPosts} numbered />
+            <CtaButton to="/posts/" class="mt-10 flex">Read all posts</CtaButton>
+          </section>
+
+          <section>
+            <PageSectionHeader title="Treasures" />
+            <ul class="m-0 flex list-none flex-col gap-6 p-0">
+              {
+                treasures.map((treasure) => (
+                  <li>
+                    <TreasureCard {...treasure} />
+                  </li>
+                ))
+              }
+            </ul>
+            <CtaButton to="/speaker/" class="mt-10 flex">See all talks</CtaButton>
+          </section>
+        </div>
+      </div>
     </PageSection>
   </main>
 </BaseLayout>
