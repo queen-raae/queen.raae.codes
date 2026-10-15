@@ -446,8 +446,10 @@
   margin-bottom: 0;
 }
 
-/* Nor does the last item of a list that ends a prose block */
-.prose > :is(ul, ol):last-child > li:last-child {
+/* Nor does the last item of a list that ends a prose block, or an image (linked or not) that ends it */
+.prose > :is(ul, ol):last-child > li:last-child,
+.prose > p:last-child > img:last-child,
+.prose > p:last-child > a:last-child > img:last-child {
   margin-bottom: 0;
 }
 
@@ -487,5 +489,16 @@
   .ornamental-hr,
   .prose hr {
     margin: 2rem 0;
+  }
+}
+
+/* Reduced motion: hover lifts and nudges happen without the slide */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
   }
 }

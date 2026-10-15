@@ -99,13 +99,16 @@ const longestTitleRun = Math.max(
     .split(/[\s/-]+/)
     .map((run) => run.length),
 );
-// Same size tiers as PageSectionHeader: long titles step down so they don't run to 6+ lines on phones
-const titleSize =
-  post.title.length > 60
-    ? "text-[1.75rem] sm:text-[2.6rem]"
+// Same size tiers as PageSectionHeader: long titles step down so they don't run to 6+ lines on phones or 5 on desktop
+const phoneTitleSize =
+  post.title.length > 60 || longestTitleRun >= 16
+    ? "text-[1.8rem]"
     : post.title.length > 40 || longestTitleRun >= 13
-      ? "text-[2rem] sm:text-[3.1rem]"
-      : "text-[2.4rem] sm:text-[3.1rem]";
+      ? "text-[2rem]"
+      : "text-[2.4rem]";
+const desktopTitleSize =
+  post.title.length > 90 ? "sm:text-[2.2rem]" : post.title.length > 60 ? "sm:text-[2.6rem]" : "sm:text-[3.1rem]";
+const titleSize = `${phoneTitleSize} ${desktopTitleSize}`;
 const titleHtml = withSoftBreaks(
   post.title.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"),
   "<wbr>",

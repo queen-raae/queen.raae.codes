@@ -93,14 +93,17 @@ const columns = "lg:grid-cols-[minmax(0,1fr)_var(--container-sm)]";
       <div class="flex flex-col gap-12">
         {featuredPost && <FeaturedPost post={featuredPost} />}
 
+        <!-- Both columns end on their button; mt-auto keeps the two buttons level side by side -->
         <div class:list={["grid gap-12", columns]}>
-          <section>
+          <section class="flex flex-col">
             <PageSectionHeader title="Latest Posts" />
             <Posts posts={latestPosts} numbered />
-            <CtaButton to="/posts/" class="mt-10 flex">Read all posts</CtaButton>
+            <div class="mt-auto pt-10">
+              <CtaButton to="/posts/" class="flex">Read all posts</CtaButton>
+            </div>
           </section>
 
-          <section>
+          <section class="flex flex-col">
             <PageSectionHeader title="Treasures" />
             <ul class="m-0 grid list-none gap-6 p-0 sm:grid-cols-2 lg:grid-cols-1">
               {
@@ -111,7 +114,9 @@ const columns = "lg:grid-cols-[minmax(0,1fr)_var(--container-sm)]";
                 ))
               }
             </ul>
-            <CtaButton to="/speaker/" class="mt-10 flex">See all talks</CtaButton>
+            <div class="mt-auto pt-10">
+              <CtaButton to="/speaker/" class="flex">See all talks</CtaButton>
+            </div>
           </section>
         </div>
       </div>

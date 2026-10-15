@@ -11,7 +11,8 @@ import Newsletter from "../../components/Newsletter.astro";
 const quote = "[&>blockquote]:my-0!";
 
 const title = "Develop and deploy a pay-what-you-want feature with Stripe";
-const titleHtml = title.replace("pay-what-you-want", '<span class="sm:whitespace-nowrap">pay-what-you-want</span>');
+// From 375px the phrase fits on one line: inline-block keeps it together there (and wraps instead of overflowing if not)
+const titleHtml = title.replace("pay-what-you-want", '<span class="min-[375px]:inline-block">pay-what-you-want</span>');
 const seoTitle = "Develop and deploy a pay-what-you-want feature with Stripe";
 const description =
   "Gatsby Mini Bootcamp with Queen Raae -- a webinar + q&a session + forum + co-working + code sample combo.";

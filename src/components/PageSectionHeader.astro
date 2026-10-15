@@ -29,16 +29,20 @@ function getTag(type: string, baseLevel: number): string {
 function getTitleClass(level: number, text = ""): string {
   // Visual styling based on the section's hLevel (not the actual tag)
   if (level === 1) {
-    // Long titles step down so they don't run to 6+ lines on phones (or 4–5 on desktop)
+    // Long titles step down so they don't run to 6+ lines on phones or 5 on desktop.
+    // A long word (e.g. "pay-what-you-want") needs the small phone size to fit on one line.
+    // The smallest h1 size matches the h2 (1.8rem), so an h1 is never smaller than an h2.
     const plain = text.replace(/<[^>]*>/g, "").trim();
     const longestWord = Math.max(0, ...plain.split(/\s+/).map((word) => word.length));
-    const size =
-      plain.length > 60
-        ? "text-[1.75rem] sm:text-[2.6rem]"
+    const phoneSize =
+      plain.length > 60 || longestWord >= 16
+        ? "text-[1.8rem]"
         : plain.length > 40 || longestWord >= 13
-          ? "text-[2rem] sm:text-[3.1rem]"
-          : "text-[2.4rem] sm:text-[3.1rem]";
-    return `font-heading ${size} font-black leading-[0.98] tracking-[-0.04em] mt-4 mb-6 text-ink text-balance break-words`;
+          ? "text-[2rem]"
+          : "text-[2.4rem]";
+    const desktopSize =
+      plain.length > 90 ? "sm:text-[2.2rem]" : plain.length > 60 ? "sm:text-[2.6rem]" : "sm:text-[3.1rem]";
+    return `font-heading ${phoneSize} ${desktopSize} font-black leading-[0.98] tracking-[-0.04em] mt-4 mb-6 text-ink text-balance break-words`;
   }
   // One h2 size across the site (matches prose h2 in tailwind.config.js)
   return "font-heading text-[1.8rem] font-black leading-[1.05] tracking-[-0.025em] mt-0 mb-6 text-ink text-balance break-words";

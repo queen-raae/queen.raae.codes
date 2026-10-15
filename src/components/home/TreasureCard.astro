@@ -30,7 +30,7 @@ const kickerParts = kicker.split(/(\S+-\S+)/).filter(Boolean);
   target={isExternal ? "_blank" : undefined}
   rel={isExternal ? "noreferrer" : undefined}
   class:list={[
-    "treasure-card qr-card-link group flex flex-col gap-2 p-5 sm:p-6",
+    "treasure-card qr-card-link group flex h-full flex-col gap-2 p-5 sm:p-6",
     spark && "border-t-8 border-t-orangered",
     className,
   ]}

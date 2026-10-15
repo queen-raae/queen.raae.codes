@@ -17,9 +17,10 @@ const quote = "max-w-none [&>blockquote]:my-0!";
 const sizes = "(min-width: 800px) 684px, calc(100vw - 32px)";
 
 const title = "Transform yourself from a friendly frontend engineer to a proper princess-life-saving skill builder";
+// From 375px the phrase fits on one line: inline-block keeps it together there (and wraps instead of overflowing if not)
 const titleHtml = title.replace(
   "princess-life-saving",
-  '<span class="sm:whitespace-nowrap">princess-life-saving</span>',
+  '<span class="min-[375px]:inline-block">princess-life-saving</span>',
 );
 const description =
   "Ruby's TimeShip - A story by @OlaHolstVea about skill building, time travel, and saving a princess.";
