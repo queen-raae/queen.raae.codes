@@ -18,7 +18,7 @@ const blocks = [
   { type: "tagline", children: tagline },
 ].filter((block) => Boolean(block.children));
 
-function getTag(type: string, index: number, baseLevel: number): string {
+function getTag(type: string, baseLevel: number): string {
   // Title is the only heading — the actual page/section topic
   if (type === "title") return `h${baseLevel}`;
   // Badge is a navigational label (e.g. "Author", "Speaker"), not structural
@@ -29,25 +29,18 @@ function getTag(type: string, index: number, baseLevel: number): string {
 function getTitleClass(level: number): string {
   // Visual styling based on the section's hLevel (not the actual tag)
   if (level === 1) {
-    return "text-[2.75rem] font-black leading-none my-9 text-plum-900 text-balance";
+    return "font-heading text-[2.4rem] sm:text-[3.1rem] font-black leading-[0.98] tracking-[-0.04em] mt-4 mb-6 text-ink text-balance";
   }
-  return "text-3xl font-black leading-none my-8 text-plum-900";
+  return "font-heading text-[1.7rem] sm:text-[2rem] font-black leading-[1.05] tracking-[-0.025em] mt-2 mb-6 text-ink text-balance";
 }
 ---
 
 {
-  blocks.map((block, index) => {
-    const Tag = getTag(block.type, index, hLevel) as any;
+  blocks.map((block) => {
+    const Tag = getTag(block.type, hLevel) as any;
 
     if (block.type === "badge") {
-      return (
-        <Tag
-          class:list={["text-xs uppercase leading-none text-plum-400 my-7", className]}
-          style="font-family: var(--font-label); letter-spacing: 0.15em;"
-        >
-          {block.children}
-        </Tag>
-      );
+      return <Tag class:list={["qr-label mt-6 mb-0 text-plum-400", className]}>{block.children}</Tag>;
     }
 
     if (block.type === "title") {
@@ -56,7 +49,7 @@ function getTitleClass(level: number): string {
           {block.path ? (
             <a
               href={block.path}
-              class="text-inherit underline decoration-transparent transition hover:decoration-amber-600"
+              class="text-inherit no-underline decoration-orangered decoration-[3px] underline-offset-[6px] hover:underline"
             >
               <Fragment set:html={block.children} />
             </a>
@@ -69,12 +62,14 @@ function getTitleClass(level: number): string {
 
     if (block.type === "lead") {
       return (
-        <Tag class:list={["text-lg font-medium leading-snug my-4 text-plum-500", className]}>{block.children}</Tag>
+        <Tag class:list={["font-body my-4 text-xl leading-snug text-plum-500 italic text-pretty", className]}>
+          {block.children}
+        </Tag>
       );
     }
 
     if (block.type === "tagline") {
-      return <Tag class:list={["my-2 text-plum-900", className]}>{block.children}</Tag>;
+      return <Tag class:list={["my-2 text-ink", className]}>{block.children}</Tag>;
     }
 
     return null;

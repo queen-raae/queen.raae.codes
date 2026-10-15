@@ -13,7 +13,7 @@ interface Props {
 const { items = [], class: className } = Astro.props;
 ---
 
-<nav aria-label="breadcrumb" class={className} style="font-family: var(--font-label); letter-spacing: 0.08em;">
+<nav aria-label="breadcrumb" class:list={["qr-label", className]}>
   {
     items.map(({ label, to, datetime }, index) => {
       const isLast = index + 1 === items.length;
@@ -22,15 +22,12 @@ const { items = [], class: className } = Astro.props;
         return (
           <a
             href={to}
-            class:list={[
-              "text-xs uppercase leading-none inline-block group",
-              isLast ? "text-plum-900 font-light" : "text-plum-500 font-base",
-            ]}
+            class:list={["inline-block leading-none no-underline group", isLast ? "text-ink" : "text-plum-500"]}
           >
-            <span class="group-hover:underline">{label}</span>
+            <span class="decoration-orangered decoration-2 underline-offset-4 group-hover:underline">{label}</span>
             {!isLast && (
-              <span aria-hidden="true" class="px-2">
-                ·
+              <span aria-hidden="true" class="px-2 text-gold-deep">
+                /
               </span>
             )}
           </a>
@@ -38,16 +35,11 @@ const { items = [], class: className } = Astro.props;
       }
 
       return (
-        <span
-          class:list={[
-            "text-xs uppercase leading-none inline-block",
-            isLast ? "text-plum-900 font-light" : "text-plum-500 font-base",
-          ]}
-        >
-          {datetime ? <time timedate={datetime}>{label}</time> : <span>{label}</span>}
+        <span class:list={["inline-block leading-none", isLast ? "text-ink" : "text-plum-500"]}>
+          {datetime ? <time datetime={datetime}>{label}</time> : <span>{label}</span>}
           {!isLast && (
-            <span aria-hidden="true" class="px-2">
-              ·
+            <span aria-hidden="true" class="px-2 text-gold-deep">
+              /
             </span>
           )}
         </span>

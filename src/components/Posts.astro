@@ -1,6 +1,5 @@
 ---
 import ContentList from "./ContentList.astro";
-import Badge from "./Badge.astro";
 import { getAuthorInfo, type ProcessedPost } from "../lib/posts";
 
 interface Props {
@@ -8,10 +7,11 @@ interface Props {
   more?: boolean;
   variant?: "default" | "detailed";
   limit?: number;
+  numbered?: boolean;
   class?: string;
 }
 
-const { posts = [], more = false, variant = "default", limit, class: className } = Astro.props;
+const { posts = [], more = false, variant = "default", limit, numbered = false, class: className } = Astro.props;
 
 const displayPosts = limit ? posts.slice(0, limit) : posts;
 
@@ -21,15 +21,12 @@ const items = displayPosts.map(({ title, description, slug, dateFormatted, tags,
 
   if (variant === "detailed") {
     const tagBadges = tags
-      .map(
-        ({ label }) =>
-          `<span class="inline-flex items-center font-semibold text-plum-500 uppercase" style="font-family: var(--font-label); letter-spacing: 0.1em; font-size: 0.65rem;"><span class="text-amber-500">#</span>${label}</span>`,
-      )
+      .map(({ label }) => `<span class="qr-label text-plum-500"><span class="text-gold-deep">#</span>${label}</span>`)
       .join(" ");
 
     body = `
-      <p class="my-2 text-sm">${description}</p>
-      <aside class="my-0 space-x-3">${tagBadges}</aside>
+      <p class="my-1 text-[0.95rem] leading-normal">${description}</p>
+      <aside class="my-0 flex flex-wrap gap-x-3">${tagBadges}</aside>
     `;
   }
 
@@ -37,11 +34,11 @@ const items = displayPosts.map(({ title, description, slug, dateFormatted, tags,
     to: slug,
     primary: title,
     body: variant === "detailed" ? body : undefined,
-    secondary: `${dateFormatted} ${authorInfo.emoji} ${authorInfo.name}`,
+    secondary: `${dateFormatted} <em>by</em> ${authorInfo.name} ${authorInfo.emoji}`,
   };
 });
 
-const ctas = more ? [{ to: "/posts/", label: "More..." }] : [];
+const ctas = more ? [{ to: "/posts/", label: "All posts" }] : [];
 ---
 
-<ContentList items={items} ctas={ctas} class={className} />
+<ContentList items={items} ctas={ctas} numbered={numbered} class={className} />

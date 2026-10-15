@@ -8,6 +8,12 @@
 
 @config '../tailwind.config.js';
 
+/*
+  Royal Brutalism v3 — design tokens
+  Plum frames, orangered sparks, gold is jewellery.
+  Square corners, 2px ink edges, hard shadows only on things you can click.
+  Gold and orangered never fill a card.
+*/
 @theme {
   --color-brown-50: #fbf6f5;
   --color-brown-100: #f6ecea;
@@ -20,7 +26,7 @@
   --color-brown-800: #76463e;
   --color-brown-900: #3e2723;
 
-  /* Plum palette — Bridgerton royal design */
+  /* Plum palette — the frame. 900 is the ink, 500 the brand plum, 400 faded plum, 200 blush */
   --color-plum-50: #fdf6f9;
   --color-plum-100: #f8e8f0;
   --color-plum-200: #f0c4d8;
@@ -32,10 +38,31 @@
   --color-plum-800: #4a1638;
   --color-plum-900: #3d1230;
 
-  /* Font families — two-font system */
+  /* Named roles */
+  --color-ink: #3d1230;
+  --color-cream: #fdf6ec;
+  --color-paper: #fffaf2;
+  --color-blush: #f0c4d8;
+  --color-orangered: #ff4500;
+  --color-ember: #c23400;
+  --color-gold: #fbbf24;
+  --color-gold-deep: #d97706;
+
+  /* Three voices: headlines, labels, reading */
   --font-heading: "Montserrat", system-ui, sans-serif;
-  --font-label: "Montserrat", system-ui, sans-serif;
-  --font-body: "Lora", Georgia, serif;
+  --font-label: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-body: "Newsreader", Georgia, serif;
+
+  /* Hard shadows — only for things you can click */
+  --shadow-brutal-sm: 3px 3px 0 0 #3d1230;
+  --shadow-brutal: 4px 4px 0 0 #3d1230;
+  --shadow-brutal-lg: 6px 6px 0 0 #3d1230;
+}
+
+:root {
+  /* Fleur-de-lis, drawn on a 24px grid so it looks the same in every font */
+  --qr-lily-gold: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23d97706'%3E%3Cpath d='M12 1l3.5 6-2 6h-3l-2-6z'/%3E%3Cpath d='M10 13L6 6 1.5 8v4.5L5 11l2.5 2z'/%3E%3Cpath d='M14 13l4-7 4.5 2v4.5L19 11l-2.5 2z'/%3E%3Crect x='6' y='13.5' width='12' height='2.5'/%3E%3Cpath d='M10.5 16.5h3L12 22z'/%3E%3Cpath d='M7 16.5h3L6 21l-2.5-1.5z'/%3E%3Cpath d='M17 16.5h-3l4 4.5 2.5-1.5z'/%3E%3C/svg%3E");
+  --qr-lily-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Cpath d='M12 1l3.5 6-2 6h-3l-2-6z'/%3E%3Cpath d='M10 13L6 6 1.5 8v4.5L5 11l2.5 2z'/%3E%3Cpath d='M14 13l4-7 4.5 2v4.5L19 11l-2.5 2z'/%3E%3Crect x='6' y='13.5' width='12' height='2.5'/%3E%3Cpath d='M10.5 16.5h3L12 22z'/%3E%3Cpath d='M7 16.5h3L6 21l-2.5-1.5z'/%3E%3Cpath d='M17 16.5h-3l4 4.5 2.5-1.5z'/%3E%3C/svg%3E");
 }
 
 /*
@@ -57,6 +84,9 @@
 
   body {
     font-family: var(--font-body);
+    font-optical-sizing: auto;
+    background-color: var(--color-cream);
+    color: var(--color-ink);
     -webkit-font-smoothing: antialiased;
   }
 
@@ -68,6 +98,184 @@
   h6 {
     font-family: var(--font-heading);
   }
+
+  ::selection {
+    background-color: var(--color-gold);
+    color: var(--color-ink);
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  summary:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 3px solid var(--color-orangered);
+    outline-offset: 3px;
+  }
+}
+
+/* ── Shared building blocks (utilities still win over these) ── */
+@layer components {
+  /* Mono caps label: eyebrows, kickers, meta, button text */
+  .qr-label {
+    font-family: var(--font-label);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    line-height: 1.3;
+    text-transform: uppercase;
+  }
+
+  /* Meta line under list titles: mono caps with a serif italic "by" */
+  .qr-meta {
+    font-family: var(--font-label);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    line-height: 1.4;
+    text-transform: uppercase;
+    color: var(--color-plum-400);
+  }
+  .qr-meta em,
+  .qr-label em {
+    font-family: var(--font-body);
+    font-size: 1.2em;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  /* Buttons: square, 2px ink edge, hard shadow, lift on hover, press flat */
+  .qr-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    min-height: 2.75rem;
+    padding: 0.55rem 1.15rem;
+    border: 2px solid var(--color-ink);
+    border-radius: 0;
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    box-shadow: var(--shadow-brutal);
+    font-family: var(--font-label);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    line-height: 1.2;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      transform 0.08s ease,
+      box-shadow 0.08s ease,
+      background-color 0.08s ease;
+  }
+  .qr-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-brutal-lg);
+    background-color: var(--color-gold);
+    color: var(--color-ink);
+  }
+  .qr-btn:active {
+    transform: translate(4px, 4px);
+    box-shadow: none;
+  }
+  .qr-btn:focus-visible {
+    outline: 3px solid var(--color-orangered);
+    outline-offset: 3px;
+  }
+  .qr-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+    transform: none;
+    box-shadow: var(--shadow-brutal);
+  }
+  .qr-btn--primary,
+  .qr-btn--primary:hover {
+    background-color: var(--color-plum-500);
+    color: var(--color-cream);
+  }
+  .qr-btn--cta,
+  .qr-btn--cta:hover {
+    background-color: var(--color-orangered);
+    color: var(--color-ink);
+  }
+
+  /* Square icon button (search) */
+  .qr-icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 2px solid var(--color-ink);
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    box-shadow: var(--shadow-brutal-sm);
+    transition:
+      transform 0.08s ease,
+      box-shadow 0.08s ease,
+      background-color 0.08s ease;
+  }
+  .qr-icon-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-brutal);
+    background-color: var(--color-gold);
+  }
+  .qr-icon-btn:active {
+    transform: translate(3px, 3px);
+    box-shadow: none;
+  }
+
+  /* Cards: paper with an ink edge. Never gold or orangered fill. */
+  .qr-card {
+    background-color: var(--color-paper);
+    border: 2px solid var(--color-ink);
+  }
+  /* A card you can click gets the shadow and the lift */
+  .qr-card-link {
+    display: block;
+    background-color: var(--color-paper);
+    border: 2px solid var(--color-ink);
+    box-shadow: var(--shadow-brutal);
+    color: var(--color-ink);
+    text-decoration: none;
+    transition:
+      transform 0.08s ease,
+      box-shadow 0.08s ease;
+  }
+  .qr-card-link:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-brutal-lg);
+  }
+  .qr-card-link:active {
+    transform: translate(4px, 4px);
+    box-shadow: none;
+  }
+
+  /* Inline links outside prose: ink text, orangered underline, gold on hover */
+  .qr-link {
+    color: var(--color-ink);
+    text-decoration-line: underline;
+    text-decoration-color: var(--color-orangered);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+    transition: background-color 0.08s ease;
+  }
+  .qr-link:hover {
+    background-color: var(--color-gold);
+    text-decoration-color: var(--color-ink);
+  }
+
+  /* Fleur-de-lis as an inline mark, coloured by currentColor */
+  .qr-lily {
+    display: inline-block;
+    width: 0.9em;
+    height: 0.9em;
+    vertical-align: -0.08em;
+    background-color: currentColor;
+    -webkit-mask: var(--qr-lily-mask) center / contain no-repeat;
+    mask: var(--qr-lily-mask) center / contain no-repeat;
+  }
 }
 
 .mermaid {
@@ -78,93 +286,129 @@
   @apply max-w-full;
 }
 
-/* ── Ornamental HR ── */
+/* ── Ornamental divider: rule — lily — 👑 — lily — rule ── */
 .ornamental-hr,
 .prose hr {
   border: none;
-  text-align: center;
-  margin: 2.5rem 0;
-  color: var(--color-amber-500);
-  font-size: 1.25rem;
-  letter-spacing: 0.75rem;
+  height: 1.5rem;
+  margin: 3rem 0;
   overflow: visible;
-  height: auto;
+  text-align: center;
+  background:
+    var(--qr-lily-gold) calc(50% - 2.1rem) 50% / 1.1rem 1.1rem no-repeat,
+    var(--qr-lily-gold) calc(50% + 2.1rem) 50% / 1.1rem 1.1rem no-repeat,
+    linear-gradient(var(--color-ink), var(--color-ink)) 0 50% / calc(50% - 3.5rem) 2px no-repeat,
+    linear-gradient(var(--color-ink), var(--color-ink)) 100% 50% / calc(50% - 3.5rem) 2px no-repeat;
 }
 
 .ornamental-hr::after,
 .prose hr::after {
-  content: "⚜  👑  ⚜";
-}
-
-/* ── Blockquote: Short Centered ── */
-.prose blockquote.quote--short {
-  border: none;
-  text-align: center;
-  margin: 2.5rem 0;
-  padding: 0 1rem;
-  position: relative;
-  background: none;
-}
-
-.prose blockquote.quote--short::before {
-  content: "⚜";
+  content: "👑";
   display: block;
-  font-size: 1rem;
-  color: var(--color-amber-500);
-  margin-bottom: 0.65rem;
+  font-size: 1.2rem;
+  line-height: 1.5rem;
+}
+
+/* ── Blockquotes: ink rules above and below, a big orangered quote mark ── */
+.prose blockquote {
+  position: relative;
+  margin: 2.25rem 0;
+  padding: 1.1rem 0 1.1rem 3.1rem;
+  border: none;
+  border-top: 4px solid var(--color-ink);
+  border-bottom: 2px solid var(--color-ink);
+  background: none;
   font-style: normal;
 }
 
-.prose blockquote.quote--short p {
+.prose blockquote::before {
+  content: "\201C";
+  position: absolute;
+  left: 0;
+  top: 0.55rem;
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 3.6rem;
+  line-height: 1;
+  color: var(--color-orangered);
+}
+
+.prose blockquote p {
   font-family: var(--font-body);
   font-style: italic;
-  font-weight: 500;
-  font-size: 1.4rem;
-  line-height: 1.4;
-  color: var(--color-plum-800);
+  color: var(--color-plum-500);
   margin: 0;
+}
+
+.prose blockquote p + p {
+  margin-top: 0.75em;
+}
+
+.prose blockquote p:first-of-type::before,
+.prose blockquote p:last-of-type::after {
+  content: none;
+}
+
+/* Short quotes: centred, bigger, a lily instead of the quote mark */
+.prose blockquote.quote--short {
+  text-align: center;
+  padding: 1.5rem 1rem 1.25rem;
+}
+
+.prose blockquote.quote--short::before {
+  content: "";
+  position: static;
+  display: block;
+  width: 1.1rem;
+  height: 1.1rem;
+  margin: 0 auto 0.75rem;
+  background: var(--qr-lily-gold) center / contain no-repeat;
+}
+
+.prose blockquote.quote--short p {
+  font-weight: 500;
+  font-size: 1.45rem;
+  line-height: 1.35;
+}
+
+.prose blockquote.quote--long p {
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.prose cite {
+  display: block;
+  margin-top: 0.6rem;
+  font-family: var(--font-label);
+  font-size: 0.68rem;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-plum-400);
+}
+
+.prose cite::before {
+  content: "— ";
 }
 
 .prose blockquote.quote--short cite {
   text-align: center;
 }
 
-/* ── Blockquote: Long Left-aligned ── */
-.prose blockquote.quote--long {
-  border: none;
+/* ── Editorial notes inside posts (<aside class="notice">) ── */
+.prose aside.notice {
   margin: 2rem 0;
-  padding-left: 2rem;
-  position: relative;
-  background: none;
+  padding: 0.9rem 1.2rem;
+  border: 2px solid var(--color-ink);
+  background-color: var(--color-paper);
+  font-size: 0.95em;
 }
 
-.prose blockquote.quote--long::before {
-  content: "⚜";
-  position: absolute;
-  left: 0;
-  top: 0.15rem;
-  font-size: 1.1rem;
-  color: var(--color-amber-500);
-  font-style: normal;
+.prose aside.notice > :first-child {
+  margin-top: 0;
 }
 
-.prose blockquote.quote--long p {
-  font-family: var(--font-body);
-  font-style: italic;
-  font-weight: 400;
-  font-size: 1.05rem;
-  line-height: 1.6;
-  color: var(--color-plum-800);
-  margin: 0;
-}
-
-.prose cite {
-  @apply block text-sm mt-2 not-italic;
-  @apply before:content-['—'] before:mr-2;
-  font-family: var(--font-heading);
-  font-size: 0.65rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--color-plum-400);
+.prose aside.notice > :last-child {
+  margin-bottom: 0;
 }

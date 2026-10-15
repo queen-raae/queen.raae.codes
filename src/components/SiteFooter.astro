@@ -1,0 +1,41 @@
+---
+import siteMetadata from "../data/siteMetadata";
+
+function socialLabel(url: string) {
+  if (url.includes("github")) return "GitHub";
+  if (url.includes("twitter") || url.includes("x.com")) return "Twitter";
+  if (url.includes("youtube")) return "YouTube";
+  return url.replace(/^https?:\/\//, "");
+}
+
+const links = [
+  { label: "RSS", href: "/posts/rss.xml", external: false },
+  ...siteMetadata.siteSocialMedia.map((url) => ({ label: socialLabel(url), href: url, external: true })),
+];
+---
+
+<footer class="mt-auto border-t-8 border-plum-500 bg-ink text-cream">
+  <div class="mx-auto flex max-w-6xl flex-col gap-5 px-4 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+    <p class="qr-label m-0 flex items-center gap-3 text-cream">
+      <span class="text-2xl leading-none" aria-hidden="true">👑</span>
+      <span>Queen Raae 👑 · Cap'n Ola 🏴‍☠️ · Jean-Claw 🦀</span>
+    </p>
+
+    <ul class="m-0 flex list-none flex-wrap gap-x-5 gap-y-2 p-0">
+      {
+        links.map(({ label, href, external }) => (
+          <li>
+            <a
+              href={href}
+              target={external ? "_blank" : undefined}
+              rel={external ? "noreferrer" : undefined}
+              class="qr-label text-cream underline decoration-orangered decoration-2 underline-offset-4 transition-colors hover:text-gold"
+            >
+              {label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</footer>

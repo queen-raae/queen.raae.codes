@@ -1,6 +1,7 @@
 ---
 import siteMetadata from "../data/siteMetadata.js";
 import "../global.css";
+import SiteFooter from "../components/SiteFooter.astro";
 
 interface RssFeed {
   title: string;
@@ -19,21 +20,27 @@ interface Props {
   children?: any;
 }
 
-const { title, description, image, imageAlt, type = "website", creator, canonical: canonicalProp, feeds = [] } = Astro.props;
+const {
+  title,
+  description,
+  image,
+  imageAlt,
+  type = "website",
+  creator,
+  canonical: canonicalProp,
+  feeds = [],
+} = Astro.props;
 
 // Always include the main feed, plus any page-specific feeds
-const allFeeds: RssFeed[] = [
-  { title: "All Posts — Queen Raae & Family", href: "/posts/rss.xml" },
-  ...feeds,
-];
+const allFeeds: RssFeed[] = [{ title: "All Posts — Queen Raae & Family", href: "/posts/rss.xml" }, ...feeds];
 
 const { siteName, siteTagline, siteDescription, siteUrl, siteSocialImage, siteSocialImageAlt, siteTwitterCreator } =
   siteMetadata;
 
 const deployUrl =
   import.meta.env.CONTEXT === "production"
-    ? (import.meta.env.URL || siteUrl)
-    : (import.meta.env.DEPLOY_PRIME_URL || siteUrl);
+    ? import.meta.env.URL || siteUrl
+    : import.meta.env.DEPLOY_PRIME_URL || siteUrl;
 const siteTitle = `${siteName} — ${siteTagline}`;
 const pageTitle = title ? `${title}  —  ${siteName}` : siteTitle;
 const pageImage = image || siteSocialImage;
@@ -78,14 +85,12 @@ const twitterCard = "summary_large_image";
     {socialImage && <meta name="twitter:image:src" content={socialImage} />}
     {socialImageAlt && <meta name="twitter:image:alt" content={socialImageAlt} />}
 
-    {allFeeds.map(feed => (
-      <link rel="alternate" type="application/rss+xml" title={feed.title} href={feed.href} />
-    ))}
+    {allFeeds.map((feed) => <link rel="alternate" type="application/rss+xml" title={feed.title} href={feed.href} />)}
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400..900;1,400..900&family=Lora:ital,wght@0,400..700;1,400..700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400..900;1,400..900&family=JetBrains+Mono:wght@400..800&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap"
       rel="stylesheet"
     />
 
@@ -119,9 +124,10 @@ const twitterCard = "summary_large_image";
       mermaid.run();
     </script>
   </head>
-  <body class="bg-plum-800 selection:bg-amber-300 text-plum-900">
-    <div class="bg-[#fdf6ec]">
+  <body class="bg-cream text-ink">
+    <div class="flex min-h-screen flex-col">
       <slot />
+      <SiteFooter />
     </div>
   </body>
 </html>

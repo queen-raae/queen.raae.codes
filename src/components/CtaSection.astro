@@ -8,24 +8,22 @@ interface Props {
   note?: string;
   noteTitle?: string;
   class?: string;
+  /** Passed through to CtaButton: secondary (default), primary, or cta (max one per page) */
+  variant?: "secondary" | "primary" | "cta";
 }
 
-const { href, to, label, note, noteTitle, class: className } = Astro.props;
-
-if (!label || (!href && !to)) {
-  // Return nothing if no label or link
-}
+const { href, to, label, note, noteTitle, class: className, variant } = Astro.props;
 ---
 
 {
   label && (href || to) && (
     <div class={className}>
-      <CtaButton href={href} to={to}>
+      <CtaButton href={href} to={to} variant={variant}>
         {label}
       </CtaButton>
 
-      {noteTitle && <p class="text-xs pl-0.5 font-semibold my-2">{noteTitle}</p>}
-      {note && <p class="text-xs pl-0.5 my-2">{note}</p>}
+      {noteTitle && <p class="qr-label mt-4 mb-1 text-ink">{noteTitle}</p>}
+      {note && <p class="font-body my-1 text-[0.95rem] text-plum-500 italic">{note}</p>}
     </div>
   )
 }
