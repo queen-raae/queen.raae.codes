@@ -15,17 +15,6 @@
   Gold and orangered never fill a card.
 */
 @theme {
-  --color-brown-50: #fbf6f5;
-  --color-brown-100: #f6ecea;
-  --color-brown-200: #f0dcd8;
-  --color-brown-300: #e4c3bd;
-  --color-brown-400: #d2a097;
-  --color-brown-500: #bf7f74;
-  --color-brown-600: #a96559;
-  --color-brown-700: #8d5248;
-  --color-brown-800: #76463e;
-  --color-brown-900: #3e2723;
-
   /* Plum palette — the frame. 900 is the ink, 500 the brand plum, 400 faded plum, 200 blush */
   --color-plum-50: #fdf6f9;
   --color-plum-100: #f8e8f0;
@@ -82,12 +71,8 @@
 }
 
 /*
-  The default border color has changed to `currentcolor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
+  Tailwind v4 defaults border colours to `currentcolor`. In this design every edge is ink,
+  so a border without an explicit colour falls back to ink.
 */
 @layer base {
   *,
@@ -95,7 +80,7 @@
   ::before,
   ::backdrop,
   ::file-selector-button {
-    border-color: var(--color-gray-200, currentcolor);
+    border-color: var(--color-ink, currentcolor);
   }
 
   body {
