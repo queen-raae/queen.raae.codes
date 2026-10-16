@@ -95,7 +95,7 @@ const schema = {
       {post.lang === "no" && <span class="label label--panel">På norsk</span>}
       {post.draft && <span class="label label--outline">Draft</span>}
       <time datetime={post.date}>{post.dateLong}</time>
-      <span>{post.readingMinutes} min read</span>
+      {post.wordCount > 0 && <span>{post.readingMinutes} min read</span>}
       {
         !isQueen && (
           <span>
@@ -158,15 +158,28 @@ const schema = {
       }
 
       {
-        post.url && (
-          <p class="mono">
-            <a href={post.url} target="_blank" rel="noopener">
-              {post.type === "Book" ? "The book" : post.type === "Podcast" ? "The episode" : "The link"}
-              {post.creator && <> · {post.creator}</>}
-              <ExtIcon />
-            </a>
-          </p>
-        )
+        post.url &&
+          (post.type === "Press" ? (
+            <aside class="cross">
+              <div class="flex-[1_1_320px] flex flex-col gap-2.5 items-start">
+                <span class="mono label">{post.outlet ?? new URL(post.url).hostname}</span>
+                <span class="text-[17px] leading-normal" lang={post.lang === "no" ? "nb" : undefined}>
+                  {post.title}
+                </span>
+              </div>
+              <a class="btn btn-ink btn--sm" href={post.url} target="_blank" rel="noopener">
+                Read it <ExtIcon />
+              </a>
+            </aside>
+          ) : (
+            <p class="mono">
+              <a href={post.url} target="_blank" rel="noopener">
+                {post.type === "Book" ? "The book" : post.type === "Podcast" ? "The episode" : "The link"}
+                {post.creator && <> · {post.creator}</>}
+                <ExtIcon />
+              </a>
+            </p>
+          ))
       }
 
       <Content />

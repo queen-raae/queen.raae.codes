@@ -1,32 +1,22 @@
 ---
-import { getCollection } from "astro:content";
-import { format } from "date-fns";
 import LogLayout from "../../layouts/LogLayout.astro";
 import TitleBlock from "../../components/log/TitleBlock.astro";
 import Divider from "../../components/log/Divider.astro";
 import SectionBar from "../../components/log/SectionBar.astro";
-import ExtIcon from "../../components/log/ExtIcon.astro";
+import { getAllPosts, groupByYear } from "../../lib/posts";
 
 const TITLE = "Press";
 const DESCRIPTION = "Articles about Queen Raae and podcasts she's been a guest on.";
 
-const items = (await getCollection("press"))
-  .flatMap((file) => file.data)
-  .sort((a, b) => b.date.getTime() - a.date.getTime());
-
-const byYear = new Map<string, typeof items>();
-for (const item of items) {
-  const year = String(item.date.getFullYear());
-  byYear.set(year, [...(byYear.get(year) ?? []), item]);
-}
-const years = Array.from(byYear.entries());
+// Press items are log entries with type "Press"
+const years = groupByYear((await getAllPosts()).filter((post) => post.type === "Press"));
 const pad = (n: number) => String(n).padStart(2, "0");
 ---
 
 <LogLayout title={TITLE} description={DESCRIPTION}>
   <TitleBlock
     label="Elsewhere"
-    lead="Things other people wrote or recorded with me in them. Talks have their own page."
+    lead="Things other people wrote or recorded with me in them. They live in the log too. Talks have their own page."
   >
     In the <span class="acid">press</span>.
     <div slot="after" class="flex gap-3 flex-wrap">
@@ -37,27 +27,25 @@ const pad = (n: number) => String(n).padStart(2, "0");
   <Divider />
 
   {
-    years.map(([year, yearItems], index) => (
+    years.map(({ year, posts }, index) => (
       <section id={`y${year}`} class="ruled flex flex-col">
         <SectionBar num={pad(index + 1)} title={year} />
-        {yearItems.map((item) => (
-          <a class="row" href={item.url} target="_blank" rel="noopener" lang={item.lang === "no" ? "nb" : undefined}>
-            <time class="mono row-date" datetime={item.date.toISOString().slice(0, 10)}>
-              {format(item.date, "dd MMM yyyy")}
+        {posts.map((post) => (
+          <a class="row" href={post.slug} lang={post.lang === "no" ? "nb" : undefined}>
+            <time class="mono row-date" datetime={post.date}>
+              {post.dateMedium}
             </time>
-            <span class:list={["mono label row-type", item.kind === "podcast" && "label--panel"]}>
-              {item.kind === "podcast" ? "Podcast" : "Article"}
-            </span>
             <span class="row-main">
               <span class="ttl">
-                {item.title}
-                <ExtIcon />
+                {post.title}
+                <span class="arr" aria-hidden="true">
+                  →
+                </span>
               </span>
-              <span class="mono row-by">
-                {item.outlet}
-                {item.lang === "no" && <> · På norsk</>}
+              <span class="mono row-by" lang="en">
+                {post.outlet}
+                {post.lang === "no" && <> · På norsk</>}
               </span>
-              {item.note && <span class="row-desc">{item.note}</span>}
             </span>
           </a>
         ))}

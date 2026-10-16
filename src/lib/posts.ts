@@ -51,6 +51,7 @@ export interface ProcessedPost {
   originalUrl?: string;
   creator?: string;
   url?: string;
+  outlet?: string;
   reread: boolean;
   lillylabs: boolean;
 }
@@ -86,6 +87,10 @@ export async function getAllPosts(): Promise<ProcessedPost[]> {
       const truncated = plainText.substring(0, 160);
       const lastSpace = truncated.lastIndexOf(" ");
       description = (lastSpace > 0 ? truncated.substring(0, lastSpace) : truncated) + "\u2026";
+    }
+    // Press entries often have no body: describe them by where they ran
+    if (!description && entry.data.type === "Press" && entry.data.outlet) {
+      description = `In ${entry.data.outlet}${entry.data.lang === "no" ? ", in Norwegian" : ""}.`;
     }
 
     let dateFormatted = "";
@@ -139,6 +144,7 @@ export async function getAllPosts(): Promise<ProcessedPost[]> {
       originalUrl: entry.data.originalUrl,
       creator: entry.data.creator,
       url: entry.data.url,
+      outlet: entry.data.outlet,
       reread: entry.data.reread,
       lillylabs: entry.data.lillylabs,
     };

@@ -47,7 +47,7 @@ const postSchema = z
     peeps: z.string().optional(),
     projects: z.string().optional(),
     // Logbook fields (all optional; see src/lib/posts.ts for defaults)
-    type: z.enum(ENTRY_TYPES).optional(), // Book, Link, Podcast, Life; plain posts have none
+    type: z.enum(ENTRY_TYPES).optional(), // Book, Link, Podcast, Life, Press; plain posts have none
     standfirst: z.string().optional(), // Italic line under the headline
     draft: z.boolean().optional(), // Hidden in production, shown on deploy previews
     importedFrom: z.string().optional(), // e.g. "kindle", "mailchimp", "convertkit", "bgraphic.no"
@@ -55,7 +55,8 @@ const postSchema = z
     lang: z.enum(["en", "no"]).optional(), // "no" shows a "På norsk" label
     originalUrl: z.string().optional(), // Where an imported entry used to live
     creator: z.string().optional(), // Book author, or the publication for a Link
-    url: z.string().optional(), // The thing a Link, Book or Podcast entry points at
+    url: z.string().optional(), // The thing a Link, Book, Podcast or Press entry points at
+    outlet: z.string().optional(), // Press: the publication or podcast, e.g. "kode24"
     reread: z.boolean().optional(),
     lillylabs: z.boolean().optional(), // Show the "På norsk, for bedrifter" cross-link box
   })
@@ -73,6 +74,7 @@ const postSchema = z
     originalUrl: data.originalUrl,
     creator: data.creator,
     url: data.url,
+    outlet: data.outlet,
     reread: data.reread ?? false,
     lillylabs: data.lillylabs ?? false,
   }));
@@ -241,22 +243,6 @@ const testimonials = defineCollection({
   ),
 });
 
-// Press collection (YAML): articles about Queen and podcast guest spots
-const press = defineCollection({
-  type: "data",
-  schema: z.array(
-    z.object({
-      title: z.string(),
-      outlet: z.string(),
-      date: z.coerce.date(),
-      url: z.string().url(),
-      kind: z.enum(["article", "podcast"]),
-      lang: z.enum(["en", "no"]).default("en"),
-      note: z.string().optional(),
-    }),
-  ),
-});
-
 export const collections = {
   "posts-queen": postsQueen,
   "posts-olavea": postsOlavea,
@@ -265,5 +251,4 @@ export const collections = {
   talks: talks,
   tags: tags,
   testimonials: testimonials,
-  press: press,
 };
