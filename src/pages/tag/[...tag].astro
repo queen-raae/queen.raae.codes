@@ -37,7 +37,7 @@ const feedHref = `/posts/${Astro.params.tag}.xml`;
       <span>{posts.length} {posts.length === 1 ? "entry" : "entries"}</span>
       <a class="navlink" href={feedHref}>RSS</a>
     </Fragment>
-    <span class="text-acid">#</span>{label}
+    <span class="text-amber-500">#</span>{label}
     <Fragment slot="after">
       {
         blurb && (blurb.description || blurb.disclaimer || blurb.url) && (

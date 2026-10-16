@@ -299,6 +299,8 @@
 
   /* ── Title block (every inner page) ── */
   .title-block {
+    background: var(--color-panel);
+    color: var(--color-ink);
     padding: clamp(32px, 5vw, 64px) clamp(16px, 3vw, 32px) clamp(28px, 4vw, 48px);
     border-bottom: 2px solid var(--color-ink);
     display: flex;
@@ -308,7 +310,7 @@
 
   .title-block h1 {
     margin: 0;
-    color: var(--color-cream);
+    color: var(--color-ink);
     font-family: var(--font-display);
     font-weight: 400;
     font-size: clamp(44px, 7vw, 104px);
@@ -318,24 +320,21 @@
     text-wrap: balance;
   }
 
-  /* Log entry: E, the calmer soft-pink title block */
+  /* Log entry: E, the calmer title block */
   .title-block--entry {
-    background: var(--color-panel);
-    color: var(--color-ink);
     padding: clamp(32px, 5vw, 56px) clamp(16px, 3vw, 32px) clamp(28px, 4vw, 44px);
     gap: 18px;
   }
 
   .title-block--entry h1 {
-    color: var(--color-ink);
     font-size: clamp(38px, 5.2vw, 64px);
     line-height: 1.02;
     letter-spacing: -0.025em;
     max-width: 18ch;
   }
 
-  .title-block--entry .meta,
-  .title-block--entry .standfirst {
+  .title-block .meta,
+  .title-block .standfirst {
     color: var(--color-deep);
   }
 
@@ -368,7 +367,7 @@
     gap: 10px 18px;
     flex-wrap: wrap;
     align-items: center;
-    color: var(--color-panel);
+    color: var(--color-deep);
   }
 
   /* ── Chips (year jumps) ── */
@@ -390,7 +389,8 @@
     box-sizing: border-box;
   }
 
-  .log-body .chip:hover {
+  .log-body .chip:hover,
+  .log-body .chip[aria-current] {
     background: var(--color-acid);
   }
 
