@@ -8,7 +8,8 @@ export const GET: APIRoute = async () => {
     title: post.title,
     description: post.description,
     slug: post.slug,
-    date: post.dateFormatted,
+    date: post.dateMedium,
+    type: post.type,
     tags: post.tags,
   }));
 

@@ -1,34 +1,75 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import SiteHeader from "../../components/SiteHeader.astro";
-import PageSection from "../../components/PageSection.astro";
-import PageSectionHeader from "../../components/PageSectionHeader.astro";
-import Posts from "../../components/Posts.astro";
-import Newsletter from "../../components/Newsletter.astro";
-import PageLinks from "../../components/PageLinks.astro";
-import { getAllPosts } from "../../lib/posts";
+import LogLayout from "../../layouts/LogLayout.astro";
+import TitleBlock from "../../components/log/TitleBlock.astro";
+import Divider from "../../components/log/Divider.astro";
+import SectionBar from "../../components/log/SectionBar.astro";
+import YearSections from "../../components/log/YearSections.astro";
+import { getAllPosts, groupByYear } from "../../lib/posts";
 
-const BADGE = "Posts";
-const TITLE = "All the posts";
-const DESCRIPTION = "Posts from sailing the high seas of the World Wide Web.";
+const TITLE = "The log, by year";
+const DESCRIPTION = "Every entry in Queen Raae's logbook, newest first, grouped by year.";
 
 const allPosts = await getAllPosts();
+const years = groupByYear(allPosts);
+
+// Density strip runs oldest → newest, including empty years
+const counts = new Map(years.map(({ year, posts }) => [year, posts.length]));
+const first = Number(years[years.length - 1]?.year);
+const last = Number(years[0]?.year);
+const strip = Array.from({ length: last - first + 1 }, (_, i) => {
+  const year = String(first + i);
+  return { year, count: counts.get(year) ?? 0 };
+});
+const max = Math.max(...strip.map((s) => s.count));
+const busiest = strip.find((s) => s.count === max)?.year;
 ---
 
-<BaseLayout title={TITLE} description={DESCRIPTION}>
-  <SiteHeader />
-  <main>
-    <PageSection component="header">
-      <PageSectionHeader badge={BADGE} title={TITLE} lead={DESCRIPTION} hLevel={1} />
-      <PageLinks rssHref="/posts/rss.xml" />
-    </PageSection>
+<LogLayout title={TITLE} description={DESCRIPTION} feeds={[{ title: "Queen Raae's log", href: "/posts/queen.xml" }]}>
+  <TitleBlock
+    label="The archive"
+    lead={`Every entry since ${first}, newest first. The early ones are rough. They stay.`}
+  >
+    Everything, <span class="acid">by year</span>.
+    <nav slot="after" id="years" aria-label="Jump to a year" class="flex flex-wrap gap-1.5 pt-1 scroll-mt-4">
+      {
+        years.map(({ year }, index) => (
+          <a class="chip" href={`#y${year}`} aria-current={index === 0 ? "true" : undefined}>
+            {year}
+          </a>
+        ))
+      }
+    </nav>
+  </TitleBlock>
 
-    <PageSection component="section">
-      <Posts posts={allPosts} />
-    </PageSection>
+  <Divider />
 
-    <PageSection component="footer">
-      <Newsletter />
-    </PageSection>
-  </main>
-</BaseLayout>
+  <section id="density" class="ruled flex flex-col">
+    <SectionBar num="01" title="Entries per year">
+      <span class="mono">{allPosts.length} entries · {first} → {last} · busiest year {busiest}</span>
+      <a class="navlink" href="/posts/queen.xml" aria-label="RSS feed">RSS</a>
+    </SectionBar>
+    <div class="overflow-x-auto gutter py-5 box-border">
+      <div class="density">
+        {
+          strip.map(({ year, count }) =>
+            count > 0 ? (
+              <a class="col" href={`#y${year}`} aria-label={`${year}, ${count} entries`}>
+                <span class="n">{count}</span>
+                <span class="b" style={`height:${Math.max(4, Math.round((count / max) * 128))}px`} />
+                <span class="y">{year}</span>
+              </a>
+            ) : (
+              <span class="col" aria-label={`${year}, no entries`}>
+                <span class="n">0</span>
+                <span class="b" style="height:0" />
+                <span class="y">{year}</span>
+              </span>
+            ),
+          )
+        }
+      </div>
+    </div>
+  </section>
+
+  <YearSections posts={allPosts} startAt={2} jumpTo="#years" />
+</LogLayout>

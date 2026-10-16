@@ -1,12 +1,9 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import SiteHeader from "../../components/SiteHeader.astro";
-import PageSection from "../../components/PageSection.astro";
-import PageSectionHeader from "../../components/PageSectionHeader.astro";
-import PageSectionBreadcrumbs from "../../components/PageSectionBreadcrumbs.astro";
-import Posts from "../../components/Posts.astro";
-import Newsletter from "../../components/Newsletter.astro";
-import PageLinks from "../../components/PageLinks.astro";
+import LogLayout from "../../layouts/LogLayout.astro";
+import TitleBlock from "../../components/log/TitleBlock.astro";
+import Divider from "../../components/log/Divider.astro";
+import YearSections from "../../components/log/YearSections.astro";
+import ExtIcon from "../../components/log/ExtIcon.astro";
 import { getAllTags } from "../../lib/posts";
 import { getTagBlurbs } from "../../lib/tag-blurbs";
 
@@ -28,42 +25,37 @@ const { label, posts } = Astro.props;
 const blurbMap = await getTagBlurbs();
 const blurb = blurbMap.get(label);
 
-const title = `Posts tagged: "${label}"`;
-const description = blurb?.description || `Learn more about "${label}" by browsing the posts for the tag.`;
+const title = `Entries tagged #${label}`;
+const description = blurb?.description || `Every entry in the log tagged #${label}.`;
+const feedHref = `/posts/${Astro.params.tag}.xml`;
 ---
 
-<BaseLayout title={title} description={description} feeds={[{ title: `Posts tagged #${label}`, href: `/posts/${Astro.params.tag}.xml` }]}>
-  <SiteHeader />
-
-  <main>
-    <PageSection component="article">
-      <PageSectionBreadcrumbs class="mt-4" items={[{ label: "Posts", to: "/posts/" }, { label: label }]} />
-      <PageSectionHeader title={title} hLevel={1} />
-      <PageLinks rssHref={`/posts/${Astro.params.tag}.xml`} />
-
-      {blurb && (blurb.description || blurb.disclaimer || blurb.url) && (
-        <aside class="my-6 text-sm italic text-plum-400 relative pl-6" style="font-family: var(--font-body); text-wrap: balance;">
-          <p>
-            <span class="absolute left-0 top-0 not-italic text-amber-500">✦</span>{" "}
-            <strong class="not-italic text-plum-600">{blurb.displayName || label}</strong>
+<LogLayout title={title} description={description} feeds={[{ title: `Posts tagged #${label}`, href: feedHref }]}>
+  <TitleBlock back={{ href: "/posts/", label: "The log" }} size="small">
+    <Fragment slot="meta">
+      <span class="label">Tag</span>
+      <span>{posts.length} {posts.length === 1 ? "entry" : "entries"}</span>
+      <a class="navlink" href={feedHref}>RSS</a>
+    </Fragment>
+    <span class="text-acid">#</span>{label}
+    <Fragment slot="after">
+      {
+        blurb && (blurb.description || blurb.disclaimer || blurb.url) && (
+          <p class="lead m-0 max-w-[60ch] text-[clamp(18px,1.6vw,22px)] leading-normal">
+            <strong>{blurb.displayName || label}</strong>
             {blurb.description && <span> — {blurb.description}</span>}
-            {blurb.disclaimer && <span> {blurb.disclaimer}</span>}
+            {blurb.disclaimer && <span> {blurb.disclaimer}</span>}{" "}
             {blurb.url && (
-              <Fragment>
-                {" "}<span class="not-italic text-amber-500">✦</span>{" "}
-                <a href={blurb.url} class="underline decoration-plum-300 underline-offset-3 hover:text-[#f4511e] hover:decoration-[#f4511e] transition" target="_blank" rel="noopener noreferrer">{blurb.url.replace(/^https?:\/\//, "")}</a>
-              </Fragment>
+              <a href={blurb.url} target="_blank" rel="noopener">
+                {blurb.url.replace(/^https?:\/\//, "")}
+                <ExtIcon />
+              </a>
             )}
-            {" "}<span class="not-italic text-amber-500">✦</span>
           </p>
-        </aside>
-      )}
-
-      <Posts posts={posts} />
-    </PageSection>
-
-    <PageSection component="footer">
-      <Newsletter />
-    </PageSection>
-  </main>
-</BaseLayout>
+        )
+      }
+    </Fragment>
+  </TitleBlock>
+  <Divider />
+  <YearSections posts={posts} />
+</LogLayout>

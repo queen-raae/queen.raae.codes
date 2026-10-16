@@ -1,74 +1,42 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import SiteHeader from "../../components/SiteHeader.astro";
-import PageSection from "../../components/PageSection.astro";
-import PageSectionHeader from "../../components/PageSectionHeader.astro";
-import Newsletter from "../../components/Newsletter.astro";
+import LogLayout from "../../layouts/LogLayout.astro";
+import TitleBlock from "../../components/log/TitleBlock.astro";
+import Divider from "../../components/log/Divider.astro";
+import SectionBar from "../../components/log/SectionBar.astro";
+import EntryRow from "../../components/log/EntryRow.astro";
 import { getAllPosts } from "../../lib/posts";
 
-const TITLE = "Search all posts";
+const TITLE = "Search the log";
 
 const allPosts = await getAllPosts();
 const latestPosts = allPosts.slice(0, 3);
 ---
 
-<BaseLayout title={TITLE}>
-  <SiteHeader />
-  <main>
-    <PageSection component="header">
-      <PageSectionHeader title="Search all posts" hLevel={1} />
-      <label for="search" class="sr-only">Search posts</label>
-      <input
-        autofocus
-        type="search"
-        name="search"
-        id="search"
-        class="font-medium w-full grow border-solid transition border-2 border-plum-500 focus:border-amber-500 focus-within:ring-1 focus-within:ring-amber-500"
-        placeholder="Type to search..."
-      />
+<LogLayout title={TITLE} description="Search every entry in Queen Raae's logbook.">
+  <TitleBlock label="Search">
+    Search <span class="acid">the log</span>.
+    <div slot="after" class="flex flex-col gap-2 max-w-[720px]">
+      <label for="search" class="mono text-panel">Title, tag or words from the entry</label>
+      <input autofocus type="search" name="search" id="search" class="field w-full" placeholder="Type to search…" />
+    </div>
+  </TitleBlock>
 
-      <div id="no-results" class="hidden mt-12 pl-1 text-lg font-bold" aria-live="polite">
-        No results for <em id="search-term"></em>
-      </div>
+  <Divider />
 
-      <ul id="search-results" class="list-none px-0 my-0 space-y-0 mt-8" aria-live="polite"></ul>
-    </PageSection>
+  <section class="ruled flex flex-col">
+    <p id="no-results" class="hidden m-0 gutter py-6 text-lg" aria-live="polite">
+      No entries for <em id="search-term"></em>.
+    </p>
+    <div id="search-results" aria-live="polite"></div>
+  </section>
 
-    <PageSection>
-      <PageSectionHeader badge="Latest posts" />
-      <ul id="latest-posts" class="list-none px-0 my-0 space-y-0 mt-8">
-        {
-          latestPosts.map((post) => (
-            <li class="relative border-0 border-b border-solid border-plum-900/10">
-              <a
-                href={post.slug}
-                class="search-list-link block py-3 no-underline text-inherit transition-colors focus:outline-hidden"
-              >
-                <h3
-                  class="search-list-title text-base my-0 font-extrabold text-plum-900"
-                  style="font-family: var(--font-heading);"
-                >
-                  {post.title}
-                  <span class="search-list-arrow text-amber-500 inline-block ml-1 transition-transform"> →</span>
-                </h3>
-                <p
-                  class="text-xs my-0 mt-1 font-semibold text-plum-400 uppercase"
-                  style="font-family: var(--font-label); letter-spacing: 0.08em;"
-                >
-                  {post.dateFormatted}
-                </p>
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </PageSection>
-
-    <PageSection component="footer">
-      <Newsletter />
-    </PageSection>
-  </main>
-</BaseLayout>
+  <section id="latest-posts" class="ruled flex flex-col">
+    <SectionBar num="01" title="Latest from the log">
+      <a class="navlink" href="/posts/">All entries →</a>
+    </SectionBar>
+    {latestPosts.map((post) => <EntryRow post={post} />)}
+  </section>
+</LogLayout>
 
 <script>
   import Fuse from "fuse.js";
@@ -137,7 +105,7 @@ const latestPosts = allPosts.slice(0, 3);
         if (term.length < 2) {
           resultsContainer.innerHTML = "";
           noResults.classList.add("hidden");
-          latestPosts.parentElement!.classList.remove("hidden");
+          latestPosts.classList.remove("hidden");
           return;
         }
 
@@ -147,10 +115,10 @@ const latestPosts = allPosts.slice(0, 3);
           resultsContainer.innerHTML = "";
           searchTermEl.textContent = term;
           noResults.classList.remove("hidden");
-          latestPosts.parentElement!.classList.add("hidden");
+          latestPosts.classList.add("hidden");
         } else {
           noResults.classList.add("hidden");
-          latestPosts.parentElement!.classList.add("hidden");
+          latestPosts.classList.add("hidden");
 
           resultsContainer.innerHTML = results
             .map((result) => {
@@ -167,29 +135,23 @@ const latestPosts = allPosts.slice(0, 3);
                 }
               });
 
-              const tagBadges = item.tags
+              const tags = item.tags
                 .map(
                   (tag) =>
-                    `<span class="inline-flex items-center font-semibold text-plum-500 uppercase" style="font-family: var(--font-label); letter-spacing: 0.1em; font-size: 0.65rem;"><span class="text-amber-500">#</span>${escapeHtml(tag.label)}</span>`,
+                    `<span class="tag"><span class="h" aria-hidden="true">#</span>${escapeHtml(tag.label)}</span>`,
                 )
                 .join(" ");
 
               return `
-              <li class="relative border-0 border-b border-solid" style="border-color: rgba(61,18,48,0.1);">
-                <a href="${escapeHtml(item.slug)}" class="search-list-link block py-3 no-underline text-inherit transition-colors" style="color: inherit;">
-                  <h3 class="search-list-title text-base my-0 font-extrabold" style="font-family: var(--font-body); color: var(--color-plum-900);">
-                    ${title}
-                    <span class="search-list-arrow" style="color: var(--color-amber-500); display: inline-block; margin-left: 0.25rem; transition: transform 0.2s;"> →</span>
-                  </h3>
-                  <p class="my-2 text-sm">${description}</p>
-                  <div class="flex flex-wrap items-baseline gap-x-2 gap-y-1 mt-1">
-                    <p class="my-0 font-semibold uppercase" style="font-family: var(--font-label); letter-spacing: 0.1em; font-size: 0.65rem; color: var(--color-plum-400);">
-                      ${escapeHtml(item.date)}
-                    </p>
-                    <aside class="my-0 space-x-3">${tagBadges}</aside>
-                  </div>
-                </a>
-              </li>
+              <a class="row" href="${escapeHtml(item.slug)}">
+                <span class="mono row-date">${escapeHtml(item.date)}</span>
+                <span class="mono label row-type">${escapeHtml(item.type)}</span>
+                <span class="row-main">
+                  <span class="ttl">${title}<span class="arr" aria-hidden="true">→</span></span>
+                  <span class="row-desc">${description}</span>
+                  <span class="flex flex-wrap gap-x-4 -ml-1">${tags}</span>
+                </span>
+              </a>
             `;
             })
             .join("");
@@ -200,15 +162,3 @@ const latestPosts = allPosts.slice(0, 3);
 
   initSearch();
 </script>
-
-<style>
-  .search-list-link:hover .search-list-title {
-    text-decoration: underline;
-    text-decoration-color: var(--color-amber-500);
-    text-underline-offset: 3px;
-  }
-  .search-list-link:hover .search-list-arrow {
-    color: var(--color-plum-500);
-    transform: translateX(4px);
-  }
-</style>
