@@ -6,9 +6,7 @@ import SectionBar from "../components/log/SectionBar.astro";
 import EntryRow from "../components/log/EntryRow.astro";
 import ExtIcon from "../components/log/ExtIcon.astro";
 import LogPlayer from "../components/log/LogPlayer.astro";
-import Shelf from "../components/log/Shelf.astro";
 import { getAllPosts, getAuthorInfo, groupByYear } from "../lib/posts";
-import { getReadingItems } from "../lib/reading";
 import { getPodcastInfo } from "../lib/podcast";
 import { now, nowUpdated } from "../data/now";
 import { treasures } from "../data/treasures";
@@ -17,7 +15,6 @@ import heroPhoto from "../assets/log/queen-wall.jpg";
 
 const allPosts = await getAllPosts();
 const latest = allPosts.slice(0, 5);
-const books = (await getReadingItems()).filter((item) => item.kind === "Book").slice(0, 5);
 const podcast = await getPodcastInfo();
 
 const isExternal = (href: string) => /^https?:\/\//.test(href);
@@ -221,17 +218,11 @@ const updated = new Date(nowUpdated).toLocaleDateString("en-GB", { day: "numeric
   <!-- 04 The wall -->
   <section id="wall" class="ruled flex flex-col">
     <SectionBar num="04" title="The wall" />
-    <div class="cells cells--wall">
+    <div class="wall" tabindex="0" role="region" aria-label="Photos, scroll sideways for more">
       {
         photos.map((photo) => (
           <figure class="wall-cell">
-            <Image
-              src={photo.src}
-              alt={photo.alt}
-              widths={[300, 600]}
-              sizes="(min-width: 1200px) 300px, 50vw"
-              style={`object-position:${photo.position}`}
-            />
+            <Image src={photo.src} alt={photo.alt} height={360} densities={[1, 2]} />
             <figcaption>{photo.caption}</figcaption>
           </figure>
         ))
@@ -239,29 +230,9 @@ const updated = new Date(nowUpdated).toLocaleDateString("en-GB", { day: "numeric
     </div>
   </section>
 
-  <!-- 05 The shelf -->
-  {
-    books.length > 0 && (
-      <section id="shelf" class="ruled flex flex-col">
-        <SectionBar num="05" title="The shelf">
-          <a class="navlink" href="/reading/">
-            Every book, with notes →
-          </a>
-        </SectionBar>
-        <p class="m-0 gutter py-[clamp(20px,3vw,32px)] max-w-[68ch] text-lg leading-[1.55] box-border">
-          Short notes on what I read, written when I finish and not a day later. Not reviews. More like what I’d tell
-          you if you asked over coffee and we had four minutes.
-        </p>
-        <div class="border-t-2 border-ink">
-          <Shelf books={books} />
-        </div>
-      </section>
-    )
-  }
-
-  <!-- 06 From the archives -->
+  <!-- 05 From the archives -->
   <section id="archive" class="ruled flex flex-col">
-    <SectionBar num={books.length > 0 ? "06" : "05"} title="From the archives">
+    <SectionBar num="05" title="From the archives">
       <a class="navlink" href="/posts/">Browse by year →</a>
       <button type="button" class="btn btn-fire btn--sm dig-button">
         <svg

@@ -35,6 +35,13 @@ const { label, back, lead, standfirst, size = "page" } = Astro.props;
     )
   }
   <h1><slot /></h1>
+  {
+    Astro.slots.has("tags") && (
+      <div class="tags -mt-2">
+        <slot name="tags" />
+      </div>
+    )
+  }
   {standfirst && <p class="standfirst">{standfirst}</p>}
   {lead && <p class="lead">{lead}</p>}
   <slot name="after" />

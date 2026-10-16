@@ -108,6 +108,15 @@ const schema = {
       }
     </Fragment>
     {post.title}
+    {
+      post.tags.length > 0 && (
+        <Fragment slot="tags">
+          {post.tags.map(({ label, slug }) => (
+            <Tag href={slug} label={label} />
+          ))}
+        </Fragment>
+      )
+    }
   </TitleBlock>
 
   <Divider />
@@ -192,16 +201,6 @@ const schema = {
               </p>
             ))}
           </aside>
-        )
-      }
-
-      {
-        post.tags.length > 0 && (
-          <div class="flex gap-x-7 gap-y-1 flex-wrap pt-2">
-            {post.tags.map(({ label, slug }) => (
-              <Tag href={slug} label={label} />
-            ))}
-          </div>
         )
       }
     </div>

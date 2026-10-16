@@ -628,10 +628,6 @@
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr));
   }
 
-  .cells--wall {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  }
-
   .cells--arc {
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   }
@@ -686,24 +682,41 @@
     background: var(--color-acid);
   }
 
+  /* The wall: uncropped photos at one height, scrolling sideways */
+  .wall {
+    display: flex;
+    gap: 2px;
+    background: var(--color-ink);
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    overscroll-behavior-x: contain;
+  }
+
+  .wall:focus-visible {
+    outline: 3px solid var(--color-acid);
+    outline-offset: -3px;
+  }
+
   .wall-cell {
     margin: 0;
+    flex: 0 0 auto;
     background: var(--color-cream);
     display: flex;
     flex-direction: column;
-    min-width: 0;
+    scroll-snap-align: start;
   }
 
   .wall-cell img {
     display: block;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 1;
-    object-fit: cover;
+    height: clamp(240px, 32vw, 360px);
+    width: auto;
     background: var(--color-panel);
   }
 
   .wall-cell figcaption {
+    width: 0;
+    min-width: 100%;
+    box-sizing: border-box;
     font-family: var(--font-mono);
     font-size: 12px;
     letter-spacing: 0.04em;
@@ -712,68 +725,46 @@
     line-height: 1.4;
   }
 
-  /* ── Books on the shelf ── */
-  .log-body a.book,
-  .book {
-    flex: 0 0 132px;
-    height: 196px;
-    box-sizing: border-box;
-    padding: 16px 14px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    border: 2px solid var(--color-ink);
-    text-decoration: none;
-    transition: transform 0.2s;
-  }
-
-  .log-body a.book:hover {
-    transform: translateY(-6px);
-  }
-
-  .book--ink {
-    background: var(--color-ink);
-    color: var(--color-cream) !important;
-  }
-  .book--acid {
-    background: var(--color-acid);
-    color: var(--color-ink) !important;
-  }
-  .book--plum {
-    background: var(--color-plum-500);
-    color: var(--color-cream) !important;
-  }
-  .book--panel {
-    background: var(--color-panel);
-    color: var(--color-ink) !important;
-  }
-  .book--cream {
-    background: var(--color-cream);
-    color: var(--color-ink) !important;
-  }
-
   /* ── Tags ── */
+  /* Tags: the old site's #tags, Montserrat with an amber # */
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 18px;
+  }
+
   .log-body .tag {
     display: inline-flex;
     align-items: center;
-    min-height: 44px;
-    padding: 0 4px;
-    color: var(--color-ink);
+    min-height: 32px;
+    color: var(--color-plum-500);
     text-decoration: none;
-    font-family: var(--font-mono);
-    font-size: 18px;
-    font-weight: 700;
-    letter-spacing: 0.04em;
+    font-family: var(--font-tag);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
   }
 
   .tag .h {
-    color: var(--color-amber-600);
-    margin-right: 1px;
+    color: var(--color-amber-500);
   }
 
   .log-body .tag:hover {
-    background: var(--color-acid);
+    background: transparent;
+    color: var(--color-ink);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-decoration-color: var(--color-amber-500);
+    text-underline-offset: 4px;
+  }
+
+  .log-body .on-plum .tag {
+    color: var(--color-panel);
+  }
+
+  .log-body .on-plum .tag:hover {
+    color: var(--color-cream);
   }
 
   /* ── Sticker (the one tilted thing) ── */

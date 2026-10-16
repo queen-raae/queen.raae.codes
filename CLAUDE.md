@@ -39,7 +39,6 @@ Blog post paths follow the pattern: `posts-queen/YYYY/MM/DD-slug/index.md`
 - `astro.config.mjs` — Astro config: site URL, integrations (MDX, Tailwind, Sitemap)
 - `src/styles/log.css` — Design system classes (bars, title blocks, rows, cells, dividers, log-prose)
 - `src/data/now.ts`, `src/data/treasures.ts`, `src/data/wall.ts` — Home page content
-- `src/lib/reading.ts` — Reading index built from `Book`/`Link`/`Podcast` entries
 - `src/lib/podcast.ts` — Slow & Steady latest episode, fetched at build time (fails soft)
 - `netlify.toml` — Build config and redirects (legacy email URLs, speaker shortcuts)
 - `src/content/config.ts` — Zod schemas for all content collections
@@ -76,6 +75,6 @@ Blog post paths follow the pattern: `posts-queen/YYYY/MM/DD-slug/index.md`
 - The `content/` directory at the project root mirrors `src/content/` — the canonical source is `src/content/`
 - OG image generation uses Satori which renders a JSX-like structure to SVG, then Sharp converts to PNG
 - Entry frontmatter can set `type` (Essay, Note, Book, Link, Life, Podcast), `standfirst`, `draft`, `lang`, `importedFrom`, `originalUrl`, `creator`, `url`, `reread`, `lillylabs`. Without `type`, entries of 700+ words are Essays and the rest Notes
-- `draft: true` entries and the Reading stand-ins show on deploy previews only (`CONTEXT !== "production"`)
+- `draft: true` entries show on deploy previews only (`CONTEXT !== "production"`)
 - `dist/` is tracked in git by accident; don't commit build output
 - Sitemap excludes `/search/`, `/tag/*`, and subscription management pages

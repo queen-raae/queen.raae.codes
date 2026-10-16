@@ -42,6 +42,7 @@
   --font-display: "Archivo Black", Archivo, system-ui, sans-serif;
   --font-button: Archivo, system-ui, sans-serif;
   --font-mono: "Space Mono", ui-monospace, monospace;
+  --font-tag: "Montserrat", system-ui, sans-serif;
   --font-heading: var(--font-display);
   --font-label: var(--font-mono);
   --font-body: "Lora", Georgia, serif;

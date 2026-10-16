@@ -1,21 +1,19 @@
 ---
-import Crown from "./Crown.astro";
-
 const path = Astro.url.pathname;
 
 const links = [
   { label: "Log", href: "/posts/", match: (p: string) => p.startsWith("/posts/") || p.startsWith("/tag/") },
-  { label: "Reading", href: "/reading/", match: (p: string) => p.startsWith("/reading/") },
-  { label: "Now", href: "/#now", match: () => false },
   { label: "About", href: "/about/", match: (p: string) => p.startsWith("/about/") },
-  { label: "Search", href: "/search/", match: (p: string) => p.startsWith("/search/") },
 ];
 ---
 
 <header class="ruled gutter flex items-center justify-between gap-x-6 gap-y-2 flex-wrap py-2.5">
-  <a href="/" class="inline-flex items-center gap-3 min-h-11 pr-2 no-underline! hover:bg-transparent!">
-    <Crown size={28} />
-    <span class="display text-[22px] uppercase tracking-[0.02em]">Queen Raae</span>
+  <a
+    href="/"
+    class="inline-flex items-center min-h-11 pr-2 text-[28px] leading-none no-underline! hover:bg-transparent!"
+  >
+    <span aria-hidden="true">👑</span>
+    <span class="sr-only-log">Queen Raae</span>
   </a>
   <nav aria-label="Main" class="flex items-center gap-x-1.5 gap-y-1 flex-wrap">
     {
@@ -25,6 +23,12 @@ const links = [
         </a>
       ))
     }
-    <a class="btn btn-fire btn--sm ml-2" href="#mail">Subscribe</a>
+    <a
+      class="btn btn-fire btn--sm ml-2"
+      href="/search/"
+      aria-current={path.startsWith("/search/") ? "page" : undefined}
+    >
+      Search
+    </a>
   </nav>
 </header>
