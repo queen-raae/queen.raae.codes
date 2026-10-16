@@ -37,7 +37,7 @@ export interface ProcessedPost {
   content: string;
   render: () => Promise<{ Content: any }>;
   // Logbook
-  type: EntryType;
+  type?: EntryType;
   standfirst?: string;
   draft: boolean;
   year: string;
@@ -54,9 +54,6 @@ export interface ProcessedPost {
   reread: boolean;
   lillylabs: boolean;
 }
-
-// Entries without an explicit type: long ones read as essays, the rest as notes
-const ESSAY_MIN_WORDS = 700;
 
 // Get all posts from both queen and olavea collections
 export async function getAllPosts(): Promise<ProcessedPost[]> {
@@ -111,7 +108,7 @@ export async function getAllPosts(): Promise<ProcessedPost[]> {
     }
 
     const wordCount = plainText ? plainText.split(" ").length : 0;
-    const type: EntryType = entry.data.type ?? (wordCount >= ESSAY_MIN_WORDS ? "Essay" : "Note");
+    const type = entry.data.type;
 
     return {
       id: entry.id,

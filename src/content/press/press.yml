@@ -1,0 +1,20 @@
+# Press: articles about Queen and podcasts she's been a guest on.
+# kind: article | podcast · lang: en (default) | no · note: optional, one line in her own words
+- title: "Apps4Norge - Ny og innovativ bruk av åpne offentlige data?"
+  outlet: Titan (UiO)
+  date: 2013-02-21
+  url: https://www.titan.uio.no/blogg/morten-daehlen/2013/apps4norge-ny-og-innovativ-bruk-av-apne-offentlige-data.html
+  kind: article
+  lang: "no"
+- title: "Vi spurte utviklerne på React Day Norway 2022 hvorfor de bruker React"
+  outlet: kode24
+  date: 2022-06-27
+  url: https://www.kode24.no/artikkel/vi-spurte-utviklerne-pa-react-day-norway-2022-hvorfor-de-bruker-react/148915
+  kind: article
+  lang: "no"
+- title: "Benedicte må kanskje skrote prosjektet sitt etter Twitter-endringer"
+  outlet: kode24
+  date: 2023-03-31
+  url: https://www.kode24.no/artikkel/benedicte-ma-kanskje-skrote-prosjektet-sitt-etter-twitter-endringer/168484
+  kind: article
+  lang: "no"

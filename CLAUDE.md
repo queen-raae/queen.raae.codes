@@ -74,7 +74,7 @@ Blog post paths follow the pattern: `posts-queen/YYYY/MM/DD-slug/index.md`
 - Trailing slashes are enforced (`trailingSlash: 'always'` in astro config)
 - The `content/` directory at the project root mirrors `src/content/` — the canonical source is `src/content/`
 - OG image generation uses Satori which renders a JSX-like structure to SVG, then Sharp converts to PNG
-- Entry frontmatter can set `type` (Essay, Note, Book, Link, Life, Podcast), `standfirst`, `draft`, `lang`, `importedFrom`, `originalUrl`, `creator`, `url`, `reread`, `lillylabs`. Without `type`, entries of 700+ words are Essays and the rest Notes
+- Entry frontmatter can set `type` (Book, Link, Podcast, Life), `standfirst`, `draft`, `lang` (`en` default, `no` shows "På norsk"), `importedFrom`, `originalUrl`, `creator`, `url`, `reread`, `lillylabs`. `type` is only for notes on a thing (plus Life); plain posts have none and show no label
 - `draft: true` entries show on deploy previews only (`CONTEXT !== "production"`)
 - `dist/` is tracked in git by accident; don't commit build output
 - Sitemap excludes `/search/`, `/tag/*`, and subscription management pages

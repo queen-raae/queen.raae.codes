@@ -2,7 +2,7 @@
 import type { EntryType } from "../../lib/entry-types";
 
 interface Props {
-  type: EntryType | "Article";
+  type?: EntryType | "Article";
   class?: string;
 }
 
@@ -15,4 +15,4 @@ const variant: Record<string, string | undefined> = {
 };
 ---
 
-<span class:list={["mono label", variant[type], className]}>{type}</span>
+{type && <span class:list={["mono label", variant[type], className]}>{type}</span>}

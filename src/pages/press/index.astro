@@ -1,0 +1,67 @@
+---
+import { getCollection } from "astro:content";
+import { format } from "date-fns";
+import LogLayout from "../../layouts/LogLayout.astro";
+import TitleBlock from "../../components/log/TitleBlock.astro";
+import Divider from "../../components/log/Divider.astro";
+import SectionBar from "../../components/log/SectionBar.astro";
+import ExtIcon from "../../components/log/ExtIcon.astro";
+
+const TITLE = "Press";
+const DESCRIPTION = "Articles about Queen Raae and podcasts she's been a guest on.";
+
+const items = (await getCollection("press"))
+  .flatMap((file) => file.data)
+  .sort((a, b) => b.date.getTime() - a.date.getTime());
+
+const byYear = new Map<string, typeof items>();
+for (const item of items) {
+  const year = String(item.date.getFullYear());
+  byYear.set(year, [...(byYear.get(year) ?? []), item]);
+}
+const years = Array.from(byYear.entries());
+const pad = (n: number) => String(n).padStart(2, "0");
+---
+
+<LogLayout title={TITLE} description={DESCRIPTION}>
+  <TitleBlock
+    label="Elsewhere"
+    lead="Things other people wrote or recorded with me in them. Talks have their own page."
+  >
+    In the <span class="acid">press</span>.
+    <div slot="after" class="flex gap-3 flex-wrap">
+      <a class="btn btn-cream" href="/speaker/">Talks <span aria-hidden="true">→</span></a>
+    </div>
+  </TitleBlock>
+
+  <Divider />
+
+  {
+    years.map(([year, yearItems], index) => (
+      <section id={`y${year}`} class="ruled flex flex-col">
+        <SectionBar num={pad(index + 1)} title={year} />
+        {yearItems.map((item) => (
+          <a class="row" href={item.url} target="_blank" rel="noopener" lang={item.lang === "no" ? "nb" : undefined}>
+            <time class="mono row-date" datetime={item.date.toISOString().slice(0, 10)}>
+              {format(item.date, "dd MMM yyyy")}
+            </time>
+            <span class:list={["mono label row-type", item.kind === "podcast" && "label--panel"]}>
+              {item.kind === "podcast" ? "Podcast" : "Article"}
+            </span>
+            <span class="row-main">
+              <span class="ttl">
+                {item.title}
+                <ExtIcon />
+              </span>
+              <span class="mono row-by">
+                {item.outlet}
+                {item.lang === "no" && <> · På norsk</>}
+              </span>
+              {item.note && <span class="row-desc">{item.note}</span>}
+            </span>
+          </a>
+        ))}
+      </section>
+    ))
+  }
+</LogLayout>

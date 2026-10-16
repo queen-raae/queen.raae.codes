@@ -91,7 +91,7 @@ const schema = {
 
   <TitleBlock size="entry" back={{ href: "/posts/", label: "The log" }} standfirst={post.standfirst}>
     <Fragment slot="meta">
-      <span class="label">{post.type}</span>
+      {post.type && <span class="label">{post.type}</span>}
       {post.lang === "no" && <span class="label label--panel">På norsk</span>}
       {post.draft && <span class="label label--outline">Draft</span>}
       <time datetime={post.date}>{post.dateLong}</time>

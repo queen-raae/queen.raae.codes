@@ -145,7 +145,7 @@ const latestPosts = allPosts.slice(0, 3);
               return `
               <a class="row" href="${escapeHtml(item.slug)}">
                 <span class="mono row-date">${escapeHtml(item.date)}</span>
-                <span class="mono label row-type">${escapeHtml(item.type)}</span>
+                ${item.type ? `<span class="mono label row-type">${escapeHtml(item.type)}</span>` : ""}
                 <span class="row-main">
                   <span class="ttl">${title}<span class="arr" aria-hidden="true">→</span></span>
                   <span class="row-desc">${description}</span>
