@@ -763,7 +763,7 @@
   }
 
   .cells--chest {
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
   }
 
   .cells--arc {

@@ -13,4 +13,11 @@ export const treasures: { label: string; title: string; href: string; blurb: str
     href: "https://usepow.app",
     blurb: "Your data never leaves your browser. Built the year I got tired of apps that phone home.",
   },
+  {
+    label: "Side project",
+    title: "kompetansemål.no",
+    href: "https://kompetansemål.no",
+    blurb:
+      "The Norwegian competency goals in plainer language and easier to find your way around. I built it when we started homeschooling Lillian.",
+  },
 ];
