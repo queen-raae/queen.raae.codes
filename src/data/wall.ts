@@ -3,6 +3,7 @@ import wedding from "../assets/log/wedding.jpg";
 import crew from "../assets/log/crew.jpg";
 import reactNorway from "../assets/log/react-norway-floor.jpg";
 import mpya from "../assets/log/mpya-speaking.jpg";
+import powLaunch from "../assets/log/pow-launch.jpg";
 import apps4norge from "../assets/log/apps4norge.jpg";
 import avatar from "../assets/log/avatar-early.jpg";
 
@@ -26,6 +27,11 @@ export const photos = [
     src: mpya,
     alt: "Queen Raae on a big screen in the MPYA Digital studio, talking with the host",
     caption: "Talking encryption on MPYA Digital, 2021",
+  },
+  {
+    src: powLaunch,
+    alt: "Queen Raae and two co-founders on a wet Oslo crosswalk, laughing and holding a POW! sign, a big yellow key and a cardboard padlock",
+    caption: "POW! launch March 8th 2020",
   },
   {
     src: apps4norge,
