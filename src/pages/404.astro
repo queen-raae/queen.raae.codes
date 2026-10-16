@@ -1,43 +1,29 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import SiteHeader from "../components/SiteHeader.astro";
-import PageSection from "../components/PageSection.astro";
-import PageSectionHeader from "../components/PageSectionHeader.astro";
+import LogLayout from "../layouts/LogLayout.astro";
+import TitleBlock from "../components/log/TitleBlock.astro";
+import Divider from "../components/log/Divider.astro";
 ---
 
-<BaseLayout title="Page Not Found" description="This page doesn't exist — but the treasure is elsewhere!">
-  <SiteHeader />
-  <main>
-    <PageSection component="header">
-      <PageSectionHeader badge="404" title="This page has sailed off the map 🗺️" lead="The treasure you're looking for might be elsewhere&hellip;" hLevel={1} />
-
-      <img
-        src="https://media.giphy.com/media/8P8u3gh2OJqog/giphy.gif"
-        alt="Confused pirate looking around"
-        width="480"
-        height="266"
-        class="my-8 max-w-full rounded"
-        loading="eager"
-      />
-    </PageSection>
-
-    <PageSection>
-      <div class="flex flex-col sm:flex-row gap-3 max-w-md">
-        <a
-          href="/"
-          class="inline-flex items-center justify-center px-4 py-2 border-2 border-solid border-plum-500 bg-plum-500 text-white text-sm font-semibold no-underline hover:bg-plum-800 hover:border-plum-800 transition focus:outline-hidden focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
-          style="font-family: var(--font-label);"
-        >
-          Back to shore 👑
-        </a>
-        <a
-          href="/search/"
-          class="inline-flex items-center justify-center px-4 py-2 border-2 border-solid border-plum-500 bg-transparent text-plum-500 text-sm font-semibold no-underline hover:bg-plum-50 transition focus:outline-hidden focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
-          style="font-family: var(--font-label);"
-        >
-          Search for treasure 🔍
-        </a>
-      </div>
-    </PageSection>
-  </main>
-</BaseLayout>
+<LogLayout title="Page not found" description="This page has sailed off the map." newsletter={false}>
+  <TitleBlock
+    label="404"
+    lead="The page you’re looking for isn’t here. It may have moved when the log got its new coat of paint."
+  >
+    This page has sailed <span class="acid">off the map</span>.
+    <div slot="after" class="flex gap-3 flex-wrap">
+      <a class="btn btn-fire" href="/">Back to shore <span aria-hidden="true">→</span></a>
+      <a class="btn btn-cream" href="/search/">Search the log</a>
+    </div>
+  </TitleBlock>
+  <Divider />
+  <section class="ruled gutter py-[clamp(32px,4vw,56px)]">
+    <img
+      src="https://media.giphy.com/media/8P8u3gh2OJqog/giphy.gif"
+      alt="Confused pirate looking around"
+      width="480"
+      height="266"
+      class="max-w-full h-auto border-2 border-ink"
+      loading="eager"
+    />
+  </section>
+</LogLayout>

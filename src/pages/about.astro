@@ -1,27 +1,25 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import SiteHeader from "../components/SiteHeader.astro";
-import PageSection from "../components/PageSection.astro";
-import PageSectionHeader from "../components/PageSectionHeader.astro";
-import Prose from "../components/Prose.astro";
+import LogLayout from "../layouts/LogLayout.astro";
+import TitleBlock from "../components/log/TitleBlock.astro";
+import Divider from "../components/log/Divider.astro";
 import { getEntry } from "astro:content";
 
 // Get about page content
 const about = await getEntry("landing", "about");
 const { Content } = await about.render();
-
-const { badge, title } = about.data;
 ---
 
-<BaseLayout title={title}>
-  <SiteHeader />
-  <main class="pb-12">
-    <!-- About Section -->
-    <PageSection component="header">
-      <PageSectionHeader badge={badge} title="About" hLevel={1} class="opacity-0" />
-      <Prose>
-        <Content />
-      </Prose>
-    </PageSection>
-  </main>
-</BaseLayout>
+<LogLayout
+  title={about.data.title}
+  description="Queen Raae is Benedicte Raae, a developer in Oslo and co-captain of Lilly Labs."
+>
+  <TitleBlock label="About">
+    Hi, I’m <span class="acid">Queen Raae</span>.
+  </TitleBlock>
+  <Divider />
+  <article class="ruled py-[clamp(32px,4vw,56px)]">
+    <div class="log-prose">
+      <Content />
+    </div>
+  </article>
+</LogLayout>

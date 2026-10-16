@@ -1,33 +1,24 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import SiteHeader from "../../components/SiteHeader.astro";
-import PageSection from "../../components/PageSection.astro";
-import PageSectionHeader from "../../components/PageSectionHeader.astro";
-import PageSectionBreadcrumbs from "../../components/PageSectionBreadcrumbs.astro";
-import Prose from "../../components/Prose.astro";
-import Newsletter from "../../components/Newsletter.astro";
-
-const BADGE = "Emails";
-const TITLE = "Reminders";
-const DESCRIPTION = "Live stream reminders";
+import LogLayout from "../../layouts/LogLayout.astro";
+import TitleBlock from "../../components/log/TitleBlock.astro";
+import Divider from "../../components/log/Divider.astro";
+import NewsletterBlock from "../../components/log/NewsletterBlock.astro";
+import ExtIcon from "../../components/log/ExtIcon.astro";
 ---
 
-<BaseLayout title={`${BADGE} - ${TITLE}`} description={DESCRIPTION}>
-  <SiteHeader />
-  <main>
-    <PageSection component="header">
-      <PageSectionBreadcrumbs class="mt-4" items={[{ label: BADGE, to: "/subs/" }, { label: TITLE }]} />
-      <PageSectionHeader title={DESCRIPTION} hLevel={1} />
-      <Prose>
-        <p>
-          Receive a reminder via email 30 minutes before we go live on the{" "}
-          <a href="https://www.youtube.com/channel/UCDlrzlRdM1vGr8nO708KFmQ"> Queen Raae YouTube channel </a>.<br />
-          <small
-            >(The YouTube notfications system cannot be trusted <span role="img" aria-label="Facepalm emojii">🤦‍♀️</span> )</small
-          >
-        </p>
-      </Prose>
-      <Newsletter class="mt-8" formKey="reminders" cta="Yes, please" tagline="" message="" />
-    </PageSection>
-  </main>
-</BaseLayout>
+<LogLayout title="Live stream reminders" description="Live stream reminders" newsletter={false}>
+  <TitleBlock label="Reminders">
+    Live stream <span class="acid">reminders</span>.
+    <p slot="after" class="lead m-0 max-w-[60ch] text-[clamp(18px,1.6vw,22px)] leading-normal">
+      Get an email 30 minutes before I go live on the <a
+        href="https://www.youtube.com/channel/UCDlrzlRdM1vGr8nO708KFmQ"
+        target="_blank"
+        rel="noopener">Queen Raae YouTube channel<ExtIcon /></a
+      >. The YouTube notification system cannot be trusted.
+    </p>
+  </TitleBlock>
+  <Divider />
+  <NewsletterBlock formId="2816322" copy="One email, 30 minutes before the stream starts." cta="Remind me">
+    <Fragment slot="title">Remind me <span class="acid">before</span>.</Fragment>
+  </NewsletterBlock>
+</LogLayout>
