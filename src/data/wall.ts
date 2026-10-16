@@ -14,6 +14,11 @@ export const photos = [
     caption: "Just married after 17 years, August 2026",
   },
   {
+    src: avatar,
+    alt: "Black and white portrait of Queen Raae smiling, with orange embroidery on her top",
+    caption: "Still my avatar on Twitter, ca 2006",
+  },
+  {
     src: crew,
     alt: "Ola, our daughter and Queen Raae holding hands in a backyard, all three laughing",
     caption: "The crew",
@@ -37,10 +42,5 @@ export const photos = [
     src: apps4norge,
     alt: "A young Queen Raae laughing and holding a giant cheque in front of a slide reading Giftinformasjon",
     caption: "Winning apps4norge, 2013",
-  },
-  {
-    src: avatar,
-    alt: "Black and white portrait of Queen Raae smiling, with orange embroidery on her top",
-    caption: "Still my avatar on Twitter, ca 2006",
   },
 ];
