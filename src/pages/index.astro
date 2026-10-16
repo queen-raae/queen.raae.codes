@@ -1,94 +1,401 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import SiteHeader from "../components/SiteHeader.astro";
-import PageSection from "../components/PageSection.astro";
-import PageSectionHeader from "../components/PageSectionHeader.astro";
-import Prose from "../components/Prose.astro";
-import ContentList from "../components/ContentList.astro";
-import Newsletter from "../components/Newsletter.astro";
-import { getAllPosts, getAuthorInfo } from "../lib/posts";
-import { getEntry } from "astro:content";
+import { Image } from "astro:assets";
+import LogLayout from "../layouts/LogLayout.astro";
+import Divider from "../components/log/Divider.astro";
+import SectionBar from "../components/log/SectionBar.astro";
+import EntryRow from "../components/log/EntryRow.astro";
+import ExtIcon from "../components/log/ExtIcon.astro";
+import LogPlayer from "../components/log/LogPlayer.astro";
+import Shelf from "../components/log/Shelf.astro";
+import { getAllPosts, getAuthorInfo, groupByYear } from "../lib/posts";
+import { getReadingItems } from "../lib/reading";
+import { getPodcastInfo } from "../lib/podcast";
+import { now, nowUpdated } from "../data/now";
+import { treasures } from "../data/treasures";
+import { photos } from "../data/wall";
+import heroPhoto from "../assets/log/queen-wall.jpg";
 
-// Get landing page content
-const landing = await getEntry("landing", "index");
-const { Content } = await landing.render();
-
-// Get latest posts (5 only)
 const allPosts = await getAllPosts();
-const latestPosts = allPosts.slice(0, 5);
+const latest = allPosts.slice(0, 5);
+const books = (await getReadingItems()).filter((item) => item.kind === "Book").slice(0, 5);
+const podcast = await getPodcastInfo();
 
-// Treasures — interleaved with posts
-const treasures = [
-  {
-    primary: "Book Me as a Speaker",
-    to: "/speaker/",
-    secondary: 'Joyful AI Talks for Devs & Non-Techies <em class="font-body normal-case">with</em> Queen Raae 👑',
-  },
-  {
-    primary: "Is it Queen or AI?",
-    to: "/is-it-queen-or-ai",
-    secondary: 'Quiz Game <em class="font-body normal-case">by</em> Jean-Claw 🦀',
-  },
-  {
-    primary: "POW! — The Privacy-First Menstrual Cycle Journal",
-    href: "https://usepow.app",
-    secondary: 'Side Project <em class="font-body normal-case">by</em> Queen Raae 👑',
-  },
-  {
-    primary: "Slow & Steady Podcast",
-    href: "https://slowandsteadypodcast.com/",
-    secondary: 'Podcast <em class="font-body normal-case">by</em> Benedikt Deicke 🎙️',
-  },
-];
+const isExternal = (href: string) => /^https?:\/\//.test(href);
+const sourceOf = (post: (typeof allPosts)[number]) =>
+  post.importedFrom ?? (post.author === "Queen" ? "queen.raae.codes" : `by ${getAuthorInfo(post.author).name}`);
 
-// Convert posts to feed items
-const postItems = latestPosts.map((post) => {
-  const authorInfo = getAuthorInfo(post.author);
-  return {
-    primary: post.title,
-    to: post.slug,
-    secondary: `Blog Post · ${post.dateFormatted} <em class="font-body normal-case">by</em> ${authorInfo.name} ${authorInfo.emoji}`,
-  };
-});
+// From the archives: the first entry of each of the four earliest years
+const years = groupByYear(allPosts);
+const firstYear = years[years.length - 1]?.year;
+const archives = years
+  .slice(-4)
+  .reverse()
+  .map(({ posts }) => posts[posts.length - 1]);
 
-// Alternate: speaker first, then post/treasure/post/treasure...
-const feedItems: typeof postItems = [];
-let tIdx = 0;
-let pIdx = 0;
-feedItems.push(treasures[tIdx++]);
-while (pIdx < postItems.length || tIdx < treasures.length) {
-  if (pIdx < postItems.length) feedItems.push(postItems[pIdx++]);
-  if (tIdx < treasures.length) feedItems.push(treasures[tIdx++]);
-}
+// Everything the dice can dig up
+const diggable = allPosts.map((post) => ({ y: post.year, t: post.title, s: post.slug, src: sourceOf(post) }));
 
-const { badge, title } = landing.data;
+const updated = new Date(nowUpdated).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
 ---
 
-<BaseLayout title={title}>
-  <SiteHeader />
-  <main class="pb-12">
-    <!-- Welcome Section -->
-    <PageSection component="header">
-      <PageSectionHeader badge={badge} title={title} hLevel={1} />
-      <Prose>
-        <Content />
-      </Prose>
-    </PageSection>
-
-    <!-- Newsletter Section -->
-    <PageSection>
-      <Newsletter />
-    </PageSection>
-
-    <!-- Mixed Feed Section -->
-    <PageSection>
-      <ContentList
-        items={feedItems}
-        ctas={[
-          { to: "/posts/", label: "Read all posts" },
-          { to: "/speaker/", label: "See all talks" },
-        ]}
+<LogLayout feeds={[{ title: "Queen Raae's log", href: "/posts/queen.xml" }]}>
+  <!-- Hero: C on plum, no seam -->
+  <section class="on-plum ruled grid grid-cols-[repeat(auto-fit,minmax(min(100%,440px),1fr))]">
+    <div class="py-[clamp(32px,5vw,64px)] gutter flex flex-col justify-center gap-7 min-w-0 box-border">
+      <p class="mono m-0"><span class="label">queen.raae.codes · a developer’s logbook, kept in Oslo</span></p>
+      <h1 class="display m-0 text-[clamp(40px,5.2vw,72px)] leading-none tracking-[-0.03em] text-balance">
+        I’ve been building for the web since table layouts were a <span class="acid">reasonable choice</span>.
+      </h1>
+      <div class="flex gap-3 flex-wrap">
+        <a class="btn btn-fire" href="#log">Read the log <span aria-hidden="true">→</span></a>
+        <a class="btn btn-cream" href="#now">What I’m doing now</a>
+      </div>
+    </div>
+    <div class="relative min-h-[clamp(380px,52vw,580px)] min-w-0 max-sm:min-h-0 max-sm:flex max-sm:flex-col">
+      <Image
+        src={heroPhoto}
+        alt="Queen Raae smiling in front of her gallery wall at home, holding a sticker-covered laptop"
+        widths={[640, 960, 1280]}
+        sizes="(min-width: 1200px) 600px, (min-width: 900px) 50vw, 100vw"
+        loading="eager"
+        class="absolute inset-0 w-full h-full object-cover object-[82%_45%] block max-sm:relative max-sm:h-[340px]"
       />
-    </PageSection>
-  </main>
-</BaseLayout>
+      <div
+        class="absolute left-0 bottom-0 max-w-[min(84%,460px)] max-sm:relative max-sm:max-w-none max-sm:border-r-0 bg-ink text-cream border-t-2 border-r-2 border-cream p-[clamp(18px,2.5vw,28px)] box-border"
+      >
+        <p class="m-0 text-[17px] leading-[1.55]">
+          Developer, reader, and co‑captain of <a href="https://lillylabs.no">Lilly Labs</a>, a two‑person family studio
+          in a converted factory in Oslo. We fix homegrown software for Norwegian companies and, increasingly, buy it.
+          This is where I think out loud: code, books, and the slow business of building a company that lets us leave
+          for six weeks.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- 01 Now -->
+  <section id="now" class="ruled flex flex-col relative scroll-mt-4">
+    <SectionBar num="01" title="Now" />
+    <span class="mono sticker absolute top-14 right-[clamp(16px,3vw,32px)] z-1 -translate-y-1/2">
+      Updated {updated}
+    </span>
+    <div class="cells cells--now">
+      {
+        now.map((item) => (
+          <div class="cell-box">
+            <span class="mono label">{item.label}</span>
+            <p set:html={item.html} />
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- 02 Latest from the log -->
+  <section id="log" class="ruled flex flex-col scroll-mt-4">
+    <SectionBar num="02" title="Latest from the log">
+      <a class="navlink" href="/posts/">All entries →</a>
+      <a
+        href="/posts/queen.xml"
+        aria-label="RSS feed"
+        class="inline-flex items-center justify-center min-w-11 min-h-11"
+      >
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.4"
+          stroke-linecap="square"
+          ><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><rect
+            x="3.5"
+            y="17.5"
+            width="3"
+            height="3"
+            fill="currentColor"
+            stroke="none"></rect></svg
+        >
+      </a>
+    </SectionBar>
+    {latest.map((post) => <EntryRow post={post} />)}
+  </section>
+
+  <!-- 03 Treasures: the chest -->
+  <section id="treasures" class="ruled flex flex-col">
+    <SectionBar num="03" title="Treasures">
+      <span class="mono">Things I made that you can poke at</span>
+    </SectionBar>
+    <div class="cells cells--chest">
+      <div id="podcast" class="col-span-full flex flex-wrap gap-0.5 bg-ink">
+        <div class="cell-box flex-[1_1_280px] justify-center">
+          <span class="mono label">Podcast</span>
+          <p>
+            <strong>Slow &amp; Steady.</strong> Two people running small software businesses, talking about it while it happens.
+            Me and Benedikt Deicke, every other week or so, no editing, no sponsors.
+          </p>
+          <a href={podcast.site} target="_blank" rel="noopener" class="navlink -ml-2.5">All episodes<ExtIcon /></a>
+        </div>
+        {
+          podcast.latest && (
+            <div class="cell-box flex-[2_1_520px] flex-row! flex-wrap items-center gap-5">
+              {podcast.latest.cover && (
+                <img
+                  src={podcast.latest.cover}
+                  alt=""
+                  width="120"
+                  height="120"
+                  loading="lazy"
+                  class="w-[120px] h-[120px] object-cover border-2 border-ink shrink-0"
+                />
+              )}
+              <div class="flex-[1_1_300px] flex flex-col gap-3 min-w-0">
+                <span class="mono text-plum-500">
+                  Latest episode{podcast.latest.date && ` · ${podcast.latest.date}`}
+                </span>
+                <span class="display text-[clamp(20px,2vw,26px)] leading-[1.1]">{podcast.latest.title}</span>
+                {podcast.latest.audio && (
+                  <LogPlayer
+                    src={podcast.latest.audio}
+                    label={podcast.latest.title}
+                    duration={podcast.latest.duration}
+                  />
+                )}
+                <div class="flex gap-1 flex-wrap -ml-2.5">
+                  {podcast.apple && (
+                    <a class="navlink" href={podcast.apple} target="_blank" rel="noopener">
+                      Apple
+                    </a>
+                  )}
+                  {podcast.spotify && (
+                    <a class="navlink" href={podcast.spotify} target="_blank" rel="noopener">
+                      Spotify
+                    </a>
+                  )}
+                  {podcast.feed && (
+                    <a class="navlink" href={podcast.feed}>
+                      RSS
+                    </a>
+                  )}
+                  {podcast.latest.link && (
+                    <a class="navlink" href={podcast.latest.link} target="_blank" rel="noopener">
+                      Show notes
+                    </a>
+                  )}
+                </div>
+              </div>
+            </div>
+          )
+        }
+      </div>
+      {
+        treasures.map((treasure) => (
+          <a
+            class="tcell cell-box"
+            href={treasure.href}
+            {...(isExternal(treasure.href) ? { target: "_blank", rel: "noopener" } : {})}
+          >
+            <span class="mono label">{treasure.label}</span>
+            <p>
+              <strong class="nowttl">
+                {treasure.title}
+                {isExternal(treasure.href) ? (
+                  <ExtIcon />
+                ) : (
+                  <span class="arr" aria-hidden="true">
+                    →
+                  </span>
+                )}
+              </strong>{" "}
+              {treasure.blurb}
+            </p>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- 04 The wall -->
+  <section id="wall" class="ruled flex flex-col">
+    <SectionBar num="04" title="The wall" />
+    <div class="cells cells--wall">
+      {
+        photos.map((photo) => (
+          <figure class="wall-cell">
+            <Image
+              src={photo.src}
+              alt={photo.alt}
+              widths={[300, 600]}
+              sizes="(min-width: 1200px) 300px, 50vw"
+              style={`object-position:${photo.position}`}
+            />
+            <figcaption>{photo.caption}</figcaption>
+          </figure>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- 05 The shelf -->
+  {
+    books.length > 0 && (
+      <section id="shelf" class="ruled flex flex-col">
+        <SectionBar num="05" title="The shelf">
+          <a class="navlink" href="/reading/">
+            Every book, with notes →
+          </a>
+        </SectionBar>
+        <p class="m-0 gutter py-[clamp(20px,3vw,32px)] max-w-[68ch] text-lg leading-[1.55] box-border">
+          Short notes on what I read, written when I finish and not a day later. Not reviews. More like what I’d tell
+          you if you asked over coffee and we had four minutes.
+        </p>
+        <div class="border-t-2 border-ink">
+          <Shelf books={books} />
+        </div>
+      </section>
+    )
+  }
+
+  <!-- 06 From the archives -->
+  <section id="archive" class="ruled flex flex-col">
+    <SectionBar num={books.length > 0 ? "06" : "05"} title="From the archives">
+      <a class="navlink" href="/posts/">Browse by year →</a>
+      <button type="button" class="btn btn-fire btn--sm dig-button">
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.2"
+          stroke-linejoin="round"
+          ><rect x="3" y="3" width="18" height="18"></rect><circle
+            cx="8"
+            cy="8"
+            r="1.6"
+            fill="currentColor"
+            stroke="none"></circle><circle cx="16" cy="8" r="1.6" fill="currentColor" stroke="none"></circle><circle
+            cx="12"
+            cy="12"
+            r="1.6"
+            fill="currentColor"
+            stroke="none"></circle><circle cx="8" cy="16" r="1.6" fill="currentColor" stroke="none"></circle><circle
+            cx="16"
+            cy="16"
+            r="1.6"
+            fill="currentColor"
+            stroke="none"></circle></svg
+        >
+        <span class="dig-label">Dig one up</span>
+      </button>
+    </SectionBar>
+    <p class="m-0 gutter py-[clamp(20px,3vw,32px)] max-w-[68ch] text-lg leading-[1.55] box-border">
+      {allPosts.length} entries going back to {firstYear}, original dates kept. Cringe included; that’s rather the
+      point. Press the dice and the archive hands you one.
+    </p>
+    <div
+      class="dig-result hidden flex-wrap gap-x-7 gap-y-4 items-center bg-acid border-t-2 border-ink py-[clamp(16px,2.5vw,24px)] gutter"
+      aria-live="polite"
+    >
+      <span class="mono font-bold shrink-0 dig-status"></span>
+      <span class="display shrink-0 text-[clamp(28px,3vw,40px)] leading-none tracking-[-0.03em] min-w-[3.4ch] dig-year"
+      ></span>
+      <a
+        href="#"
+        class="display flex-[1_1_320px] text-[clamp(20px,2.2vw,28px)] leading-[1.1] tracking-[-0.02em] no-underline dig-title"
+      ></a>
+      <span class="mono text-deep shrink-0 dig-count"></span>
+    </div>
+    <div class="cells cells--arc border-t-2 border-ink">
+      {
+        archives.map((post) => (
+          <a class="arc" href={post.slug}>
+            <span class="display text-[clamp(40px,4vw,56px)] leading-[0.9] tracking-[-0.03em]">{post.year}</span>
+            <span class="mono text-plum-500">{sourceOf(post)}</span>
+            <span class="text-lg leading-[1.4] font-bold">{post.title}</span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <script
+    is:inline
+    type="application/json"
+    id="diggable"
+    set:html={JSON.stringify(diggable).replace(/</g, "\\u003c")}
+  />
+</LogLayout>
+
+<script>
+  // The dice: only the year animates while digging.
+  const posts: { y: string; t: string; s: string; src: string }[] = JSON.parse(
+    document.getElementById("diggable")?.textContent || "[]",
+  );
+  const button = document.querySelector<HTMLButtonElement>(".dig-button");
+  const result = document.querySelector<HTMLElement>(".dig-result");
+
+  if (button && result && posts.length) {
+    const label = button.querySelector<HTMLElement>(".dig-label")!;
+    const status = result.querySelector<HTMLElement>(".dig-status")!;
+    const year = result.querySelector<HTMLElement>(".dig-year")!;
+    const title = result.querySelector<HTMLAnchorElement>(".dig-title")!;
+    const count = result.querySelector<HTMLElement>(".dig-count")!;
+
+    const labels = ["Dig one up", "Dig again", "Keep digging", "One more", "You’re hooked", "Fine, one more"];
+    const counts = [
+      "",
+      "That’s one.",
+      "Two down.",
+      "Three. No judgement.",
+      "Four, and counting.",
+      `There are ${posts.length - 5} more.`,
+    ];
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    let dug = 0;
+    let current = -1;
+    let rolling = false;
+
+    const random = () => Math.floor(Math.random() * posts.length);
+
+    button.addEventListener("click", () => {
+      if (rolling) return;
+      rolling = true;
+      result.classList.remove("hidden");
+      result.classList.add("flex");
+      status.textContent = "Digging";
+      title.textContent = "…";
+      title.removeAttribute("href");
+      count.textContent = "";
+      label.textContent = "Digging…";
+
+      let ticks = 0;
+      const spin = () => {
+        ticks += 1;
+        if (!reduced && ticks < 12) {
+          year.textContent = posts[random()].y;
+          setTimeout(spin, 40 + ticks * 14);
+          return;
+        }
+        let next = random();
+        if (posts.length > 1 && next === current) next = (next + 1) % posts.length;
+        current = next;
+        dug += 1;
+        const post = posts[next];
+        year.textContent = post.y;
+        status.textContent = `Dug up · ${post.src}`;
+        title.textContent = `${post.t} →`;
+        title.href = post.s;
+        count.textContent = counts[Math.min(dug, counts.length - 1)];
+        label.textContent = labels[Math.min(dug, labels.length - 1)];
+        rolling = false;
+      };
+      spin();
+    });
+  }
+</script>
