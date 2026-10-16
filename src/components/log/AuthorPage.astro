@@ -1,0 +1,41 @@
+---
+import LogLayout from "../../layouts/LogLayout.astro";
+import TitleBlock from "./TitleBlock.astro";
+import Divider from "./Divider.astro";
+import YearSections from "./YearSections.astro";
+import { getAllPosts } from "../../lib/posts";
+
+interface Props {
+  author: string;
+  name: string;
+  description: string;
+  lead: string;
+  feed: { title: string; href: string };
+  image: string;
+  shorts?: string;
+}
+
+const { author, name, description, lead, feed, image, shorts } = Astro.props;
+
+const allPosts = await getAllPosts();
+const posts = allPosts.filter((post) => post.author === author);
+---
+
+<LogLayout title={name} description={description} image={image} feeds={[feed]}>
+  <TitleBlock label="Author" lead={lead} size="small">
+    {name}
+    <div slot="after" class="flex gap-1 flex-wrap -ml-2.5">
+      <a class="navlink" href={feed.href}>RSS</a>
+      {
+        shorts && (
+          <a class="navlink" href={shorts}>
+            YouTube Shorts
+          </a>
+        )
+      }
+      <span class="mono self-center px-2.5">{posts.length} entries</span>
+    </div>
+  </TitleBlock>
+  <Divider />
+  <YearSections posts={posts} />
+</LogLayout>

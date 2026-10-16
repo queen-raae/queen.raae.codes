@@ -1,0 +1,19 @@
+---
+// A compact archive row: date · type · title.
+import TypeLabel from "./TypeLabel.astro";
+import { getAuthorInfo, type ProcessedPost } from "../../lib/posts";
+
+interface Props {
+  post: ProcessedPost;
+}
+
+const { post } = Astro.props;
+const byline = post.author === "Queen" ? undefined : getAuthorInfo(post.author).name;
+---
+
+<a class="arow" href={post.slug}>
+  <time class="mono d" datetime={post.date}>{post.dateShort}</time>
+  <TypeLabel type={post.type} class="k" />
+  <span class="t">{post.title}</span>
+  {byline && <span class="mono by">by {byline}</span>}
+</a>

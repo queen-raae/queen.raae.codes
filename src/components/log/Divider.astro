@@ -1,0 +1,11 @@
+---
+// The divider strip under every plum block. Rendered as a repeated inline SVG
+// so the glyph weight is the same on every platform; every fourth glyph is amber.
+interface Props {
+  glyph?: "sparks" | "slashes" | "dots";
+}
+
+const { glyph = "sparks" } = Astro.props;
+---
+
+<div class={`divider divider--${glyph}`} aria-hidden="true"></div>

@@ -1,0 +1,31 @@
+---
+const elsewhere = [
+  { label: "GitHub", href: "https://github.com/queen-raae" },
+  { label: "YouTube", href: "https://www.youtube.com/QueenRaae" },
+  { label: "RSS", href: "/posts/queen.xml" },
+  { label: "Email", href: "/subs/" },
+];
+---
+
+<footer class="mt-auto flex flex-col">
+  <div class="gutter flex gap-x-10 gap-y-6 flex-wrap justify-between items-start py-[clamp(24px,3vw,40px)]">
+    <p class="m-0 max-w-[520px] text-base leading-[1.55]">
+      Queen Raae is Benedicte Raae, a developer in Oslo. For business, in Norwegian, see <a href="https://lillylabs.no"
+        >Lilly Labs</a
+      >. For everything else, you’re already here.
+    </p>
+    <nav aria-label="Elsewhere" class="flex gap-x-2 gap-y-1 flex-wrap items-start -mt-2.5 -mr-2.5">
+      {
+        elsewhere.map((link) => (
+          <a class="navlink" href={link.href}>
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+  <div class="bar min-h-11!">
+    <span class="mono">Hand‑rolled HTML, as the gods intended</span>
+    <span class="mono">© Lilly Labs AS</span>
+  </div>
+</footer>

@@ -19,21 +19,27 @@ interface Props {
   children?: any;
 }
 
-const { title, description, image, imageAlt, type = "website", creator, canonical: canonicalProp, feeds = [] } = Astro.props;
+const {
+  title,
+  description,
+  image,
+  imageAlt,
+  type = "website",
+  creator,
+  canonical: canonicalProp,
+  feeds = [],
+} = Astro.props;
 
 // Always include the main feed, plus any page-specific feeds
-const allFeeds: RssFeed[] = [
-  { title: "All Posts — Queen Raae & Family", href: "/posts/rss.xml" },
-  ...feeds,
-];
+const allFeeds: RssFeed[] = [{ title: "All Posts — Queen Raae & Family", href: "/posts/rss.xml" }, ...feeds];
 
 const { siteName, siteTagline, siteDescription, siteUrl, siteSocialImage, siteSocialImageAlt, siteTwitterCreator } =
   siteMetadata;
 
 const deployUrl =
   import.meta.env.CONTEXT === "production"
-    ? (import.meta.env.URL || siteUrl)
-    : (import.meta.env.DEPLOY_PRIME_URL || siteUrl);
+    ? import.meta.env.URL || siteUrl
+    : import.meta.env.DEPLOY_PRIME_URL || siteUrl;
 const siteTitle = `${siteName} — ${siteTagline}`;
 const pageTitle = title ? `${title}  —  ${siteName}` : siteTitle;
 const pageImage = image || siteSocialImage;
@@ -54,12 +60,13 @@ const twitterCard = "summary_large_image";
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#3D1230" />
 
     <title>{pageTitle}</title>
     <link rel="canonical" href={canonical} />
     <link
       rel="icon"
-      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👑</text></svg>"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22><path d=%22M3 18h18l-1.6-9.4-4.6 4.2L12 5l-2.8 7.8-4.6-4.2z%22 fill=%22%23FBBF24%22 stroke=%22%233D1230%22 stroke-width=%222%22 stroke-linejoin=%22round%22/><path d=%22M4.2 20.5h15.6%22 stroke=%22%233D1230%22 stroke-width=%222%22 stroke-linecap=%22round%22/></svg>"
     />
 
     <meta name="description" content={pageDescription} />
@@ -78,22 +85,14 @@ const twitterCard = "summary_large_image";
     {socialImage && <meta name="twitter:image:src" content={socialImage} />}
     {socialImageAlt && <meta name="twitter:image:alt" content={socialImageAlt} />}
 
-    {allFeeds.map(feed => (
-      <link rel="alternate" type="application/rss+xml" title={feed.title} href={feed.href} />
-    ))}
+    {allFeeds.map((feed) => <link rel="alternate" type="application/rss+xml" title={feed.title} href={feed.href} />)}
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400..900;1,400..900&family=Lora:ital,wght@0,400..700;1,400..700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400..700&family=Lora:ital,wght@0,400..700;1,400..700&family=Space+Mono:wght@400;700&display=swap"
       rel="stylesheet"
     />
-
-    <style>
-      html {
-        font-size: clamp(16px, 18px + 0.15vw, 19px);
-      }
-    </style>
 
     <!-- Fathom Analytics -->
     <script
@@ -119,9 +118,7 @@ const twitterCard = "summary_large_image";
       mermaid.run();
     </script>
   </head>
-  <body class="bg-plum-800 selection:bg-amber-300 text-plum-900">
-    <div class="bg-[#fdf6ec]">
-      <slot />
-    </div>
+  <body class="log-body">
+    <slot />
   </body>
 </html>

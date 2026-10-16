@@ -1,0 +1,25 @@
+---
+interface Props {
+  num?: string;
+  title: string;
+  note?: string;
+  tag?: "h2" | "h3";
+}
+
+const { num, title, note, tag: Tag = "h2" } = Astro.props;
+---
+
+<div class="bar">
+  <div class="flex items-center gap-4 flex-wrap">
+    {num && <span class="mono bar-num">{num}</span>}
+    <Tag class="bar-title">{title}</Tag>
+    {note && <span class="mono">{note}</span>}
+  </div>
+  {
+    Astro.slots.has("default") && (
+      <div class="flex gap-2.5 items-center flex-wrap">
+        <slot />
+      </div>
+    )
+  }
+</div>

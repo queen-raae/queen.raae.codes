@@ -1,0 +1,37 @@
+---
+// Entries grouped by year, each year under its own numbered bar.
+import SectionBar from "./SectionBar.astro";
+import ArchiveRow from "./ArchiveRow.astro";
+import { groupByYear, type ProcessedPost } from "../../lib/posts";
+
+interface Props {
+  posts: ProcessedPost[];
+  startAt?: number;
+  jumpTo?: string;
+}
+
+const { posts, startAt = 1, jumpTo } = Astro.props;
+const years = groupByYear(posts);
+const pad = (n: number) => String(n).padStart(2, "0");
+---
+
+{
+  years.map(({ year, posts }, index) => (
+    <section id={`y${year}`} class="ruled flex flex-col scroll-mt-4">
+      <SectionBar
+        num={pad(startAt + index)}
+        title={year}
+        note={`· ${posts.length} ${posts.length === 1 ? "entry" : "entries"}`}
+      >
+        {jumpTo && (
+          <a class="navlink" href={jumpTo}>
+            ↑ Years
+          </a>
+        )}
+      </SectionBar>
+      {posts.map((post) => (
+        <ArchiveRow post={post} />
+      ))}
+    </section>
+  ))
+}

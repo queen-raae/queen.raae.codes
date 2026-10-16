@@ -13,9 +13,9 @@ interface SiteMetadata {
 const siteMetadata: SiteMetadata = {
   siteUrl: "https://queen.raae.codes",
   siteName: "Queen Raae",
-  siteTagline: "Sailing the high seas of the World Wide Web",
+  siteTagline: "A developer's logbook, kept in Oslo",
   siteDescription:
-    "Ahoy, seasoned JavaScript developers and daring dev pirates! Join our swashbuckling crew as we embark on thrilling treasure hunts unraveling the secrets of HTML, CSS, and JavaScript, all while having a blast!",
+    "Queen Raae's logbook: code, books, and the slow business of building a two-person family studio in a converted factory in Oslo.",
   siteLang: "en",
   siteSocialImage: "/raae.jpg",
   siteSocialImageAlt: "Queen Raae holding a laptop in front of her gallery wall",

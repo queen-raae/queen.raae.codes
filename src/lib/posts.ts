@@ -1,5 +1,9 @@
 import { getCollection } from "astro:content";
 import { format } from "date-fns";
+import type { EntryType } from "./entry-types";
+
+// Drafts (and preview-only stand-ins) never ship to production
+export const isProduction = (import.meta.env.CONTEXT || process.env.CONTEXT) === "production";
 
 // Parse date and slug from post path
 // Pattern: /2022/03/17-demo/index.md -> date: 2022-03-17, slug: /2022-03-17-demo/
@@ -32,7 +36,27 @@ export interface ProcessedPost {
   isRelatable: boolean;
   content: string;
   render: () => Promise<{ Content: any }>;
+  // Logbook
+  type: EntryType;
+  standfirst?: string;
+  draft: boolean;
+  year: string;
+  dateShort: string;
+  dateMedium: string;
+  dateLong: string;
+  wordCount: number;
+  readingMinutes: number;
+  importedFrom?: string;
+  lang: "en" | "no";
+  originalUrl?: string;
+  creator?: string;
+  url?: string;
+  reread: boolean;
+  lillylabs: boolean;
 }
+
+// Entries without an explicit type: long ones read as essays, the rest as notes
+const ESSAY_MIN_WORDS = 700;
 
 // Get all posts from both queen and olavea collections
 export async function getAllPosts(): Promise<ProcessedPost[]> {
@@ -69,16 +93,25 @@ export async function getAllPosts(): Promise<ProcessedPost[]> {
 
     let dateFormatted = "";
     let dateISO = date;
+    let dateShort = date;
+    let dateMedium = date;
+    let dateLong = date;
 
     if (date) {
       try {
         const dateObj = new Date(date);
         dateFormatted = format(dateObj, "MMMM do, yyyy");
+        dateShort = format(dateObj, "dd MMM");
+        dateMedium = format(dateObj, "dd MMM yyyy");
+        dateLong = format(dateObj, "d MMMM yyyy");
         dateISO = dateObj.toISOString();
       } catch (e) {
         dateFormatted = date;
       }
     }
+
+    const wordCount = plainText ? plainText.split(" ").length : 0;
+    const type: EntryType = entry.data.type ?? (wordCount >= ESSAY_MIN_WORDS ? "Essay" : "Note");
 
     return {
       id: entry.id,
@@ -95,6 +128,22 @@ export async function getAllPosts(): Promise<ProcessedPost[]> {
       isRelatable,
       content: entry.body || "",
       render: entry.render.bind(entry),
+      type,
+      standfirst: entry.data.standfirst,
+      draft: entry.data.draft,
+      year: date.slice(0, 4),
+      dateShort,
+      dateMedium,
+      dateLong,
+      wordCount,
+      readingMinutes: Math.max(1, Math.round(wordCount / 230)),
+      importedFrom: entry.data.importedFrom,
+      lang: entry.data.lang,
+      originalUrl: entry.data.originalUrl,
+      creator: entry.data.creator,
+      url: entry.data.url,
+      reread: entry.data.reread,
+      lillylabs: entry.data.lillylabs,
     };
   };
 
@@ -105,7 +154,17 @@ export async function getAllPosts(): Promise<ProcessedPost[]> {
   ];
 
   // Sort by slug descending (which is date-based)
-  return allPosts.sort((a, b) => b.slug.localeCompare(a.slug));
+  return allPosts.filter((post) => !(isProduction && post.draft)).sort((a, b) => b.slug.localeCompare(a.slug));
+}
+
+// Group posts by year, newest year first
+export function groupByYear(posts: ProcessedPost[]): { year: string; posts: ProcessedPost[] }[] {
+  const years = new Map<string, ProcessedPost[]>();
+  posts.forEach((post) => {
+    if (!years.has(post.year)) years.set(post.year, []);
+    years.get(post.year)!.push(post);
+  });
+  return [...years.entries()].sort(([a], [b]) => b.localeCompare(a)).map(([year, posts]) => ({ year, posts }));
 }
 
 // Get a single post by slug
@@ -148,9 +207,15 @@ export function getRelatedPosts(
 // Get author display info from author ID
 export function getAuthorInfo(author: string) {
   const authors: Record<string, { name: string; slug: string; twitter?: string; emoji?: string; tagline?: string }> = {
-    "Queen": { name: "Queen Raae", slug: "/author/queen/", twitter: "https://twitter.com/raae", emoji: "👑" },
-    "OlaVea": { name: "Cap'n Ola", slug: "/author/olavea/", twitter: "https://twitter.com/olaholstvea", emoji: "🏴‍☠️" },
-    "JeanClaw2026": { name: "Jean-Claw", slug: "/author/jeanclaw/", twitter: undefined, emoji: "🦀", tagline: "an AI agent running on OpenClaw" },
+    Queen: { name: "Queen Raae", slug: "/author/queen/", twitter: "https://twitter.com/raae", emoji: "👑" },
+    OlaVea: { name: "Cap'n Ola", slug: "/author/olavea/", twitter: "https://twitter.com/olaholstvea", emoji: "🏴‍☠️" },
+    JeanClaw2026: {
+      name: "Jean-Claw",
+      slug: "/author/jeanclaw/",
+      twitter: undefined,
+      emoji: "🦀",
+      tagline: "an AI agent running on OpenClaw",
+    },
   };
   return authors[author] || authors["Queen"];
 }

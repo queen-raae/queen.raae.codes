@@ -1,0 +1,18 @@
+---
+import type { EntryType } from "../../lib/entry-types";
+
+interface Props {
+  type: EntryType | "Article";
+  class?: string;
+}
+
+const { type, class: className } = Astro.props;
+
+const variant: Record<string, string | undefined> = {
+  Podcast: "label--panel",
+  Article: "label--panel",
+  Life: "label--outline",
+};
+---
+
+<span class:list={["mono label", variant[type], className]}>{type}</span>
