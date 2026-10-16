@@ -1,5 +1,5 @@
 ---
-// Plum title block used on every inner page: same anatomy as the hero's text column.
+// Title block on every inner page: plum, except log entries, which use the soft pink panel: same anatomy as the hero's text column.
 interface Props {
   label?: string;
   back?: { href: string; label: string };
@@ -11,7 +11,7 @@ interface Props {
 const { label, back, lead, standfirst, size = "page" } = Astro.props;
 ---
 
-<section class:list={["on-plum title-block", size !== "page" && `title-block--${size}`]}>
+<section class:list={["title-block", size !== "entry" && "on-plum", size !== "page" && `title-block--${size}`]}>
   {
     back && (
       <div class="flex">

@@ -318,8 +318,30 @@
     text-wrap: balance;
   }
 
+  /* Log entry: E, the calmer soft-pink title block */
+  .title-block--entry {
+    background: var(--color-panel);
+    color: var(--color-ink);
+    padding: clamp(32px, 5vw, 56px) clamp(16px, 3vw, 32px) clamp(28px, 4vw, 44px);
+    gap: 18px;
+  }
+
   .title-block--entry h1 {
-    font-size: clamp(44px, 7.5vw, 112px);
+    color: var(--color-ink);
+    font-size: clamp(38px, 5.2vw, 64px);
+    line-height: 1.02;
+    letter-spacing: -0.025em;
+    max-width: 18ch;
+  }
+
+  .title-block--entry .meta,
+  .title-block--entry .standfirst {
+    color: var(--color-deep);
+  }
+
+  .title-block--entry .standfirst {
+    font-size: clamp(19px, 1.8vw, 22px);
+    line-height: 1.5;
   }
 
   .title-block--small h1 {
@@ -408,6 +430,78 @@
 
   .divider--dots {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='16' viewBox='0 0 96 16'%3E%3Cg fill='%233D1230'%3E%3Ccircle cx='8' cy='8' r='2.2'/%3E%3Ccircle cx='56' cy='8' r='2.2'/%3E%3C/g%3E%3Cg fill='%23F59E0B'%3E%3Cpath d='M32 1.5C32.5 5.6 34.4 7.5 38.5 8 34.4 8.5 32.5 10.4 32 14.5 31.5 10.4 29.6 8.5 25.5 8 29.6 7.5 31.5 5.6 32 1.5ZM80 1.5C80.5 5.6 82.4 7.5 86.5 8 82.4 8.5 80.5 10.4 80 14.5 79.5 10.4 77.6 8.5 73.5 8 77.6 7.5 79.5 5.6 80 1.5Z'/%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  /* Vertical divider: the sparks strip turned on its side, used as a seam */
+  .divider-v {
+    flex: 0 0 16px;
+    padding: 12px 8px;
+    border-left: 2px solid var(--color-ink);
+    border-right: 2px solid var(--color-ink);
+    background-color: var(--color-cream);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='96' viewBox='0 0 16 96'%3E%3Cpath fill='%233D1230' d='M8 1.5C8.5 5.6 10.4 7.5 14.5 8 10.4 8.5 8.5 10.4 8 14.5 7.5 10.4 5.6 8.5 1.5 8 5.6 7.5 7.5 5.6 8 1.5ZM8 25.5C8.5 29.6 10.4 31.5 14.5 32 10.4 32.5 8.5 34.4 8 38.5 7.5 34.4 5.6 32.5 1.5 32 5.6 31.5 7.5 29.6 8 25.5ZM8 49.5C8.5 53.6 10.4 55.5 14.5 56 10.4 56.5 8.5 58.4 8 62.5 7.5 58.4 5.6 56.5 1.5 56 5.6 55.5 7.5 53.6 8 49.5Z'/%3E%3Cpath fill='%23F59E0B' d='M8 73.5C8.5 77.6 10.4 79.5 14.5 80 10.4 80.5 8.5 82.4 8 86.5 7.5 82.4 5.6 80.5 1.5 80 5.6 79.5 7.5 77.6 8 73.5Z'/%3E%3C/svg%3E");
+    background-origin: content-box;
+    background-clip: content-box;
+    background-repeat: repeat-y;
+    background-position: center top;
+    background-size: 16px 96px;
+  }
+
+  /* Home hero: split down the middle, pink text half, photo half, the divider as the seam */
+  .hero-split {
+    display: flex;
+    background: var(--color-panel);
+    border-bottom: 2px solid var(--color-ink);
+  }
+
+  .hero-split .hero-text {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 24px;
+    padding: clamp(32px, 5vw, 64px) clamp(16px, 3vw, 32px);
+  }
+
+  .hero-split .hero-photo {
+    flex: 1 1 0;
+    min-width: 0;
+    position: relative;
+    min-height: clamp(420px, 46vw, 580px);
+  }
+
+  .hero-split .hero-photo img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 78% 45%;
+  }
+
+  @media (max-width: 760px) {
+    .hero-split {
+      flex-direction: column;
+    }
+
+    .hero-split .hero-photo {
+      min-height: 340px;
+    }
+
+    .hero-split .divider-v {
+      flex: 0 0 auto;
+      height: 16px;
+      box-sizing: content-box;
+      padding: 8px clamp(16px, 3vw, 32px);
+      border: 0;
+      border-top: 2px solid var(--color-ink);
+      border-bottom: 2px solid var(--color-ink);
+      background-repeat: repeat-x;
+      background-position: left center;
+      background-size: 96px 16px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='16' viewBox='0 0 96 16'%3E%3Cpath fill='%233D1230' d='M8 1.5C8.5 5.6 10.4 7.5 14.5 8 10.4 8.5 8.5 10.4 8 14.5 7.5 10.4 5.6 8.5 1.5 8 5.6 7.5 7.5 5.6 8 1.5ZM32 1.5C32.5 5.6 34.4 7.5 38.5 8 34.4 8.5 32.5 10.4 32 14.5 31.5 10.4 29.6 8.5 25.5 8 29.6 7.5 31.5 5.6 32 1.5ZM56 1.5C56.5 5.6 58.4 7.5 62.5 8 58.4 8.5 56.5 10.4 56 14.5 55.5 10.4 53.6 8.5 49.5 8 53.6 7.5 55.5 5.6 56 1.5Z'/%3E%3Cpath fill='%23F59E0B' d='M80 1.5C80.5 5.6 82.4 7.5 86.5 8 82.4 8.5 80.5 10.4 80 14.5 79.5 10.4 77.6 8.5 73.5 8 77.6 7.5 79.5 5.6 80 1.5Z'/%3E%3C/svg%3E");
+    }
   }
 
   /* ── Log rows (home "latest", tag & author lists) ── */
