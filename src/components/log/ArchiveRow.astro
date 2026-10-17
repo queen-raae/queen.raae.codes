@@ -1,5 +1,5 @@
 ---
-// A compact archive row: date with the type under it · title. Press rows add the outlet and a one-line blurb.
+// A compact archive row: date with the type under it · title. Press rows add the outlet.
 import TypeLabel from "./TypeLabel.astro";
 import { getAuthorInfo, type ProcessedPost } from "../../lib/posts";
 
@@ -19,5 +19,4 @@ const byline = post.author === "Queen" ? undefined : getAuthorInfo(post.author).
   <span class="t"><span>{post.title}</span></span>
   {byline && <span class="mono by">by {byline}</span>}
   {post.type === "Press" && post.outlet && <span class="mono by">{post.outlet}</span>}
-  {post.type === "Press" && post.blurb && <span class="b">{post.blurb}</span>}
 </a>
