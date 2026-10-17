@@ -4,7 +4,6 @@ import LogLayout from "../layouts/LogLayout.astro";
 import PersonJsonLd from "../components/log/PersonJsonLd.astro";
 import Divider from "../components/log/Divider.astro";
 import SectionBar from "../components/log/SectionBar.astro";
-import ExtIcon from "../components/log/ExtIcon.astro";
 import LogPlayer from "../components/log/LogPlayer.astro";
 import { getAllPosts, getAuthorInfo, groupByYear } from "../lib/posts";
 import { getPodcastInfo } from "../lib/podcast";
@@ -153,85 +152,122 @@ const updated = new Date(nowUpdated).toLocaleDateString("en-GB", { day: "numeric
     <SectionBar num="03" title="Treasures">
       <span class="mono max-[560px]:hidden">Things I made that you can poke at</span>
     </SectionBar>
-    <div class="cells cells--chest">
-      <div id="podcast" class="pod-row cell-box col-span-full">
+    <div id="podcast" class="pod-row">
+      <div class="pod-show">
         {
-          podcast.latest?.audio ? (
+          podcast.latest?.cover && (
+            <img class="pod-cover" src={podcast.latest.cover} alt="" width="148" height="148" loading="lazy" />
+          )
+        }
+        <p class="pod-desc">
+          <a href={podcast.site} target="_blank" rel="noopener"><strong>Slow &amp; Steady</strong></a>. Benedikt and
+          Benedicte (lol) chatting every other week or so about building software, life and so on.
+        </p>
+      </div>
+      <div class="pod-ep">
+        {
+          podcast.latest?.audio && (
             <>
-              <p class="pod-desc">
-                <strong>Slow &amp; Steady.</strong> Benedikt and Benedicte (lol) chatting every other week or so about
-                building software, life and so on.
+              <span class="pod-who mono">Latest episode{podcast.latest.date && ` · ${podcast.latest.date}`}</span>
+              <p class="pod-head">
+                {podcast.latest.link ? (
+                  <a class="pod-title" href={podcast.latest.link} target="_blank" rel="noopener">
+                    {podcast.latest.title}
+                  </a>
+                ) : (
+                  <span class="pod-title">{podcast.latest.title}</span>
+                )}
               </p>
               <LogPlayer
                 src={podcast.latest.audio}
                 label={podcast.latest.title}
                 duration={podcast.latest.duration}
-                cover={podcast.latest.cover}
-              >
-                <span class="pod-who">Latest episode</span>
-                <span class="pod-title">{podcast.latest.title}</span>
-                <div slot="track" class="pod-links flex gap-x-1 flex-wrap -ml-2.5">
-                  <a class="navlink" href={podcast.site} target="_blank" rel="noopener">
-                    Slow &amp; Steady
-                    <ExtIcon />
-                  </a>
-                  {podcast.apple && (
-                    <a class="navlink" href={podcast.apple} target="_blank" rel="noopener">
-                      Apple
-                    </a>
-                  )}
-                  {podcast.spotify && (
-                    <a class="navlink" href={podcast.spotify} target="_blank" rel="noopener">
-                      Spotify
-                    </a>
-                  )}
-                  {podcast.feed && (
-                    <a class="navlink" href={podcast.feed}>
-                      RSS
-                    </a>
-                  )}
-                  {podcast.latest.link && (
-                    <a class="navlink" href={podcast.latest.link} target="_blank" rel="noopener">
-                      Show notes
-                    </a>
-                  )}
-                </div>
-              </LogPlayer>
+                tape
+              />
             </>
-          ) : (
-            <p>
-              <strong>Slow &amp; Steady.</strong> Benedikt and Benedicte (lol) chatting every other week or so about
-              building software, life and so on.{" "}
-              <a href={podcast.site} target="_blank" rel="noopener">
-                All episodes
-              </a>
-            </p>
           )
         }
-      </div>
-      {
-        treasures.map((treasure) => (
-          <a
-            class="tcell cell-box"
-            href={treasure.href}
-            {...(isExternal(treasure.href) ? { target: "_blank", rel: "noopener" } : {})}
-          >
-            <span class="mono label">{treasure.label}</span>
-            <p>
-              <strong class="nowttl">
-                {treasure.title}
-                {isExternal(treasure.href) ? (
-                  <ExtIcon />
-                ) : (
-                  <span class="arr" aria-hidden="true">
-                    →
-                  </span>
-                )}
-              </strong>{" "}
-              {treasure.blurb}
-            </p>
+        <div class="pod-links flex gap-x-1 flex-wrap">
+          <a class="navlink" href={podcast.site} target="_blank" rel="noopener">
+            Slow &amp; Steady
+            <span class="arr" aria-hidden="true">→</span>
           </a>
-        ))
+          {
+            podcast.apple && (
+              <a class="navlink" href={podcast.apple} target="_blank" rel="noopener">
+                Apple
+              </a>
+            )
+          }
+          {
+            podcast.spotify && (
+              <a class="navlink" href={podcast.spotify} target="_blank" rel="noopener">
+                Spotify
+              </a>
+            )
+          }
+          {
+            podcast.feed && (
+              <a class="navlink" href={podcast.feed}>
+                RSS
+              </a>
+            )
+          }
+          {
+            podcast.latest?.link && (
+              <a class="navlink" href={podcast.latest.link} target="_blank" rel="noopener">
+                Show notes
+              </a>
+            )
+          }
+        </div>
+      </div>
+    </div>
+    <div class="twall" tabindex="0" role="region" aria-label="Treasures, scroll sideways for more">
+      {
+        treasures.map((treasure) => {
+          const leaves = treasure.href && isExternal(treasure.href);
+          return (
+            <article class="tcard">
+              <div class="tcard-hd">
+                <h3 class="tcard-ttl">
+                  {treasure.href ? (
+                    <a href={treasure.href} {...(leaves ? { target: "_blank", rel: "noopener" } : {})}>
+                      {treasure.title}
+                    </a>
+                  ) : (
+                    treasure.title
+                  )}
+                </h3>
+              </div>
+              <div class="tcard-notes">
+                <p class="tcard-what" set:html={treasure.what} />
+                <div class="tcard-k mono first">When</div>
+                <div class="tcard-v mono first">{treasure.when}</div>
+                <div class="tcard-k mono">Why</div>
+                <div class="tcard-v why">{treasure.why}</div>
+                <div class="tcard-k last" aria-hidden="true" />
+              </div>
+              {treasure.actions.length ? (
+                <div class="tcard-go mono">
+                  {treasure.actions.map((action) => (
+                    <a href={action.href} {...(isExternal(action.href) ? { target: "_blank", rel: "noopener" } : {})}>
+                      <span class="lb">
+                        {action.verb}
+                        {action.domain && <span class="dm"> {action.domain}</span>}
+                      </span>
+                      <span class="arr" aria-hidden="true">
+                        →
+                      </span>
+                    </a>
+                  ))}
+                </div>
+              ) : (
+                <div class="tcard-go mono quiet">{treasure.status}</div>
+              )}
+            </article>
+          );
+        })
       }
     </div>
   </section>
