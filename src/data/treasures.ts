@@ -25,10 +25,7 @@ export const treasures: Treasure[] = [
     what: "Real quotes from the Slow &amp; Steady podcast next to ones an AI wrote in my voice. Guess which is which.",
     when: "2026",
     why: "Learn more about AI and setting up a voice skill based on transcripts from Slow & Steady.",
-    actions: [
-      { verb: "Play", href: "/is-it-queen-or-ai/" },
-      { verb: "Lab notes", href: "/2026-02-25-is-it-queen-or-ai/" },
-    ],
+    actions: [{ verb: "Play", href: "/is-it-queen-or-ai/" }],
   },
   {
     title: "POW!",
@@ -37,6 +34,14 @@ export const treasures: Treasure[] = [
     when: "2019",
     why: "Would it be possible to make an app like this that cannot leak your data?",
     actions: [{ verb: "Visit", href: "https://usepow.app", domain: "usepow.app" }],
+  },
+  {
+    title: "The Varsom app",
+    what: "The first app version of varsom.no. It was also a test of their docs and API developer experience.",
+    when: "2013–2019",
+    why: "Give users a better phone experience and the option to be notified.",
+    actions: [],
+    status: "No longer live",
   },
   {
     title: "Kompetansemål",
@@ -77,14 +82,6 @@ export const treasures: Treasure[] = [
     when: "2022–2023",
     why: "Test Xata’s developer experience while live streaming.",
     actions: [{ verb: "Visit", href: "https://pruneyourfollows.com", domain: "pruneyourfollows.com" }],
-  },
-  {
-    title: "The Varsom app",
-    what: "The first app version of varsom.no. It was also a test of their docs and API developer experience.",
-    when: "2013–2019",
-    why: "Give users a better phone experience and the option to be notified.",
-    actions: [],
-    status: "No longer live",
   },
   {
     title: "Lillygram",

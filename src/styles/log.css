@@ -1295,6 +1295,11 @@
     text-decoration: none;
   }
 
+  /* Only the label lights up, not the whole tap area */
+  .log-body .tcard-go a:hover {
+    background: none;
+  }
+
   .tcard-go .lb {
     padding: 2px 3px;
     margin: 0 -3px;
