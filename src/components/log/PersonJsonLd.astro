@@ -1,0 +1,31 @@
+---
+// Structured data that tells search engines Queen Raae is Benedicte Raae of Lilly Labs,
+// so someone googling her real name or the agency finds this logbook.
+import siteMetadata from "../../data/siteMetadata";
+
+const site = siteMetadata.siteUrl;
+
+const person = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": `${site}/#person`,
+  name: "Benedicte Raae",
+  alternateName: "Queen Raae",
+  url: `${site}/`,
+  image: `${site}${siteMetadata.siteSocialImage}`,
+  jobTitle: "Developer",
+  worksFor: {
+    "@type": "Organization",
+    name: "Lilly Labs",
+    url: "https://lillylabs.no",
+  },
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Oslo",
+    addressCountry: "NO",
+  },
+  sameAs: [...siteMetadata.siteSocialMedia, "https://lillylabs.no"],
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(person)} />
