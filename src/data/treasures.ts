@@ -32,12 +32,12 @@ export const treasures: Treasure[] = [
     href: "https://usepow.app",
     what: "<b>The Privacy-First Menstrual Cycle Journal.</b> Your data never leaves your browser. Launched 8&nbsp;March 2020.",
     when: "2019",
-    why: "Would it be possible to make an app like this that cannot leak your data?",
+    why: "I needed to know how one makes an app that cannot leak your data.",
     actions: [{ verb: "Visit", href: "https://usepow.app", domain: "usepow.app" }],
   },
   {
     title: "The Varsom app",
-    what: "The first app version of varsom.no. It was also a test of their docs and API developer experience.",
+    what: 'The first app version of varsom.no. It was also a test of <a href="https://www.nve.no">NVE</a>’s docs and API developer experience.',
     when: "2013–2019",
     why: "Give users a better phone experience and the option to be notified.",
     actions: [],
@@ -78,7 +78,7 @@ export const treasures: Treasure[] = [
   {
     title: "Prune your Follows",
     href: "https://pruneyourfollows.com",
-    what: "A web app to help you unfollow folks on Twitter to get a better timeline experience.",
+    what: 'A web app to help you unfollow folks on Twitter to get a better timeline experience built with <a href="https://xata.io">Xata</a>.',
     when: "2022–2023",
     why: "Test Xata’s developer experience while live streaming.",
     actions: [{ verb: "Visit", href: "https://pruneyourfollows.com", domain: "pruneyourfollows.com" }],

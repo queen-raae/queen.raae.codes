@@ -1,13 +1,14 @@
 ---
 import AuthorPage from "../../components/log/AuthorPage.astro";
+import { AUTHOR_PAGES } from "../../data/author-pages";
 ---
 
 <AuthorPage
   author="OlaVea"
-  name="Cap’n Ola"
-  description="Ola Holst Vea 🏴☠️ — Developer, tinkerer, and co-founder of Lilly Labs. Currently deep into Laravel. Follow his adventures on YouTube Shorts."
+  name={AUTHOR_PAGES.olavea.name}
+  description={AUTHOR_PAGES.olavea.description}
   lead="Ola Holst Vea: developer, tinkerer, and co-founder of Lilly Labs. Currently deep into Laravel."
-  feed={{ title: "Posts by Cap'n Ola 🏴☠️", href: "/posts/olavea.xml" }}
+  feed={{ title: "Posts by Cap'n Ola 🏴‍☠️", href: "/posts/olavea.xml" }}
   image="/og/author/olavea.png"
   shorts="https://www.youtube.com/@olaholstvea/shorts"
 />

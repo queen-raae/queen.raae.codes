@@ -6,6 +6,7 @@ import YearSections from "../../components/log/YearSections.astro";
 import ExtIcon from "../../components/log/ExtIcon.astro";
 import { getAllTags } from "../../lib/posts";
 import { getTagBlurbs } from "../../lib/tag-blurbs";
+import { getTagOgDescription, getTagOgImageUrl } from "../../lib/og-image";
 
 export async function getStaticPaths() {
   const tagsMap = await getAllTags();
@@ -26,11 +27,17 @@ const blurbMap = await getTagBlurbs();
 const blurb = blurbMap.get(label);
 
 const title = `Entries tagged #${label}`;
-const description = blurb?.description || `Every entry in the log tagged #${label}.`;
+const description = getTagOgDescription(label, blurb?.description);
+const ogImage = getTagOgImageUrl(Astro.params.tag!, label, description);
 const feedHref = `/posts/${Astro.params.tag}.xml`;
 ---
 
-<LogLayout title={title} description={description} feeds={[{ title: `Posts tagged #${label}`, href: feedHref }]}>
+<LogLayout
+  title={title}
+  description={description}
+  image={ogImage}
+  feeds={[{ title: `Posts tagged #${label}`, href: feedHref }]}
+>
   <TitleBlock back={{ href: "/posts/", label: "The log" }} size="small">
     <Fragment slot="meta">
       <span class="label">Tag</span>
