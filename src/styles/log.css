@@ -568,16 +568,18 @@
     transform: translateX(8px);
   }
 
-  .front-item .arr {
-    opacity: 0;
-    transition:
-      opacity 0.15s,
-      transform 0.2s;
+  /* The arrow sits right after the title (no space to break on), and balanced lines keep it from dangling */
+  .front-item .front-item-ttl::after {
+    content: "\2060→";
+    position: relative;
+    left: 0;
+    margin-left: 0.15em;
+    color: var(--color-amber-500);
+    transition: left 0.2s;
   }
 
-  .front-item:hover .arr {
-    opacity: 1;
-    transform: translateX(8px);
+  .front-item:hover .front-item-ttl::after {
+    left: 8px;
   }
 
   .front-list {
@@ -604,6 +606,7 @@
   }
 
   .front-item .front-item-ttl {
+    text-wrap: balance;
     font-family: var(--font-display);
     font-size: clamp(18px, 1.6vw, 21px);
     line-height: 1.15;

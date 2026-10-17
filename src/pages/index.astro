@@ -39,7 +39,7 @@ const updated = new Date(nowUpdated).toLocaleDateString("en-GB", { day: "numeric
   <!-- Hero: split down the middle in soft pink, the vertical divider as the seam -->
   <section class="hero-split ruled">
     <div class="hero-text">
-      <p class="mono m-0"><span class="label">queen.raae.codes · a developer’s logbook</span></p>
+      <p class="mono m-0 font-bold"><span class="label">queen.raae.codes</span> · a developer’s logbook</p>
       <h1 class="display m-0 text-[clamp(40px,5vw,68px)] leading-none tracking-[-0.03em] text-balance">
         Hello <span aria-hidden="true">👋</span>
       </h1>
@@ -49,8 +49,7 @@ const updated = new Date(nowUpdated).toLocaleDateString("en-GB", { day: "numeric
         >, a small dev studio in the old family factory we also call home, in Rodeløkka, Oslo. This is my logbook!
       </p>
       <div class="flex gap-3 flex-wrap">
-        <a class="btn btn-fire" href="#log">Read the log <span aria-hidden="true">→</span></a>
-        <a class="btn btn-ghost bg-transparent!" href="#now">What I’m doing now</a>
+        <a class="btn btn-ghost bg-transparent!" href="#log">Read the log <span aria-hidden="true">→</span></a>
       </div>
     </div>
     <div class="divider-v" aria-hidden="true"></div>
@@ -134,9 +133,6 @@ const updated = new Date(nowUpdated).toLocaleDateString("en-GB", { day: "numeric
               </time>
               <span class="front-item-ttl">
                 <span>{post.title}</span>
-                <span class="arr" aria-hidden="true">
-                  →
-                </span>
               </span>
               {post.author !== "Queen" && <span class="mono">by {getAuthorInfo(post.author).name}</span>}
             </a>
