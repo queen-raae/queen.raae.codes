@@ -1,18 +1,19 @@
 ---
 import LogLayout from "../../layouts/LogLayout.astro";
+import { OG_PAGES, getOgPageImage } from "../../data/og-pages";
 import TitleBlock from "../../components/log/TitleBlock.astro";
 import Divider from "../../components/log/Divider.astro";
 import SectionBar from "../../components/log/SectionBar.astro";
 import EntryRow from "../../components/log/EntryRow.astro";
 import { getAllPosts } from "../../lib/posts";
 
-const TITLE = "Search the log";
+const { title: TITLE, description: DESCRIPTION } = OG_PAGES.search;
 
 const allPosts = await getAllPosts();
 const latestPosts = allPosts.slice(0, 3);
 ---
 
-<LogLayout title={TITLE} description="Search every entry in Queen Raae's logbook.">
+<LogLayout title={TITLE} description={DESCRIPTION} image={getOgPageImage("search")}>
   <TitleBlock label="Search">
     Search <span class="acid">the log</span>.
     <div slot="after" class="flex flex-col gap-2 max-w-[720px]">

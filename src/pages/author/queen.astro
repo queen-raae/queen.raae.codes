@@ -1,11 +1,12 @@
 ---
 import AuthorPage from "../../components/log/AuthorPage.astro";
+import { AUTHOR_PAGES } from "../../data/author-pages";
 ---
 
 <AuthorPage
   author="Queen"
-  name="Queen Raae"
-  description="Queen Raae is Benedicte Raae, a developer in Oslo and co-captain of Lilly Labs. This is her logbook: code, books, and the slow business of building a company."
+  name={AUTHOR_PAGES.queen.name}
+  description={AUTHOR_PAGES.queen.description}
   lead="Developer, reader, and co-captain of Lilly Labs. Every entry I’ve written here, newest first."
   feed={{ title: "Posts by Queen Raae 👑", href: "/posts/queen.xml" }}
   image="/og/author/queen.png"
