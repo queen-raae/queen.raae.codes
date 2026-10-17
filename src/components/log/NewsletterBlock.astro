@@ -1,5 +1,6 @@
 ---
-// Newsletter E: the full-width plum block. The one place the page "breaks character".
+// Newsletter N3: the full-width plum block. The one place the page "breaks character".
+// Phone: stacked. Medium: title and blurb left, form right. Large: title left, blurb and form right.
 interface Props {
   formId?: string;
   tags?: string[];
@@ -17,19 +18,13 @@ const {
 const emailId = `email-${crypto.randomUUID().slice(0, 8)}`;
 ---
 
-<section id="mail" class="on-plum ruled gutter py-[clamp(48px,6vw,80px)] flex flex-col gap-[18px]">
-  <h2 class="display m-0 text-[clamp(40px,5.6vw,80px)] leading-[0.95] tracking-[-0.03em]">
-    <slot name="title">The log, <span class="acid">by email</span>.</slot>
-  </h2>
-  <div class="flex gap-[clamp(24px,4vw,64px)] flex-wrap items-start justify-between">
-    <div class="flex-[1_1_420px] flex flex-col gap-[18px] min-w-0">
-      <p class="m-0 max-w-[640px] text-[clamp(17px,1.5vw,20px)] leading-normal">{copy}</p>
-    </div>
-    <form
-      class="log-newsletter flex-[1_1_360px] max-w-[560px] flex flex-col gap-3"
-      data-form-id={formId}
-      data-tags={JSON.stringify(tags)}
-    >
+<section id="mail" class="nl on-plum ruled gutter py-[clamp(48px,6vw,80px)]">
+  <div class="nl-grid">
+    <h2 class="nl-title display m-0">
+      <slot name="title">The log,<br /><span class="acid">by email</span>.</slot>
+    </h2>
+    <p class="nl-blurb m-0">{copy}</p>
+    <form class="nl-form log-newsletter flex flex-col gap-3" data-form-id={formId} data-tags={JSON.stringify(tags)}>
       <div class="flex gap-2.5 flex-wrap">
         <label for={emailId} class="sr-only-log">Email address</label>
         <input

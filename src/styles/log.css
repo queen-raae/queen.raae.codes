@@ -728,6 +728,69 @@
     font-size: 12px;
   }
 
+  /* Newsletter (N3): sizes follow the block's own width, not the window */
+  .nl {
+    container-type: inline-size;
+  }
+
+  .nl-grid {
+    display: grid;
+    gap: 20px;
+  }
+
+  .nl-title {
+    font-size: clamp(40px, 7.4cqw, 92px);
+    line-height: 0.98;
+    letter-spacing: -0.03em;
+  }
+
+  .nl-blurb {
+    max-width: 36ch;
+    font-size: clamp(17px, 1.7cqw, 20px);
+    line-height: 1.5;
+  }
+
+  .nl-form {
+    width: 100%;
+    max-width: 560px;
+  }
+
+  @container (min-width: 700px) {
+    .nl-grid {
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas:
+        "title form"
+        "blurb form";
+      column-gap: clamp(28px, 4cqw, 56px);
+    }
+
+    .nl-title {
+      grid-area: title;
+    }
+
+    .nl-blurb {
+      grid-area: blurb;
+    }
+
+    .nl-form {
+      grid-area: form;
+      align-self: end;
+    }
+  }
+
+  @container (min-width: 1100px) {
+    .nl-grid {
+      grid-template-areas:
+        "title blurb"
+        "title form";
+      align-items: end;
+    }
+
+    .nl-title {
+      align-self: end;
+    }
+  }
+
   /* Podcast row: cover and description on the left, the latest episode on a tape on the right */
   .pod-row {
     display: flex;
