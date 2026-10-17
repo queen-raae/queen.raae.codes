@@ -1127,8 +1127,21 @@
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
   }
 
+  /* Four archive cells: one, two or four across, never three */
   .cells--arc {
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 520px) {
+    .cells--arc {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .cells--arc {
+      grid-template-columns: repeat(4, 1fr);
+    }
   }
 
   .cell-box {
