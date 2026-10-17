@@ -5,7 +5,7 @@ import path from "node:path";
 import { createHash } from "node:crypto";
 
 // ── Author config ─────────────────────────────────────────────────
-// Every card has a column with the author's photo and name; guests get a label.
+// Every card has a column with the author's photo; guests also get their name and a label.
 // `focus` is Sharp's crop position for the tall column crop (default: attention)
 export const AUTHOR_CONFIG: Record<string, { name: string; photo: string; guest?: boolean; focus?: string }> = {
   Queen: {
@@ -36,16 +36,13 @@ const FRAME = 52; // how much of the frame shows around the page
 const COLUMN = 300; // the author column on the right
 const PAGE_HEIGHT = HEIGHT - 2 * FRAME - 4; // inside the page's 2px border
 
-// Where the author's name goes: on a strip over the bottom of the photo, or in the footer
-export type ColumnStyle = "overlay" | "footer";
-const COLUMN_STYLE: ColumnStyle = "overlay";
 const CREAM = "#fdf6ec";
 const INK = "#3d1230";
 const ACID = "#fbbf24";
 const PANEL = "#f3d7c6";
 
 // Bump when the card design changes so social caches pick up new images
-export const DESIGN_VERSION = "column-2";
+export const DESIGN_VERSION = "column-3";
 
 // ── Cached assets (loaded once per build) ─────────────────────────
 const fontsDir = path.resolve(process.cwd(), "node_modules/@fontsource");
@@ -187,25 +184,19 @@ function titleSize(title: string): number {
 }
 
 // ── The card: a cream page with an author column, inside a frame ──
-export async function renderCard(options: {
+async function renderCard(options: {
   labels: string[];
   title: string;
   description: string;
   author: string;
-  guestLabel?: boolean; // "Guest post" by the name; off on author pages
-  column?: ColumnStyle;
+  guestLabel?: boolean; // "Guest post" above the name; off on author pages
 }): Promise<Buffer> {
   const config = AUTHOR_CONFIG[options.author] || AUTHOR_CONFIG.Queen;
   const wall = OUTER_FRAME === "photo" ? await getPhotoDataUri(WALL_PHOTO) : null;
-  const columnStyle = options.column || COLUMN_STYLE;
+  // Queen's photo fills the column; a guest's is square with their name below
   const photoWidth = COLUMN - 2;
-  const photoHeight = PAGE_HEIGHT;
+  const photoHeight = config.guest ? photoWidth : PAGE_HEIGHT;
   const photo = await getPhotoDataUri(config.photo, photoWidth, photoHeight, config.focus);
-  const guestLabel = config.guest && options.guestLabel !== false;
-  const nameBlock = (nameSize: string) => [
-    guestLabel ? el({ alignSelf: "flex-start" }, [label("Guest post", ACID, "16px")]) : null,
-    el({ fontFamily: "Archivo Black", fontSize: nameSize, lineHeight: 1 }, config.name),
-  ];
 
   const page = el({ flex: 1, flexDirection: "column", padding: "40px 48px 36px 56px" }, [
     el(
@@ -231,49 +222,42 @@ export async function renderCard(options: {
       {
         borderTop: `2px solid ${INK}`,
         paddingTop: "16px",
-        justifyContent: "space-between",
-        alignItems: "center",
         fontFamily: "Space Mono",
         fontWeight: 700,
         fontSize: "22px",
       },
-      [
-        el({}, "queen.raae.codes"),
-        columnStyle === "footer"
-          ? el({ alignItems: "center", gap: "12px" }, [
-              guestLabel ? label("Guest post", ACID, "16px") : null,
-              el({ fontFamily: "Archivo Black", fontSize: "24px" }, config.name),
-            ])
-          : null,
-      ],
+      "queen.raae.codes",
     ),
   ]);
 
-  // The photo fills the column top to bottom; the name sits on it, or in the footer
-  const column = el({ width: `${COLUMN}px`, position: "relative", borderLeft: `2px solid ${INK}` }, [
+  const column = el({ width: `${COLUMN}px`, flexDirection: "column", borderLeft: `2px solid ${INK}` }, [
     {
       type: "img",
       props: {
         src: photo,
         width: photoWidth,
         height: photoHeight,
-        style: { width: `${photoWidth}px`, height: `${photoHeight}px` },
+        style: {
+          width: `${photoWidth}px`,
+          height: `${photoHeight}px`,
+          borderBottom: config.guest ? `2px solid ${INK}` : "none",
+        },
       },
     },
-    columnStyle === "overlay"
+    config.guest
       ? el(
           {
-            position: "absolute",
-            left: 0,
-            right: 0,
-            bottom: 0,
+            flex: 1,
             flexDirection: "column",
-            gap: "10px",
-            padding: "18px 24px 20px",
+            justifyContent: "center",
+            gap: "12px",
+            padding: "0 28px",
             background: PANEL,
-            borderTop: `2px solid ${INK}`,
           },
-          nameBlock("30px"),
+          [
+            options.guestLabel !== false ? el({ alignSelf: "flex-start" }, [label("Guest post", ACID, "16px")]) : null,
+            el({ fontFamily: "Archivo Black", fontSize: "32px", lineHeight: 1 }, config.name),
+          ],
         )
       : null,
   ]);
