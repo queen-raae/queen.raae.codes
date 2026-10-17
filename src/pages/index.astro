@@ -7,7 +7,7 @@ import SectionBar from "../components/log/SectionBar.astro";
 import ExtIcon from "../components/log/ExtIcon.astro";
 import LogPlayer from "../components/log/LogPlayer.astro";
 import { getAllPosts, getAuthorInfo, groupByYear } from "../lib/posts";
-import { getPodcastInfo } from "../lib/podcast";
+import { getPodcastInfo, PODCAST_COVER } from "../lib/podcast";
 import { now, nowUpdated } from "../data/now";
 import { treasures } from "../data/treasures";
 import { photos } from "../data/wall";
@@ -149,41 +149,27 @@ const updated = new Date(nowUpdated).toLocaleDateString("en-GB", { day: "numeric
       <span class="mono max-[560px]:hidden">Things I made that you can poke at</span>
     </SectionBar>
     <div class="cells cells--chest">
-      <div id="podcast" class="col-span-full flex flex-wrap gap-0.5 bg-ink">
-        <div class="cell-box flex-[1_1_280px] justify-center">
-          <span class="mono label">Podcast</span>
-          <p>
-            <strong>Slow &amp; Steady.</strong> Two people running small software businesses, talking about it while it happens.
-            Me and Benedikt Deicke, every other week or so, no editing, no sponsors.
-          </p>
-          <a href={podcast.site} target="_blank" rel="noopener" class="navlink -ml-2.5">All episodes<ExtIcon /></a>
-        </div>
+      <div id="podcast" class="pod-row cell-box col-span-full">
         {
-          podcast.latest && (
-            <div class="cell-box flex-[2_1_520px] flex-row! flex-wrap items-center gap-5">
-              {podcast.latest.cover && (
-                <img
-                  src={podcast.latest.cover}
-                  alt=""
-                  width="120"
-                  height="120"
-                  loading="lazy"
-                  class="w-[120px] h-[120px] object-cover border-2 border-ink shrink-0"
-                />
-              )}
-              <div class="flex-[1_1_300px] flex flex-col gap-3 min-w-0">
-                <span class="mono text-plum-500">
-                  Latest episode{podcast.latest.date && ` · ${podcast.latest.date}`}
-                </span>
-                <span class="display text-[clamp(20px,2vw,26px)] leading-[1.1]">{podcast.latest.title}</span>
-                {podcast.latest.audio && (
-                  <LogPlayer
-                    src={podcast.latest.audio}
-                    label={podcast.latest.title}
-                    duration={podcast.latest.duration}
-                  />
-                )}
-                <div class="flex gap-1 flex-wrap -ml-2.5">
+          podcast.latest?.audio ? (
+            <>
+              <p class="pod-desc">
+                <strong>Slow &amp; Steady.</strong> Benedikt and Benedicte (lol) chatting every other week or so about
+                building software, life and so on.
+              </p>
+              <LogPlayer
+                src={podcast.latest.audio}
+                label={podcast.latest.title}
+                duration={podcast.latest.duration}
+                cover={PODCAST_COVER}
+              >
+                <span class="pod-who">Latest episode</span>
+                <span class="pod-title">{podcast.latest.title}</span>
+                <div slot="track" class="pod-links flex gap-x-1 flex-wrap -ml-2.5">
+                  <a class="navlink" href={podcast.site} target="_blank" rel="noopener">
+                    Slow &amp; Steady
+                    <ExtIcon />
+                  </a>
                   {podcast.apple && (
                     <a class="navlink" href={podcast.apple} target="_blank" rel="noopener">
                       Apple
@@ -205,8 +191,16 @@ const updated = new Date(nowUpdated).toLocaleDateString("en-GB", { day: "numeric
                     </a>
                   )}
                 </div>
-              </div>
-            </div>
+              </LogPlayer>
+            </>
+          ) : (
+            <p>
+              <strong>Slow &amp; Steady.</strong> Benedikt and Benedicte (lol) chatting every other week or so about
+              building software, life and so on.{" "}
+              <a href={podcast.site} target="_blank" rel="noopener">
+                All episodes
+              </a>
+            </p>
           )
         }
       </div>

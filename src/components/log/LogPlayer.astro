@@ -1,29 +1,46 @@
 ---
 // Square amber play button, a ruled progress bar and mono times.
+// With a cover, the cover art is the play button; the default slot sits between the button and the bar,
+// the "track" slot under the bar.
 interface Props {
   src: string;
   label: string;
   duration?: string;
+  cover?: string;
 }
 
-const { src, label, duration = "--:--" } = Astro.props;
+const { src, label, duration = "--:--", cover } = Astro.props;
+const hasSlot = Astro.slots.has("default");
 ---
 
-<div class="log-player flex items-center gap-3.5 flex-wrap" data-src={src}>
+<div class:list={["log-player flex items-center gap-3.5 flex-wrap", cover && "log-player--cover"]} data-src={src}>
   <button
     type="button"
-    class="lp-play shrink-0 w-[52px] h-[52px] border-2 border-ink bg-acid text-ink inline-flex items-center justify-center cursor-pointer p-0 hover:bg-ink hover:text-cream"
+    class:list={[
+      "lp-play shrink-0 border-2 border-ink text-ink inline-flex items-center justify-center cursor-pointer p-0",
+      cover ? "lp-cover relative" : "w-[52px] h-[52px] bg-acid hover:bg-ink hover:text-cream",
+    ]}
     aria-label={`Play: ${label}`}
     data-label={label}
   >
-    <svg class="lp-icon-play" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"
-      ><path d="M5 3l12 7-12 7z" fill="currentColor"></path></svg
-    >
-    <svg class="lp-icon-pause hidden" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"
-      ><path d="M4 3h4v14H4zM12 3h4v14h-4z" fill="currentColor"></path></svg
+    {cover && <img src={cover} alt="" width="112" height="112" loading="lazy" class="lp-cover-img" />}
+    <span class:list={[cover && "lp-cover-icon"]}
+      ><svg class="lp-icon-play" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"
+        ><path d="M5 3l12 7-12 7z" fill="currentColor"></path></svg
+      >
+      <svg class="lp-icon-pause hidden" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"
+        ><path d="M4 3h4v14H4zM12 3h4v14h-4z" fill="currentColor"></path></svg
+      ></span
     >
   </button>
-  <div class="flex-[1_1_160px] flex flex-col gap-1.5 min-w-0">
+  {
+    hasSlot && (
+      <div class="lp-text flex-[1_1_200px] min-w-0">
+        <slot />
+      </div>
+    )
+  }
+  <div class:list={["flex flex-col gap-1.5 min-w-0", hasSlot ? "lp-track flex-[1.4_1_260px]" : "flex-[1_1_160px]"]}>
     <div
       class="lp-bar h-2.5 border-2 border-ink bg-cream box-border relative cursor-pointer"
       role="slider"
@@ -38,6 +55,7 @@ const { src, label, duration = "--:--" } = Astro.props;
     <div class="mono flex justify-between text-plum-500 text-xs!">
       <span class="lp-current">00:00</span><span class="lp-duration">{duration}</span>
     </div>
+    <slot name="track" />
   </div>
 </div>
 

@@ -672,6 +672,99 @@
     }
   }
 
+  /* Podcast row: the cover art is the play button, a tiny line and the title beside it, the bar on the right */
+  .log-body .lp-cover {
+    width: 112px;
+    height: 112px;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-ink);
+    overflow: hidden;
+  }
+
+  .lp-cover .lp-cover-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* See-through round play button over the cover art */
+  .lp-cover .lp-cover-icon {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 2px solid var(--color-cream);
+    background: rgb(61 18 48 / 0.45);
+    color: var(--color-cream);
+    transition: background 0.15s;
+  }
+
+  .lp-cover .lp-icon-play {
+    margin-left: 2px;
+  }
+
+  .lp-cover:hover .lp-cover-icon {
+    background: rgb(61 18 48 / 0.85);
+  }
+
+  .log-body .pod-row {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px clamp(16px, 2.5vw, 32px);
+  }
+
+  .pod-row .pod-desc {
+    flex: 1 1 240px;
+    max-width: 34ch;
+    margin: 0;
+  }
+
+  .pod-row .log-player {
+    flex: 2.6 1 480px;
+    gap: 16px clamp(16px, 2.5vw, 32px);
+  }
+
+  .pod-row .pod-who {
+    display: block;
+    font-size: 14px;
+    font-style: italic;
+    color: var(--color-plum-500);
+  }
+
+  .pod-row .pod-links .navlink {
+    min-height: 36px;
+    font-size: 12px;
+  }
+
+  .pod-row .pod-title {
+    display: block;
+    margin-top: 4px;
+    font-family: var(--font-display);
+    font-size: clamp(20px, 2vw, 26px);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+  }
+
+  @media (max-width: 560px) {
+    .log-body .lp-cover {
+      width: 88px;
+      height: 88px;
+    }
+
+    .lp-cover .lp-cover-icon {
+      width: 44px;
+      height: 44px;
+    }
+  }
+
   /* ── Log rows (home "latest", tag & author lists) ── */
   .log-body .row {
     display: flex;
