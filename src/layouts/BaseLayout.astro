@@ -19,6 +19,15 @@ import "@fontsource/lora/700-italic.css";
 import "@fontsource/space-mono/400.css";
 import "@fontsource/space-mono/700.css";
 import "../global.css";
+// Preload the faces every page shows above the fold, so the browser fetches
+// them alongside the CSS instead of after it.
+import archivoBlack from "@fontsource/archivo-black/files/archivo-black-latin-400-normal.woff2?url";
+import archivoBold from "@fontsource/archivo/files/archivo-latin-700-normal.woff2?url";
+import lora from "@fontsource/lora/files/lora-latin-400-normal.woff2?url";
+import spaceMono from "@fontsource/space-mono/files/space-mono-latin-400-normal.woff2?url";
+import spaceMonoBold from "@fontsource/space-mono/files/space-mono-latin-700-normal.woff2?url";
+
+const preloadFonts = [archivoBlack, archivoBold, lora, spaceMono, spaceMonoBold];
 
 interface RssFeed {
   title: string;
@@ -79,6 +88,8 @@ const twitterCard = "summary_large_image";
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#3D1230" />
+
+    {preloadFonts.map((href) => <link rel="preload" href={href} as="font" type="font/woff2" crossorigin />)}
 
     <title>{pageTitle}</title>
     <link rel="canonical" href={canonical} />

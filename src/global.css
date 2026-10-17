@@ -6,7 +6,6 @@
 
 @plugin "@tailwindcss/forms";
 
-
 @theme {
   --color-brown-50: #fbf6f5;
   --color-brown-100: #f6ecea;
@@ -39,13 +38,94 @@
   --color-panel: #f3d7c6;
 
   /* Font families */
-  --font-display: "Archivo Black", Archivo, system-ui, sans-serif;
-  --font-button: Archivo, system-ui, sans-serif;
-  --font-mono: "Space Mono", ui-monospace, monospace;
-  --font-tag: "Montserrat", system-ui, sans-serif;
+  --font-display: "Archivo Black", "Archivo Black Fallback", system-ui, sans-serif;
+  --font-button: Archivo, "Archivo Fallback", system-ui, sans-serif;
+  --font-mono: "Space Mono", "Space Mono Fallback", ui-monospace, monospace;
+  --font-tag: "Montserrat", "Montserrat Fallback", system-ui, sans-serif;
   --font-heading: var(--font-display);
   --font-label: var(--font-mono);
-  --font-body: "Lora", Georgia, serif;
+  --font-body: "Lora", "Lora Fallback", "Lora Fallback Times", Georgia, serif;
+}
+
+/*
+  Fallback faces: local system fonts stretched to the web fonts' metrics,
+  so text takes the same space before and after the web fonts arrive and
+  nothing jumps when they swap in. Values from @capsizecss/metrics and the
+  Fontsource latin files (size-adjust = ratio of average character widths).
+  Liberation fonts share metrics with Arial, Times New Roman and Courier New.
+  The unicode-range matches Fontsource's latin files, so other glyphs (like
+  arrows) keep falling through to the system font as before.
+*/
+@font-face {
+  font-family: "Lora Fallback";
+  src: local("Georgia");
+  size-adjust: 104.98%;
+  ascent-override: 95.83%;
+  descent-override: 26.1%;
+  line-gap-override: 0%;
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC,
+    U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Lora Fallback Times";
+  src: local("Times New Roman"), local("Liberation Serif");
+  size-adjust: 115.2%;
+  ascent-override: 87.33%;
+  descent-override: 23.78%;
+  line-gap-override: 0%;
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC,
+    U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Archivo Black Fallback";
+  src: local("Arial"), local("Liberation Sans");
+  size-adjust: 124.05%;
+  ascent-override: 70.78%;
+  descent-override: 16.93%;
+  line-gap-override: 0%;
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC,
+    U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Archivo Fallback";
+  src: local("Arial"), local("Liberation Sans");
+  size-adjust: 105.88%;
+  ascent-override: 82.93%;
+  descent-override: 19.83%;
+  line-gap-override: 0%;
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC,
+    U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Space Mono Fallback";
+  src: local("Courier New"), local("Liberation Mono");
+  size-adjust: 101.98%;
+  ascent-override: 109.82%;
+  descent-override: 35.4%;
+  line-gap-override: 0%;
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC,
+    U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Montserrat Fallback";
+  src: local("Arial"), local("Liberation Sans");
+  size-adjust: 116.64%;
+  ascent-override: 82.99%;
+  descent-override: 21.52%;
+  line-gap-override: 0%;
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC,
+    U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 /*
