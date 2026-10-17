@@ -8,7 +8,7 @@ export const now: { label: string; html: string }[] = [
   },
   {
     label: "Building",
-    html: "A personal homeschool log app that helps connect what we do to the Norwegian competency goals (kompetansemål), with a little help from AI, both in building it and in organizing unstructured input.",
+    html: "A personal homeschool log app linking our days to the Norwegian competency goals (kompetansemål). A little AI in the building, and a little AI in sorting through the unstructured input.",
   },
   {
     label: "Maintaining",
