@@ -45,7 +45,7 @@ const busiest = strip.find((s) => s.count === max)?.year;
 
   <section id="density" class="ruled flex flex-col">
     <SectionBar num="01" title="Entries per year">
-      <span class="mono">{allPosts.length} entries · {first} → {last} · busiest year {busiest}</span>
+      <span class="mono max-[560px]:hidden">{allPosts.length} entries · {first} → {last} · busiest year {busiest}</span>
       <a class="navlink" href="/posts/queen.xml" aria-label="RSS feed">RSS</a>
     </SectionBar>
     <div class="overflow-x-auto gutter py-5 box-border">

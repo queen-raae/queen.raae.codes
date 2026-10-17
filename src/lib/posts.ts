@@ -52,6 +52,7 @@ export interface ProcessedPost {
   creator?: string;
   url?: string;
   outlet?: string;
+  blurb?: string;
   reread: boolean;
   lillylabs: boolean;
 }
@@ -88,8 +89,10 @@ export async function getAllPosts(): Promise<ProcessedPost[]> {
       const lastSpace = truncated.lastIndexOf(" ");
       description = (lastSpace > 0 ? truncated.substring(0, lastSpace) : truncated) + "\u2026";
     }
-    // Press entries often have no body: describe them by where they ran
-    if (!description && entry.data.type === "Press" && entry.data.outlet) {
+    // Press entries: the blurb says how Queen is involved; without one, describe them by where they ran
+    if (entry.data.type === "Press" && entry.data.blurb) {
+      description = entry.data.blurb;
+    } else if (!description && entry.data.type === "Press" && entry.data.outlet) {
       description = `In ${entry.data.outlet}${entry.data.lang === "no" ? ", in Norwegian" : ""}.`;
     }
 
@@ -145,6 +148,7 @@ export async function getAllPosts(): Promise<ProcessedPost[]> {
       creator: entry.data.creator,
       url: entry.data.url,
       outlet: entry.data.outlet,
+      blurb: entry.data.blurb,
       reread: entry.data.reread,
       lillylabs: entry.data.lillylabs,
     };

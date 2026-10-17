@@ -57,6 +57,7 @@ const postSchema = z
     creator: z.string().optional(), // Book author, or the publication for a Link
     url: z.string().optional(), // The thing a Link, Book, Podcast or Press entry points at
     outlet: z.string().optional(), // Press: the publication or podcast, e.g. "kode24"
+    blurb: z.string().optional(), // Press: one line on how Queen is involved, shown under the row
     reread: z.boolean().optional(),
     lillylabs: z.boolean().optional(), // Show the "På norsk, for bedrifter" cross-link box
   })
@@ -75,6 +76,7 @@ const postSchema = z
     creator: data.creator,
     url: data.url,
     outlet: data.outlet,
+    blurb: data.blurb,
     reread: data.reread ?? false,
     lillylabs: data.lillylabs ?? false,
   }));

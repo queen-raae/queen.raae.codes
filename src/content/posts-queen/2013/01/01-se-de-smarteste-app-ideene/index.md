@@ -6,4 +6,5 @@ outlet: "Tek.no"
 url: "https://www.tek.no/nyheter/nyhet/i/vQzKqB/se-de-smarteste-app-ideene"
 lang: "no"
 draft: true
+blurb: "Our app Giftinformasjon won second place in apps4norge."
 ---

@@ -41,6 +41,6 @@ export const photos = [
   {
     src: apps4norge,
     alt: "A young Queen Raae laughing and holding a giant cheque in front of a slide reading Giftinformasjon",
-    caption: "Winning apps4norge, 2013",
+    caption: "Second place in apps4norge, 2013",
   },
 ];

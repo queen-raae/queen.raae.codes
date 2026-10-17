@@ -29,7 +29,7 @@ Every other week I chat with [Benedikt Deicke](https://benediktdeicke.com/) on t
 - Tactical network monitoring for Thales (2017–2021)
 - [boksok.no](https://boksok.no), Leser søker bok (2014–2018)
 - [The Varsom app](https://www.varsom.no) for NVE (2013–2019)
-- Giftinformasjon, winner of apps4norge (2013)
+- Giftinformasjon, second place in apps4norge (2013)
 - Appelsin, co-founder (2010–2012)
 - Lilly Apps: lillygram, LillySleep and LillyMap
 - [Iterate](https://www.iterate.no), solutions engineer (2009–2010)
