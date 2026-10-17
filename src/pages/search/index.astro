@@ -66,6 +66,30 @@ const latestPosts = allPosts.slice(0, 3);
     return result;
   }
 
+  // Send what people search for to Fathom as events, so the dashboard shows what readers come looking for.
+  // Only the term someone settles on is sent (after a pause or on clicking a result), not every keystroke.
+  const trackedTerms = new Set<string>();
+  let trackTimer: ReturnType<typeof setTimeout>;
+  let pendingTrack: { term: string; hits: number } | null = null;
+
+  function trackSearch() {
+    clearTimeout(trackTimer);
+    if (!pendingTrack) return;
+    const { term, hits } = pendingTrack;
+    pendingTrack = null;
+    const key = term.toLowerCase().slice(0, 60);
+    if (trackedTerms.has(key)) return;
+    trackedTerms.add(key);
+    const fathom = (window as unknown as { fathom?: { trackEvent: (name: string) => void } }).fathom;
+    fathom?.trackEvent(hits > 0 ? `Search: ${key}` : `Search, no results: ${key}`);
+  }
+
+  function queueTrackSearch(term: string, hits: number) {
+    clearTimeout(trackTimer);
+    pendingTrack = { term, hits };
+    trackTimer = setTimeout(trackSearch, 2000);
+  }
+
   async function initSearch() {
     const response = await fetch("/search/data.json");
     const searchData = await response.json();
@@ -103,6 +127,8 @@ const latestPosts = allPosts.slice(0, 3);
         const term = (e.target as HTMLInputElement).value.trim();
 
         if (term.length < 2) {
+          clearTimeout(trackTimer);
+          pendingTrack = null;
           resultsContainer.innerHTML = "";
           noResults.classList.add("hidden");
           latestPosts.classList.remove("hidden");
@@ -110,6 +136,7 @@ const latestPosts = allPosts.slice(0, 3);
         }
 
         const results = fuse.search(term, { limit: 7 });
+        queueTrackSearch(term, results.length);
 
         if (results.length === 0) {
           resultsContainer.innerHTML = "";
@@ -159,6 +186,10 @@ const latestPosts = allPosts.slice(0, 3);
       }, 400);
     });
   }
+
+  // Clicking a result or leaving the page counts as settling on the term.
+  document.getElementById("search-results")?.addEventListener("click", trackSearch);
+  window.addEventListener("pagehide", trackSearch);
 
   initSearch();
 </script>
