@@ -624,7 +624,7 @@
   }
 
   .front-lead:hover .arr {
-    transform: translateX(8px);
+    left: 8px;
   }
 
   /* The arrow sits right after the title (no space to break on), and balanced lines keep it from dangling */
@@ -996,17 +996,20 @@
     color: var(--color-cream);
   }
 
-  /* Sliding arrow: → stays on the site */
+  /* Sliding arrow: → stays on the site. Inline (not inline-block) and slid with `left`, so with a
+     word joiner (&#8288;) before it, it wraps together with the last word instead of dangling alone */
   .arr {
-    display: inline-block;
+    position: relative;
+    left: 0;
     margin-left: 0.3em;
     color: var(--color-amber-500);
-    transition: transform 0.2s;
+    transition: left 0.2s;
   }
 
   .row:hover .arr,
+  .row:focus-visible .arr,
   a:hover > .arr {
-    transform: translateX(8px);
+    left: 8px;
   }
 
   /* External: the window leaves it */

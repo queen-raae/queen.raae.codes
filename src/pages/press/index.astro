@@ -5,6 +5,7 @@ import TitleBlock from "../../components/log/TitleBlock.astro";
 import Divider from "../../components/log/Divider.astro";
 import SectionBar from "../../components/log/SectionBar.astro";
 import { getAllPosts, groupByYear } from "../../lib/posts";
+import TitleArrow from "../../components/log/TitleArrow.astro";
 
 const { title: TITLE, description: DESCRIPTION } = OG_PAGES.press;
 
@@ -37,10 +38,7 @@ const pad = (n: number) => String(n).padStart(2, "0");
             </time>
             <span class="row-main">
               <span class="ttl">
-                {post.title}
-                <span class="arr" aria-hidden="true">
-                  →
-                </span>
+                <TitleArrow title={post.title} />
               </span>
               <span class="mono row-by" lang="en">
                 {post.outlet}

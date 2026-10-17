@@ -1,0 +1,11 @@
+---
+// A title followed by the sliding → arrow. The word joiner (&#8288;) glues them, so the arrow
+// always wraps together with the last word instead of dangling on a line of its own.
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+{title}&#8288;<span class="arr" aria-hidden="true">→</span>

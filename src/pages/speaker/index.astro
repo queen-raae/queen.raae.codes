@@ -6,6 +6,7 @@ import SectionBar from "../../components/log/SectionBar.astro";
 import ExtIcon from "../../components/log/ExtIcon.astro";
 import { getCollection, getEntry } from "astro:content";
 import { format } from "date-fns";
+import TitleArrow from "../../components/log/TitleArrow.astro";
 
 // Get the speaker index page content
 const speakerIndex = await getEntry("talks", "index");
@@ -84,10 +85,7 @@ const ctaLabel = page.cta?.label?.replace(/^\p{Extended_Pictographic}\s*/u, "");
             {date && <span class="mono row-date">{format(date, "dd MMM yyyy")}</span>}
             <span class="row-main">
               <a class="ttl no-underline" href={`/speaker/${talk.id.replace("/index", "").replace(".md", "")}/`}>
-                {data.title}
-                <span class="arr" aria-hidden="true">
-                  →
-                </span>
+                <TitleArrow title={data.title} />
               </a>
               <span class="flex gap-x-1 flex-wrap -ml-2.5">
                 {data.event &&

@@ -2,6 +2,7 @@
 // One entry in a list: date · type · title with sliding arrow · standfirst or excerpt.
 import TypeLabel from "./TypeLabel.astro";
 import { getAuthorInfo, type ProcessedPost } from "../../lib/posts";
+import TitleArrow from "./TitleArrow.astro";
 
 interface Props {
   post: ProcessedPost;
@@ -15,7 +16,7 @@ const byline = post.author === "Queen" ? undefined : getAuthorInfo(post.author).
   <time class="mono row-date" datetime={post.date}>{post.dateMedium}</time>
   <TypeLabel type={post.type} class="row-type" />
   <span class="row-main">
-    <span class="ttl">{post.title}<span class="arr" aria-hidden="true">→</span></span>
+    <span class="ttl"><TitleArrow title={post.title} /></span>
     {byline && <span class="mono row-by">by {byline}</span>}
     <span class="row-desc">{post.standfirst || post.description}</span>
   </span>
