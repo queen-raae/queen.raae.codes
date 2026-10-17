@@ -7,14 +7,14 @@ const links = [
 ];
 ---
 
-<header class="ruled gutter flex items-center justify-between gap-x-6 gap-y-2 flex-wrap py-2.5">
+<header class="ruled gutter flex items-center justify-between gap-x-6 gap-y-2 flex-wrap py-2.5 max-[560px]:pb-0">
   <a href="/" class="inline-flex items-center gap-3 min-h-11 pr-2 leading-none no-underline! hover:bg-transparent!">
     <span aria-hidden="true" class="relative -top-[3px] -left-[4px] text-[28px]">👑</span>
     <span class="mono font-bold">
       queen.raae.codes · <span class="max-[560px]:hidden">a developer’s </span><span class="label">logbook</span>
     </span>
   </a>
-  <nav aria-label="Main" class="flex items-center gap-x-1.5 gap-y-1 flex-wrap max-[560px]:w-full max-[560px]:-ml-2.5">
+  <nav aria-label="Main" class="site-nav">
     {
       links.map((link) => (
         <a class="navlink" href={link.href} aria-current={link.match(path) ? "page" : undefined}>
@@ -24,7 +24,7 @@ const links = [
     }
     <button
       type="button"
-      class="btn btn-fire btn--sm ml-2 max-[560px]:ml-auto"
+      class="btn btn-fire btn--sm"
       data-search-open
       aria-haspopup="dialog"
       aria-keyshortcuts="/ Control+K Meta+K"
