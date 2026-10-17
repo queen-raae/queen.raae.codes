@@ -32,7 +32,7 @@ export const treasures: Treasure[] = [
     href: "https://usepow.app",
     what: "<b>The Privacy-First Menstrual Cycle Journal.</b> Your data never leaves your browser. Launched 8&nbsp;March 2020.",
     when: "2019",
-    why: "Would it be possible to make an app like this that cannot leak your data?",
+    why: "I needed to know how one makes an app that cannot leak your data.",
     actions: [{ verb: "Visit", href: "https://usepow.app", domain: "usepow.app" }],
   },
   {
