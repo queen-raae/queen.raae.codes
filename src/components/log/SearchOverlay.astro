@@ -1,7 +1,7 @@
 ---
 // Search as an overlay over the current page, opened by any [data-search-open] button, `/` or Cmd/Ctrl+K.
 // Search needs JavaScript, so log.css hides those buttons when scripting is off.
-// Old /search/ links redirect to /?search (netlify.toml), which opens the overlay on load.
+// /?q=term opens it on load; old /search/ links redirect there (netlify.toml).
 ---
 
 <dialog id="search-overlay" class="search-overlay" aria-labelledby="search-overlay-title">
@@ -187,11 +187,10 @@
     opener = null;
   });
 
-  // /?search (where old /search/ links land) opens the overlay straight away, with ?q= as the term.
+  // /?q=term (also where old /search/ links land) opens the overlay straight away with that term.
   const params = new URLSearchParams(location.search);
-  if (params.has("search")) {
-    const term = params.get("q") || params.get("search") || "";
-    params.delete("search");
+  if (params.has("q")) {
+    const term = params.get("q") || "";
     params.delete("q");
     const query = params.toString();
     history.replaceState(history.state, "", location.pathname + (query ? `?${query}` : "") + location.hash);

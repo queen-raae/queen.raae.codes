@@ -78,4 +78,4 @@ Blog post paths follow the pattern: `posts-queen/YYYY/MM/DD-slug/index.md`
 - `draft: true` entries show on deploy previews only (`CONTEXT !== "production"`)
 - `retired/` holds the old landing pages (bootcamps, emergency, Bridgerton…) and their components, kept but not built or linted; their content stays in `src/content/landing/`
 - Sitemap excludes `/tag/*` and subscription management pages
-- Search is an overlay (`src/components/log/SearchOverlay.astro`) over a Fuse index at `/search-index.json`; there is no search page, `/search/` redirects to `/?search`, which opens the overlay
+- Search is an overlay (`src/components/log/SearchOverlay.astro`) over a Fuse index at `/search-index.json`; there is no search page, `/?q=term` opens the overlay and `/search/` redirects there
