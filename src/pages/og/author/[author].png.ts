@@ -6,23 +6,21 @@ const AUTHORS = [
   {
     slug: "queen",
     authorKey: "Queen",
-    title: "Queen Raae 👑",
+    title: "Queen Raae",
     description:
       "Norwegian developer, builder, speaker, and pirate queen. She builds products in public and runs Lilly Labs with her family.",
   },
   {
     slug: "olavea",
     authorKey: "OlaVea",
-    title: "Ola Holst Vea 🏴‍☠️",
-    description:
-      "Developer, tinkerer, and co-founder of Lilly Labs. Currently deep into Laravel.",
+    title: "Ola Holst Vea",
+    description: "Developer, tinkerer, and co-founder of Lilly Labs. Currently deep into Laravel.",
   },
   {
     slug: "jeanclaw",
     authorKey: "JeanClaw2026",
-    title: "Jean-Claw 🦀",
-    description:
-      "AI Chief of Operations at Lilly Labs. Part Van Damme, part Sebastian from The Little Mermaid.",
+    title: "Jean-Claw",
+    description: "AI Chief of Operations at Lilly Labs. Part Van Damme, part Sebastian from The Little Mermaid.",
   },
 ];
 

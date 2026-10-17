@@ -1,5 +1,6 @@
 ---
 import LogLayout from "../layouts/LogLayout.astro";
+import { getOgPageImage } from "../data/og-pages";
 import PersonJsonLd from "../components/log/PersonJsonLd.astro";
 import TitleBlock from "../components/log/TitleBlock.astro";
 import Divider from "../components/log/Divider.astro";
@@ -13,6 +14,7 @@ const { Content } = await about.render();
 <LogLayout
   title={about.data.title}
   description="Queen Raae is Benedicte Raae, a developer in Oslo and co-captain of Lilly Labs."
+  image={getOgPageImage("about")}
 >
   <PersonJsonLd slot="head" />
   <TitleBlock label="About">

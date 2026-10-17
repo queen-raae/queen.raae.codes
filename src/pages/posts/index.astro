@@ -1,5 +1,6 @@
 ---
 import LogLayout from "../../layouts/LogLayout.astro";
+import { getOgPageImage } from "../../data/og-pages";
 import TitleBlock from "../../components/log/TitleBlock.astro";
 import Divider from "../../components/log/Divider.astro";
 import SectionBar from "../../components/log/SectionBar.astro";
@@ -24,7 +25,12 @@ const max = Math.max(...strip.map((s) => s.count));
 const busiest = strip.find((s) => s.count === max)?.year;
 ---
 
-<LogLayout title={TITLE} description={DESCRIPTION} feeds={[{ title: "Queen Raae's log", href: "/posts/queen.xml" }]}>
+<LogLayout
+  title={TITLE}
+  description={DESCRIPTION}
+  image={getOgPageImage("posts")}
+  feeds={[{ title: "Queen Raae's log", href: "/posts/queen.xml" }]}
+>
   <TitleBlock
     label="The archive"
     lead={`Every entry since ${first}, newest first. The early ones are rough. They stay.`}
