@@ -95,7 +95,7 @@ export function renderResults(results: SearchResult[]): string {
         <span class="mono row-date">${escapeHtml(item.date)}</span>
         ${item.type ? `<span class="mono label row-type">${escapeHtml(item.type)}</span>` : ""}
         <span class="row-main">
-          <span class="ttl">${title}<span class="arr" aria-hidden="true">→</span></span>
+          <span class="ttl">${title}&#8288;<span class="arr" aria-hidden="true">→</span></span>
           <span class="row-desc">${description}</span>
           <span class="row-tags flex flex-wrap gap-x-4 -ml-1">${tags}</span>
         </span>
