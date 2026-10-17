@@ -223,7 +223,7 @@
     color: var(--color-ink);
   }
 
-  /* ── Header nav: links then the search button; on phones a full-width strip of three equal ruled cells ── */
+  /* ── Header nav: links then the search button; below 760px (where it would wrap) a full-width strip of three equal ruled cells ── */
   .log-body .site-nav {
     display: flex;
     flex-wrap: wrap;
@@ -235,7 +235,7 @@
     margin-left: 8px;
   }
 
-  @media (max-width: 560px) {
+  @media (max-width: 760px) {
     .log-body .site-nav {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
