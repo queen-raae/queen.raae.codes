@@ -27,8 +27,6 @@ const sourceOf = (post: (typeof allPosts)[number]) => {
 };
 
 // From the archives: the first entry of each of the four earliest years, press left out
-const years = groupByYear(allPosts);
-const firstYear = years[years.length - 1]?.year;
 const archives = groupByYear(allPosts.filter((post) => post.type !== "Press"))
   .slice(-4)
   .reverse()
@@ -325,9 +323,9 @@ const updated = new Date(nowUpdated).toLocaleDateString("en-GB", { day: "numeric
       </button>
     </SectionBar>
     <p class="m-0 gutter py-[clamp(20px,3vw,32px)] max-w-[68ch] text-lg leading-[1.55] box-border">
-      So far: {allPosts.length} entries, back to {firstYear}. Mostly Gatsby, for now. I’m collecting my old blog posts
-      and newsletters to get my whole online life into this one site. Original dates kept, cringe included 😆 Press the
-      dice for a random one.
+      {allPosts.length} entries, so far mostly from my Gatsby era. With the help of
+      <a href="/author/jeanclaw/">Jean-Claw</a>, my aim is to collect it all into this site: old blog posts, newsletters
+      sent, links to appearances… my 30-year online existence in one place. Original dates, no edits 😬
     </p>
     <div
       class="dig-result hidden flex-wrap gap-x-7 gap-y-4 items-center bg-acid border-t-2 border-ink py-[clamp(16px,2.5vw,24px)] gutter"
