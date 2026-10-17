@@ -405,6 +405,24 @@ const updated = new Date(nowUpdated).toLocaleDateString("en-GB", { month: "short
 
     const random = () => Math.floor(Math.random() * posts.length);
 
+    // The button glides to its new width when the label changes
+    const setLabel = (text: string) => {
+      if (reduced) {
+        label.textContent = text;
+        return;
+      }
+      const from = button.offsetWidth;
+      button.style.width = "";
+      label.textContent = text;
+      const to = button.offsetWidth;
+      button.style.width = `${from}px`;
+      void button.offsetWidth;
+      button.style.width = `${to}px`;
+    };
+    button.addEventListener("transitionend", (event) => {
+      if (event.propertyName === "width") button.style.width = "";
+    });
+
     // Back to twinkling once the burst is over
     button.addEventListener("animationend", (event) => {
       if (event.animationName === "dig-burst") button.classList.remove("dig-burst");
@@ -422,7 +440,7 @@ const updated = new Date(nowUpdated).toLocaleDateString("en-GB", { month: "short
       title.textContent = "…";
       title.removeAttribute("href");
       count.textContent = "";
-      label.textContent = "Digging…";
+      setLabel("Digging…");
 
       let ticks = 0;
       const spin = () => {
@@ -442,7 +460,7 @@ const updated = new Date(nowUpdated).toLocaleDateString("en-GB", { month: "short
         title.textContent = `${post.t} →`;
         title.href = post.s;
         count.textContent = counts[Math.min(dug, counts.length - 1)];
-        label.textContent = labels[Math.min(dug, labels.length - 1)];
+        setLabel(labels[Math.min(dug, labels.length - 1)]);
         rolling = false;
       };
       spin();

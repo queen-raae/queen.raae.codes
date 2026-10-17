@@ -264,6 +264,12 @@
     position: relative;
     overflow: visible;
     background: var(--color-cream);
+    transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .dig-label {
+    white-space: nowrap;
+    overflow: hidden;
   }
 
   .dig-spark {
@@ -405,6 +411,10 @@
     .dig-burst .dig-spark {
       animation: none;
       opacity: 0.8;
+    }
+
+    .log-body .btn-fire.dig-button {
+      transition: none;
     }
   }
 
