@@ -908,7 +908,6 @@
   }
 
   .row:hover .arr,
-  .arc:hover .arr,
   a:hover > .arr {
     transform: translateX(8px);
   }
@@ -1135,8 +1134,33 @@
     box-sizing: border-box;
   }
 
+  /* Like the log entries: the title carries the arrow and only the title lights up */
   .log-body a.arc:hover {
+    background: var(--color-cream);
+  }
+
+  .arc-ttl > span {
+    padding: 0 0.08em;
+    margin-left: -0.08em;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+
+  .arc:hover .arc-ttl > span {
     background: var(--color-acid);
+  }
+
+  .arc .arc-ttl::after {
+    content: "\2060→";
+    position: relative;
+    left: 0;
+    margin-left: 0.15em;
+    color: var(--color-amber-500);
+    transition: left 0.2s;
+  }
+
+  .arc:hover .arc-ttl::after {
+    left: 8px;
   }
 
   /* Treasures: lab-note cards on pale rust, scrolling sideways like the wall */

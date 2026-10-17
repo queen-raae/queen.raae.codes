@@ -344,8 +344,13 @@ const updated = new Date(nowUpdated).toLocaleDateString("en-GB", { day: "numeric
         archives.map((post) => (
           <a class="arc" href={post.slug}>
             <span class="display text-[clamp(40px,4vw,56px)] leading-[0.9] tracking-[-0.03em]">{post.year}</span>
-            {sourceOf(post) && <span class="mono text-plum-500">{sourceOf(post)}</span>}
-            <span class="text-lg leading-[1.4] font-bold">{post.title}</span>
+            <time class="mono text-plum-500" datetime={post.date}>
+              {post.dateShort}
+              {sourceOf(post) && ` · ${sourceOf(post)}`}
+            </time>
+            <span class="arc-ttl text-lg leading-[1.4] font-bold">
+              <span>{post.title}</span>
+            </span>
           </a>
         ))
       }
