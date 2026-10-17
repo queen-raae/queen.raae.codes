@@ -72,7 +72,7 @@ export const treasures: Treasure[] = [
     href: "https://datainthewild.fm",
     what: 'A podcast exploring data modelling in real-life indie hacker software, sponsored by <a href="https://xata.io">Xata</a>.',
     when: "2023–2024",
-    why: "We wanted to learn more about data modelling, podcasting and Xata too.",
+    why: "We wanted to learn more about data modelling and podcasting. Xata had the same goal.",
     actions: [{ verb: "Listen on", href: "https://datainthewild.fm", domain: "datainthewild.fm" }],
   },
   {
