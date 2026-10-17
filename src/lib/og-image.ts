@@ -5,26 +5,33 @@ import path from "node:path";
 import { createHash } from "node:crypto";
 
 // ── Author config ─────────────────────────────────────────────────
-// `photo` is the background that shows as a frame around the card.
-export const AUTHOR_CONFIG: Record<string, { photo: string; byline: string }> = {
+// Guests get a small avatar by their byline; Queen's own cards don't need one.
+export const AUTHOR_CONFIG: Record<string, { byline: string; avatar?: string }> = {
   Queen: {
-    photo: "src/assets/log/queen-wall.jpg",
     byline: "👑 Queen Raae",
   },
   OlaVea: {
-    photo: "src/assets/og/olavea-avatar.jpg",
     byline: "🏴‍☠️ Cap'n Ola",
+    avatar: "src/assets/og/olavea-avatar.jpg",
   },
   JeanClaw2026: {
-    photo: "src/assets/og/jeanclaw-avatar.jpg",
     byline: "🦀 Jean-Claw",
+    avatar: "src/assets/og/jeanclaw-avatar.jpg",
   },
 };
+
+// Queen's photo shows as a frame around her cards
+const QUEEN_PHOTO = "src/assets/log/queen-wall.jpg";
+
+// What frames a guest's card: Queen's photo, or a flat colour
+export type GuestFrame = "photo" | "plum" | "panel";
+const GUEST_FRAME: GuestFrame = "photo";
 
 // ── Design constants (Organic Brutalist tokens from src/global.css) ─
 const WIDTH = 1200;
 const HEIGHT = 628;
 const FRAME = 52; // how much of the photo shows around the page
+const AVATAR = 56;
 const CREAM = "#fdf6ec";
 const INK = "#3d1230";
 const ACID = "#fbbf24";
@@ -61,15 +68,16 @@ function loadFonts() {
   return fonts;
 }
 
-// Crop the photo to the card size once, so Satori only has to place it
-async function getPhotoDataUri(file: string): Promise<string> {
-  if (photoCache.has(file)) return photoCache.get(file)!;
+// Crop a photo once per build, so Satori only has to place it
+async function getPhotoDataUri(file: string, width = WIDTH, height = HEIGHT): Promise<string> {
+  const key = `${file}@${width}x${height}`;
+  if (photoCache.has(key)) return photoCache.get(key)!;
   const buf = await sharp(path.resolve(process.cwd(), file))
-    .resize(WIDTH, HEIGHT, { fit: "cover", position: "attention" })
+    .resize(width, height, { fit: "cover", position: "attention" })
     .jpeg({ quality: 82 })
     .toBuffer();
   const uri = `data:image/jpeg;base64,${buf.toString("base64")}`;
-  photoCache.set(file, uri);
+  photoCache.set(key, uri);
   return uri;
 }
 
@@ -169,14 +177,18 @@ async function renderCard(options: {
   title: string;
   description: string;
   author: string;
+  guestFrame?: GuestFrame;
 }): Promise<Buffer> {
   const config = AUTHOR_CONFIG[options.author] || AUTHOR_CONFIG.Queen;
-  const photo = await getPhotoDataUri(config.photo);
+  const frame = config.avatar ? options.guestFrame || GUEST_FRAME : "photo";
+  const photo = frame === "photo" ? await getPhotoDataUri(QUEEN_PHOTO) : null;
+  const avatar = config.avatar ? await getPhotoDataUri(config.avatar, AVATAR, AVATAR) : null;
   const titleSize = options.title.length > 48 ? 54 : 64;
 
-  const markup = el({ position: "relative", width: `${WIDTH}px`, height: `${HEIGHT}px`, background: CREAM }, [
+  const background = frame === "plum" ? INK : frame === "panel" ? PANEL : CREAM;
+  const markup = el({ position: "relative", width: `${WIDTH}px`, height: `${HEIGHT}px`, background }, [
     // Photo first so the page paints on top (SVG paint order = DOM order)
-    {
+    photo && {
       type: "img",
       props: {
         src: photo,
@@ -226,11 +238,26 @@ async function renderCard(options: {
             borderTop: `2px solid ${INK}`,
             paddingTop: "16px",
             justifyContent: "space-between",
+            alignItems: "center",
             fontFamily: "Space Mono",
             fontWeight: 700,
             fontSize: "22px",
           },
-          [el({}, "queen.raae.codes"), el({}, config.byline)],
+          [
+            el({}, "queen.raae.codes"),
+            el({ alignItems: "center", gap: "14px" }, [
+              avatar && {
+                type: "img",
+                props: {
+                  src: avatar,
+                  width: AVATAR,
+                  height: AVATAR,
+                  style: { width: `${AVATAR}px`, height: `${AVATAR}px`, border: `2px solid ${INK}` },
+                },
+              },
+              el({}, config.byline),
+            ]),
+          ],
         ),
       ],
     ),
@@ -258,8 +285,10 @@ export async function generateOgImage(options: {
   author: string;
   type?: string;
   date?: string;
+  guestFrame?: GuestFrame;
 }): Promise<Buffer> {
   return renderCard({
+    guestFrame: options.guestFrame,
     labels: [options.type || "Log", options.date].filter(Boolean) as string[],
     title: truncateText(options.title, 90),
     description: truncateText(options.description, 160),
