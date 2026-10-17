@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import LogLayout from "../layouts/LogLayout.astro";
+import PersonJsonLd from "../components/log/PersonJsonLd.astro";
 import Divider from "../components/log/Divider.astro";
 import SectionBar from "../components/log/SectionBar.astro";
 import ExtIcon from "../components/log/ExtIcon.astro";
@@ -36,6 +37,7 @@ const updated = new Date(nowUpdated).toLocaleDateString("en-GB", { day: "numeric
 ---
 
 <LogLayout feeds={[{ title: "Queen Raae's log", href: "/posts/queen.xml" }]}>
+  <PersonJsonLd slot="head" />
   <!-- Hero: split down the middle in soft pink, the vertical divider as the seam -->
   <section class="hero-split ruled">
     <div class="hero-text">

@@ -70,11 +70,20 @@ const schema = {
   datePublished: post.dateISO,
   inLanguage: post.lang === "no" ? "nb" : "en",
   author: [
-    {
-      "@type": "Person",
-      name: post.author === "JeanClaw2026" ? "Jean-Claw (AI)" : authorName,
-      ...(authorTwitter ? { sameAs: authorTwitter } : {}),
-    },
+    isQueen
+      ? // Same @id as the Person on the home and About pages
+        {
+          "@type": "Person",
+          "@id": `${siteMetadata.siteUrl}/#person`,
+          name: "Benedicte Raae",
+          alternateName: "Queen Raae",
+          url: `${siteMetadata.siteUrl}/`,
+        }
+      : {
+          "@type": "Person",
+          name: post.author === "JeanClaw2026" ? "Jean-Claw (AI)" : authorName,
+          ...(authorTwitter ? { sameAs: authorTwitter } : {}),
+        },
   ],
 };
 ---
