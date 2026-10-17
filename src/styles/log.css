@@ -2030,10 +2030,6 @@
     background: var(--color-acid);
   }
 
-  .search-overlay .row:focus-visible .arr {
-    transform: translateX(8px);
-  }
-
   .search-overlay .so-foot {
     display: flex;
     align-items: center;
