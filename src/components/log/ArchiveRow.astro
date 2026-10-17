@@ -14,6 +14,6 @@ const byline = post.author === "Queen" ? undefined : getAuthorInfo(post.author).
 <a class="arow" href={post.slug}>
   <time class="mono d" datetime={post.date}>{post.dateShort}</time>
   <TypeLabel type={post.type} class="k" />
-  <span class="t">{post.title}</span>
+  <span class="t"><span>{post.title}</span></span>
   {byline && <span class="mono by">by {byline}</span>}
 </a>

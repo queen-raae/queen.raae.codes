@@ -444,7 +444,7 @@
     background-size: 16px 96px;
   }
 
-  /* Home hero: split down the middle, pink text half, photo half, the divider as the seam */
+  /* Home hero: split down the middle, panel-coloured text half, photo half, the divider as the seam */
   .hero-split {
     display: flex;
     background: var(--color-panel);
@@ -699,8 +699,21 @@
   }
 
   .row:hover .ttl,
-  .arow:hover .t {
+  .arow:hover .t > span {
     background: var(--color-acid);
+  }
+
+  .arow .t > span {
+    padding: 0 0.08em;
+    margin-left: -0.08em;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+
+  /* Selected state: a yellow label inside a hovered link flips to plum, so it never sits yellow on yellow */
+  .log-body a:hover .label {
+    background: var(--color-ink);
+    color: var(--color-cream);
   }
 
   /* Sliding arrow: → stays on the site */
@@ -731,7 +744,7 @@
     stroke-linejoin: miter;
   }
 
-  /* ── Year sections: big year in a pink margin on wide screens, a bar on small ones ── */
+  /* ── Year sections: big year in a panel-coloured margin on wide screens, a bar on small ones ── */
   .year-section {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
@@ -820,7 +833,6 @@
     font-size: 20px;
     line-height: 1.15;
     letter-spacing: -0.02em;
-    padding: 0 0.1em;
     min-width: 0;
     overflow-wrap: anywhere;
   }
