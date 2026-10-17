@@ -1,0 +1,931 @@
+---
+// Notice Redesign Options — Bridgerton-style standalone page
+// Multiple options for both AI author notices and disclaimer notices
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Notice Redesign Options — Queen Raae</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👑</text></svg>"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,400..900;1,400..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --cream: #fdf6ec;
+        --golden: #f5e6cc;
+        --blush: #f8ece8;
+        --plum: #3d1230;
+        --plum-deep: #4a1638;
+        --plum-mid: #7b2d5e;
+        --plum-muted: #9b4d7e;
+        --amber-light: #fddaa0;
+        --amber: #f5a623;
+        --amber-dark: #c96d12;
+        --rose-light: #f0c4c8;
+        --rose: #b76e79;
+        --signature: #f4511e;
+        --signature-hover: #d84315;
+        --font-heading: "Montserrat", system-ui, sans-serif;
+        --font-body: "Lora", Georgia, serif;
+      }
+
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html { font-size: clamp(16px, 18px + 0.15vw, 19px); }
+
+      body {
+        font-family: var(--font-body);
+        color: var(--plum);
+        background: var(--golden);
+        line-height: 1.65;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      ::selection {
+        background: var(--amber-light);
+        color: var(--plum);
+      }
+
+      .page-wrapper {
+        max-width: 52rem;
+        margin: 0 auto;
+        background: var(--cream);
+        min-height: 100vh;
+        box-shadow: 0 0 60px rgba(61, 18, 48, 0.08);
+      }
+
+      .container {
+        max-width: 42rem;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+      }
+
+      .container > * { max-width: 36rem; }
+
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        backdrop-filter: blur(16px);
+        background: rgba(253, 246, 236, 0.9);
+        border-top: 4px solid var(--signature);
+      }
+
+      .site-header nav {
+        max-width: 42rem;
+        margin: 0 auto;
+        padding: 0.75rem 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .site-header .logo {
+        font-size: 1.25rem;
+        margin-right: auto;
+        text-decoration: none;
+      }
+
+      .site-header a:not(.logo) {
+        font-family: var(--font-heading);
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--plum-mid);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+
+      .site-header a:not(.logo):hover { color: var(--signature); }
+
+      .section { padding: 3rem 1.5rem; }
+      .section--cream { background: var(--cream); }
+      .section--golden { background: var(--golden); }
+      .section--blush { background: var(--blush); }
+
+      h1, h2, h3, h4 {
+        font-family: var(--font-heading);
+        font-weight: 800;
+        line-height: 1.1;
+        color: var(--plum);
+        text-wrap: balance;
+      }
+
+      h1 { font-size: 2.75rem; font-weight: 900; margin: 1rem 0; }
+      h2 { font-size: 2rem; margin: 2.5rem 0 1rem; }
+      h3 { font-size: 1.35rem; font-weight: 700; margin: 2rem 0 0.75rem; }
+
+      p { margin: 1rem 0; }
+
+      a {
+        color: var(--plum-mid);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        text-decoration-color: var(--amber);
+        transition: all 0.2s;
+      }
+
+      a:hover {
+        color: var(--signature);
+        text-decoration-color: var(--signature);
+      }
+
+      .label {
+        font-family: var(--font-heading);
+        font-size: 0.7rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: var(--plum-muted);
+        margin-bottom: 0.5rem;
+      }
+
+      .lead {
+        font-size: 1.15rem;
+        font-weight: 500;
+        line-height: 1.5;
+        color: var(--plum-mid);
+      }
+
+      .text-sm { font-size: 0.85rem; }
+      .text-muted { color: var(--plum-muted); }
+      .full-width { max-width: 100% !important; }
+
+      hr {
+        border: none;
+        text-align: center;
+        margin: 2.5rem 0;
+        color: var(--amber);
+        font-size: 1.25rem;
+        letter-spacing: 0.75rem;
+      }
+      hr::after { content: "⚜  👑  ⚜"; }
+
+      /* ── Option Labels ── */
+      .option-label {
+        font-family: var(--font-heading);
+        font-size: 0.6rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--rose);
+        margin-bottom: 0.75rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .option-label::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--rose-light);
+      }
+
+      /* ── Current / Old Style ── */
+      .notice-old {
+        border: 4px dashed #f59e0b;
+        padding: 1rem;
+        margin: 1rem 0;
+        font-size: 0.85rem;
+        max-width: 100% !important;
+      }
+
+      /* ════════════════════════════════════════
+         AI AUTHOR NOTICE OPTIONS
+         ════════════════════════════════════════ */
+
+      /* Option A — Amber left border, golden bg */
+      .ai-notice-a {
+        border-left: 4px solid var(--amber);
+        background: var(--golden);
+        padding: 0.85rem 1.25rem;
+        margin: 1.25rem 0;
+        font-size: 0.9rem;
+        max-width: 100% !important;
+      }
+
+      .ai-notice-a p { margin: 0; }
+
+      /* Option B — Rose callout with crab icon */
+      .ai-notice-b {
+        border-left: 4px solid var(--rose);
+        background: var(--blush);
+        padding: 0.85rem 1.25rem;
+        margin: 1.25rem 0;
+        font-size: 0.9rem;
+        max-width: 100% !important;
+      }
+
+      .ai-notice-b p { margin: 0; }
+
+      /* Option C — Signature pop border */
+      .ai-notice-c {
+        border-left: 4px solid var(--signature);
+        background: #fff3e0;
+        padding: 0.85rem 1.25rem;
+        margin: 1.25rem 0;
+        font-size: 0.9rem;
+        max-width: 100% !important;
+      }
+
+      .ai-notice-c p { margin: 0; }
+
+      /* Option D — Subtle inline with plum border-top/bottom */
+      .ai-notice-d {
+        border-top: 2px solid var(--amber);
+        border-bottom: 2px solid var(--amber);
+        padding: 0.75rem 0;
+        margin: 1.25rem 0;
+        font-size: 0.85rem;
+        color: var(--plum-mid);
+        max-width: 100% !important;
+      }
+
+      .ai-notice-d p { margin: 0; }
+
+      /* Chosen AI notice — Subtle inline with ✦ (L-style) */
+      .ai-notice-chosen {
+        display: inline;
+        font-family: var(--font-body);
+        font-size: 0.85rem;
+        color: var(--plum-muted);
+      }
+
+      .ai-notice-chosen .author-name {
+        font-weight: 600;
+        color: var(--plum-mid);
+        text-decoration: none;
+      }
+
+      .ai-notice-chosen .ai-note {
+        font-style: italic;
+      }
+
+      .ai-notice-chosen a {
+        color: var(--plum-mid);
+      }
+
+      /* Keep old badge for reference */
+      .ai-notice-e {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-family: var(--font-heading);
+        font-size: 0.65rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        background: var(--rose-light);
+        color: var(--plum-mid);
+        padding: 0.35rem 0.85rem;
+        border-radius: 0.25rem;
+        margin: 1.25rem 0;
+      }
+
+      .ai-notice-e a {
+        color: var(--plum-mid);
+        font-weight: 700;
+      }
+
+      /* Option F — Full-width banner with amber bg */
+      .ai-notice-f {
+        background: var(--amber-light);
+        padding: 0.65rem 1.25rem;
+        margin: 1.25rem 0;
+        font-family: var(--font-heading);
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        color: var(--plum);
+        text-align: center;
+        max-width: 100% !important;
+      }
+
+      .ai-notice-f a {
+        color: var(--plum);
+        font-weight: 700;
+      }
+
+      /* ════════════════════════════════════════
+         DISCLAIMER NOTICE OPTIONS
+         ════════════════════════════════════════ */
+
+      /* Option A — Amber left border */
+      .disclaimer-a {
+        border-left: 4px solid var(--amber);
+        background: var(--golden);
+        padding: 1rem 1.25rem;
+        margin: 1.5rem 0;
+        font-size: 0.85rem;
+        max-width: 100% !important;
+      }
+
+      .disclaimer-a ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .disclaimer-a li {
+        padding: 0.2rem 0;
+      }
+
+      .disclaimer-a li::before {
+        content: "➽";
+        color: var(--amber);
+        margin-right: 0.5rem;
+      }
+
+      /* Option B — Rose callout */
+      .disclaimer-b {
+        border-left: 4px solid var(--rose);
+        background: var(--blush);
+        padding: 1rem 1.25rem;
+        margin: 1.5rem 0;
+        font-size: 0.85rem;
+        max-width: 100% !important;
+      }
+
+      .disclaimer-b ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .disclaimer-b li {
+        padding: 0.2rem 0;
+      }
+
+      .disclaimer-b li::before {
+        content: "⚜";
+        color: var(--rose);
+        margin-right: 0.5rem;
+        font-size: 0.85em;
+      }
+
+      /* Option C — Double border (top+bottom) */
+      .disclaimer-c {
+        border-top: 2px solid var(--amber);
+        border-bottom: 2px solid var(--amber);
+        padding: 1rem 0;
+        margin: 1.5rem 0;
+        font-size: 0.85rem;
+        max-width: 100% !important;
+      }
+
+      .disclaimer-c ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .disclaimer-c li {
+        padding: 0.2rem 0;
+      }
+
+      .disclaimer-c li::before {
+        content: "➽";
+        color: var(--amber);
+        margin-right: 0.5rem;
+      }
+
+      /* Option D — Signature pop border (attention-grabbing) */
+      .disclaimer-d {
+        border-left: 4px solid var(--signature);
+        background: #fff3e0;
+        padding: 1rem 1.25rem;
+        margin: 1.5rem 0;
+        font-size: 0.85rem;
+        max-width: 100% !important;
+      }
+
+      .disclaimer-d ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .disclaimer-d li {
+        padding: 0.2rem 0;
+      }
+
+      .disclaimer-d li::before {
+        content: "🔥";
+        margin-right: 0.5rem;
+        font-size: 0.8em;
+      }
+
+      /* Option E — Plum deep with amber accents (dark) */
+      .disclaimer-e {
+        background: var(--plum-deep);
+        color: var(--blush);
+        padding: 1rem 1.25rem;
+        margin: 1.5rem 0;
+        font-size: 0.85rem;
+        border-left: 4px solid var(--amber);
+        max-width: 100% !important;
+      }
+
+      .disclaimer-e a {
+        color: var(--amber-light);
+      }
+
+      .disclaimer-e ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .disclaimer-e li {
+        padding: 0.2rem 0;
+      }
+
+      .disclaimer-e li::before {
+        content: "➽";
+        color: var(--amber);
+        margin-right: 0.5rem;
+      }
+
+      /* Option F — Subtle italic with fleur */
+      .disclaimer-f {
+        margin: 1.5rem 0;
+        padding-left: 2rem;
+        position: relative;
+        font-size: 0.85rem;
+        font-style: italic;
+        color: var(--plum-muted);
+        max-width: 100% !important;
+      }
+
+      .disclaimer-f::before {
+        content: "⚜";
+        position: absolute;
+        left: 0;
+        top: 0.15rem;
+        font-size: 1.1rem;
+        color: var(--amber);
+        font-style: normal;
+      }
+
+      .disclaimer-f ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .disclaimer-f li {
+        padding: 0.15rem 0;
+      }
+
+      /* ── ✦ FOUR-POINTED STAR VARIANTS ── */
+
+      /* Option G — ✦ Amber border, golden bg */
+      .disclaimer-g {
+        border-left: 4px solid var(--amber);
+        background: var(--golden);
+        padding: 1rem 1.25rem;
+        margin: 1.5rem 0;
+        font-size: 0.85rem;
+        max-width: 100% !important;
+      }
+
+      .disclaimer-g ul { list-style: none; padding: 0; margin: 0; }
+      .disclaimer-g li { padding: 0.25rem 0; }
+      .disclaimer-g li::before {
+        content: "✦";
+        color: var(--amber-dark);
+        margin-right: 0.6rem;
+        font-size: 0.75em;
+      }
+
+      /* Option H — ✦ Rose border, blush bg */
+      .disclaimer-h {
+        border-left: 4px solid var(--rose);
+        background: var(--blush);
+        padding: 1rem 1.25rem;
+        margin: 1.5rem 0;
+        font-size: 0.85rem;
+        max-width: 100% !important;
+      }
+
+      .disclaimer-h ul { list-style: none; padding: 0; margin: 0; }
+      .disclaimer-h li { padding: 0.25rem 0; }
+      .disclaimer-h li::before {
+        content: "✦";
+        color: var(--rose);
+        margin-right: 0.6rem;
+        font-size: 0.75em;
+      }
+
+      /* Option I — ✦ Horizontal lines, no bg */
+      .disclaimer-i {
+        border-top: 2px solid var(--amber);
+        border-bottom: 2px solid var(--amber);
+        padding: 1rem 0;
+        margin: 1.5rem 0;
+        font-size: 0.85rem;
+        max-width: 100% !important;
+      }
+
+      .disclaimer-i ul { list-style: none; padding: 0; margin: 0; }
+      .disclaimer-i li { padding: 0.25rem 0; }
+      .disclaimer-i li::before {
+        content: "✦";
+        color: var(--amber);
+        margin-right: 0.6rem;
+        font-size: 0.75em;
+      }
+
+      /* Option J — ✦ Dark plum with amber stars */
+      .disclaimer-j {
+        background: var(--plum-deep);
+        color: var(--blush);
+        padding: 1rem 1.25rem;
+        margin: 1.5rem 0;
+        font-size: 0.85rem;
+        border-left: 4px solid var(--amber);
+        max-width: 100% !important;
+      }
+
+      .disclaimer-j a { color: var(--amber-light); }
+      .disclaimer-j ul { list-style: none; padding: 0; margin: 0; }
+      .disclaimer-j li { padding: 0.25rem 0; }
+      .disclaimer-j li::before {
+        content: "✦";
+        color: var(--amber);
+        margin-right: 0.6rem;
+        font-size: 0.75em;
+      }
+
+      /* Option K — ✦ Signature pop border */
+      .disclaimer-k {
+        border-left: 4px solid var(--signature);
+        background: #fff3e0;
+        padding: 1rem 1.25rem;
+        margin: 1.5rem 0;
+        font-size: 0.85rem;
+        max-width: 100% !important;
+      }
+
+      .disclaimer-k ul { list-style: none; padding: 0; margin: 0; }
+      .disclaimer-k li { padding: 0.25rem 0; }
+      .disclaimer-k li::before {
+        content: "✦";
+        color: var(--signature);
+        margin-right: 0.6rem;
+        font-size: 0.75em;
+      }
+
+      /* Option L — ✦ Subtle italic, single star accent */
+      .disclaimer-l {
+        margin: 1.5rem 0;
+        padding-left: 2rem;
+        position: relative;
+        font-size: 0.85rem;
+        font-style: italic;
+        color: var(--plum-muted);
+        max-width: 100% !important;
+      }
+
+      .disclaimer-l::before {
+        content: "✦";
+        position: absolute;
+        left: 0;
+        top: 0.15rem;
+        font-size: 1rem;
+        color: var(--amber);
+        font-style: normal;
+      }
+
+      .disclaimer-l ul { list-style: none; padding: 0; margin: 0; }
+      .disclaimer-l li { padding: 0.15rem 0; }
+
+      /* ── Context mockup ── */
+      .post-context {
+        padding: 2rem;
+        background: white;
+        border: 1px solid rgba(61, 18, 48, 0.08);
+        max-width: 100% !important;
+        margin: 1.5rem 0;
+      }
+
+      .post-context .post-date {
+        font-family: var(--font-heading);
+        font-size: 0.65rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--rose);
+      }
+
+      .post-context .post-title {
+        font-family: var(--font-heading);
+        font-weight: 900;
+        font-size: 2rem;
+        line-height: 1.1;
+        color: var(--plum);
+        margin: 0.35rem 0 0.75rem;
+      }
+
+      .post-context .author-line {
+        font-family: var(--font-heading);
+        font-size: 0.65rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--plum-muted);
+      }
+
+      .post-context .body-text {
+        font-size: 0.95rem;
+        margin-top: 1rem;
+        color: var(--plum);
+      }
+
+      .post-context .end-text {
+        font-size: 0.95rem;
+        color: var(--plum);
+      }
+
+      .section--plum {
+        background: var(--plum);
+        color: var(--cream);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-wrapper">
+      <header class="site-header">
+        <nav>
+          <a href="/" class="logo">👑</a>
+          <a href="/bridgerton-v4/">Design v4</a>
+          <a href="/notices-v1/" style="color: var(--signature);">Notices</a>
+        </nav>
+      </header>
+
+      <!-- ════════════════════════════════════════════
+           INTRO
+           ════════════════════════════════════════════ -->
+      <section class="section section--cream">
+        <div class="container">
+          <p class="label">Notice Redesign</p>
+          <h1>Notice Options 👑</h1>
+          <p class="lead">
+            Multiple options for the two notice types — AI author attribution and post disclaimers —
+            redesigned to match the new queen.raae.codes design system.
+          </p>
+          <hr />
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════════
+           CURRENT / OLD
+           ════════════════════════════════════════════ -->
+      <section class="section section--golden">
+        <div class="container">
+          <p class="label">For Reference</p>
+          <h2>Current Styles</h2>
+
+          <h3>AI Author Notice (current)</h3>
+          <div class="notice-old">
+            🦀 This post was written by <a href="#">Jean-Claw</a>, an AI agent running on <a href="https://openclaw.ai">OpenClaw</a>.
+          </div>
+
+          <h3>Disclaimer Notice (current)</h3>
+          <div class="notice-old">
+            <ul style="list-style: none; padding: 0; margin: 0;">
+              <li>➽ This post was originally published on queen.raae.codes</li>
+              <li>➽ Updated with fresh examples for Astro v5</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════════
+           AI AUTHOR NOTICES
+           ════════════════════════════════════════════ -->
+      <section class="section section--cream">
+        <div class="container">
+          <p class="label">AI Author Notice</p>
+          <h2>Six Options</h2>
+          <p>This notice appears on posts written by Jean-Claw. It should be visible but not dominating.</p>
+
+          <div class="option-label">Option A — Amber Left Border</div>
+          <aside class="ai-notice-a">
+            <p>🦀 This post was written by <a href="#">Jean-Claw</a>, an AI agent running on <a href="https://openclaw.ai">OpenClaw</a>.</p>
+          </aside>
+
+          <div class="option-label">Option B — Rose Callout</div>
+          <aside class="ai-notice-b">
+            <p>🦀 This post was written by <a href="#">Jean-Claw</a>, an AI agent running on <a href="https://openclaw.ai">OpenClaw</a>.</p>
+          </aside>
+
+          <div class="option-label">Option C — Signature Pop</div>
+          <aside class="ai-notice-c">
+            <p>🦀 This post was written by <a href="#">Jean-Claw</a>, an AI agent running on <a href="https://openclaw.ai">OpenClaw</a>.</p>
+          </aside>
+
+          <div class="option-label">Option D — Subtle Horizontal Lines</div>
+          <aside class="ai-notice-d">
+            <p>🦀 This post was written by <a href="#">Jean-Claw</a>, an AI agent running on <a href="https://openclaw.ai">OpenClaw</a>.</p>
+          </aside>
+
+          <div class="option-label">Option E — Compact Badge (original)</div>
+          <div>
+            <span class="ai-notice-e">🦀 By <a href="#">Jean-Claw</a> — <em>an AI Agent running on <a href="https://openclaw.ai">OpenClaw</a></em></span>
+          </div>
+
+          <div class="option-label" style="margin-top: 2rem;">✅ Chosen — ✦ Subtle Inline (L-style)</div>
+          <div>
+            <span class="ai-notice-chosen">✦ By <a href="#" class="author-name">Jean-Claw</a> — <span class="ai-note">an AI agent running on <a href="https://openclaw.ai">OpenClaw</a></span></span>
+          </div>
+
+          <p class="text-sm text-muted" style="margin-top: 0.5rem;">Same font as disclaimers (Lora). Author name stays normal weight. Rest in italic, lowercase. ✦ as ornament.</p>
+
+          <div class="option-label" style="margin-top: 2rem;">Option F — Amber Banner</div>
+          <div class="ai-notice-f">
+            🦀 This post was written by <a href="#">Jean-Claw</a>, an AI agent running on <a href="https://openclaw.ai">OpenClaw</a>.
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════════
+           DISCLAIMER NOTICES
+           ════════════════════════════════════════════ -->
+      <section class="section section--blush">
+        <div class="container">
+          <p class="label" style="color: var(--rose);">Disclaimer Notice</p>
+          <h2>Six Options</h2>
+          <p>These appear at the bottom of posts with disclaimers (originally published elsewhere, content updates, etc.).</p>
+
+          <div class="option-label">Option A — Amber Left Border</div>
+          <aside class="disclaimer-a">
+            <ul>
+              <li>This post was originally published on queen.raae.codes</li>
+              <li>Updated with fresh examples for Astro v5</li>
+            </ul>
+          </aside>
+
+          <div class="option-label">Option B — Rose Callout with Fleur</div>
+          <aside class="disclaimer-b">
+            <ul>
+              <li>This post was originally published on queen.raae.codes</li>
+              <li>Updated with fresh examples for Astro v5</li>
+            </ul>
+          </aside>
+
+          <div class="option-label">Option C — Horizontal Lines</div>
+          <aside class="disclaimer-c">
+            <ul>
+              <li>This post was originally published on queen.raae.codes</li>
+              <li>Updated with fresh examples for Astro v5</li>
+            </ul>
+          </aside>
+
+          <div class="option-label">Option D — Signature Pop</div>
+          <aside class="disclaimer-d">
+            <ul>
+              <li>This post was originally published on queen.raae.codes</li>
+              <li>Updated with fresh examples for Astro v5</li>
+            </ul>
+          </aside>
+
+          <div class="option-label">Option E — Dark Plum</div>
+          <aside class="disclaimer-e">
+            <ul>
+              <li>This post was originally published on queen.raae.codes</li>
+              <li>Updated with fresh examples for Astro v5</li>
+            </ul>
+          </aside>
+
+          <div class="option-label">Option F — Subtle Italic with Fleur</div>
+          <aside class="disclaimer-f">
+            <ul>
+              <li>This post was originally published on queen.raae.codes</li>
+              <li>Updated with fresh examples for Astro v5</li>
+            </ul>
+          </aside>
+
+          <hr />
+          <h3>✦ Four-Pointed Star Variants</h3>
+          <p class="text-sm text-muted" style="margin-bottom: 1.5rem;">Extra love for the ✦ ornament — same star, different vibes.</p>
+
+          <div class="option-label">Option G — ✦ Amber Border + Golden</div>
+          <aside class="disclaimer-g">
+            <ul>
+              <li>This post was originally published on queen.raae.codes</li>
+              <li>Updated with fresh examples for Astro v5</li>
+            </ul>
+          </aside>
+
+          <div class="option-label">Option H — ✦ Rose Border + Blush</div>
+          <aside class="disclaimer-h">
+            <ul>
+              <li>This post was originally published on queen.raae.codes</li>
+              <li>Updated with fresh examples for Astro v5</li>
+            </ul>
+          </aside>
+
+          <div class="option-label">Option I — ✦ Horizontal Lines</div>
+          <aside class="disclaimer-i">
+            <ul>
+              <li>This post was originally published on queen.raae.codes</li>
+              <li>Updated with fresh examples for Astro v5</li>
+            </ul>
+          </aside>
+
+          <div class="option-label">Option J — ✦ Dark Plum</div>
+          <aside class="disclaimer-j">
+            <ul>
+              <li>This post was originally published on queen.raae.codes</li>
+              <li>Updated with fresh examples for Astro v5</li>
+            </ul>
+          </aside>
+
+          <div class="option-label">Option K — ✦ Signature Pop</div>
+          <aside class="disclaimer-k">
+            <ul>
+              <li>This post was originally published on queen.raae.codes</li>
+              <li>Updated with fresh examples for Astro v5</li>
+            </ul>
+          </aside>
+
+          <div class="option-label">Option L — ✦ Subtle Italic</div>
+          <aside class="disclaimer-l">
+            <ul>
+              <li>This post was originally published on queen.raae.codes</li>
+              <li>Updated with fresh examples for Astro v5</li>
+            </ul>
+          </aside>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════════
+           IN CONTEXT — Full Post Mockup
+           ════════════════════════════════════════════ -->
+      <section class="section section--cream">
+        <div class="container">
+          <p class="label">In Context</p>
+          <h2>Full Post Mockup</h2>
+          <p>My recommendations together — Amber border (A) for AI notice + Rose callout with fleur (B) for disclaimers. But pick any combo you like!</p>
+
+          <div class="post-context full-width">
+            <div class="post-date">February 23, 2026</div>
+            <div class="post-title">How I Let My Crab Write Blog Posts</div>
+            <!-- Chosen: AI author line (L-style) + tags -->
+            <div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem; margin: 0.75rem 0 1.25rem;">
+              <span class="ai-notice-chosen">✦ By <a href="#" class="author-name">Jean-Claw</a> — <span class="ai-note">an AI agent running on <a href="https://openclaw.ai">OpenClaw</a></span></span>
+              <span class="badge badge--rose">#CSS</span>
+              <span class="badge badge--amber">#Design</span>
+              <span class="badge badge--rose">#Astro</span>
+            </div>
+
+            <p class="body-text">
+              The thing about letting an AI write your blog posts is that it rarely goes exactly as planned.
+              Sometimes the crab gets dramatic. Sometimes it writes entire paragraphs about roundhouse kicks.
+              But mostly? It just gets the job done — with a little Caribbean flair.
+            </p>
+
+            <p class="body-text">
+              Here's how we set up the workflow, from content collection to published post, using Astro
+              and a custom GitHub Action pipeline...
+            </p>
+
+            <p class="end-text" style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid rgba(61,18,48,0.08);">
+              That's the gist. Now go forth and ship. 👑
+            </p>
+
+            <!-- Disclaimer in context -->
+            <aside class="disclaimer-b">
+              <ul>
+                <li>This post was originally published on queen.raae.codes</li>
+                <li>Updated with fresh examples for Astro v5</li>
+              </ul>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Footer ── -->
+      <footer class="section section--plum" style="padding: 2rem 1.5rem;">
+        <div class="container" style="text-align: center;">
+          <p style="font-family: var(--font-heading); font-size: 0.85rem; color: var(--plum-muted); margin: 0;">
+            👑 Notice Redesign Options · February 2026
+          </p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

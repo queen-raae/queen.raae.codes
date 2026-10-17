@@ -1,0 +1,437 @@
+---
+interface Props {
+  src: string;
+  label?: string;
+  variant?: 'pill' | 'minimal' | 'dark' | 'inline';
+}
+
+const { src, label = "Listen to this post", variant = "pill" } = Astro.props;
+---
+
+<!-- Variant A: Pill — compact, floating feel -->
+{variant === "pill" && (
+  <div class="ap ap-pill" data-audio-src={src}>
+    <button class="ap-play" aria-label="Play" type="button">
+      <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><polygon points="7,4 20,12 7,20" /></svg>
+      <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" style="display:none"><rect x="5" y="4" width="4" height="16" /><rect x="15" y="4" width="4" height="16" /></svg>
+    </button>
+    <span class="ap-label">{label}</span>
+    <div class="ap-bar"><div class="ap-fill"></div></div>
+    <span class="ap-time">0:00</span>
+    <button class="ap-speed" type="button">1×</button>
+  </div>
+)}
+
+<!-- Variant B: Minimal — just a line with controls -->
+{variant === "minimal" && (
+  <div class="ap ap-minimal" data-audio-src={src}>
+    <button class="ap-play" aria-label="Play" type="button">
+      <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><polygon points="7,4 20,12 7,20" /></svg>
+      <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="16" height="16" style="display:none"><rect x="5" y="4" width="4" height="16" /><rect x="15" y="4" width="4" height="16" /></svg>
+    </button>
+    <span class="ap-label">{label}</span>
+    <div class="ap-bar"><div class="ap-fill"></div></div>
+    <span class="ap-time">0:00</span>
+    <button class="ap-speed" type="button">1×</button>
+  </div>
+)}
+
+<!-- Variant C: Dark — plum background, stands out -->
+{variant === "dark" && (
+  <div class="ap ap-dark" data-audio-src={src}>
+    <button class="ap-play" aria-label="Play" type="button">
+      <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><polygon points="7,4 20,12 7,20" /></svg>
+      <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="20" height="20" style="display:none"><rect x="5" y="4" width="4" height="16" /><rect x="15" y="4" width="4" height="16" /></svg>
+    </button>
+    <div class="ap-content">
+      <span class="ap-label">{label}</span>
+      <div class="ap-row">
+        <div class="ap-bar"><div class="ap-fill"></div></div>
+        <span class="ap-time">0:00</span>
+      </div>
+    </div>
+    <button class="ap-speed" type="button">1×</button>
+  </div>
+)}
+
+<!-- Variant D: Inline — text-level, blends with byline area -->
+{variant === "inline" && (
+  <div class="ap ap-inline" data-audio-src={src}>
+    <button class="ap-play" aria-label="Play" type="button">
+      <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><polygon points="7,4 20,12 7,20" /></svg>
+      <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="14" height="14" style="display:none"><rect x="5" y="4" width="4" height="16" /><rect x="15" y="4" width="4" height="16" /></svg>
+    </button>
+    <span class="ap-label">{label}</span>
+    <div class="ap-bar"><div class="ap-fill"></div></div>
+    <span class="ap-time">0:00</span>
+    <button class="ap-speed" type="button">1×</button>
+  </div>
+)}
+
+<style>
+  /* ── Shared ── */
+  .ap {
+    display: flex;
+    align-items: center;
+    font-family: var(--font-heading);
+    user-select: none;
+  }
+
+  .ap-play {
+    flex-shrink: 0;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+  }
+
+  .ap-play:active { transform: scale(0.93); }
+
+  .ap-label {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .ap-bar {
+    flex: 1;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ap-fill {
+    height: 100%;
+    width: 0%;
+    transition: width 0.1s linear;
+  }
+
+  .ap-time {
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .ap-speed {
+    flex-shrink: 0;
+    cursor: pointer;
+    font-family: var(--font-heading);
+    transition: all 0.15s;
+  }
+
+  /* ── A: Pill ── */
+  .ap-pill {
+    gap: 12px;
+    padding: 10px 18px;
+    border-radius: 999px;
+    background: white;
+    border: 1.5px solid var(--color-plum-200);
+    box-shadow: 0 1px 3px rgba(74, 22, 56, 0.06);
+  }
+
+  .ap-pill .ap-play {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--color-plum-800, #4a1638);
+    color: white;
+  }
+
+  .ap-pill .ap-play:hover { background: var(--color-plum-600, #6b2450); }
+
+  .ap-pill .ap-label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--color-plum-700, #5a1c43);
+  }
+
+  .ap-pill .ap-bar {
+    height: 4px;
+    border-radius: 2px;
+    background: var(--color-plum-100, #f8e8f0);
+    min-width: 60px;
+  }
+
+  .ap-pill .ap-fill {
+    background: var(--color-plum-500, #7b2d5e);
+    border-radius: 2px;
+  }
+
+  .ap-pill .ap-time {
+    font-size: 0.7rem;
+    color: var(--color-plum-400, #9b4d7e);
+  }
+
+  .ap-pill .ap-speed {
+    padding: 3px 8px;
+    border-radius: 999px;
+    border: 1px solid var(--color-plum-200, #f0c4d8);
+    background: transparent;
+    color: var(--color-plum-500, #7b2d5e);
+    font-size: 0.7rem;
+    font-weight: 700;
+  }
+
+  .ap-pill .ap-speed:hover { background: var(--color-plum-50, #fdf6f9); }
+
+  /* ── B: Minimal ── */
+  .ap-minimal {
+    gap: 10px;
+    padding: 0;
+  }
+
+  .ap-minimal .ap-play {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: none;
+    color: var(--color-plum-600, #6b2450);
+    border: 1.5px solid var(--color-plum-300, #dba0bd);
+  }
+
+  .ap-minimal .ap-play:hover {
+    background: var(--color-plum-100, #f8e8f0);
+    border-color: var(--color-plum-500, #7b2d5e);
+  }
+
+  .ap-minimal .ap-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-plum-500, #7b2d5e);
+  }
+
+  .ap-minimal .ap-bar {
+    height: 3px;
+    border-radius: 1.5px;
+    background: var(--color-plum-200, #f0c4d8);
+    min-width: 80px;
+  }
+
+  .ap-minimal .ap-fill {
+    background: var(--color-plum-500, #7b2d5e);
+    border-radius: 1.5px;
+  }
+
+  .ap-minimal .ap-time {
+    font-size: 0.7rem;
+    color: var(--color-plum-400, #9b4d7e);
+  }
+
+  .ap-minimal .ap-speed {
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid var(--color-plum-200, #f0c4d8);
+    background: transparent;
+    color: var(--color-plum-400, #9b4d7e);
+    font-size: 0.65rem;
+    font-weight: 700;
+  }
+
+  /* ── C: Dark ── */
+  .ap-dark {
+    gap: 14px;
+    padding: 14px 20px;
+    border-radius: 12px;
+    background: var(--color-plum-800, #4a1638);
+    color: white;
+  }
+
+  .ap-dark .ap-play {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    color: white;
+  }
+
+  .ap-dark .ap-play:hover { background: rgba(255,255,255,0.25); }
+
+  .ap-dark .ap-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+  }
+
+  .ap-dark .ap-label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.9);
+  }
+
+  .ap-dark .ap-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .ap-dark .ap-bar {
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(255,255,255,0.2);
+  }
+
+  .ap-dark .ap-fill {
+    background: var(--color-amber-400, #fbbf24);
+    border-radius: 2px;
+  }
+
+  .ap-dark .ap-time {
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .ap-dark .ap-speed {
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: transparent;
+    color: rgba(255,255,255,0.8);
+    font-size: 0.72rem;
+    font-weight: 700;
+  }
+
+  .ap-dark .ap-speed:hover { background: rgba(255,255,255,0.1); }
+
+  /* ── D: Inline ── */
+  .ap-inline {
+    gap: 8px;
+    padding: 6px 0;
+  }
+
+  .ap-inline .ap-play {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--color-plum-600, #6b2450);
+    color: white;
+  }
+
+  .ap-inline .ap-play:hover { background: var(--color-plum-500, #7b2d5e); }
+
+  .ap-inline .ap-label {
+    font-size: 0.78rem;
+    color: var(--color-plum-400, #9b4d7e);
+    font-style: italic;
+  }
+
+  .ap-inline .ap-bar {
+    height: 2px;
+    border-radius: 1px;
+    background: var(--color-plum-200, #f0c4d8);
+    min-width: 60px;
+  }
+
+  .ap-inline .ap-fill {
+    background: var(--color-plum-400, #9b4d7e);
+    border-radius: 1px;
+  }
+
+  .ap-inline .ap-time {
+    font-size: 0.65rem;
+    color: var(--color-plum-300, #dba0bd);
+  }
+
+  .ap-inline .ap-speed {
+    padding: 1px 5px;
+    border-radius: 3px;
+    border: 1px solid var(--color-plum-200, #f0c4d8);
+    background: transparent;
+    color: var(--color-plum-300, #dba0bd);
+    font-size: 0.6rem;
+    font-weight: 700;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 640px) {
+    .ap-pill .ap-label,
+    .ap-dark .ap-label { display: none; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLDivElement>('.ap').forEach(player => {
+    const src = player.dataset.audioSrc!;
+    const audio = new Audio(src);
+    const playBtn = player.querySelector<HTMLButtonElement>('.ap-play')!;
+    const iconPlay = player.querySelector<SVGElement>('.icon-play')!;
+    const iconPause = player.querySelector<SVGElement>('.icon-pause')!;
+    const bar = player.querySelector<HTMLDivElement>('.ap-bar')!;
+    const fill = player.querySelector<HTMLDivElement>('.ap-fill')!;
+    const time = player.querySelector<HTMLSpanElement>('.ap-time')!;
+    const speedBtn = player.querySelector<HTMLButtonElement>('.ap-speed')!;
+
+    const speeds = [1, 1.25, 1.5, 1.75, 2];
+    let si = 0;
+
+    function fmt(s: number): string {
+      const m = Math.floor(s / 60);
+      return `${m}:${Math.floor(s % 60).toString().padStart(2, '0')}`;
+    }
+
+    // Fathom analytics
+    const fathom = () => (window as any).fathom;
+    const slug = window.location.pathname;
+    const milestones = new Set<number>();
+
+    function trackAudio(event: string, value = 0) {
+      if (fathom()) fathom().trackEvent(`audio:${event}`, { _value: value });
+    }
+
+    playBtn.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play();
+        iconPlay.style.display = 'none';
+        iconPause.style.display = 'block';
+        trackAudio('play');
+      } else {
+        audio.pause();
+        iconPlay.style.display = 'block';
+        iconPause.style.display = 'none';
+      }
+    });
+
+    audio.addEventListener('timeupdate', () => {
+      if (!audio.duration) return;
+      const pct = (audio.currentTime / audio.duration) * 100;
+      fill.style.width = `${pct}%`;
+      time.textContent = `${fmt(audio.currentTime)} / ${fmt(audio.duration)}`;
+
+      // Track retention milestones
+      for (const m of [25, 50, 75]) {
+        if (pct >= m && !milestones.has(m)) {
+          milestones.add(m);
+          trackAudio(`listened:${m}%`, m);
+        }
+      }
+    });
+
+    audio.addEventListener('ended', () => {
+      iconPlay.style.display = 'block';
+      iconPause.style.display = 'none';
+      fill.style.width = '0%';
+      if (!milestones.has(100)) {
+        milestones.add(100);
+        trackAudio('listened:100%', 100);
+      }
+    });
+
+    audio.addEventListener('loadedmetadata', () => {
+      time.textContent = `0:00 / ${fmt(audio.duration)}`;
+    });
+
+    bar.addEventListener('click', (e: MouseEvent) => {
+      if (!audio.duration) return;
+      const rect = bar.getBoundingClientRect();
+      audio.currentTime = ((e.clientX - rect.left) / rect.width) * audio.duration;
+    });
+
+    speedBtn.addEventListener('click', () => {
+      si = (si + 1) % speeds.length;
+      audio.playbackRate = speeds[si];
+      speedBtn.textContent = `${speeds[si]}×`;
+    });
+  });
+</script>

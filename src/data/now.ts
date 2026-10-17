@@ -4,7 +4,7 @@ export const nowUpdated = "2026-10-16";
 export const now: { label: string; html: string }[] = [
   {
     label: "Collecting",
-    html: "Trying to gather 30 years of online life into this one site. My biggest regret is not sticking to one blog through it all. But starting something new is such good fun.",
+    html: "Trying to gather 30 years of online life into this one site. My biggest regret is not sticking to one blog through it all. Sadly something new is such good fun.",
   },
   {
     label: "Building",

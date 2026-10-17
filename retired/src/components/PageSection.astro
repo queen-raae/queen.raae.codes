@@ -1,0 +1,22 @@
+---
+interface Props {
+  component?: string;
+  class?: string;
+  id?: string;
+}
+
+const { component = "section", class: className, id } = Astro.props;
+const Tag = component as any;
+---
+
+<Tag class:list={["page-section py-8 px-6", className]} id={id}>
+  <div class="container mx-auto max-w-2xl *:max-w-xl">
+    <slot />
+  </div>
+</Tag>
+
+<style>
+  .page-section {
+    background-color: #fdf6ec;
+  }
+</style>

@@ -1,0 +1,173 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import PageSection from "../../components/PageSection.astro";
+import PageSectionHeader from "../../components/PageSectionHeader.astro";
+import Prose from "../../components/Prose.astro";
+import CtaSection from "../../components/CtaSection.astro";
+import Newsletter from "../../components/Newsletter.astro";
+
+const title = "Develop and Deploy your first Serverless Function";
+const seoTitle = "Develop and Deploy your first Serverless Function";
+const description =
+  "Gatsby Mini Bootcamp with Queen Raae -- a webinar + q&a session + forum + co-working + code sample combo.";
+const badge = "Gatsby Mini Bootcamp";
+const lead = "Get started creating backend functionality by learning Gatsby Serverless Functions!";
+---
+
+<BaseLayout title={seoTitle} description={description}>
+  <SiteHeader />
+  <main>
+    <PageSection component="header">
+      <PageSectionHeader badge={badge} title={title} lead={lead} hLevel={1} />
+
+      <CtaSection href="#join" label="Join now" class="mt-6" />
+    </PageSection>
+
+    <PageSection>
+      <Prose>
+        <blockquote>
+          <p>
+            I had never worked with serverless before, I assumed it was a topic that was way out of my league. But you
+            proved me wrong! One aspect that I liked was the live sessions we had on crowdcast. I got the opportunity to
+            ask questions and watch you code an application step by step. I would definitely recommend your bootcamps to
+            others because this is a great opportunity to learn about emerging technologies and also connect with
+            amazing people.
+          </p>
+          <cite>
+            &mdash; <strong>Ineza Bont&eacute;</strong> (<a
+              href="https://twitter.com/inezabonte"
+              target="_blank"
+              rel="noreferrer">@inezabonte</a
+            >)
+            <br /><small>Attended: Gatsby Summer Functions 2021</small>
+          </cite>
+        </blockquote>
+      </Prose>
+    </PageSection>
+
+    <PageSection>
+      <Prose>
+        <h2>A little bit of backend in your life</h2>
+        <p>Do you want to add some backend functionality to your Gatsby site?</p>
+
+        <h2>A little bit of Serverless on your side</h2>
+        <p>But have no idea how to get started with the backend?</p>
+
+        <h2>A little bit of Gatsby is all you need</h2>
+        <p>
+          With Gatsby Serverless Functions, you can write backend code without leaving your Gatsby project or learning a
+          new framework!
+        </p>
+
+        <h3>What you'll make?</h3>
+        <p>
+          During this bootcamp, we'll be working on <strong>TimeShip</strong> &mdash; an app that lets you send messages to
+          the future. We'll use Gatsby Serverless Functions to power the backend that stores and retrieves these time-traveling
+          messages.
+        </p>
+
+        <h3>What you'll learn?</h3>
+        <ul>
+          <li>How to set up and configure Gatsby Serverless Functions</li>
+          <li>How to create API endpoints in your Gatsby project</li>
+          <li>How to handle different HTTP methods (GET, POST)</li>
+          <li>How to connect to external services from your functions</li>
+          <li>How to deploy your functions to production</li>
+        </ul>
+      </Prose>
+
+      <CtaSection href="#join" label="Join now" class="mt-6" />
+    </PageSection>
+
+    <PageSection>
+      <PageSectionHeader title="What's included?" />
+
+      <Prose>
+        <ul>
+          <li>
+            <strong>Forum</strong> &mdash; 24/7 access to our private forum where you can ask questions, share progress, and
+            connect with fellow bootcampers.
+          </li>
+          <li>
+            <strong>Assignment + Starter Files</strong> &mdash; Saturday 10:00 CEST &mdash; Receive the assignment and starter
+            files to get a head start.
+          </li>
+          <li>
+            <strong>Live Webinar</strong> &mdash; Tuesday 20:00 CEST &mdash; A live walkthrough of the solution with time
+            for questions.
+          </li>
+          <li>
+            <strong>Co-working session</strong> &mdash; Wednesday 10:00 CEST &mdash; Work on the assignment together with
+            Queen Raae available for help.
+          </li>
+          <li>
+            <strong>Code Sample</strong> &mdash; Thursday 10:00 CEST &mdash; A complete code sample for reference.
+          </li>
+          <li>
+            <strong>Celebratory Q&A Session</strong> &mdash; Saturday 20:00 CEST &mdash; Wrap up the bootcamp with a final
+            Q&A and celebrations.
+          </li>
+        </ul>
+      </Prose>
+    </PageSection>
+
+    <PageSection>
+      <PageSectionHeader title="Who am I?" />
+
+      <div class="flex flex-col sm:flex-row gap-6 items-start">
+        <img
+          src="/content/landing/raae.jpg"
+          alt="Queen Raae"
+          class="w-48 h-48 object-cover border-2 border-brown-900"
+        />
+
+        <Prose>
+          <p>
+            My name is Benedicte Raae, aka Queen Raae. I have been coding since the late '90s. I hold a Master of
+            Science in Computer Science and have made apps for the Swedish Armed Forces, numerous startups and agencies,
+            as well as my own startup POW! that made an app with more than 200.000 users.
+          </p>
+          <p>
+            I have spoken at Gatsby Days and I am an active member of the Gatsby community, streaming live on YouTube
+            every week.
+          </p>
+        </Prose>
+      </div>
+    </PageSection>
+
+    <PageSection>
+      <Prose>
+        <blockquote>
+          <p>
+            I would and I have recommended your bootcamps to others because for me, it wasn't just about creating
+            serverless functions, it was in fact a mini-crash course into the art of software engineering in itself. It
+            cleared my doubts about my abilities to pull things off and seeing everyone go at it really helped boost my
+            confidence delving into unfamiliar paths.
+          </p>
+          <cite>
+            &mdash; <strong>Aremu Smog</strong> (<a
+              href="https://twitter.com/aremu_smog"
+              target="_blank"
+              rel="noreferrer">@aremu_smog</a
+            >)
+            <br /><small>Attended: Gatsby Summer Functions 2021</small>
+          </cite>
+        </blockquote>
+      </Prose>
+    </PageSection>
+
+    <PageSection id="join">
+      <PageSectionHeader title={title} lead={lead} />
+
+      <Prose>
+        <p><strong>Registration is closed.</strong></p>
+        <p>This bootcamp is no longer accepting new registrations. Thank you for your interest!</p>
+      </Prose>
+    </PageSection>
+
+    <PageSection component="footer">
+      <Newsletter />
+    </PageSection>
+  </main>
+</BaseLayout>

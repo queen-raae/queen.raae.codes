@@ -1,0 +1,47 @@
+---
+import ContentList from "./ContentList.astro";
+import Badge from "./Badge.astro";
+import { getAuthorInfo, type ProcessedPost } from "../lib/posts";
+
+interface Props {
+  posts?: ProcessedPost[];
+  more?: boolean;
+  variant?: "default" | "detailed";
+  limit?: number;
+  class?: string;
+}
+
+const { posts = [], more = false, variant = "default", limit, class: className } = Astro.props;
+
+const displayPosts = limit ? posts.slice(0, limit) : posts;
+
+const items = displayPosts.map(({ title, description, slug, dateFormatted, tags, author }) => {
+  const authorInfo = getAuthorInfo(author);
+  let body = "";
+
+  if (variant === "detailed") {
+    const tagBadges = tags
+      .map(
+        ({ label }) =>
+          `<span class="inline-flex items-center font-semibold text-plum-500 uppercase" style="font-family: var(--font-label); letter-spacing: 0.1em; font-size: 0.65rem;"><span class="text-amber-500">#</span>${label}</span>`,
+      )
+      .join(" ");
+
+    body = `
+      <p class="my-2 text-sm">${description}</p>
+      <aside class="my-0 space-x-3">${tagBadges}</aside>
+    `;
+  }
+
+  return {
+    to: slug,
+    primary: title,
+    body: variant === "detailed" ? body : undefined,
+    secondary: `${dateFormatted} ${authorInfo.emoji} ${authorInfo.name}`,
+  };
+});
+
+const ctas = more ? [{ to: "/posts/", label: "More..." }] : [];
+---
+
+<ContentList items={items} ctas={ctas} class={className} />

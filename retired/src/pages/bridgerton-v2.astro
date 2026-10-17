@@ -1,0 +1,1387 @@
+---
+// Brand Mood Proposal v2: "Deep Orange & Plum" — Refined Direction
+// Standalone page — does not affect existing site styles
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bridgerton Royal v2 — Deep Orange & Plum — Queen Raae</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👑</text></svg>"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Lora:ital,wght@0,400..700;1,400..700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* ============================================
+         BRIDGERTON ROYAL v2 — REFINED DIRECTION
+         Deep Orange pop · Amber accent · Plum text
+         ============================================ */
+
+      :root {
+        /* ── Backgrounds ── */
+        --royal-cream: #fdf6ec;
+        --golden-cream: #f5e6cc;
+        --warm-linen: #faf0e1;
+
+        /* Warmer background tints (replacing cold plum-50) */
+        --warm-rose: #f8ece8; /* warm rosy cream — NOT cold/purple */
+        --warm-blush: #f5e4df; /* deeper warm blush */
+        --dusty-cream: #f3e2da; /* dusty peach cream */
+
+        /* ── Plum Scale (primary text & depth) ── */
+        --plum-100: #f5e6f0;
+        --plum-200: #eacce0;
+        --plum-300: #d4a0c4;
+        --plum-400: #b46e9e;
+        --plum-500: #9b4d7e;
+        --plum-600: #7b2d5e;
+        --plum-700: #5e1d47;
+        --plum-800: #4a1638;
+        --plum-900: #3d1230;
+
+        /* ── Dusty Rose Scale (faded purple/pink — user loves this) ── */
+        --rose-100: #fae3e5;
+        --rose-200: #f0c4c8;
+        --rose-300: #e1a0a7;
+        --rose-400: #c4717a;
+        --rose-500: #b76e79;
+        --rose-600: #9b4f5a;
+
+        /* ── Amber Scale (primary accent — warmer than gold) ── */
+        --amber-100: #fef0d5;
+        --amber-200: #fddaa0;
+        --amber-300: #f9be5c;
+        --amber-400: #f5a623;
+        --amber-500: #e8871e;
+        --amber-600: #c96d12;
+        --amber-700: #a3550d;
+
+        /* ── Signature Pop: Deep Orange ── */
+        --signature: #f4511e;
+        --signature-hover: #d84315;
+
+        /* ── Typography ── */
+        --font-display: "Playfair Display", Georgia, serif;
+        --font-body: "Lora", Georgia, serif;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        font-size: clamp(16px, 18px + 0.15vw, 19px);
+      }
+
+      body {
+        font-family: var(--font-body);
+        color: var(--plum-900);
+        background: var(--golden-cream);
+        line-height: 1.65;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      ::selection {
+        background: var(--amber-200);
+        color: var(--plum-900);
+      }
+
+      /* ── Page Wrapper (contained, not full-bleed) ── */
+      .page-wrapper {
+        max-width: 52rem;
+        margin: 0 auto;
+        background: var(--royal-cream);
+        min-height: 100vh;
+        box-shadow: 0 0 60px rgba(61, 18, 48, 0.08);
+      }
+
+      /* ── Layout ── */
+      .container {
+        max-width: 42rem;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+      }
+
+      .container > * {
+        max-width: 36rem;
+      }
+
+      /* ── Header ── */
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        background: rgba(253, 246, 236, 0.9);
+        border-top: 4px solid var(--signature);
+      }
+
+      .site-header nav {
+        max-width: 42rem;
+        margin: 0 auto;
+        padding: 0.75rem 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .site-header .logo {
+        font-size: 1.25rem;
+        margin-right: auto;
+        text-decoration: none;
+      }
+
+      .site-header a:not(.logo) {
+        font-family: var(--font-display);
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--plum-700);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+
+      .site-header a:not(.logo):hover {
+        color: var(--signature);
+      }
+
+      /* ── Sections ── */
+      .section {
+        padding: 3rem 1.5rem;
+      }
+
+      .section--cream {
+        background: var(--royal-cream);
+      }
+
+      .section--golden {
+        background: var(--golden-cream);
+      }
+
+      .section--linen {
+        background: var(--warm-linen);
+      }
+
+      .section--warm-rose {
+        background: var(--warm-rose);
+      }
+
+      .section--warm-blush {
+        background: var(--warm-blush);
+      }
+
+      .section--dusty-cream {
+        background: var(--dusty-cream);
+      }
+
+      .section--rose {
+        background: var(--rose-100);
+      }
+
+      .section--plum {
+        background: var(--plum-900);
+        color: var(--plum-100);
+      }
+
+      .section--plum h2,
+      .section--plum h3 {
+        color: var(--amber-200);
+      }
+
+      /* ── Typography ── */
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: var(--font-display);
+        font-weight: 900;
+        line-height: 1.1;
+        color: var(--plum-900);
+        text-wrap: balance;
+      }
+
+      h1 {
+        font-size: 2.75rem;
+        margin: 1rem 0;
+      }
+
+      h2 {
+        font-size: 2rem;
+        margin: 2.5rem 0 1rem;
+      }
+
+      h3 {
+        font-size: 1.35rem;
+        margin: 2rem 0 0.75rem;
+      }
+
+      .lead {
+        font-size: 1.15rem;
+        font-weight: 500;
+        line-height: 1.5;
+        color: var(--plum-700);
+      }
+
+      .label {
+        font-family: var(--font-display);
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: var(--plum-500);
+        margin-bottom: 0.5rem;
+      }
+
+      a {
+        color: var(--plum-600);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        text-decoration-color: var(--amber-400);
+        transition: all 0.2s;
+      }
+
+      a:hover {
+        color: var(--signature);
+        text-decoration-color: var(--signature);
+      }
+
+      p {
+        margin: 1rem 0;
+      }
+
+      /* ── Color Swatches ── */
+      .swatches {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(5.5rem, 1fr));
+        gap: 0.75rem;
+        margin: 1.5rem 0;
+        max-width: 100% !important;
+      }
+
+      .swatch {
+        text-align: center;
+      }
+
+      .swatch-color {
+        width: 100%;
+        aspect-ratio: 1;
+        border-radius: 0.5rem;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        margin-bottom: 0.35rem;
+      }
+
+      .swatch-name {
+        font-family: var(--font-display);
+        font-size: 0.65rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--plum-700);
+        line-height: 1.2;
+      }
+
+      .swatch-hex {
+        font-size: 0.6rem;
+        color: var(--plum-400);
+        font-family: monospace;
+      }
+
+      /* ── Buttons ── */
+      .btn {
+        display: inline-block;
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        padding: 0.65rem 1.5rem;
+        border: 2px solid;
+        text-decoration: none;
+        transition: all 0.25s;
+        cursor: pointer;
+      }
+
+      .btn--plum {
+        background: var(--plum-700);
+        border-color: var(--plum-700);
+        color: var(--royal-cream);
+      }
+
+      .btn--plum:hover {
+        background: var(--plum-600);
+        border-color: var(--plum-600);
+        color: white;
+      }
+
+      .btn--outline {
+        background: transparent;
+        border-color: var(--plum-700);
+        color: var(--plum-700);
+      }
+
+      .btn--outline:hover {
+        background: var(--plum-700);
+        color: var(--royal-cream);
+      }
+
+      .btn--amber {
+        background: var(--amber-500);
+        border-color: var(--amber-500);
+        color: white;
+      }
+
+      .btn--amber:hover {
+        background: var(--amber-600);
+        border-color: var(--amber-600);
+      }
+
+      .btn--signature {
+        background: var(--signature);
+        border-color: var(--signature);
+        color: white;
+      }
+
+      .btn--signature:hover {
+        background: var(--signature-hover);
+        border-color: var(--signature-hover);
+      }
+
+      .btn-group {
+        display: flex;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+        margin: 1.5rem 0;
+      }
+
+      /* ── Badges ── */
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        font-family: var(--font-display);
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        padding: 0.25rem 0.65rem;
+        border-radius: 0.25rem;
+        text-decoration: none;
+        transition: all 0.2s;
+      }
+
+      .badge--rose {
+        background: var(--rose-200);
+        color: var(--rose-600);
+      }
+
+      .badge--rose:hover {
+        background: var(--rose-300);
+      }
+
+      .badge--amber {
+        background: var(--amber-200);
+        color: var(--amber-700);
+      }
+
+      .badge--amber:hover {
+        background: var(--amber-300);
+      }
+
+      .badge--plum {
+        background: var(--plum-200);
+        color: var(--plum-700);
+      }
+
+      .badge--plum:hover {
+        background: var(--plum-300);
+      }
+
+      .badge-group {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        margin: 1rem 0;
+      }
+
+      /* ── Content List ── */
+      .content-item {
+        display: block;
+        padding: 0.75rem 1.25rem 1rem;
+        border-left: 4px solid var(--amber-400);
+        margin: 0.75rem 0;
+        text-decoration: none;
+        transition: all 0.2s;
+        color: inherit;
+      }
+
+      .content-item:hover {
+        background: var(--amber-100);
+        border-left-color: var(--signature);
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .content-item-date {
+        font-family: var(--font-display);
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--plum-500);
+      }
+
+      .content-item-title {
+        font-family: var(--font-display);
+        font-size: 1rem;
+        font-weight: 800;
+        margin: 0.15rem 0 0;
+        color: var(--plum-900);
+      }
+
+      .content-item-desc {
+        font-size: 0.85rem;
+        color: var(--plum-600);
+        margin: 0.25rem 0 0;
+      }
+
+      /* ── Callout Boxes ── */
+      .callout {
+        padding: 1.25rem 1.5rem;
+        margin: 1.5rem 0;
+        border-left: 4px solid;
+        max-width: 100% !important;
+      }
+
+      .callout p {
+        margin: 0.25rem 0;
+      }
+
+      .callout--rose {
+        background: var(--warm-rose);
+        border-color: var(--rose-400);
+      }
+
+      .callout--amber {
+        background: var(--amber-100);
+        border-color: var(--amber-500);
+      }
+
+      .callout--plum {
+        background: var(--warm-blush);
+        border-color: var(--plum-500);
+      }
+
+      .callout--signature {
+        background: #fff3e0;
+        border-color: var(--signature);
+      }
+
+      /* ── Blockquote (bold & typographic) ── */
+      blockquote {
+        position: relative;
+        border: none;
+        border-left: 6px solid var(--amber-400);
+        background: var(--golden-cream);
+        padding: 1.75rem 1.75rem 1.5rem 2rem;
+        margin: 2rem 0;
+        max-width: 100% !important;
+      }
+
+      blockquote::before {
+        content: "\201C";
+        font-family: var(--font-display);
+        font-size: 4.5rem;
+        font-weight: 900;
+        color: var(--amber-300);
+        position: absolute;
+        top: -0.15rem;
+        left: 0.75rem;
+        line-height: 1;
+      }
+
+      blockquote p {
+        font-family: var(--font-display);
+        font-style: italic;
+        font-weight: 500;
+        font-size: 1.2rem;
+        line-height: 1.45;
+        color: var(--plum-800);
+        margin: 0;
+        padding-left: 1.5rem;
+      }
+
+      blockquote cite {
+        display: block;
+        font-family: var(--font-display);
+        font-style: normal;
+        font-weight: 700;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-top: 0.75rem;
+        padding-left: 1.5rem;
+        color: var(--plum-500);
+      }
+
+      blockquote cite::before {
+        content: "— ";
+      }
+
+      /* ── Blockquote on dark backgrounds ── */
+      .section--plum blockquote {
+        background: var(--plum-800);
+        border-left-color: var(--amber-500);
+      }
+
+      .section--plum blockquote::before {
+        color: var(--amber-600);
+      }
+
+      .section--plum blockquote p {
+        color: var(--plum-100);
+      }
+
+      .section--plum blockquote cite {
+        color: var(--amber-400);
+      }
+
+      /* ── Figure / Image Treatment ── */
+      figure {
+        margin: 2rem 0;
+        max-width: 100% !important;
+      }
+
+      figure img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border: 5px solid var(--plum-900);
+        box-shadow: 8px 8px 0 var(--amber-400);
+      }
+
+      figure figcaption {
+        font-family: var(--font-display);
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--plum-500);
+        margin-top: 0.75rem;
+      }
+
+      /* Alternate image style — amber border */
+      figure.fig--amber img {
+        border-color: var(--amber-500);
+        box-shadow: 8px 8px 0 var(--plum-800);
+      }
+
+      /* Alternate image style — minimal */
+      figure.fig--minimal img {
+        border: 3px solid var(--plum-200);
+        box-shadow: none;
+      }
+
+      /* ── Lists with ⚜ ── */
+      .fleur-list {
+        list-style: none;
+        padding: 0;
+      }
+
+      .fleur-list li {
+        padding: 0.25rem 0;
+        text-wrap: pretty;
+      }
+
+      .fleur-list li::before {
+        content: "⚜";
+        color: var(--amber-500);
+        display: inline-block;
+        margin-right: 0.6rem;
+        font-size: 0.85em;
+      }
+
+      /* ── Dividers ── */
+      hr {
+        border: none;
+        text-align: center;
+        margin: 2.5rem 0;
+        color: var(--amber-400);
+        font-size: 1.25rem;
+        letter-spacing: 0.75rem;
+      }
+
+      hr::after {
+        content: "⚜  👑  ⚜";
+      }
+
+      /* ── Newsletter Form Demo ── */
+      .newsletter-box {
+        background: var(--plum-800);
+        color: var(--plum-100);
+        padding: 2rem;
+        margin: 1.5rem 0;
+        max-width: 100% !important;
+      }
+
+      .newsletter-box h3 {
+        color: var(--amber-200);
+        margin-top: 0;
+      }
+
+      .newsletter-box p {
+        color: var(--plum-200);
+        font-size: 0.9rem;
+      }
+
+      .newsletter-input-group {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 1rem;
+      }
+
+      .newsletter-input {
+        flex: 1;
+        padding: 0.6rem 0.75rem;
+        font-family: var(--font-body);
+        font-size: 0.9rem;
+        border: 2px solid var(--plum-600);
+        background: var(--plum-900);
+        color: var(--plum-100);
+        outline: none;
+        transition: border-color 0.2s;
+      }
+
+      .newsletter-input::placeholder {
+        color: var(--plum-400);
+      }
+
+      .newsletter-input:focus {
+        border-color: var(--amber-400);
+      }
+
+      .newsletter-btn {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        padding: 0.6rem 1.25rem;
+        background: var(--signature);
+        color: white;
+        border: 2px solid var(--signature);
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .newsletter-btn:hover {
+        background: var(--signature-hover);
+        border-color: var(--signature-hover);
+      }
+
+      /* ── Background comparison grid ── */
+      .bg-compare {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin: 1.5rem 0;
+        max-width: 100% !important;
+      }
+
+      .bg-sample {
+        padding: 1.25rem;
+        border: 1px solid rgba(0, 0, 0, 0.06);
+      }
+
+      .bg-sample-name {
+        font-family: var(--font-display);
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--plum-500);
+        margin-bottom: 0.25rem;
+      }
+
+      .bg-sample-hex {
+        font-family: monospace;
+        font-size: 0.65rem;
+        color: var(--plum-400);
+        margin-bottom: 0.75rem;
+      }
+
+      .bg-sample p {
+        font-size: 0.85rem;
+        margin: 0;
+        color: var(--plum-900);
+      }
+
+      .bg-sample a {
+        font-size: 0.85rem;
+      }
+
+      .bg-sample .badge {
+        font-size: 0.6rem;
+      }
+
+      /* ── Utility ── */
+      .mt-0 {
+        margin-top: 0;
+      }
+      .mt-1 {
+        margin-top: 0.5rem;
+      }
+      .mt-2 {
+        margin-top: 1rem;
+      }
+      .mt-3 {
+        margin-top: 1.5rem;
+      }
+      .mb-0 {
+        margin-bottom: 0;
+      }
+      .mb-1 {
+        margin-bottom: 0.5rem;
+      }
+      .mb-2 {
+        margin-bottom: 1rem;
+      }
+      .text-sm {
+        font-size: 0.85rem;
+      }
+      .text-muted {
+        color: var(--plum-500);
+      }
+      .full-width {
+        max-width: 100% !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-wrapper">
+      <!-- ════════════════════════════════════════════
+         HEADER
+         ════════════════════════════════════════════ -->
+      <header class="site-header">
+        <nav>
+          <a href="/" class="logo">👑</a>
+          <a href="#">Blog</a>
+          <a href="#">Talks</a>
+          <a href="#">About</a>
+        </nav>
+      </header>
+
+      <!-- ════════════════════════════════════════════
+         HERO
+         ════════════════════════════════════════════ -->
+      <section class="section section--cream">
+        <div class="container">
+          <p class="label">Brand Mood Proposal · v2</p>
+          <h1>Deep Orange<br />&amp; Plum 👑</h1>
+          <p class="lead">
+            The refined direction — Deep Orange as the signature pop, amber as the warm accent, and deep plum as text
+            color. Warmer backgrounds throughout, no cold tints.
+          </p>
+          <hr />
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════════
+         DESIGN DECISIONS
+         ════════════════════════════════════════════ -->
+      <section class="section section--golden">
+        <div class="container">
+          <p class="label">What Changed</p>
+          <h2>From v1 to v2</h2>
+          <ul class="fleur-list">
+            <li>
+              <strong>Signature pop:</strong> Deep Orange <code style="font-size: 0.85em; color: var(--signature);"
+                >#F4511E</code
+              >
+              instead of Orangered — slightly warmer, more fire than tomato
+            </li>
+            <li>
+              <strong>Text color:</strong> Deep Plum <code style="font-size: 0.85em; color: var(--plum-700);"
+                >#3D1230</code
+              >
+              as body text — richer and more regal than brown
+            </li>
+            <li>
+              <strong>Accent scale:</strong> Amber confirmed — warmer and more orange than gold
+            </li>
+            <li>
+              <strong>Backgrounds:</strong> Warmer tints — new warm rose, warm blush, and dusty cream options replace the
+              cold plum-50
+            </li>
+            <li>
+              <strong>Dusty rose:</strong> Kept as-is — beautiful as a faded purple/pink
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════════
+         COLOR PALETTE
+         ════════════════════════════════════════════ -->
+      <section class="section section--cream">
+        <div class="container">
+          <p class="label">Color Palette</p>
+          <h2>The Refined Court</h2>
+
+          <h3>Warm Backgrounds</h3>
+          <p>
+            Every background option stays warm. No cold lavender or purple tints — these all have a peach or cream
+            undertone.
+          </p>
+          <div class="swatches">
+            <div class="swatch">
+              <div class="swatch-color" style="background: var(--royal-cream)"></div>
+              <div class="swatch-name">Royal Cream</div>
+              <div class="swatch-hex">#FDF6EC</div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: var(--warm-linen)"></div>
+              <div class="swatch-name">Warm Linen</div>
+              <div class="swatch-hex">#FAF0E1</div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: var(--golden-cream)"></div>
+              <div class="swatch-name">Golden Cream</div>
+              <div class="swatch-hex">#F5E6CC</div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: var(--warm-rose)"></div>
+              <div class="swatch-name">Warm Rose</div>
+              <div class="swatch-hex">#F8ECE8</div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: var(--warm-blush)"></div>
+              <div class="swatch-name">Warm Blush</div>
+              <div class="swatch-hex">#F5E4DF</div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: var(--dusty-cream)"></div>
+              <div class="swatch-name">Dusty Cream</div>
+              <div class="swatch-hex">#F3E2DA</div>
+            </div>
+          </div>
+
+          <h3>Deep Plum <span class="text-sm text-muted">(text &amp; depth)</span></h3>
+          <div class="swatches">
+            <div class="swatch">
+              <div class="swatch-color" style="background: var(--plum-100)"></div>
+              <div class="swatch-name">Plum 100</div>
+              <div class="swatch-hex">#F5E6F0</div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: var(--plum-200)"></div>
+              <div class="swatch-name">Plum 200</div>
+              <div class="swatch-hex">#EACCE0</div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: var(--plum-300)"></div>
+              <div class="swatch-name">Plum 300</div>
+              <div class="swatch-hex">#D4A0C4</div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: var(--plum-400)"></div>
+              <div class="swatch-name">Plum 400</div>
+              <div class="swatch-hex">#B46E9E</div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: var(--plum-500)"></div>
+              <div class="swatch-name">Plum 500</div>
+              <div class="swatch-hex">#9B4D7E</div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: var(--plum-600)"></div>
+              <div class="swatch-name">Plum 600</div>
+              <div class="swatch-hex">#7B2D5E</div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: var(--plum-700)"></div>
+              <div class="swatch-name">Plum 700</div>
+              <div class="swatch-hex">#5E1D47</div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: var(--plum-800)"></div>
+              <div class="swatch-name">Plum 800</div>
+              <div class="swatch-hex">#4A1638</div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: var(--plum-900)"></div>
+              <div class="swatch-name">Plum 900</div>
+              <div class="swatch-hex">#3D1230</div>
+            </div>
+          </div>
+
+          <h3>Amber <span class="text-sm text-muted">(primary accent)</span></h3>
+          <div class="swatches">
+            <div class="swatch">
+              <div class="swatch-color" style="background: var(--amber-100)"></div>
+              <div class="swatch-name">Amber 100</div>
+              <div class="swatch-hex">#FEF0D5</div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: var(--amber-200)"></div>
+              <div class="swatch-name">Amber 200</div>
+              <div class="swatch-hex">#FDDAA0</div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: var(--amber-300)"></div>
+              <div class="swatch-name">Amber 300</div>
+              <div class="swatch-hex">#F9BE5C</div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: var(--amber-400)"></div>
+              <div class="swatch-name">Amber 400</div>
+              <div class="swatch-hex">#F5A623</div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: var(--amber-500)"></div>
+              <div class="swatch-name">Amber 500</div>
+              <div class="swatch-hex">#E8871E</div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: var(--amber-600)"></div>
+              <div class="swatch-name">Amber 600</div>
+              <div class="swatch-hex">#C96D12</div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: var(--amber-700)"></div>
+              <div class="swatch-name">Amber 700</div>
+              <div class="swatch-hex">#A3550D</div>
+            </div>
+          </div>
+
+          <h3>Dusty Rose <span class="text-sm text-muted">(faded purple/pink)</span></h3>
+          <div class="swatches">
+            <div class="swatch">
+              <div class="swatch-color" style="background: var(--rose-100)"></div>
+              <div class="swatch-name">Rose 100</div>
+              <div class="swatch-hex">#FAE3E5</div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: var(--rose-200)"></div>
+              <div class="swatch-name">Rose 200</div>
+              <div class="swatch-hex">#F0C4C8</div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: var(--rose-300)"></div>
+              <div class="swatch-name">Rose 300</div>
+              <div class="swatch-hex">#E1A0A7</div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: var(--rose-400)"></div>
+              <div class="swatch-name">Rose 400</div>
+              <div class="swatch-hex">#C4717A</div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: var(--rose-500)"></div>
+              <div class="swatch-name">Rose 500</div>
+              <div class="swatch-hex">#B76E79</div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: var(--rose-600)"></div>
+              <div class="swatch-name">Rose 600</div>
+              <div class="swatch-hex">#9B4F5A</div>
+            </div>
+          </div>
+
+          <h3>Deep Orange <span class="text-sm text-muted">(signature pop)</span></h3>
+          <div class="swatches">
+            <div class="swatch">
+              <div class="swatch-color" style="background: var(--signature)"></div>
+              <div class="swatch-name">Deep Orange</div>
+              <div class="swatch-hex">#F4511E</div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: var(--signature-hover)"></div>
+              <div class="swatch-name">Hover</div>
+              <div class="swatch-hex">#D84315</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════════
+         WARM BACKGROUNDS COMPARISON
+         ════════════════════════════════════════════ -->
+      <section class="section section--warm-rose">
+        <div class="container">
+          <p class="label" style="color: var(--rose-500);">Background Options</p>
+          <h2>Warm Tints in Action</h2>
+          <p>
+            Each background stays warm. The new warm rose, warm blush, and dusty cream options give you section variety
+            without going cold or purple.
+          </p>
+
+          <div class="bg-compare">
+            <div class="bg-sample" style="background: var(--royal-cream);">
+              <div class="bg-sample-name">Royal Cream</div>
+              <div class="bg-sample-hex">#FDF6EC</div>
+              <p>The lightest — your default page background. Clean but warm.</p>
+              <a href="#" class="mt-1" style="display: inline-block;">Read more →</a>
+            </div>
+            <div class="bg-sample" style="background: var(--warm-linen);">
+              <div class="bg-sample-name">Warm Linen</div>
+              <div class="bg-sample-hex">#FAF0E1</div>
+              <p>Slightly deeper. Good for alternating sections without stark contrast.</p>
+              <a href="#" class="mt-1" style="display: inline-block;">Read more →</a>
+            </div>
+            <div class="bg-sample" style="background: var(--golden-cream);">
+              <div class="bg-sample-name">Golden Cream</div>
+              <div class="bg-sample-hex">#F5E6CC</div>
+              <p>Rich and golden. Works for side backgrounds or feature sections.</p>
+              <a href="#" class="mt-1" style="display: inline-block;">Read more →</a>
+            </div>
+            <div class="bg-sample" style="background: var(--warm-rose);">
+              <div class="bg-sample-name">Warm Rose</div>
+              <div class="bg-sample-hex">#F8ECE8</div>
+              <p>Peach-pink undertone. Replaces the cold plum-50 for rosy moments.</p>
+              <a href="#" class="mt-1" style="display: inline-block;">Read more →</a>
+            </div>
+            <div class="bg-sample" style="background: var(--warm-blush);">
+              <div class="bg-sample-name">Warm Blush</div>
+              <div class="bg-sample-hex">#F5E4DF</div>
+              <p>Deeper warm pink. For callout backgrounds or testimonial sections.</p>
+              <a href="#" class="mt-1" style="display: inline-block;">Read more →</a>
+            </div>
+            <div class="bg-sample" style="background: var(--dusty-cream);">
+              <div class="bg-sample-name">Dusty Cream</div>
+              <div class="bg-sample-hex">#F3E2DA</div>
+              <p>Warmest option. A dusty peach that feels cozy and grounded.</p>
+              <a href="#" class="mt-1" style="display: inline-block;">Read more →</a>
+            </div>
+          </div>
+
+          <div class="callout callout--amber">
+            <p>
+              <strong>👑 Note:</strong> This section itself uses the <strong>Warm Rose</strong> background (#F8ECE8). Compare
+              it to the cream and golden sections above and below.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════════
+         TYPOGRAPHY
+         ════════════════════════════════════════════ -->
+      <section class="section section--cream">
+        <div class="container">
+          <p class="label">Typography</p>
+          <h2>Playfair Display &amp; Lora</h2>
+          <p>
+            Deep plum as text color changes the entire feel — richer than brown, more personality than black. Every
+            heading weight and style now reads against the warm backgrounds.
+          </p>
+
+          <h3>Heading Hierarchy</h3>
+          <p
+            style="font-family: var(--font-display); font-size: 2.75rem; font-weight: 900; line-height: 1.05; margin-top: 1.5rem; color: var(--plum-900);"
+          >
+            The Queen's Decree
+          </p>
+          <p
+            style="font-family: var(--font-display); font-size: 2rem; font-weight: 900; line-height: 1.1; color: var(--plum-900);"
+          >
+            A Bold Chapter Title
+          </p>
+          <p
+            style="font-family: var(--font-display); font-size: 1.35rem; font-weight: 900; line-height: 1.15; color: var(--plum-900);"
+          >
+            A Subheading with Purpose
+          </p>
+          <p
+            style="font-family: var(--font-display); font-size: 1.35rem; font-weight: 700; font-style: italic; line-height: 1.15; color: var(--plum-700);"
+          >
+            An Italic Subheading for Flair
+          </p>
+
+          <hr />
+
+          <h3>Labels &amp; Caps</h3>
+          <p class="label">Playfair Display · All Caps · Wide Tracking</p>
+          <p class="text-sm text-muted">
+            The ampersand is particularly lovely in Playfair — look for it throughout the page.
+          </p>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════════
+         COMPONENTS
+         ════════════════════════════════════════════ -->
+      <section class="section section--warm-blush">
+        <div class="container">
+          <p class="label" style="color: var(--rose-500);">Components</p>
+          <h2>The Royal Collection</h2>
+          <p>
+            This section uses the <strong>Warm Blush</strong> background — see how components read against it.
+          </p>
+
+          <h3>Buttons</h3>
+          <div class="btn-group">
+            <a href="#" class="btn btn--plum">Subscribe</a>
+            <a href="#" class="btn btn--outline">Read More</a>
+            <a href="#" class="btn btn--amber">Book a Talk</a>
+            <a href="#" class="btn btn--signature">Watch Now 🔥</a>
+          </div>
+
+          <h3>Badges / Tags</h3>
+          <div class="badge-group">
+            <a href="#" class="badge badge--rose">Gatsby</a>
+            <a href="#" class="badge badge--amber">Astro</a>
+            <a href="#" class="badge badge--plum">CSS</a>
+            <a href="#" class="badge badge--rose">JavaScript</a>
+            <a href="#" class="badge badge--amber">Netlify</a>
+            <a href="#" class="badge badge--plum">Tutorial</a>
+          </div>
+
+          <h3>Content List</h3>
+          <a href="#" class="content-item">
+            <div class="content-item-date">January 15, 2026</div>
+            <div class="content-item-title">How I Migrated 200 Blog Posts from Gatsby to Astro</div>
+            <div class="content-item-desc">A tale of courage, regex, and questionable life choices.</div>
+          </a>
+          <a href="#" class="content-item">
+            <div class="content-item-date">December 3, 2025</div>
+            <div class="content-item-title">Content Collections: The Astro Feature That Changed Everything</div>
+            <div class="content-item-desc">Zod schemas for your markdown, because we deserve nice things.</div>
+          </a>
+          <a href="#" class="content-item">
+            <div class="content-item-date">November 18, 2025</div>
+            <div class="content-item-title">Live Streaming: Why I Code in Public</div>
+            <div class="content-item-desc">On vulnerability, community, and the joy of debugging on camera.</div>
+          </a>
+
+          <h3>List with ⚜ Bullets</h3>
+          <ul class="fleur-list">
+            <li>Content Collections with Zod schemas for type safety</li>
+            <li>OG image generation with Satori and Sharp</li>
+            <li>RSS feeds per author — because the Queen deserves her own</li>
+            <li>Tailwind CSS with a custom royal color palette</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════════
+         IMAGES
+         ════════════════════════════════════════════ -->
+      <section class="section section--cream">
+        <div class="container">
+          <p class="label">Images &amp; Figures</p>
+          <h2>Bold Borders, Not Ornament</h2>
+
+          <h3>Primary — Plum Border &amp; Amber Shadow</h3>
+          <figure>
+            <img src="/content/landing/raae.jpg" alt="Queen Raae holding a laptop in front of her gallery wall" />
+            <figcaption>⚜ Queen Raae — Sailing the High Seas of the Web</figcaption>
+          </figure>
+
+          <h3>Alternate — Amber Border &amp; Plum Shadow</h3>
+          <figure class="fig--amber">
+            <img src="/content/landing/raae.jpg" alt="Queen Raae holding a laptop in front of her gallery wall" />
+            <figcaption>⚜ Same image, inverted border treatment</figcaption>
+          </figure>
+
+          <h3>Minimal — Soft Border, No Shadow</h3>
+          <figure class="fig--minimal">
+            <img src="/content/landing/raae.jpg" alt="Queen Raae holding a laptop in front of her gallery wall" />
+            <figcaption>⚜ For inline images that shouldn't dominate</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════════
+         CALLOUTS & QUOTES
+         ════════════════════════════════════════════ -->
+      <section class="section section--dusty-cream">
+        <div class="container">
+          <p class="label" style="color: var(--amber-600);">Callouts &amp; Quotes</p>
+          <h2>Royal Decrees</h2>
+          <p>
+            This section uses <strong>Dusty Cream</strong> (#F3E2DA) — the warmest background option. Notice how the callout
+            boxes still stand out.
+          </p>
+
+          <div class="callout callout--rose">
+            <p><strong>🌹 Rose Callout</strong> — uses Warm Rose background instead of cold plum-50.</p>
+            <p class="text-sm text-muted">
+              Warm throughout — perfect for tips, gentle reminders, or "nice to know" asides.
+            </p>
+          </div>
+
+          <div class="callout callout--amber">
+            <p><strong>👑 Amber Callout</strong> — For important highlights, key takeaways, or featured content.</p>
+            <p class="text-sm text-muted">Warm and present without shouting.</p>
+          </div>
+
+          <div class="callout callout--plum">
+            <p><strong>⚜ Plum Callout</strong> — uses Warm Blush background instead of cold plum-50.</p>
+            <p class="text-sm text-muted">Warm pink instead of cold purple. Still signals depth.</p>
+          </div>
+
+          <div class="callout callout--signature">
+            <p>
+              <strong>🔥 Signature Callout</strong> — Deep Orange makes these impossible to miss.
+            </p>
+            <p class="text-sm text-muted">For warnings, breaking changes, or "pay attention now" moments.</p>
+          </div>
+
+          <h3>Blockquotes</h3>
+          <blockquote>
+            <p>You were not a fool. You merely believed yourself in love. One should never apologize for that.</p>
+            <cite>Lady Danbury, Bridgerton</cite>
+          </blockquote>
+
+          <blockquote>
+            <p>Just because something is not perfect does not make it any less worthy of love.</p>
+            <cite>Also applicable to CSS</cite>
+          </blockquote>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════════
+         DARK SECTION
+         ════════════════════════════════════════════ -->
+      <section class="section section--plum">
+        <div class="container">
+          <p class="label" style="color: var(--amber-400);">Dark Section</p>
+          <h2>The Queen's Chamber</h2>
+          <p>
+            Deep plum backgrounds for newsletter signups, featured content, or footers. Amber headings and cream text
+            for contrast.
+          </p>
+
+          <div class="newsletter-box">
+            <h3>⚜ Join the Royal Court</h3>
+            <p>Get dispatches from the high seas of web development. No spam, just treasure.</p>
+            <div class="newsletter-input-group">
+              <input type="email" class="newsletter-input" placeholder="your@email.com" disabled />
+              <button class="newsletter-btn" disabled>Subscribe 👑</button>
+            </div>
+          </div>
+
+          <blockquote>
+            <p>Amber on plum. Deep Orange as the spark. This is Queen Charlotte energy — not subtle, not sorry.</p>
+            <cite>The Mood</cite>
+          </blockquote>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════════
+         ROSE SECTION
+         ════════════════════════════════════════════ -->
+      <section class="section section--rose">
+        <div class="container">
+          <p class="label" style="color: var(--rose-600);">Dusty Rose Section</p>
+          <h2>The Faded Purple/Pink</h2>
+          <p>
+            Rose-100 (#FAE3E5) as a section background — the dusty rose that reads as a faded purple/pink. Use it for
+            testimonials, featured quotes, or to break up long content pages.
+          </p>
+          <blockquote>
+            <p>My heart is, and always will be, yours.</p>
+            <cite>Also me, to well-structured HTML</cite>
+          </blockquote>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════════
+         FULL BLOG POST MOCKUP
+         ════════════════════════════════════════════ -->
+      <section class="section section--cream">
+        <div class="container">
+          <p class="label">Putting It All Together</p>
+          <h2>Full Blog Post Feel</h2>
+
+          <p class="label" style="color: var(--rose-500); margin-bottom: 0;">January 15, 2026</p>
+          <h1 style="margin-top: 0.25rem;">How I Bridgerton'd My Website</h1>
+          <p class="lead">A tale of plum, amber, and the audacity to use serif fonts in 2026.</p>
+
+          <div class="badge-group">
+            <a href="#" class="badge badge--rose">CSS</a>
+            <a href="#" class="badge badge--amber">Design</a>
+            <a href="#" class="badge badge--plum">Astro</a>
+          </div>
+
+          <figure>
+            <img src="/content/landing/family.jpg" alt="The Raae family sailing" />
+            <figcaption>⚜ Sailing the high seas — the family crew</figcaption>
+          </figure>
+
+          <p>
+            The thing about web design is that it rarely feels <em>personal</em>. We reach for the same Tailwind
+            defaults, the same Inter font, the same slate-gray cards. But what if your website felt like <strong
+              >you</strong
+            >?
+          </p>
+
+          <p>
+            I wanted something that said "yes, I write JavaScript, and yes, I have opinions about table settings."
+            Something <a href="#">Queen Charlotte</a> would approve of.
+          </p>
+
+          <blockquote>
+            <p>Every great design starts with an even better story.</p>
+            <cite>Lorinda Mamo</cite>
+          </blockquote>
+
+          <h3>The Color Strategy</h3>
+          <p>
+            The foundation is warm cream — not white, never white. White is for people who don't have a crown emoji as
+            their favicon. On top of that:
+          </p>
+
+          <ul class="fleur-list">
+            <li>
+              <strong>Deep plum</strong> for text — richer than black, more regal than gray, warmer than brown
+            </li>
+            <li><strong>Amber accents</strong> for borders, highlights, and that satisfying glow on hover</li>
+            <li><strong>Dusty rose</strong> for softer moments — badges, callouts, the gentler side</li>
+            <li><strong>Deep Orange</strong> stays as the signature pop — every queen needs her crown jewel 🔥</li>
+          </ul>
+
+          <div class="callout callout--amber">
+            <p>
+              <strong>👑 Key takeaway:</strong> Your color palette should feel like a wardrobe, not a spreadsheet. Each color
+              has a role, a personality, a reason to exist.
+            </p>
+          </div>
+
+          <p>
+            And the typography? <strong>Playfair Display</strong> for headings because life is too short for sans-serif headlines.
+            <strong>Lora</strong> for body text because your words deserve to be dressed well.
+          </p>
+
+          <hr />
+
+          <p>That's the direction. Shall we proceed with the coronation? 👑</p>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════════
+         FOOTER
+         ════════════════════════════════════════════ -->
+      <footer class="section section--plum" style="padding: 2rem 1.5rem;">
+        <div class="container" style="text-align: center;">
+          <p style="font-family: var(--font-display); font-size: 0.85rem; color: var(--plum-300); margin: 0;">
+            👑 Queen Raae · Brand Mood Proposal v2 · 2026
+          </p>
+        </div>
+      </footer>
+    </div>
+    <!-- /.page-wrapper -->
+  </body>
+</html>

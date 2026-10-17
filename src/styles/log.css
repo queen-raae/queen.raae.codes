@@ -241,6 +241,12 @@
     color: var(--color-cream);
   }
 
+  /* Button arrows slide like the title arrows, in the button's own colour */
+  .log-body .btn .arr {
+    margin-left: 0;
+    color: inherit;
+  }
+
   .log-body .btn-outline {
     background: transparent;
     color: var(--color-ink);

@@ -1,7 +1,6 @@
 ---
 import LogLayout from "../layouts/LogLayout.astro";
 import TitleBlock from "../components/log/TitleBlock.astro";
-import Divider from "../components/log/Divider.astro";
 ---
 
 <LogLayout title="Page not found" description="This page has sailed off the map." newsletter={false}>
@@ -11,19 +10,8 @@ import Divider from "../components/log/Divider.astro";
   >
     This page has sailed <span class="acid">off the map</span>.
     <div slot="after" class="flex gap-3 flex-wrap">
-      <a class="btn btn-fire" href="/">Back to shore <span aria-hidden="true">→</span></a>
+      <a class="btn btn-fire" href="/">Back to shore <span class="arr" aria-hidden="true">→</span></a>
       <a class="btn btn-ghost" href="/search/">Search the log</a>
     </div>
   </TitleBlock>
-  <Divider />
-  <section class="ruled gutter py-[clamp(32px,4vw,56px)]">
-    <img
-      src="https://media.giphy.com/media/8P8u3gh2OJqog/giphy.gif"
-      alt="Confused pirate looking around"
-      width="480"
-      height="266"
-      class="max-w-full h-auto border-2 border-ink"
-      loading="eager"
-    />
-  </section>
 </LogLayout>

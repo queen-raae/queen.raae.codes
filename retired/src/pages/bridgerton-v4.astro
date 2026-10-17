@@ -1,0 +1,782 @@
+---
+// Design Reference v4 — Confirmed Design System
+// Standalone page — does not affect existing site styles
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Design Reference v4 — Queen Raae</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👑</text></svg>"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,400..900;1,400..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* ============================================
+         DESIGN REFERENCE v4 — Confirmed System
+         Two fonts: Montserrat + Lora
+         ============================================ */
+
+      :root {
+        /* ── Backgrounds (3) ── */
+        --cream: #fdf6ec;
+        --golden: #f5e6cc;
+        --blush: #f8ece8;
+
+        /* ── Plum (4) ── */
+        --plum: #3d1230;
+        --plum-deep: #4a1638;
+        --plum-mid: #7b2d5e;
+        --plum-muted: #9b4d7e;
+
+        /* ── Amber (3) ── */
+        --amber-light: #fddaa0;
+        --amber: #f5a623;
+        --amber-dark: #c96d12;
+
+        /* ── Rose (2) ── */
+        --rose-light: #f0c4c8;
+        --rose: #b76e79;
+
+        /* ── Signature (2) ── */
+        --signature: #f4511e;
+        --signature-hover: #d84315;
+
+        /* ── Typography (2 fonts only!) ── */
+        --font-heading: "Montserrat", system-ui, sans-serif;
+        --font-body: "Lora", Georgia, serif;
+      }
+
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+
+      html { font-size: clamp(16px, 18px + 0.15vw, 19px); }
+
+      body {
+        font-family: var(--font-body);
+        color: var(--plum);
+        background: var(--golden);
+        line-height: 1.65;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      ::selection {
+        background: var(--amber-light);
+        color: var(--plum);
+      }
+
+      .page-wrapper {
+        max-width: 52rem;
+        margin: 0 auto;
+        background: var(--cream);
+        min-height: 100vh;
+        box-shadow: 0 0 60px rgba(61, 18, 48, 0.08);
+      }
+
+      .container {
+        max-width: 42rem;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+      }
+
+      .container > * { max-width: 36rem; }
+
+      /* ── Header ── */
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        background: rgba(253, 246, 236, 0.9);
+        border-top: 4px solid var(--signature);
+      }
+
+      .site-header nav {
+        max-width: 42rem;
+        margin: 0 auto;
+        padding: 0.75rem 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .site-header .logo {
+        font-size: 1.25rem;
+        margin-right: auto;
+        text-decoration: none;
+      }
+
+      .site-header a:not(.logo) {
+        font-family: var(--font-heading);
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--plum-mid);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+
+      .site-header a:not(.logo):hover { color: var(--signature); }
+
+      /* ── Sections ── */
+      .section { padding: 3rem 1.5rem; }
+      .section--cream { background: var(--cream); }
+      .section--golden { background: var(--golden); }
+      .section--blush { background: var(--blush); }
+      .section--plum { background: var(--plum); color: var(--cream); }
+      .section--plum h2, .section--plum h3 { color: var(--amber-light); }
+
+      /* ══════════════════════════════════════
+         TYPOGRAPHY SYSTEM
+         Montserrat: headings, labels, nav
+         Lora: body, italic Lora for quotes
+         ══════════════════════════════════════ */
+
+      h1, h2, h3, h4 {
+        font-family: var(--font-heading);
+        font-weight: 800;
+        line-height: 1.1;
+        color: var(--plum);
+        text-wrap: balance;
+      }
+
+      h1 { font-size: 2.75rem; font-weight: 900; margin: 1rem 0; }
+      h2 { font-size: 2rem; margin: 2.5rem 0 1rem; }
+      h3 { font-size: 1.35rem; font-weight: 700; margin: 2rem 0 0.75rem; }
+      h4 { font-size: 1.1rem; font-weight: 700; margin: 1.5rem 0 0.5rem; }
+
+      p { margin: 1rem 0; }
+
+      a {
+        color: var(--plum-mid);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        text-decoration-color: var(--amber);
+        transition: all 0.2s;
+      }
+
+      a:hover {
+        color: var(--signature);
+        text-decoration-color: var(--signature);
+      }
+
+      .label {
+        font-family: var(--font-heading);
+        font-size: 0.7rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: var(--plum-muted);
+        margin-bottom: 0.5rem;
+      }
+
+      .lead {
+        font-size: 1.15rem;
+        font-weight: 500;
+        line-height: 1.5;
+        color: var(--plum-mid);
+      }
+
+      /* ── Dividers ── */
+      hr {
+        border: none;
+        text-align: center;
+        margin: 2.5rem 0;
+        color: var(--amber);
+        font-size: 1.25rem;
+        letter-spacing: 0.75rem;
+      }
+      hr::after { content: "⚜  👑  ⚜"; }
+
+      /* ══════════════════════════════════════
+         BLOCKQUOTES — Italic Lora
+         Short: centered, larger text
+         Long: left-aligned, normal size
+         ══════════════════════════════════════ */
+
+      /* Short blockquote — punchy, centered */
+      .quote--short {
+        text-align: center;
+        margin: 2.5rem 0;
+        padding: 1.5rem 1rem;
+      }
+
+      .quote--short::before {
+        content: "⚜";
+        display: block;
+        font-size: 1rem;
+        color: var(--amber);
+        margin-bottom: 0.75rem;
+      }
+
+      .quote--short p {
+        font-family: var(--font-body);
+        font-style: italic;
+        font-weight: 500;
+        font-size: 1.4rem;
+        line-height: 1.4;
+        color: var(--plum-deep);
+        margin: 0;
+      }
+
+      .quote--short cite {
+        display: block;
+        font-family: var(--font-heading);
+        font-style: normal;
+        font-weight: 600;
+        font-size: 0.6rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-top: 0.75rem;
+        color: var(--plum-muted);
+      }
+
+      .quote--short cite::before { content: "— "; }
+
+      /* Long blockquote — left-aligned, more text */
+      .quote--long {
+        margin: 2rem 0;
+        padding-left: 2rem;
+        border: none;
+        position: relative;
+        background: none;
+      }
+
+      /* Fleur sits slightly below container top,
+         aligned with first line of italic text (not flush to top) */
+      .quote--long::before {
+        content: "⚜";
+        font-size: 1.1rem;
+        color: var(--amber);
+        position: absolute;
+        left: 0;
+        top: 0.15rem;
+        font-style: normal;
+      }
+
+      .quote--long p {
+        font-family: var(--font-body);
+        font-style: italic;
+        font-weight: 400;
+        font-size: 1rem;
+        line-height: 1.65;
+        color: var(--plum-deep);
+        margin: 0 0 0.5rem;
+      }
+
+      .quote--long p:last-of-type { margin-bottom: 0; }
+
+      .quote--long cite {
+        display: block;
+        font-family: var(--font-heading);
+        font-style: normal;
+        font-weight: 600;
+        font-size: 0.6rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-top: 0.75rem;
+        color: var(--plum-muted);
+      }
+
+      .quote--long cite::before { content: "— "; }
+
+      /* ── Utility ── */
+      .text-sm { font-size: 0.85rem; }
+      .text-muted { color: var(--plum-muted); }
+      .full-width { max-width: 100% !important; }
+
+      /* ── Confirmed Choices Summary ── */
+      .choices-grid {
+        display: grid;
+        gap: 1rem;
+        margin: 1.5rem 0;
+        max-width: 100% !important;
+      }
+
+      .choice-card {
+        padding: 1.25rem 1.5rem;
+        border-left: 4px solid var(--amber);
+        background: var(--golden);
+      }
+
+      .choice-card h4 {
+        font-family: var(--font-heading);
+        font-size: 0.7rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--plum-muted);
+        margin: 0 0 0.5rem;
+      }
+
+      .choice-card p {
+        margin: 0.25rem 0;
+        font-size: 0.9rem;
+      }
+
+      .choice-card .value {
+        font-weight: 700;
+        color: var(--plum);
+      }
+
+      .choice-card .note {
+        font-size: 0.8rem;
+        color: var(--plum-muted);
+        font-style: italic;
+      }
+
+      .status {
+        display: inline-block;
+        font-family: var(--font-heading);
+        font-size: 0.6rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        padding: 0.15rem 0.5rem;
+        border-radius: 0.2rem;
+        background: #d4edda;
+        color: #155724;
+      }
+
+      /* ── Typography Specimen ── */
+      .specimen {
+        padding: 2rem 1.5rem;
+        margin: 1.5rem 0;
+        background: white;
+        border: 1px solid rgba(61, 18, 48, 0.08);
+        max-width: 100% !important;
+      }
+
+      .specimen-label {
+        font-family: var(--font-heading);
+        font-size: 0.55rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--rose);
+        margin-bottom: 0.75rem;
+      }
+
+      /* ── Blog Post Mockup ── */
+      .mockup-post {
+        padding: 2rem;
+        background: white;
+        border: 1px solid rgba(61, 18, 48, 0.08);
+        max-width: 100% !important;
+      }
+
+      .mockup-post .post-date {
+        font-family: var(--font-heading);
+        font-size: 0.65rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--rose);
+      }
+
+      .mockup-post .post-title {
+        font-family: var(--font-heading);
+        font-weight: 900;
+        font-size: 2.25rem;
+        line-height: 1.1;
+        color: var(--plum);
+        margin: 0.35rem 0 0.5rem;
+      }
+
+      .mockup-post .post-lead {
+        font-size: 1.1rem;
+        color: var(--plum-mid);
+        line-height: 1.5;
+      }
+
+      .mockup-post h2 {
+        font-size: 1.65rem;
+        margin: 2rem 0 0.75rem;
+      }
+
+      .mockup-post h3 {
+        font-size: 1.2rem;
+        margin: 1.5rem 0 0.5rem;
+      }
+
+      .mockup-post .tags {
+        font-family: var(--font-heading);
+        font-size: 0.65rem;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        margin: 0.75rem 0;
+      }
+
+      .mockup-post .tags span {
+        color: var(--plum-mid);
+        margin-right: 0.5rem;
+      }
+
+      .mockup-post .tags span::before {
+        content: "#";
+        color: var(--amber);
+      }
+
+      .mockup-post .callout {
+        padding: 1rem 1.25rem;
+        margin: 1.5rem 0;
+        background: var(--golden);
+        border-left: 4px solid var(--amber);
+      }
+
+      .mockup-post .callout p { margin: 0; font-size: 0.9rem; }
+
+      .mockup-post .fleur-list {
+        list-style: none;
+        padding: 0;
+        margin: 1rem 0;
+      }
+
+      .mockup-post .fleur-list li { padding: 0.2rem 0; }
+
+      .mockup-post .fleur-list li::before {
+        content: "⚜";
+        color: var(--amber);
+        margin-right: 0.5rem;
+        font-size: 0.85em;
+      }
+
+      /* ── Palette Swatches ── */
+      .palette-strip {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.35rem;
+        margin: 1rem 0;
+        max-width: 100% !important;
+      }
+
+      .swatch {
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 0.25rem;
+        border: 1px solid rgba(0,0,0,0.08);
+        position: relative;
+        cursor: default;
+      }
+
+      .swatch::after {
+        content: attr(data-name);
+        position: absolute;
+        bottom: -1.2rem;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: var(--font-heading);
+        font-size: 0.45rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--plum-muted);
+        white-space: nowrap;
+      }
+
+      /* ── Font role table ── */
+      .font-table {
+        width: 100%;
+        max-width: 100% !important;
+        border-collapse: collapse;
+        margin: 1.5rem 0;
+        font-size: 0.85rem;
+      }
+
+      .font-table th {
+        font-family: var(--font-heading);
+        font-size: 0.6rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--plum-muted);
+        text-align: left;
+        padding: 0.5rem 0.75rem;
+        border-bottom: 2px solid var(--amber);
+      }
+
+      .font-table td {
+        padding: 0.5rem 0.75rem;
+        border-bottom: 1px solid rgba(61, 18, 48, 0.08);
+        vertical-align: top;
+      }
+
+      .font-table .font-name {
+        font-weight: 700;
+        color: var(--plum);
+      }
+
+      .font-table .font-sample-montserrat { font-family: var(--font-heading); }
+      .font-table .font-sample-lora { font-family: var(--font-body); }
+      .font-table .font-sample-lora-italic {
+        font-family: var(--font-body);
+        font-style: italic;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-wrapper">
+
+      <header class="site-header">
+        <nav>
+          <a href="/" class="logo">👑</a>
+          <a href="/bridgerton/">v1</a>
+          <a href="/bridgerton-v2/">v2</a>
+          <a href="/bridgerton-v3/">v3</a>
+          <a href="/bridgerton-v4/" style="color: var(--signature);">v4</a>
+        </nav>
+      </header>
+
+      <!-- ════════════════════════════════════════════
+           INTRO
+           ════════════════════════════════════════════ -->
+      <section class="section section--cream">
+        <div class="container">
+          <p class="label">Design Reference v4</p>
+          <h1>The Confirmed<br>Design System</h1>
+          <p class="lead">
+            Two fonts. Fourteen colors. One crown. Everything decided, nothing wasted.
+          </p>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════════
+           TYPOGRAPHY SYSTEM
+           ════════════════════════════════════════════ -->
+      <section class="section section--golden">
+        <div class="container">
+          <p class="label">Typography</p>
+          <h2>Two Fonts, Every Role</h2>
+
+          <table class="font-table">
+            <thead>
+              <tr>
+                <th>Font</th>
+                <th>Role</th>
+                <th>Sample</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="font-name">Montserrat</td>
+                <td>Headings (h1–h4), labels, nav, badges, buttons, dates</td>
+                <td class="font-sample-montserrat" style="font-weight: 800; font-size: 1.1rem;">The Queen's Decree</td>
+              </tr>
+              <tr>
+                <td class="font-name">Lora</td>
+                <td>Body text, paragraphs, lists</td>
+                <td class="font-sample-lora">The thing about web design is that it rarely feels personal.</td>
+              </tr>
+              <tr>
+                <td class="font-name">Lora italic</td>
+                <td>Short blockquotes (large), long blockquotes (normal size)</td>
+                <td class="font-sample-lora-italic">You were not a fool. You merely believed yourself in love.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- Heading Scale -->
+          <div class="specimen">
+            <div class="specimen-label">Heading Scale — Montserrat</div>
+            <h1 style="margin: 0.25rem 0;">h1 · The Queen's Decree</h1>
+            <h2 style="margin: 0.25rem 0;">h2 · A Bold Chapter Title</h2>
+            <h3 style="margin: 0.25rem 0;">h3 · A Subheading with Purpose</h3>
+            <h4 style="margin: 0.25rem 0;">h4 · A Smaller Heading</h4>
+          </div>
+
+          <!-- Body Text -->
+          <div class="specimen">
+            <div class="specimen-label">Body Text — Lora</div>
+            <p style="margin: 0.5rem 0;">
+              The thing about web design is that it rarely feels <em>personal</em>. We reach for the same Tailwind
+              defaults, the same Inter font, the same slate-gray cards. But what if your website felt like <strong>you</strong>?
+              What if it had warmth, personality, and just a touch of drama?
+            </p>
+          </div>
+
+          <!-- Short Blockquote -->
+          <div class="specimen">
+            <div class="specimen-label">Short Blockquote — Italic Lora, larger (1.4rem)</div>
+            <blockquote class="quote--short">
+              <p>You were not a fool. You merely believed yourself in love.</p>
+              <cite>Lady Whistledown</cite>
+            </blockquote>
+          </div>
+
+          <!-- Long Blockquote -->
+          <div class="specimen">
+            <div class="specimen-label">Long Blockquote — Italic Lora, body size (1rem), fleur aligned with first line (top: 0.15rem)</div>
+            <blockquote class="quote--long">
+              <p>
+                The thing about web design is that it rarely feels personal. We reach for the same
+                Tailwind defaults, the same Inter font, the same slate-gray cards. But what if your
+                website felt like you? What if it had warmth, personality, and just a touch of drama?
+              </p>
+              <p>
+                That's what this redesign is about. Not following trends — but building something
+                that feels unmistakably yours.
+              </p>
+              <cite>Queen Raae</cite>
+            </blockquote>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════════
+           BLOG POST MOCKUP
+           ════════════════════════════════════════════ -->
+      <section class="section section--blush">
+        <div class="container">
+          <p class="label" style="color: var(--rose);">In Context</p>
+          <h2>Blog Post Mockup</h2>
+          <p>The full system working together in a realistic post layout.</p>
+
+          <div class="mockup-post full-width">
+            <div class="post-date">February 18, 2026</div>
+            <div class="post-title">How I Bridgerton'd My Website</div>
+            <div class="post-lead">A tale of plum, amber, and the audacity to use serif fonts in 2026.</div>
+
+            <div class="tags">
+              <span>CSS</span>
+              <span>Design</span>
+              <span>Astro</span>
+            </div>
+
+            <p>
+              The thing about web design is that it rarely feels <em>personal</em>. We reach for the same Tailwind
+              defaults, the same Inter font, the same slate-gray cards. But what if your website felt like <strong>you</strong>?
+            </p>
+
+            <blockquote class="quote--short">
+              <p>Every great design starts with an even better story.</p>
+              <cite>Lorinda Mamo</cite>
+            </blockquote>
+
+            <h2>The Color Strategy</h2>
+
+            <p>The foundation is warm cream — not white, never white. On top of that:</p>
+
+            <ul class="fleur-list">
+              <li><strong>Deep plum</strong> for text — richer than black, more regal than gray</li>
+              <li><strong>Amber accents</strong> for borders, highlights, and that satisfying hover glow</li>
+              <li><strong>Dusty rose</strong> for softer moments — badges, callouts</li>
+            </ul>
+
+            <div class="callout">
+              <p><strong>👑 Key takeaway:</strong> Your color palette should feel like a wardrobe, not a spreadsheet.</p>
+            </div>
+
+            <h3>Typography Matters</h3>
+
+            <p>
+              Montserrat headings feel bold and readable. Lora body text stays warm and literary.
+              The contrast between geometric sans-serif and organic serif creates that "playful meets royal" tension.
+            </p>
+
+            <blockquote class="quote--long">
+              <p>
+                I wanted something that felt like me — not another developer portfolio in dark mode.
+                The plum is your backbone. The amber is your jewelry. The signature pop is your red lip.
+                Everything else is just the cream that holds it all together.
+              </p>
+              <cite>Queen Raae</cite>
+            </blockquote>
+
+            <h2>The Two-Font Approach</h2>
+
+            <p>
+              Fewer fonts means faster loads, simpler CSS, and a tighter visual identity.
+              Montserrat handles everything structural — headings, labels, navigation.
+              Lora handles everything narrative — body text, quotes, the words that matter.
+            </p>
+
+            <blockquote class="quote--short">
+              <p>My heart is, and always will be, yours.</p>
+              <cite>Me, to well-structured HTML</cite>
+            </blockquote>
+
+            <p>
+              That's the system. Clean enough to maintain, warm enough to feel personal.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════════
+           ALL CONFIRMED CHOICES
+           ════════════════════════════════════════════ -->
+      <section class="section section--cream">
+        <div class="container">
+          <p class="label">Summary</p>
+          <h2>All Confirmed Choices</h2>
+
+          <div class="choices-grid">
+            <div class="choice-card">
+              <h4>Fonts <span class="status">Confirmed</span></h4>
+              <p class="value">Montserrat + Lora (two fonts only)</p>
+              <p class="note">Montserrat: headings, labels, nav · Lora: body, italic for quotes</p>
+            </div>
+
+            <div class="choice-card">
+              <h4>Color Palette <span class="status">Confirmed</span></h4>
+              <p class="value">14 tokens</p>
+              <div class="palette-strip" style="margin-top: 0.75rem; margin-bottom: 2rem;">
+                <div class="swatch" style="background: var(--cream);" data-name="Cream"></div>
+                <div class="swatch" style="background: var(--golden);" data-name="Golden"></div>
+                <div class="swatch" style="background: var(--blush);" data-name="Blush"></div>
+                <div class="swatch" style="background: var(--plum);" data-name="Plum"></div>
+                <div class="swatch" style="background: var(--plum-deep);" data-name="Deep"></div>
+                <div class="swatch" style="background: var(--plum-mid);" data-name="Mid"></div>
+                <div class="swatch" style="background: var(--plum-muted);" data-name="Muted"></div>
+                <div class="swatch" style="background: var(--amber-light);" data-name="Amb Lt"></div>
+                <div class="swatch" style="background: var(--amber);" data-name="Amber"></div>
+                <div class="swatch" style="background: var(--amber-dark);" data-name="Amb Dk"></div>
+                <div class="swatch" style="background: var(--rose-light);" data-name="Rose Lt"></div>
+                <div class="swatch" style="background: var(--rose);" data-name="Rose"></div>
+                <div class="swatch" style="background: var(--signature);" data-name="Sig"></div>
+                <div class="swatch" style="background: var(--signature-hover);" data-name="Sig Dk"></div>
+              </div>
+            </div>
+
+            <div class="choice-card">
+              <h4>Blockquotes <span class="status">Confirmed</span></h4>
+              <p class="value">Short (centered, italic Lora 1.4rem) / Long (left-aligned, italic Lora 1rem)</p>
+              <p class="note">Short: fleur above, punchy · Long: fleur beside, flowing</p>
+            </div>
+
+            <div class="choice-card">
+              <h4>Decorative System <span class="status">Confirmed</span></h4>
+              <p class="value">Fleur-de-lis bullets, ⚜ 👑 ⚜ dividers</p>
+              <p class="note">Ornamental without being heavy</p>
+            </div>
+
+            <div class="choice-card">
+              <h4>Image Frames <span class="status">Confirmed</span></h4>
+              <p class="value">Double-line + Gilded</p>
+              <p class="note">CSS-only, soft ornamental framing</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Footer ── -->
+      <footer class="section section--plum" style="padding: 2rem 1.5rem;">
+        <div class="container" style="text-align: center;">
+          <p style="font-family: var(--font-heading); font-size: 0.85rem; color: var(--plum-muted); margin: 0;">
+            👑 Design Reference v4 · February 2026
+          </p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

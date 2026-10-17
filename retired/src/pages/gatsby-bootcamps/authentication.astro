@@ -1,0 +1,107 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import PageSection from "../../components/PageSection.astro";
+import PageSectionHeader from "../../components/PageSectionHeader.astro";
+import Prose from "../../components/Prose.astro";
+import CtaSection from "../../components/CtaSection.astro";
+import Newsletter from "../../components/Newsletter.astro";
+
+const title = '"Login with Github" - Serverless Authentication';
+const seoTitle = "Add Github Authentication to your site and learn to master the authentication dance";
+const description =
+  "Gatsby Mini Bootcamp with Queen Raae -- a webinar + q&a session + forum + co-working + code sample combo.";
+const badge = "Gatsby Mini Bootcamp";
+const lead = "Learn to master the authentication dance by adding GitHub Authentication to your site.";
+---
+
+<BaseLayout title={seoTitle} description={description}>
+  <SiteHeader />
+  <main>
+    <PageSection component="header">
+      <PageSectionHeader badge={badge} title={title} lead={lead} hLevel={1} />
+
+      <CtaSection href="#join" label="Join now" class="mt-6" />
+    </PageSection>
+
+    <PageSection>
+      <Prose>
+        <blockquote>
+          <p>
+            I had never worked with serverless before, I assumed it was a topic that was way out of my league. But you
+            proved me wrong! One aspect that I liked was the live sessions we had on crowdcast. I got the opportunity to
+            ask questions and watch you code an application step by step. I would definitely recommend your bootcamps to
+            others because this is a great opportunity to learn about emerging technologies and also connect with
+            amazing people.
+          </p>
+          <cite>
+            &mdash; <strong>Ineza Bont&eacute;</strong> (<a
+              href="https://twitter.com/inezabonte"
+              target="_blank"
+              rel="noreferrer">@inezabonte</a
+            >)
+            <br /><small>Attended: Gatsby Summer Functions 2021</small>
+          </cite>
+        </blockquote>
+      </Prose>
+    </PageSection>
+
+    <PageSection>
+      <PageSectionHeader title="Who am I?" />
+
+      <div class="flex flex-col sm:flex-row gap-6 items-start">
+        <img
+          src="/content/landing/raae.jpg"
+          alt="Queen Raae"
+          class="w-48 h-48 object-cover border-2 border-brown-900"
+        />
+
+        <Prose>
+          <p>
+            My name is Benedicte Raae, aka Queen Raae. I have been coding since the late '90s. I hold a Master of
+            Science in Computer Science and have made apps for the Swedish Armed Forces, numerous startups and agencies,
+            as well as my own startup POW! that made an app with more than 200.000 users.
+          </p>
+          <p>
+            I have spoken at Gatsby Days and I am an active member of the Gatsby community, streaming live on YouTube
+            every week.
+          </p>
+        </Prose>
+      </div>
+    </PageSection>
+
+    <PageSection>
+      <Prose>
+        <blockquote>
+          <p>
+            I would and I have recommended your bootcamps to others because for me, it wasn't just about creating
+            serverless functions, it was in fact a mini-crash course into the art of software engineering in itself. It
+            cleared my doubts about my abilities to pull things off and seeing everyone go at it really helped boost my
+            confidence delving into unfamiliar paths.
+          </p>
+          <cite>
+            &mdash; <strong>Aremu Smog</strong> (<a
+              href="https://twitter.com/aremu_smog"
+              target="_blank"
+              rel="noreferrer">@aremu_smog</a
+            >)
+            <br /><small>Attended: Gatsby Summer Functions 2021</small>
+          </cite>
+        </blockquote>
+      </Prose>
+    </PageSection>
+
+    <PageSection id="join">
+      <PageSectionHeader title={title} lead={lead} />
+
+      <Prose>
+        <p><strong>Registration is closed.</strong></p>
+        <p>This bootcamp is no longer accepting new registrations. Thank you for your interest!</p>
+      </Prose>
+    </PageSection>
+
+    <PageSection component="footer">
+      <Newsletter />
+    </PageSection>
+  </main>
+</BaseLayout>

@@ -1,0 +1,1821 @@
+---
+// Brand Mood Proposal v3: Tight Palette · Soft Frames
+// Standalone page — does not affect existing site styles
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bridgerton Royal v3 — Tight Palette · Soft Frames — Queen Raae</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👑</text></svg>"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Lora:ital,wght@0,400..700;1,400..700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* ============================================
+         BRIDGERTON ROYAL v3 — TIGHT PALETTE
+         14 tokens · Soft ornamental frames
+         ============================================ */
+
+      :root {
+        /* ── Backgrounds (3) ── */
+        --cream: #fdf6ec;
+        --golden: #f5e6cc;
+        --blush: #f8ece8;
+
+        /* ── Plum — mid-to-dark only (4) ── */
+        --plum: #3d1230; /* body text */
+        --plum-deep: #4a1638; /* dark backgrounds */
+        --plum-mid: #7b2d5e; /* links, secondary */
+        --plum-muted: #9b4d7e; /* captions, labels */
+
+        /* ── Amber (3) ── */
+        --amber-light: #fddaa0; /* highlights, selection, light bg */
+        --amber: #f5a623; /* borders, accents */
+        --amber-dark: #c96d12; /* text on dark */
+
+        /* ── Rose (2) ── */
+        --rose-light: #f0c4c8; /* badges bg, callout bg */
+        --rose: #b76e79; /* badge text, dates */
+
+        /* ── Signature (2) ── */
+        --signature: #f4511e;
+        --signature-hover: #d84315;
+
+        /* ── Typography ── */
+        --font-display: "Playfair Display", Georgia, serif;
+        --font-body: "Lora", Georgia, serif;
+        --font-label: "Montserrat", system-ui, sans-serif;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        font-size: clamp(16px, 18px + 0.15vw, 19px);
+      }
+
+      body {
+        font-family: var(--font-body);
+        color: var(--plum);
+        background: var(--golden);
+        line-height: 1.65;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      ::selection {
+        background: var(--amber-light);
+        color: var(--plum);
+      }
+
+      /* ── Page Wrapper ── */
+      .page-wrapper {
+        max-width: 52rem;
+        margin: 0 auto;
+        background: var(--cream);
+        min-height: 100vh;
+        box-shadow: 0 0 60px rgba(61, 18, 48, 0.08);
+      }
+
+      /* ── Layout ── */
+      .container {
+        max-width: 42rem;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+      }
+
+      .container > * {
+        max-width: 36rem;
+      }
+
+      /* ── Header ── */
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        background: rgba(253, 246, 236, 0.9);
+        border-top: 4px solid var(--signature);
+      }
+
+      .site-header nav {
+        max-width: 42rem;
+        margin: 0 auto;
+        padding: 0.75rem 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .site-header .logo {
+        font-size: 1.25rem;
+        margin-right: auto;
+        text-decoration: none;
+      }
+
+      .site-header a:not(.logo) {
+        font-family: var(--font-label);
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--plum-mid);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+
+      .site-header a:not(.logo):hover {
+        color: var(--signature);
+      }
+
+      /* ── Sections ── */
+      .section {
+        padding: 3rem 1.5rem;
+      }
+
+      .section--cream {
+        background: var(--cream);
+      }
+
+      .section--golden {
+        background: var(--golden);
+      }
+
+      .section--blush {
+        background: var(--blush);
+      }
+
+      .section--plum {
+        background: var(--plum);
+        color: var(--cream);
+      }
+
+      .section--plum h2,
+      .section--plum h3 {
+        color: var(--amber-light);
+      }
+
+      .section--plum .label {
+        color: var(--amber);
+      }
+
+      .section--plum .text-muted {
+        color: var(--rose);
+      }
+
+      /* ── Typography ── */
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: var(--font-display);
+        font-weight: 900;
+        line-height: 1.1;
+        color: var(--plum);
+        text-wrap: balance;
+      }
+
+      h1 {
+        font-size: 2.75rem;
+        margin: 1rem 0;
+      }
+
+      h2 {
+        font-size: 2rem;
+        margin: 2.5rem 0 1rem;
+      }
+
+      h3 {
+        font-size: 1.35rem;
+        margin: 2rem 0 0.75rem;
+      }
+
+      .lead {
+        font-size: 1.15rem;
+        font-weight: 500;
+        line-height: 1.5;
+        color: var(--plum-mid);
+      }
+
+      .label {
+        font-family: var(--font-label);
+        font-size: 0.7rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: var(--plum-muted);
+        margin-bottom: 0.5rem;
+      }
+
+      a {
+        color: var(--plum-mid);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        text-decoration-color: var(--amber);
+        transition: all 0.2s;
+      }
+
+      a:hover {
+        color: var(--signature);
+        text-decoration-color: var(--signature);
+      }
+
+      p {
+        margin: 1rem 0;
+      }
+
+      /* ── Color Swatches ── */
+      .palette {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin: 1.5rem 0;
+        max-width: 100% !important;
+      }
+
+      .palette-group {
+        margin: 1.5rem 0;
+        max-width: 100% !important;
+      }
+
+      .palette-group-label {
+        font-family: var(--font-label);
+        font-size: 0.6rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--plum-muted);
+        margin-bottom: 0.5rem;
+      }
+
+      .palette-group .palette {
+        margin-top: 0;
+      }
+
+      .chip {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.35rem 0.75rem 0.35rem 0.35rem;
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        border-radius: 2rem;
+        background: white;
+      }
+
+      .chip-dot {
+        width: 1.75rem;
+        height: 1.75rem;
+        border-radius: 50%;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        flex-shrink: 0;
+      }
+
+      .chip-info {
+        line-height: 1.2;
+      }
+
+      .chip-name {
+        font-family: var(--font-label);
+        font-size: 0.6rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--plum);
+      }
+
+      .chip-hex {
+        font-size: 0.6rem;
+        color: var(--plum-muted);
+        font-family: monospace;
+      }
+
+      .chip-role {
+        font-size: 0.55rem;
+        color: var(--rose);
+        font-family: var(--font-display);
+        font-style: italic;
+      }
+
+      /* ── Buttons ── */
+      .btn {
+        display: inline-block;
+        font-family: var(--font-label);
+        font-weight: 600;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        padding: 0.65rem 1.5rem;
+        border: 2px solid;
+        text-decoration: none;
+        transition: all 0.25s;
+        cursor: pointer;
+      }
+
+      .btn--plum {
+        background: var(--plum-mid);
+        border-color: var(--plum-mid);
+        color: var(--cream);
+      }
+
+      .btn--plum:hover {
+        background: var(--plum);
+        border-color: var(--plum);
+        color: white;
+      }
+
+      .btn--outline {
+        background: transparent;
+        border-color: var(--plum-mid);
+        color: var(--plum-mid);
+      }
+
+      .btn--outline:hover {
+        background: var(--plum-mid);
+        color: var(--cream);
+      }
+
+      .btn--amber {
+        background: var(--amber);
+        border-color: var(--amber);
+        color: white;
+      }
+
+      .btn--amber:hover {
+        background: var(--amber-dark);
+        border-color: var(--amber-dark);
+      }
+
+      .btn--signature {
+        background: var(--signature);
+        border-color: var(--signature);
+        color: white;
+      }
+
+      .btn--signature:hover {
+        background: var(--signature-hover);
+        border-color: var(--signature-hover);
+      }
+
+      .btn-group {
+        display: flex;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+        margin: 1.5rem 0;
+      }
+
+      /* ── Badges ── */
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        font-family: var(--font-label);
+        font-size: 0.65rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        padding: 0.25rem 0.65rem;
+        border-radius: 0.25rem;
+        text-decoration: none;
+        transition: all 0.2s;
+      }
+
+      .badge--rose {
+        background: var(--rose-light);
+        color: var(--plum-mid);
+      }
+
+      .badge--rose:hover {
+        background: var(--rose);
+        color: white;
+      }
+
+      .badge--amber {
+        background: var(--amber-light);
+        color: var(--plum-mid);
+      }
+
+      .badge--amber:hover {
+        background: var(--amber);
+        color: white;
+      }
+
+      .badge-group {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        margin: 1rem 0;
+      }
+
+      /* ── Content List ── */
+      .content-item {
+        display: block;
+        padding: 0.75rem 1.25rem 1rem;
+        border-left: 4px solid var(--amber);
+        margin: 0.75rem 0;
+        text-decoration: none;
+        transition: all 0.2s;
+        color: inherit;
+      }
+
+      .content-item:hover {
+        background: var(--amber-light);
+        border-left-color: var(--signature);
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .content-item-date {
+        font-family: var(--font-label);
+        font-size: 0.65rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--rose);
+      }
+
+      .content-item-title {
+        font-family: var(--font-display);
+        font-size: 1rem;
+        font-weight: 800;
+        margin: 0.15rem 0 0;
+        color: var(--plum);
+      }
+
+      .content-item-desc {
+        font-size: 0.85rem;
+        color: var(--plum-mid);
+        margin: 0.25rem 0 0;
+      }
+
+      /* ── Callout Boxes ── */
+      .callout {
+        padding: 1.25rem 1.5rem;
+        margin: 1.5rem 0;
+        border-left: 4px solid;
+        max-width: 100% !important;
+      }
+
+      .callout p {
+        margin: 0.25rem 0;
+      }
+
+      .callout--rose {
+        background: var(--blush);
+        border-color: var(--rose);
+      }
+
+      .callout--amber {
+        background: var(--golden);
+        border-color: var(--amber);
+      }
+
+      .callout--signature {
+        background: #fff3e0;
+        border-color: var(--signature);
+      }
+
+      /* ── Blockquote ── */
+      blockquote {
+        position: relative;
+        border: none;
+        border-left: 6px solid var(--amber);
+        background: var(--golden);
+        padding: 1.75rem 1.75rem 1.5rem 2rem;
+        margin: 2rem 0;
+        max-width: 100% !important;
+      }
+
+      blockquote::before {
+        content: "\201C";
+        font-family: var(--font-display);
+        font-size: 4.5rem;
+        font-weight: 900;
+        color: var(--amber-light);
+        position: absolute;
+        top: -0.15rem;
+        left: 0.75rem;
+        line-height: 1;
+      }
+
+      blockquote p {
+        font-family: var(--font-display);
+        font-style: italic;
+        font-weight: 500;
+        font-size: 1.2rem;
+        line-height: 1.45;
+        color: var(--plum-deep);
+        margin: 0;
+        padding-left: 1.5rem;
+      }
+
+      blockquote cite {
+        display: block;
+        font-family: var(--font-label);
+        font-style: normal;
+        font-weight: 600;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-top: 0.75rem;
+        padding-left: 1.5rem;
+        color: var(--plum-muted);
+      }
+
+      blockquote cite::before {
+        content: "— ";
+      }
+
+      /* Blockquote on dark */
+      .section--plum blockquote {
+        background: var(--plum-deep);
+        border-left-color: var(--amber);
+      }
+
+      .section--plum blockquote::before {
+        color: var(--amber-dark);
+      }
+
+      .section--plum blockquote p {
+        color: var(--cream);
+      }
+
+      .section--plum blockquote cite {
+        color: var(--amber);
+      }
+
+      /* ════════════════════════════════════════════
+         FIGURE FRAMES — soft & ornamental
+         ════════════════════════════════════════════ */
+
+      figure {
+        margin: 2rem 0;
+        max-width: 100% !important;
+      }
+
+      figure figcaption {
+        font-family: var(--font-label);
+        font-size: 0.7rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--plum-muted);
+        margin-top: 0.75rem;
+        text-align: center;
+      }
+
+      /* Style A — Double Line
+         Two thin borders with a visible gap — a classic
+         ornamental treatment using only CSS. */
+      figure.frame-double img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border: 1px solid var(--plum-muted);
+        outline: 1px solid var(--plum-muted);
+        outline-offset: 4px;
+      }
+
+      /* Style B — Gilded
+         A thin amber border with soft rounded corners and a
+         warm diffused glow. The gentlest option. */
+      figure.frame-gilded img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border: 2px solid var(--amber);
+        border-radius: 4px;
+        box-shadow:
+          0 2px 12px rgba(245, 166, 35, 0.15),
+          0 4px 24px rgba(61, 18, 48, 0.06);
+      }
+
+      /* ── Lists with ⚜ ── */
+      .fleur-list {
+        list-style: none;
+        padding: 0;
+      }
+
+      .fleur-list li {
+        padding: 0.25rem 0;
+        text-wrap: pretty;
+      }
+
+      .fleur-list li::before {
+        content: "⚜";
+        color: var(--amber);
+        display: inline-block;
+        margin-right: 0.6rem;
+        font-size: 0.85em;
+      }
+
+      /* ── Dividers ── */
+      hr {
+        border: none;
+        text-align: center;
+        margin: 2.5rem 0;
+        color: var(--amber);
+        font-size: 1.25rem;
+        letter-spacing: 0.75rem;
+      }
+
+      hr::after {
+        content: "⚜  👑  ⚜";
+      }
+
+      /* ── Newsletter Form Demo ── */
+      .newsletter-box {
+        background: var(--plum-deep);
+        color: var(--cream);
+        padding: 2rem;
+        margin: 1.5rem 0;
+        max-width: 100% !important;
+      }
+
+      .newsletter-box h3 {
+        color: var(--amber-light);
+        margin-top: 0;
+      }
+
+      .newsletter-box p {
+        color: var(--rose-light);
+        font-size: 0.9rem;
+      }
+
+      .newsletter-input-group {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 1rem;
+      }
+
+      .newsletter-input {
+        flex: 1;
+        padding: 0.6rem 0.75rem;
+        font-family: var(--font-body);
+        font-size: 0.9rem;
+        border: 2px solid var(--plum-mid);
+        background: var(--plum);
+        color: var(--cream);
+        outline: none;
+        transition: border-color 0.2s;
+      }
+
+      .newsletter-input::placeholder {
+        color: var(--plum-muted);
+      }
+
+      .newsletter-input:focus {
+        border-color: var(--amber);
+      }
+
+      .newsletter-btn {
+        font-family: var(--font-label);
+        font-weight: 600;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        padding: 0.6rem 1.25rem;
+        background: var(--signature);
+        color: white;
+        border: 2px solid var(--signature);
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .newsletter-btn:hover {
+        background: var(--signature-hover);
+        border-color: var(--signature-hover);
+      }
+
+      /* ════════════════════════════════════════════
+         TAGS — Hashtag style (chosen)
+         ════════════════════════════════════════════ */
+
+      .tags-hash {
+        font-family: var(--font-label);
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        color: var(--plum-muted);
+        margin: 1rem 0;
+      }
+
+      .tags-hash a {
+        color: var(--plum-mid);
+        text-decoration: none;
+        transition: color 0.2s;
+        margin-right: 0.65rem;
+      }
+
+      .tags-hash a::before {
+        content: "#";
+        color: var(--amber);
+      }
+
+      .tags-hash a:hover {
+        color: var(--signature);
+      }
+
+      /* ════════════════════════════════════════════
+         CONTENT LIST VARIANTS
+         ════════════════════════════════════════════ */
+
+      /* Shared list styles */
+      .list-v a {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+        transition: all 0.2s;
+      }
+
+      .list-v .list-title {
+        font-family: var(--font-body);
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--plum);
+      }
+
+      .list-v.font-display .list-title {
+        font-family: var(--font-display);
+        font-weight: 800;
+      }
+
+      .list-v .list-date {
+        font-family: var(--font-label);
+        font-size: 0.6rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--plum-muted);
+      }
+
+      /* Variant A — Title · Date (dot separator, single line) */
+      .list-dotted a {
+        padding: 0.6rem 0;
+        border-bottom: 1px solid rgba(61, 18, 48, 0.08);
+        display: flex;
+        align-items: baseline;
+        gap: 0.5rem;
+      }
+
+      .list-dotted a:hover {
+        padding-left: 0.35rem;
+      }
+
+      .list-dotted .list-title {
+        flex: 1;
+      }
+
+      .list-dotted .list-date {
+        flex-shrink: 0;
+        white-space: nowrap;
+      }
+
+      .list-dotted a:hover .list-title {
+        color: var(--signature);
+      }
+
+      /* Variant B — Title with trailing date (date faded, right-aligned) */
+      .list-trailing a {
+        padding: 0.6rem 0;
+        border-bottom: 1px solid rgba(61, 18, 48, 0.08);
+      }
+
+      .list-trailing a:hover {
+        padding-left: 0.35rem;
+      }
+
+      .list-trailing .list-row {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+
+      .list-trailing .list-desc {
+        font-size: 0.85rem;
+        color: var(--plum-mid);
+        margin-top: 0.15rem;
+      }
+
+      .list-trailing a:hover .list-title {
+        color: var(--signature);
+      }
+
+      /* Variant C — Title → arrow, date underneath small */
+      .list-arrow a {
+        padding: 0.65rem 0;
+        border-bottom: 1px solid rgba(61, 18, 48, 0.08);
+      }
+
+      .list-arrow a:hover {
+        padding-left: 0.35rem;
+      }
+
+      .list-arrow .list-title::after {
+        content: " →";
+        color: var(--amber);
+        transition: color 0.2s;
+      }
+
+      .list-arrow a:hover .list-title::after {
+        color: var(--signature);
+      }
+
+      .list-arrow .list-date {
+        margin-top: 0.1rem;
+      }
+
+      .list-arrow .list-meta {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 0.25rem 0.5rem;
+        margin-top: 0.1rem;
+      }
+
+      .list-arrow .list-desc {
+        font-size: 0.85rem;
+        color: var(--plum-mid);
+        margin-top: 0.15rem;
+      }
+
+      .list-arrow .list-tags {
+        font-family: var(--font-label);
+        font-size: 0.6rem;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+      }
+
+      .list-arrow .list-tags span {
+        color: var(--plum-muted);
+        margin-right: 0.4rem;
+      }
+
+      .list-arrow .list-tags span::before {
+        content: "#";
+        color: var(--amber);
+      }
+
+      /* Variant D — Fleur bullet with trailing date */
+      .list-fleur a {
+        padding: 0.5rem 0 0.5rem 1.6rem;
+        border-bottom: 1px solid rgba(61, 18, 48, 0.08);
+        position: relative;
+      }
+
+      .list-fleur a::before {
+        content: "⚜";
+        position: absolute;
+        left: 0;
+        top: 0.55rem;
+        color: var(--amber);
+        font-size: 0.85em;
+        transition: color 0.2s;
+      }
+
+      .list-fleur a:hover::before {
+        color: var(--signature);
+      }
+
+      .list-fleur .list-row {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+
+      .list-fleur a:hover .list-title {
+        color: var(--signature);
+      }
+
+      /* Variant E — Date left, title right (compact) */
+      .list-split a {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 0.75rem;
+        align-items: baseline;
+        padding: 0.55rem 0;
+        border-bottom: 1px solid rgba(61, 18, 48, 0.08);
+      }
+
+      .list-split a:hover {
+        background: var(--blush);
+        margin: 0 -0.5rem;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+      }
+
+      .list-split .list-date {
+        text-align: right;
+        min-width: 5rem;
+        color: var(--rose);
+      }
+
+      .list-split a:hover .list-title {
+        color: var(--signature);
+      }
+
+      /* Variant F — Flowing text (title + date as one line of prose) */
+      .list-flow a {
+        display: block;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid rgba(61, 18, 48, 0.08);
+        font-family: var(--font-body);
+        font-size: 1rem;
+        line-height: 1.5;
+        color: var(--plum);
+      }
+
+      .list-flow a:hover {
+        padding-left: 0.35rem;
+      }
+
+      .list-flow .list-title {
+        font-weight: 600;
+      }
+
+      .list-flow.font-display .list-title {
+        font-family: var(--font-display);
+        font-weight: 800;
+      }
+
+      .list-flow .list-date {
+        font-family: inherit;
+        font-size: inherit;
+        font-weight: 400;
+        text-transform: none;
+        letter-spacing: normal;
+        color: var(--plum-muted);
+      }
+
+      .list-flow a:hover .list-title {
+        color: var(--signature);
+      }
+
+      /* ════════════════════════════════════════════
+         BLOCKQUOTE — Fleur system
+         Short quotes: centered + fleur
+         Long quotes: left-aligned + fleur
+         ════════════════════════════════════════════ */
+
+      /* Shared quote cite */
+      .quote cite {
+        display: block;
+        font-family: var(--font-label);
+        font-style: normal;
+        font-weight: 600;
+        font-size: 0.65rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--plum-muted);
+        margin-top: 0.65rem;
+      }
+
+      .quote cite::before {
+        content: "— ";
+      }
+
+      /* Short quote — centered with fleur above */
+      .quote--short {
+        text-align: center;
+        margin: 2.5rem 0;
+        padding: 0 1rem;
+        max-width: 100% !important;
+      }
+
+      .quote--short::before {
+        content: "⚜";
+        display: block;
+        font-size: 1rem;
+        color: var(--amber);
+        margin-bottom: 0.65rem;
+      }
+
+      .quote--short p {
+        font-family: var(--font-display);
+        font-style: normal;
+        font-weight: 700;
+        font-size: 1.3rem;
+        line-height: 1.4;
+        color: var(--plum-deep);
+        margin: 0;
+      }
+
+      /* Long quote — left-aligned with fleur */
+      .quote--long {
+        margin: 2rem 0;
+        padding-left: 2rem;
+        position: relative;
+        max-width: 100% !important;
+      }
+
+      .quote--long::before {
+        content: "⚜";
+        position: absolute;
+        left: 0;
+        top: 0.15rem;
+        font-size: 1.1rem;
+        color: var(--amber);
+      }
+
+      .quote--long p {
+        font-family: var(--font-body);
+        font-style: italic;
+        font-weight: 400;
+        font-size: 1.05rem;
+        line-height: 1.6;
+        color: var(--plum-deep);
+        margin: 0;
+      }
+
+      /* ── Utility ── */
+      .mt-0 {
+        margin-top: 0;
+      }
+      .mt-1 {
+        margin-top: 0.5rem;
+      }
+      .mt-2 {
+        margin-top: 1rem;
+      }
+      .text-sm {
+        font-size: 0.85rem;
+      }
+      .text-muted {
+        color: var(--plum-muted);
+      }
+      .full-width {
+        max-width: 100% !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-wrapper">
+      <!-- ════════════════════════════════════════════
+         HEADER
+         ════════════════════════════════════════════ -->
+      <header class="site-header">
+        <nav>
+          <a href="/" class="logo">👑</a>
+          <a href="#">Blog</a>
+          <a href="#">Talks</a>
+          <a href="#">About</a>
+        </nav>
+      </header>
+
+      <!-- ════════════════════════════════════════════
+         HERO
+         ════════════════════════════════════════════ -->
+      <section class="section section--cream">
+        <div class="container">
+          <p class="label">Brand Mood Proposal · v3</p>
+          <h1>Tight Palette<br />&amp; Soft Frames 👑</h1>
+          <p class="lead">
+            The same direction distilled — 14 color tokens instead of 30+. Softer, more ornamental image framing. Every
+            color earns its place.
+          </p>
+          <hr />
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════════
+         PALETTE
+         ════════════════════════════════════════════ -->
+      <section class="section section--golden">
+        <div class="container">
+          <p class="label">The Full Palette — 14 Tokens</p>
+          <h2>Every Color Has a Job</h2>
+          <p>No light plum. No seven-step scales. Just the colors you actually use, each with a clear role.</p>
+
+          <div class="palette-group full-width">
+            <div class="palette-group-label">Backgrounds</div>
+            <div class="palette">
+              <div class="chip">
+                <div class="chip-dot" style="background: var(--cream);"></div>
+                <div class="chip-info">
+                  <div class="chip-name">Cream</div>
+                  <div class="chip-hex">#FDF6EC</div>
+                  <div class="chip-role">default page bg</div>
+                </div>
+              </div>
+              <div class="chip">
+                <div class="chip-dot" style="background: var(--golden);"></div>
+                <div class="chip-info">
+                  <div class="chip-name">Golden</div>
+                  <div class="chip-hex">#F5E6CC</div>
+                  <div class="chip-role">accent sections, callouts</div>
+                </div>
+              </div>
+              <div class="chip">
+                <div class="chip-dot" style="background: var(--blush);"></div>
+                <div class="chip-info">
+                  <div class="chip-name">Blush</div>
+                  <div class="chip-hex">#F8ECE8</div>
+                  <div class="chip-role">warm pink sections</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="palette-group full-width">
+            <div class="palette-group-label">Plum — dark only</div>
+            <div class="palette">
+              <div class="chip">
+                <div class="chip-dot" style="background: var(--plum);"></div>
+                <div class="chip-info">
+                  <div class="chip-name">Plum</div>
+                  <div class="chip-hex">#3D1230</div>
+                  <div class="chip-role">body text</div>
+                </div>
+              </div>
+              <div class="chip">
+                <div class="chip-dot" style="background: var(--plum-deep);"></div>
+                <div class="chip-info">
+                  <div class="chip-name">Plum Deep</div>
+                  <div class="chip-hex">#4A1638</div>
+                  <div class="chip-role">dark section bg</div>
+                </div>
+              </div>
+              <div class="chip">
+                <div class="chip-dot" style="background: var(--plum-mid);"></div>
+                <div class="chip-info">
+                  <div class="chip-name">Plum Mid</div>
+                  <div class="chip-hex">#7B2D5E</div>
+                  <div class="chip-role">links, buttons, secondary</div>
+                </div>
+              </div>
+              <div class="chip">
+                <div class="chip-dot" style="background: var(--plum-muted);"></div>
+                <div class="chip-info">
+                  <div class="chip-name">Plum Muted</div>
+                  <div class="chip-hex">#9B4D7E</div>
+                  <div class="chip-role">captions, labels</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="palette-group full-width">
+            <div class="palette-group-label">Amber</div>
+            <div class="palette">
+              <div class="chip">
+                <div class="chip-dot" style="background: var(--amber-light);"></div>
+                <div class="chip-info">
+                  <div class="chip-name">Amber Light</div>
+                  <div class="chip-hex">#FDDAA0</div>
+                  <div class="chip-role">selection, hover bg, highlights</div>
+                </div>
+              </div>
+              <div class="chip">
+                <div class="chip-dot" style="background: var(--amber);"></div>
+                <div class="chip-info">
+                  <div class="chip-name">Amber</div>
+                  <div class="chip-hex">#F5A623</div>
+                  <div class="chip-role">borders, accents, bullets</div>
+                </div>
+              </div>
+              <div class="chip">
+                <div class="chip-dot" style="background: var(--amber-dark);"></div>
+                <div class="chip-info">
+                  <div class="chip-name">Amber Dark</div>
+                  <div class="chip-hex">#C96D12</div>
+                  <div class="chip-role">text on dark, badge text</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="palette-group full-width">
+            <div class="palette-group-label">Rose &amp; Signature</div>
+            <div class="palette">
+              <div class="chip">
+                <div class="chip-dot" style="background: var(--rose-light);"></div>
+                <div class="chip-info">
+                  <div class="chip-name">Rose Light</div>
+                  <div class="chip-hex">#F0C4C8</div>
+                  <div class="chip-role">badge bg, callout bg</div>
+                </div>
+              </div>
+              <div class="chip">
+                <div class="chip-dot" style="background: var(--rose);"></div>
+                <div class="chip-info">
+                  <div class="chip-name">Rose</div>
+                  <div class="chip-hex">#B76E79</div>
+                  <div class="chip-role">dates, badge text</div>
+                </div>
+              </div>
+              <div class="chip">
+                <div class="chip-dot" style="background: var(--signature);"></div>
+                <div class="chip-info">
+                  <div class="chip-name">Deep Orange</div>
+                  <div class="chip-hex">#F4511E</div>
+                  <div class="chip-role">CTAs, header, hover</div>
+                </div>
+              </div>
+              <div class="chip">
+                <div class="chip-dot" style="background: var(--signature-hover);"></div>
+                <div class="chip-info">
+                  <div class="chip-name">Deep Orange Dk</div>
+                  <div class="chip-hex">#D84315</div>
+                  <div class="chip-role">hover state</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════════
+         TYPOGRAPHY
+         ════════════════════════════════════════════ -->
+      <section class="section section--cream">
+        <div class="container">
+          <p class="label">Typography</p>
+          <h2>Playfair Display &amp; Lora</h2>
+
+          <p
+            style="font-family: var(--font-display); font-size: 2.75rem; font-weight: 900; line-height: 1.05; margin-top: 1.5rem;"
+          >
+            The Queen's Decree
+          </p>
+          <p style="font-family: var(--font-display); font-size: 2rem; font-weight: 900; line-height: 1.1;">
+            A Bold Chapter Title
+          </p>
+          <p style="font-family: var(--font-display); font-size: 1.35rem; font-weight: 900; line-height: 1.15;">
+            A Subheading with Purpose
+          </p>
+          <p
+            style="font-family: var(--font-display); font-size: 1.35rem; font-weight: 700; font-style: italic; line-height: 1.15; color: var(--plum-mid);"
+          >
+            An Italic Subheading for Flair
+          </p>
+
+          <hr />
+
+          <h3>Labels &amp; Caps</h3>
+          <p class="label">Montserrat · All Caps · Wide Tracking</p>
+          <p class="text-sm text-muted">
+            A clean sans-serif for labels, nav, badges, and buttons — contrasts with the serif headings and body. Keeps
+            the small text crisp and functional while the serifs do the decorating.
+          </p>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════════
+         IMAGE FRAMES
+         ════════════════════════════════════════════ -->
+      <section class="section section--blush">
+        <div class="container">
+          <p class="label" style="color: var(--rose);">Image Frames</p>
+          <h2>Softer &amp; More Ornamental</h2>
+          <p>Two frame styles — all CSS-only, no vectors. Soft and ornamental, like a real frame or a gilded edge.</p>
+
+          <h3>Double Line</h3>
+          <p class="text-sm text-muted">
+            Two thin borders with a visible gap — a classic ornamental treatment. Elegant without heaviness.
+          </p>
+          <figure class="frame-double">
+            <img src="/content/landing/raae.jpg" alt="Queen Raae holding a laptop in front of her gallery wall" />
+            <figcaption>⚜ Same image, double-line frame</figcaption>
+          </figure>
+
+          <h3>Gilded</h3>
+          <p class="text-sm text-muted">
+            A thin amber border with soft rounded corners and a warm diffused glow. The gentlest option.
+          </p>
+          <figure class="frame-gilded">
+            <img src="/content/landing/raae.jpg" alt="Queen Raae holding a laptop in front of her gallery wall" />
+            <figcaption>⚜ Gilded — warm glow, soft corners</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════════
+         COMPONENTS
+         ════════════════════════════════════════════ -->
+      <section class="section section--cream">
+        <div class="container">
+          <p class="label">Components</p>
+          <h2>The Royal Collection</h2>
+
+          <h3>Buttons</h3>
+          <div class="btn-group">
+            <a href="#" class="btn btn--plum">Subscribe</a>
+            <a href="#" class="btn btn--outline">Read More</a>
+            <a href="#" class="btn btn--amber">Book a Talk</a>
+            <a href="#" class="btn btn--signature">Watch Now 🔥</a>
+          </div>
+
+          <h3>Badges / Tags</h3>
+          <div class="badge-group">
+            <a href="#" class="badge badge--rose">Gatsby</a>
+            <a href="#" class="badge badge--amber">Astro</a>
+            <a href="#" class="badge badge--rose">CSS</a>
+            <a href="#" class="badge badge--amber">Netlify</a>
+            <a href="#" class="badge badge--rose">JavaScript</a>
+            <a href="#" class="badge badge--amber">Tutorial</a>
+          </div>
+
+          <h3>Content List</h3>
+          <a href="#" class="content-item">
+            <div class="content-item-date">January 15, 2026</div>
+            <div class="content-item-title">How I Migrated 200 Blog Posts from Gatsby to Astro</div>
+            <div class="content-item-desc">A tale of courage, regex, and questionable life choices.</div>
+          </a>
+          <a href="#" class="content-item">
+            <div class="content-item-date">December 3, 2025</div>
+            <div class="content-item-title">Content Collections: The Astro Feature That Changed Everything</div>
+            <div class="content-item-desc">Zod schemas for your markdown, because we deserve nice things.</div>
+          </a>
+          <a href="#" class="content-item">
+            <div class="content-item-date">November 18, 2025</div>
+            <div class="content-item-title">Live Streaming: Why I Code in Public</div>
+            <div class="content-item-desc">On vulnerability, community, and the joy of debugging on camera.</div>
+          </a>
+
+          <h3>Callouts</h3>
+          <div class="callout callout--rose">
+            <p><strong>🌹 Rose Callout</strong> — warm blush background. For tips and gentle asides.</p>
+          </div>
+
+          <div class="callout callout--amber">
+            <p><strong>👑 Amber Callout</strong> — golden background. For key takeaways.</p>
+          </div>
+
+          <div class="callout callout--signature">
+            <p><strong>🔥 Signature Callout</strong> — for "pay attention now" moments.</p>
+          </div>
+
+          <h3>List with ⚜ Bullets</h3>
+          <ul class="fleur-list">
+            <li>Content Collections with Zod schemas for type safety</li>
+            <li>OG image generation with Satori and Sharp</li>
+            <li>RSS feeds per author — because the Queen deserves her own</li>
+            <li>Tailwind CSS with a custom royal color palette</li>
+          </ul>
+
+          <h3>Blockquote</h3>
+          <blockquote>
+            <p>You were not a fool. You merely believed yourself in love. One should never apologize for that.</p>
+            <cite>Lady Danbury, Bridgerton</cite>
+          </blockquote>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════════
+         DARK SECTION
+         ════════════════════════════════════════════ -->
+      <section class="section section--plum">
+        <div class="container">
+          <p class="label">Dark Section</p>
+          <h2>The Queen's Chamber</h2>
+          <p>
+            Deep plum backgrounds for newsletter signups, featured content, or footers. Amber headings and cream text
+            for contrast.
+          </p>
+
+          <div class="newsletter-box">
+            <h3>⚜ Join the Royal Court</h3>
+            <p>Get dispatches from the high seas of web development. No spam, just treasure.</p>
+            <div class="newsletter-input-group">
+              <input type="email" class="newsletter-input" placeholder="your@email.com" disabled />
+              <button class="newsletter-btn" disabled>Subscribe 👑</button>
+            </div>
+          </div>
+
+          <blockquote>
+            <p>Amber on plum. Deep Orange as the spark. Not subtle, not sorry.</p>
+            <cite>The Mood</cite>
+          </blockquote>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════════
+         CONTENT LIST VARIANTS
+         ════════════════════════════════════════════ -->
+      <section class="section section--cream">
+        <div class="container">
+          <p class="label">Content List Variants</p>
+          <h2>Pick Your List</h2>
+          <p>
+            Each variant shown twice — body font (Lora) then display font (Playfair). Plus a new flowing-text option.
+          </p>
+
+          <!-- ── A — Title · Date ── -->
+          <h3>A — Title · Date <span class="text-sm text-muted">(Lora)</span></h3>
+          <div class="list-v list-dotted full-width">
+            <a href="#">
+              <div class="list-title">How I Migrated 200 Blog Posts from Gatsby to Astro</div>
+              <div class="list-date">Jan 2026</div>
+            </a>
+            <a href="#">
+              <div class="list-title">Content Collections: The Astro Feature That Changed Everything</div>
+              <div class="list-date">Dec 2025</div>
+            </a>
+            <a href="#">
+              <div class="list-title">Live Streaming: Why I Code in Public</div>
+              <div class="list-date">Nov 2025</div>
+            </a>
+          </div>
+
+          <h3>A — Title · Date <span class="text-sm text-muted">(Playfair)</span></h3>
+          <div class="list-v list-dotted font-display full-width">
+            <a href="#">
+              <div class="list-title">How I Migrated 200 Blog Posts from Gatsby to Astro</div>
+              <div class="list-date">Jan 2026</div>
+            </a>
+            <a href="#">
+              <div class="list-title">Content Collections: The Astro Feature That Changed Everything</div>
+              <div class="list-date">Dec 2025</div>
+            </a>
+            <a href="#">
+              <div class="list-title">Live Streaming: Why I Code in Public</div>
+              <div class="list-date">Nov 2025</div>
+            </a>
+          </div>
+
+          <!-- ── B — Title with Description ── -->
+          <h3>B — Title + Description <span class="text-sm text-muted">(Lora)</span></h3>
+          <div class="list-v list-trailing full-width">
+            <a href="#">
+              <div class="list-row">
+                <div class="list-title">How I Migrated 200 Blog Posts from Gatsby to Astro</div>
+                <div class="list-date">Jan 2026</div>
+              </div>
+              <div class="list-desc">A tale of courage, regex, and questionable life choices.</div>
+            </a>
+            <a href="#">
+              <div class="list-row">
+                <div class="list-title">Content Collections: The Astro Feature That Changed Everything</div>
+                <div class="list-date">Dec 2025</div>
+              </div>
+              <div class="list-desc">Zod schemas for your markdown, because we deserve nice things.</div>
+            </a>
+            <a href="#">
+              <div class="list-row">
+                <div class="list-title">Live Streaming: Why I Code in Public</div>
+                <div class="list-date">Nov 2025</div>
+              </div>
+            </a>
+          </div>
+
+          <h3>B — Title + Description <span class="text-sm text-muted">(Playfair)</span></h3>
+          <div class="list-v list-trailing font-display full-width">
+            <a href="#">
+              <div class="list-row">
+                <div class="list-title">How I Migrated 200 Blog Posts from Gatsby to Astro</div>
+                <div class="list-date">Jan 2026</div>
+              </div>
+              <div class="list-desc">A tale of courage, regex, and questionable life choices.</div>
+            </a>
+            <a href="#">
+              <div class="list-row">
+                <div class="list-title">Content Collections: The Astro Feature That Changed Everything</div>
+                <div class="list-date">Dec 2025</div>
+              </div>
+              <div class="list-desc">Zod schemas for your markdown, because we deserve nice things.</div>
+            </a>
+            <a href="#">
+              <div class="list-row">
+                <div class="list-title">Live Streaming: Why I Code in Public</div>
+                <div class="list-date">Nov 2025</div>
+              </div>
+            </a>
+          </div>
+
+          <!-- ── C — Title Arrow + Tags ── -->
+          <h3>C — Title Arrow + Tags <span class="text-sm text-muted">(Lora)</span></h3>
+          <div class="list-v list-arrow full-width">
+            <a href="#">
+              <div class="list-title">How I Migrated 200 Blog Posts from Gatsby to Astro</div>
+              <div class="list-desc">A tale of courage, regex, and questionable life choices.</div>
+              <div class="list-meta">
+                <div class="list-date">January 15, 2026</div>
+                <div class="list-tags"><span>Astro</span> <span>Migration</span> <span>Gatsby</span></div>
+              </div>
+            </a>
+            <a href="#">
+              <div class="list-title">Content Collections: The Astro Feature That Changed Everything</div>
+              <div class="list-meta">
+                <div class="list-date">December 3, 2025</div>
+                <div class="list-tags"><span>Astro</span> <span>Zod</span></div>
+              </div>
+            </a>
+            <a href="#">
+              <div class="list-title">Live Streaming: Why I Code in Public</div>
+              <div class="list-desc">Building in the open, one stream at a time.</div>
+              <div class="list-meta">
+                <div class="list-date">November 18, 2025</div>
+                <div class="list-tags"><span>Streaming</span> <span>Community</span></div>
+              </div>
+            </a>
+          </div>
+
+          <h3>C — Title Arrow + Tags <span class="text-sm text-muted">(Playfair)</span></h3>
+          <div class="list-v list-arrow font-display full-width">
+            <a href="#">
+              <div class="list-title">How I Migrated 200 Blog Posts from Gatsby to Astro</div>
+              <div class="list-desc">A tale of courage, regex, and questionable life choices.</div>
+              <div class="list-meta">
+                <div class="list-date">January 15, 2026</div>
+                <div class="list-tags"><span>Astro</span> <span>Migration</span> <span>Gatsby</span></div>
+              </div>
+            </a>
+            <a href="#">
+              <div class="list-title">Content Collections: The Astro Feature That Changed Everything</div>
+              <div class="list-meta">
+                <div class="list-date">December 3, 2025</div>
+                <div class="list-tags"><span>Astro</span> <span>Zod</span></div>
+              </div>
+            </a>
+            <a href="#">
+              <div class="list-title">Live Streaming: Why I Code in Public</div>
+              <div class="list-desc">Building in the open, one stream at a time.</div>
+              <div class="list-meta">
+                <div class="list-date">November 18, 2025</div>
+                <div class="list-tags"><span>Streaming</span> <span>Community</span></div>
+              </div>
+            </a>
+          </div>
+
+          <!-- ── D — Fleur Bullet ── -->
+          <h3>D — Fleur Bullet <span class="text-sm text-muted">(Lora)</span></h3>
+          <div class="list-v list-fleur full-width">
+            <a href="#">
+              <div class="list-row">
+                <div class="list-title">How I Migrated 200 Blog Posts from Gatsby to Astro</div>
+                <div class="list-date">Jan 2026</div>
+              </div>
+            </a>
+            <a href="#">
+              <div class="list-row">
+                <div class="list-title">Content Collections: The Astro Feature That Changed Everything</div>
+                <div class="list-date">Dec 2025</div>
+              </div>
+            </a>
+            <a href="#">
+              <div class="list-row">
+                <div class="list-title">Live Streaming: Why I Code in Public</div>
+                <div class="list-date">Nov 2025</div>
+              </div>
+            </a>
+          </div>
+
+          <h3>D — Fleur Bullet <span class="text-sm text-muted">(Playfair)</span></h3>
+          <div class="list-v list-fleur font-display full-width">
+            <a href="#">
+              <div class="list-row">
+                <div class="list-title">How I Migrated 200 Blog Posts from Gatsby to Astro</div>
+                <div class="list-date">Jan 2026</div>
+              </div>
+            </a>
+            <a href="#">
+              <div class="list-row">
+                <div class="list-title">Content Collections: The Astro Feature That Changed Everything</div>
+                <div class="list-date">Dec 2025</div>
+              </div>
+            </a>
+            <a href="#">
+              <div class="list-row">
+                <div class="list-title">Live Streaming: Why I Code in Public</div>
+                <div class="list-date">Nov 2025</div>
+              </div>
+            </a>
+          </div>
+
+          <!-- ── E — Date Left ── -->
+          <h3>E — Date Left <span class="text-sm text-muted">(Lora)</span></h3>
+          <div class="list-v list-split full-width">
+            <a href="#">
+              <div class="list-date">Jan 2026</div>
+              <div class="list-title">How I Migrated 200 Blog Posts from Gatsby to Astro</div>
+            </a>
+            <a href="#">
+              <div class="list-date">Dec 2025</div>
+              <div class="list-title">Content Collections: The Astro Feature That Changed Everything</div>
+            </a>
+            <a href="#">
+              <div class="list-date">Nov 2025</div>
+              <div class="list-title">Live Streaming: Why I Code in Public</div>
+            </a>
+          </div>
+
+          <h3>E — Date Left <span class="text-sm text-muted">(Playfair)</span></h3>
+          <div class="list-v list-split font-display full-width">
+            <a href="#">
+              <div class="list-date">Jan 2026</div>
+              <div class="list-title">How I Migrated 200 Blog Posts from Gatsby to Astro</div>
+            </a>
+            <a href="#">
+              <div class="list-date">Dec 2025</div>
+              <div class="list-title">Content Collections: The Astro Feature That Changed Everything</div>
+            </a>
+            <a href="#">
+              <div class="list-date">Nov 2025</div>
+              <div class="list-title">Live Streaming: Why I Code in Public</div>
+            </a>
+          </div>
+
+          <!-- ── F — Flowing Text ── -->
+          <h3>F — Flowing Text <span class="text-sm text-muted">(title and date read as one, Lora)</span></h3>
+          <div class="list-v list-flow full-width">
+            <a href="#">
+              <span class="list-title">How I Migrated 200 Blog Posts from Gatsby to Astro</span>
+              <span class="list-date"> (January 2026)</span>
+            </a>
+            <a href="#">
+              <span class="list-title">Content Collections: The Astro Feature That Changed Everything</span>
+              <span class="list-date"> (December 2025)</span>
+            </a>
+            <a href="#">
+              <span class="list-title">Live Streaming: Why I Code in Public</span>
+              <span class="list-date"> (November 2025)</span>
+            </a>
+          </div>
+
+          <h3>F — Flowing Text <span class="text-sm text-muted">(Playfair)</span></h3>
+          <div class="list-v list-flow font-display full-width">
+            <a href="#">
+              <span class="list-title">How I Migrated 200 Blog Posts from Gatsby to Astro</span>
+              <span class="list-date"> (January 2026)</span>
+            </a>
+            <a href="#">
+              <span class="list-title">Content Collections: The Astro Feature That Changed Everything</span>
+              <span class="list-date"> (December 2025)</span>
+            </a>
+            <a href="#">
+              <span class="list-title">Live Streaming: Why I Code in Public</span>
+              <span class="list-date"> (November 2025)</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════════
+         BLOCKQUOTE — FLEUR SYSTEM
+         ════════════════════════════════════════════ -->
+      <section class="section section--blush">
+        <div class="container">
+          <p class="label" style="color: var(--rose);">Blockquotes — The Fleur System</p>
+          <h2>Short Centered, Long Left</h2>
+          <p>
+            One system, two modes. Short punchy quotes get centered with a fleur above. Longer quotes stay left-aligned
+            with a fleur beside. Same family, different posture.
+          </p>
+
+          <h3>Short Quote — Centered ⚜</h3>
+          <div class="quote quote--short">
+            <p>You were not a fool. You merely believed yourself in love.</p>
+            <cite>Lady Danbury</cite>
+          </div>
+
+          <h3>Another Short</h3>
+          <div class="quote quote--short">
+            <p>One should never apologize for that.</p>
+            <cite>Lady Danbury</cite>
+          </div>
+
+          <h3>Long Quote — Left ⚜</h3>
+          <div class="quote quote--long">
+            <p>
+              The thing about web design is that it rarely feels personal. We reach for the same Tailwind defaults, the
+              same Inter font, the same slate-gray cards. But what if your website felt like you? What if it had a crown
+              emoji for a favicon?
+            </p>
+            <cite>The Mood</cite>
+          </div>
+
+          <h3>Another Long</h3>
+          <div class="quote quote--long">
+            <p>
+              Just because something is not perfect does not make it any less worthy of love. Your CSS does not need to
+              be pristine to ship. Your code does not need to be clever to work. Sometimes the bravest thing is to push
+              to production and walk away.
+            </p>
+            <cite>Also applicable to CSS</cite>
+          </div>
+
+          <h3>Side by Side — Same Post</h3>
+          <p class="text-sm text-muted">
+            Imagine these appearing in a single blog post. The short one pops as a pull-quote, the long one flows with
+            the text.
+          </p>
+          <div class="quote quote--short">
+            <p>My heart is, and always will be, yours.</p>
+            <cite>Also me, to well-structured HTML</cite>
+          </div>
+          <p>
+            And then the narrative continues. More body text, more Lora, more thoughts about web development and the
+            high seas. Eventually another longer quote appears:
+          </p>
+          <div class="quote quote--long">
+            <p>
+              Your color palette should feel like a wardrobe, not a spreadsheet. Each color has a role, a personality, a
+              reason to exist. The plum is your backbone. The amber is your jewelry. The signature pop is your red lip.
+            </p>
+            <cite>The Color Strategy</cite>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════════
+         FULL BLOG POST MOCKUP
+         ════════════════════════════════════════════ -->
+      <section class="section section--cream">
+        <div class="container">
+          <p class="label">Putting It Together</p>
+          <h2>Full Blog Post Feel</h2>
+
+          <p class="label" style="color: var(--rose); margin-bottom: 0;">January 15, 2026</p>
+          <h1 style="margin-top: 0.25rem;">How I Bridgerton'd My Website</h1>
+          <p class="lead">A tale of plum, amber, and the audacity to use serif fonts in 2026.</p>
+
+          <div class="tags-hash">
+            <a href="#">CSS</a>
+            <a href="#">Design</a>
+            <a href="#">Astro</a>
+          </div>
+
+          <figure class="frame-gilded">
+            <img src="/content/landing/family.jpg" alt="The Raae family sailing" />
+            <figcaption>⚜ Sailing the high seas — the family crew</figcaption>
+          </figure>
+
+          <p>
+            The thing about web design is that it rarely feels <em>personal</em>. We reach for the same Tailwind
+            defaults, the same Inter font, the same slate-gray cards. But what if your website felt like <strong
+              >you</strong
+            >?
+          </p>
+
+          <p>
+            I wanted something that said "yes, I write JavaScript, and yes, I have opinions about table settings."
+            Something <a href="#">Queen Charlotte</a> would approve of.
+          </p>
+
+          <div class="quote quote--short">
+            <p>Every great design starts with an even better story.</p>
+            <cite>Lorinda Mamo</cite>
+          </div>
+
+          <h3>The Color Strategy</h3>
+          <p>The foundation is warm cream — not white, never white. On top of that:</p>
+
+          <ul class="fleur-list">
+            <li>
+              <strong>Deep plum</strong> for text — richer than black, more regal than gray, warmer than brown
+            </li>
+            <li><strong>Amber accents</strong> for borders, highlights, and that satisfying glow on hover</li>
+            <li><strong>Dusty rose</strong> for softer moments — badges, callouts, the gentler side</li>
+            <li><strong>Deep Orange</strong> as the signature pop — every queen needs her crown jewel 🔥</li>
+          </ul>
+
+          <div class="callout callout--amber">
+            <p>
+              <strong>👑 Key takeaway:</strong> Your color palette should feel like a wardrobe, not a spreadsheet. Each color
+              has a role, a personality, a reason to exist.
+            </p>
+          </div>
+
+          <figure class="frame-gilded">
+            <img src="/content/landing/raae.jpg" alt="Queen Raae" />
+            <figcaption>⚜ Gilded frame inline in a blog post</figcaption>
+          </figure>
+
+          <p>
+            And the typography? <strong>Playfair Display</strong> for headings because life is too short for sans-serif headlines.
+            <strong>Lora</strong> for body text because your words deserve to be dressed well.
+          </p>
+
+          <hr />
+
+          <p>That's the direction. Shall we proceed with the coronation? 👑</p>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════════
+         FOOTER
+         ════════════════════════════════════════════ -->
+      <footer class="section section--plum" style="padding: 2rem 1.5rem;">
+        <div class="container" style="text-align: center;">
+          <p style="font-family: var(--font-display); font-size: 0.85rem; color: var(--plum-muted); margin: 0;">
+            👑 Queen Raae · Brand Mood Proposal v3 · 2026
+          </p>
+        </div>
+      </footer>
+    </div>
+    <!-- /.page-wrapper -->
+  </body>
+</html>
