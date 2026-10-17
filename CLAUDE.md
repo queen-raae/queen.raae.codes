@@ -76,6 +76,5 @@ Blog post paths follow the pattern: `posts-queen/YYYY/MM/DD-slug/index.md`
 - OG image generation uses Satori which renders a JSX-like structure to SVG, then Sharp converts to PNG
 - Entry frontmatter can set `type` (Book, Link, Podcast, Life, Press), `standfirst`, `draft`, `lang` (`en` default, `no` shows "På norsk"), `importedFrom`, `originalUrl`, `creator`, `url`, `outlet`, `reread`, `lillylabs`. Press entries (articles about Queen, podcast guest spots) sit on their original date with `url` and `outlet`; a body only if Queen writes a note. `/press/` lists them. `type` is only for notes on a thing (plus Life); plain posts have none and show no label
 - `draft: true` entries show on deploy previews only (`CONTEXT !== "production"`)
-- `dist/` is tracked in git by accident; don't commit build output
 - `retired/` holds the old landing pages (bootcamps, emergency, Bridgerton…) and their components, kept but not built or linted; their content stays in `src/content/landing/`
 - Sitemap excludes `/search/`, `/tag/*`, and subscription management pages
