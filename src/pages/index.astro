@@ -3,7 +3,6 @@ import { Image } from "astro:assets";
 import LogLayout from "../layouts/LogLayout.astro";
 import Divider from "../components/log/Divider.astro";
 import SectionBar from "../components/log/SectionBar.astro";
-import EntryRow from "../components/log/EntryRow.astro";
 import ExtIcon from "../components/log/ExtIcon.astro";
 import LogPlayer from "../components/log/LogPlayer.astro";
 import { getAllPosts, getAuthorInfo, groupByYear } from "../lib/posts";
@@ -14,7 +13,8 @@ import { photos } from "../data/wall";
 import heroPhoto from "../assets/log/queen-wall.jpg";
 
 const allPosts = await getAllPosts();
-const latest = allPosts.slice(0, 5);
+const [newest, ...earlier] = allPosts.slice(0, 5);
+const newestBy = newest.author === "Queen" ? undefined : getAuthorInfo(newest.author).name;
 const podcast = await getPodcastInfo();
 
 const isExternal = (href: string) => /^https?:\/\//.test(href);
@@ -110,7 +110,34 @@ const updated = new Date(nowUpdated).toLocaleDateString("en-GB", { day: "numeric
         >
       </a>
     </SectionBar>
-    {latest.map((post) => <EntryRow post={post} />)}
+    <div class="front">
+      <a class="front-lead" href={newest.slug}>
+        <div>
+          <div class="mono flex items-center flex-wrap gap-x-3.5 gap-y-2">
+            <span class="label">Newest</span>
+            <time class="font-bold text-plum-500" datetime={newest.date}>{newest.dateMedium}</time>
+          </div>
+          <h3 class="front-ttl"><span>{newest.title}</span></h3>
+          {newestBy && <p class="mono m-0 mt-3 text-plum-500">by {newestBy}</p>}
+          <p class="front-deck">{newest.standfirst || newest.description}</p>
+        </div>
+        <span class="mono front-go">Read the entry <span class="arr" aria-hidden="true">→</span></span>
+      </a>
+      <div class="divider-v" aria-hidden="true"></div>
+      <div class="front-list">
+        {
+          earlier.map((post) => (
+            <a class="front-item" href={post.slug}>
+              <time class="mono" datetime={post.date}>
+                {post.dateMedium}
+              </time>
+              <span class="front-item-ttl">{post.title}</span>
+              {post.author !== "Queen" && <span class="mono">by {getAuthorInfo(post.author).name}</span>}
+            </a>
+          ))
+        }
+      </div>
+    </div>
   </section>
 
   <!-- 03 Treasures: the chest -->
