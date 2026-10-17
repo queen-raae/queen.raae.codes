@@ -39,157 +39,53 @@ const latestPosts = allPosts.slice(0, 3);
 </LogLayout>
 
 <script>
-  import Fuse from "fuse.js";
+  import { cancelTrackSearch, loadSearch, queueTrackSearch, renderResults, trackSearch } from "../../lib/search-client";
 
-  function escapeHtml(str: string): string {
-    return str
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#39;");
+  const searchInput = document.getElementById("search") as HTMLInputElement;
+  const resultsContainer = document.getElementById("search-results")!;
+  const noResults = document.getElementById("no-results")!;
+  const searchTermEl = document.getElementById("search-term")!;
+  const latestPosts = document.getElementById("latest-posts")!;
+
+  const fuseReady = loadSearch();
+  let debounceTimer: ReturnType<typeof setTimeout>;
+
+  async function runSearch() {
+    const term = searchInput.value.trim();
+
+    if (term.length < 2) {
+      cancelTrackSearch();
+      resultsContainer.innerHTML = "";
+      noResults.classList.add("hidden");
+      latestPosts.classList.remove("hidden");
+      return;
+    }
+
+    const fuse = await fuseReady;
+    const results = fuse.search(term, { limit: 7 });
+    queueTrackSearch(term, results.length);
+
+    latestPosts.classList.add("hidden");
+    if (results.length === 0) {
+      resultsContainer.innerHTML = "";
+      searchTermEl.textContent = term;
+      noResults.classList.remove("hidden");
+    } else {
+      noResults.classList.add("hidden");
+      resultsContainer.innerHTML = renderResults(results);
+    }
   }
 
-  function highlightMatches(text: string, indices: readonly [number, number][]): string {
-    if (!indices || indices.length === 0) return escapeHtml(text);
+  searchInput.addEventListener("input", () => {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(runSearch, 400);
+  });
 
-    let result = "";
-    let lastIndex = 0;
+  // A term handed over from the overlay (?q=) or kept by the browser on back navigation
+  const initialTerm = new URLSearchParams(location.search).get("q");
+  if (initialTerm) searchInput.value = initialTerm;
+  if (searchInput.value.trim()) runSearch();
 
-    indices.forEach(([start, end]) => {
-      result += escapeHtml(text.slice(lastIndex, start));
-      result += "<mark>" + escapeHtml(text.slice(start, end + 1)) + "</mark>";
-      lastIndex = end + 1;
-    });
-
-    result += escapeHtml(text.slice(lastIndex));
-    return result;
-  }
-
-  // Send what people search for to Fathom as events, so the dashboard shows what readers come looking for.
-  // Only the term someone settles on is sent (after a pause or on clicking a result), not every keystroke.
-  const trackedTerms = new Set<string>();
-  let trackTimer: ReturnType<typeof setTimeout>;
-  let pendingTrack: { term: string; hits: number } | null = null;
-
-  function trackSearch() {
-    clearTimeout(trackTimer);
-    if (!pendingTrack) return;
-    const { term, hits } = pendingTrack;
-    pendingTrack = null;
-    const key = term.toLowerCase().slice(0, 60);
-    if (trackedTerms.has(key)) return;
-    trackedTerms.add(key);
-    const fathom = (window as unknown as { fathom?: { trackEvent: (name: string) => void } }).fathom;
-    fathom?.trackEvent(hits > 0 ? `Search: ${key}` : `Search, no results: ${key}`);
-  }
-
-  function queueTrackSearch(term: string, hits: number) {
-    clearTimeout(trackTimer);
-    pendingTrack = { term, hits };
-    trackTimer = setTimeout(trackSearch, 2000);
-  }
-
-  async function initSearch() {
-    const response = await fetch("/search/data.json");
-    const searchData = await response.json();
-
-    const FUSE_OPTIONS = {
-      includeScore: true,
-      ignoreLocation: true,
-      includeMatches: true,
-      shouldSort: true,
-      useExtendedSearch: true,
-      minMatchCharLength: 3,
-      threshold: 0.4,
-      keys: [
-        "title",
-        "tags.label",
-        {
-          name: "description",
-          weight: 0.7,
-        },
-      ],
-    };
-
-    const fuse = new Fuse(searchData, FUSE_OPTIONS);
-    const searchInput = document.getElementById("search") as HTMLInputElement;
-    const resultsContainer = document.getElementById("search-results")!;
-    const noResults = document.getElementById("no-results")!;
-    const searchTermEl = document.getElementById("search-term")!;
-    const latestPosts = document.getElementById("latest-posts")!;
-
-    let debounceTimer: ReturnType<typeof setTimeout>;
-
-    searchInput.addEventListener("input", (e) => {
-      clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(() => {
-        const term = (e.target as HTMLInputElement).value.trim();
-
-        if (term.length < 2) {
-          clearTimeout(trackTimer);
-          pendingTrack = null;
-          resultsContainer.innerHTML = "";
-          noResults.classList.add("hidden");
-          latestPosts.classList.remove("hidden");
-          return;
-        }
-
-        const results = fuse.search(term, { limit: 7 });
-        queueTrackSearch(term, results.length);
-
-        if (results.length === 0) {
-          resultsContainer.innerHTML = "";
-          searchTermEl.textContent = term;
-          noResults.classList.remove("hidden");
-          latestPosts.classList.add("hidden");
-        } else {
-          noResults.classList.add("hidden");
-          latestPosts.classList.add("hidden");
-
-          resultsContainer.innerHTML = results
-            .map((result) => {
-              const item = result.item;
-              let title = escapeHtml(item.title);
-              let description = escapeHtml(item.description);
-
-              // Highlight matches (replaces the escaped default above)
-              result.matches?.forEach((match) => {
-                if (match.key === "title") {
-                  title = highlightMatches(item.title, match.indices);
-                } else if (match.key === "description") {
-                  description = highlightMatches(item.description, match.indices);
-                }
-              });
-
-              const tags = item.tags
-                .map(
-                  (tag) =>
-                    `<span class="tag"><span class="h" aria-hidden="true">#</span>${escapeHtml(tag.label)}</span>`,
-                )
-                .join(" ");
-
-              return `
-              <a class="row" href="${escapeHtml(item.slug)}">
-                <span class="mono row-date">${escapeHtml(item.date)}</span>
-                ${item.type ? `<span class="mono label row-type">${escapeHtml(item.type)}</span>` : ""}
-                <span class="row-main">
-                  <span class="ttl">${title}<span class="arr" aria-hidden="true">→</span></span>
-                  <span class="row-desc">${description}</span>
-                  <span class="flex flex-wrap gap-x-4 -ml-1">${tags}</span>
-                </span>
-              </a>
-            `;
-            })
-            .join("");
-        }
-      }, 400);
-    });
-  }
-
-  // Clicking a result or leaving the page counts as settling on the term.
-  document.getElementById("search-results")?.addEventListener("click", trackSearch);
-  window.addEventListener("pagehide", trackSearch);
-
-  initSearch();
+  // Clicking a result counts as settling on the term.
+  resultsContainer.addEventListener("click", trackSearch);
 </script>
