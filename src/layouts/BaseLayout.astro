@@ -1,5 +1,23 @@
 ---
 import siteMetadata from "../data/siteMetadata.js";
+// Fonts are self-hosted (Fontsource) so no visitor data goes to Google
+// and the site doesn't depend on an outside font service.
+import "@fontsource/archivo-black/400.css";
+import "@fontsource/archivo/400.css";
+import "@fontsource/archivo/500.css";
+import "@fontsource/archivo/600.css";
+import "@fontsource/archivo/700.css";
+import "@fontsource/montserrat/600.css";
+import "@fontsource/lora/400.css";
+import "@fontsource/lora/500.css";
+import "@fontsource/lora/600.css";
+import "@fontsource/lora/700.css";
+import "@fontsource/lora/400-italic.css";
+import "@fontsource/lora/500-italic.css";
+import "@fontsource/lora/600-italic.css";
+import "@fontsource/lora/700-italic.css";
+import "@fontsource/space-mono/400.css";
+import "@fontsource/space-mono/700.css";
 import "../global.css";
 
 interface RssFeed {
@@ -86,13 +104,6 @@ const twitterCard = "summary_large_image";
     {socialImageAlt && <meta name="twitter:image:alt" content={socialImageAlt} />}
 
     {allFeeds.map((feed) => <link rel="alternate" type="application/rss+xml" title={feed.title} href={feed.href} />)}
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400..700&family=Montserrat:wght@600&family=Lora:ital,wght@0,400..700;1,400..700&family=Space+Mono:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
 
     <!-- Fathom Analytics -->
     <script
