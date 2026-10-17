@@ -18,7 +18,7 @@ npm run prettier   # Format code
 - **Content**: Astro Content Collections with Zod schemas (`src/content/config.ts`)
 - **Routing**: File-based routing in `src/pages/`; trailing slashes enforced
 - **Deployment**: Netlify (config in `netlify.toml`)
-- **OG images**: Generated with Satori + Sharp in `src/lib/og-image.ts`
+- **OG images**: Generated with Satori + Sharp in `src/lib/og-image.ts` — a cream page inset in the author's photo (the photo shows as a frame); bump `DESIGN_VERSION` when the card changes
 - **RSS feeds**: Built with `@astrojs/rss` in `src/lib/feed.ts`
 
 ## Content collections

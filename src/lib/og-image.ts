@@ -4,60 +4,78 @@ import fs from "node:fs";
 import path from "node:path";
 import { createHash } from "node:crypto";
 
-// ── Author config matching Gatsby plugin ──────────────────────────
-export const AUTHOR_CONFIG: Record<string, { secondaryColor: string; avatar: string; signature: string }> = {
+// ── Author config ─────────────────────────────────────────────────
+// `photo` is the background that shows as a frame around the card.
+export const AUTHOR_CONFIG: Record<string, { photo: string; byline: string }> = {
   Queen: {
-    secondaryColor: "#ffde59",
-    avatar: "queen-avatar.jpg",
-    signature: "queen.raae.codes 👑 Raae",
+    photo: "src/assets/log/queen-wall.jpg",
+    byline: "👑 Queen Raae",
   },
   OlaVea: {
-    secondaryColor: "#5DADE2",
-    avatar: "olavea-avatar.jpg",
-    signature: "Cap'n Ola 🏴‍☠️ queen.raae.codes",
+    photo: "src/assets/og/olavea-avatar.jpg",
+    byline: "🏴‍☠️ Cap'n Ola",
   },
   JeanClaw2026: {
-    secondaryColor: "#16a34a",
-    avatar: "jeanclaw-avatar.jpg",
-    signature: "Jean-Claw 🦀 queen.raae.codes",
+    photo: "src/assets/og/jeanclaw-avatar.jpg",
+    byline: "🦀 Jean-Claw",
   },
 };
 
-// ── Design constants (matching Gatsby canvas) ─────────────────────
+// ── Design constants (Organic Brutalist tokens from src/global.css) ─
 const WIDTH = 1200;
 const HEIGHT = 628;
-const BG_COLOR = "#fdf6ec";
-const PRIMARY_COLOR = "#f4511e";
-const PRIMARY_TEXT = "#4a1638";
-const SECONDARY_TEXT = "#3d1230";
+const FRAME = 52; // how much of the photo shows around the page
+const CREAM = "#fdf6ec";
+const INK = "#3d1230";
+const ACID = "#fbbf24";
+const PANEL = "#f3d7c6";
+
+// Bump when the card design changes so social caches pick up new images
+const DESIGN_VERSION = "frame-1";
 
 // ── Cached assets (loaded once per build) ─────────────────────────
-const assetsDir = path.resolve(process.cwd(), "src/assets/og");
+const fontsDir = path.resolve(process.cwd(), "node_modules/@fontsource");
+const readFont = (file: string) => fs.readFileSync(path.join(fontsDir, file));
 
-let fontRegular: Buffer | null = null;
-let fontBold: Buffer | null = null;
-let fontLabel: Buffer | null = null;
-let fontMontRegular: Buffer | null = null;
-const avatarCache = new Map<string, string>();
+let fonts: { name: string; data: Buffer; weight: 400 | 700; style: "normal" }[] | null = null;
+const photoCache = new Map<string, string>();
 
 function loadFonts() {
-  if (!fontRegular) fontRegular = fs.readFileSync(path.join(assetsDir, "Lora-Regular.woff"));
-  if (!fontBold) fontBold = fs.readFileSync(path.join(assetsDir, "Montserrat-Black.ttf"));
-  if (!fontLabel) fontLabel = fs.readFileSync(path.join(assetsDir, "Montserrat-SemiBold.woff"));
-  if (!fontMontRegular) fontMontRegular = fs.readFileSync(path.join(assetsDir, "Montserrat-Regular.ttf"));
+  if (!fonts) {
+    fonts = [
+      {
+        name: "Archivo Black",
+        data: readFont("archivo-black/files/archivo-black-latin-400-normal.woff"),
+        weight: 400,
+        style: "normal",
+      },
+      {
+        name: "Space Mono",
+        data: readFont("space-mono/files/space-mono-latin-700-normal.woff"),
+        weight: 700,
+        style: "normal",
+      },
+      { name: "Lora", data: readFont("lora/files/lora-latin-400-normal.woff"), weight: 400, style: "normal" },
+    ];
+  }
+  return fonts;
 }
 
-function getAvatarDataUri(filename: string): string {
-  if (avatarCache.has(filename)) return avatarCache.get(filename)!;
-  const buf = fs.readFileSync(path.join(assetsDir, filename));
+// Crop the photo to the card size once, so Satori only has to place it
+async function getPhotoDataUri(file: string): Promise<string> {
+  if (photoCache.has(file)) return photoCache.get(file)!;
+  const buf = await sharp(path.resolve(process.cwd(), file))
+    .resize(WIDTH, HEIGHT, { fit: "cover", position: "attention" })
+    .jpeg({ quality: 82 })
+    .toBuffer();
   const uri = `data:image/jpeg;base64,${buf.toString("base64")}`;
-  avatarCache.set(filename, uri);
+  photoCache.set(file, uri);
   return uri;
 }
 
 // ── Emoji support (Twemoji SVGs via Satori's loadAdditionalAsset) ─
 const U200D = String.fromCharCode(8205);
-const UFE0Fg = /\uFE0F/g;
+const UFE0Fg = /️/g;
 
 function toCodePoint(unicodeSurrogates: string): string {
   const r: string[] = [];
@@ -116,165 +134,112 @@ export function getOgImagePath(slug: string): string {
   return `/og/${name}.png`;
 }
 
-// ── Cache-busting URL (hash changes when title/description change) ─
+// ── Cache-busting URL (hash changes when title/description/design change) ─
 export function getOgImageUrl(slug: string, title: string, description: string): string {
-  const hash = createHash("md5").update(`${title}|${description}`).digest("hex").slice(0, 8);
+  const hash = createHash("md5").update(`${DESIGN_VERSION}|${title}|${description}`).digest("hex").slice(0, 8);
   return `${getOgImagePath(slug)}?v=${hash}`;
 }
 
-// ── Generate the PNG buffer ───────────────────────────────────────
-export async function generateOgImage(options: {
+// ── Tiny VDOM helpers for Satori ──────────────────────────────────
+type Node = { type: string; props: Record<string, any> };
+
+const el = (style: Record<string, any>, children?: any): Node => ({
+  type: "div",
+  props: { style: { display: "flex", ...style }, children },
+});
+
+const label = (text: string, background: string): Node =>
+  el(
+    {
+      fontFamily: "Space Mono",
+      fontWeight: 700,
+      fontSize: "20px",
+      letterSpacing: "2px",
+      textTransform: "uppercase",
+      background,
+      color: INK,
+      padding: "4px 12px",
+    },
+    text,
+  );
+
+// ── The card: a cream page inset in the author's photo ────────────
+async function renderCard(options: {
+  labels: string[];
   title: string;
   description: string;
   author: string;
 }): Promise<Buffer> {
-  loadFonts();
-
   const config = AUTHOR_CONFIG[options.author] || AUTHOR_CONFIG.Queen;
-  const avatarUri = getAvatarDataUri(config.avatar);
-  const title = truncateText(options.title, 60);
-  const description = truncateText(options.description, 220);
+  const photo = await getPhotoDataUri(config.photo);
+  const titleSize = options.title.length > 48 ? 54 : 64;
 
-  // Gatsby-matching avatar geometry
-  const AVATAR_DIAMETER = HEIGHT; // 628px — same as canvas height
-  const AVATAR_RADIUS = AVATAR_DIAMETER / 2; // 314px
-  const AVATAR_BORDER = Math.round(HEIGHT * 0.03); // ~19px
-  const AVATAR_CX = WIDTH - AVATAR_RADIUS * 0.5; // 1043
-  const AVATAR_CY = AVATAR_RADIUS * 1.2; // 376.8
-  const COPY_WIDTH = Math.round(AVATAR_CX - AVATAR_RADIUS - WIDTH * 0.05 * 2); // 609
-
-  // Build a plain VDOM object for Satori
-  const markup = {
-    type: "div",
-    props: {
-      style: {
-        display: "flex",
-        flexDirection: "column",
-        position: "relative",
-        width: `${WIDTH}px`,
-        height: `${HEIGHT}px`,
-        backgroundColor: BG_COLOR,
-        overflow: "hidden",
+  const markup = el({ position: "relative", width: `${WIDTH}px`, height: `${HEIGHT}px`, background: CREAM }, [
+    // Photo first so the page paints on top (SVG paint order = DOM order)
+    {
+      type: "img",
+      props: {
+        src: photo,
+        width: WIDTH,
+        height: HEIGHT,
+        style: { position: "absolute", top: 0, left: 0, width: `${WIDTH}px`, height: `${HEIGHT}px` },
       },
-      children: [
-        // Avatar — absolutely positioned, overflows right & bottom edges
-        // Placed first so text paints on top (SVG paint order = DOM order)
-        {
-          type: "img",
-          props: {
-            src: avatarUri,
-            style: {
-              position: "absolute",
-              top: `${Math.round(AVATAR_CY - AVATAR_RADIUS)}px`,
-              left: `${Math.round(AVATAR_CX - AVATAR_RADIUS)}px`,
-              width: `${AVATAR_DIAMETER}px`,
-              height: `${AVATAR_DIAMETER}px`,
-              borderRadius: `${AVATAR_RADIUS}px`,
-              border: `${AVATAR_BORDER}px solid ${config.secondaryColor}`,
-              objectFit: "cover",
-            },
-          },
-        },
-        // Gold top border
-        {
-          type: "div",
-          props: {
-            style: {
-              width: "100%",
-              height: "12px",
-              backgroundColor: PRIMARY_COLOR,
-            },
-          },
-        },
-        // Main content area
-        {
-          type: "div",
-          props: {
-            style: {
-              display: "flex",
-              flex: 1,
-              padding: "48px 60px 0 60px",
-            },
-            children: [
-              // Text column — allowed to overlap the avatar
-              {
-                type: "div",
-                props: {
-                  style: {
-                    display: "flex",
-                    flexDirection: "column",
-                    maxWidth: `${COPY_WIDTH + 270}px`,
-                    justifyContent: "center",
-                    overflow: "hidden",
-                  },
-                  children: [
-                    {
-                      type: "div",
-                      props: {
-                        style: {
-                          fontFamily: "Montserrat",
-                          fontWeight: 900,
-                          fontSize: "54px",
-                          color: PRIMARY_TEXT,
-                          lineHeight: 1.1,
-                          textWrap: "balance",
-                          overflow: "hidden",
-                          backgroundColor: BG_COLOR,
-                          borderRadius: "20px",
-                          padding: "12px 18px 8px 0",
-                        },
-                        children: title,
-                      },
-                    },
-                    {
-                      type: "div",
-                      props: {
-                        style: {
-                          fontFamily: "Lora",
-                          fontSize: "24px",
-                          color: SECONDARY_TEXT,
-                          marginTop: "12px",
-                          lineHeight: 1.35,
-                          overflow: "hidden",
-                          maxWidth: `${COPY_WIDTH}px`,
-                        },
-                        children: description,
-                      },
-                    },
-                  ],
-                },
-              },
-            ],
-          },
-        },
-        // Footer
-        {
-          type: "div",
-          props: {
-            style: {
-              display: "flex",
-              padding: "0 60px 28px 60px",
-              fontFamily: "Montserrat",
-              fontWeight: 900,
-              fontSize: "22px",
-              color: PRIMARY_COLOR,
-            },
-            children: config.signature,
-          },
-        },
-      ],
     },
-  };
+    el(
+      {
+        position: "absolute",
+        top: `${FRAME}px`,
+        left: `${FRAME}px`,
+        right: `${FRAME}px`,
+        bottom: `${FRAME}px`,
+        flexDirection: "column",
+        background: CREAM,
+        border: `2px solid ${INK}`,
+        padding: "44px 56px 36px",
+        color: INK,
+      },
+      [
+        el(
+          { gap: "12px" },
+          options.labels.map((text, i) => label(text, i === 0 ? ACID : PANEL)),
+        ),
+        el({ flex: 1, flexDirection: "column", justifyContent: "center" }, [
+          el(
+            {
+              fontFamily: "Archivo Black",
+              fontSize: `${titleSize}px`,
+              lineHeight: 1.08,
+              letterSpacing: "-1px",
+              textWrap: "balance",
+            },
+            options.title,
+          ),
+          options.description
+            ? el(
+                { fontFamily: "Lora", fontSize: "24px", lineHeight: 1.4, marginTop: "20px", maxWidth: "900px" },
+                options.description,
+              )
+            : null,
+        ]),
+        el(
+          {
+            borderTop: `2px solid ${INK}`,
+            paddingTop: "16px",
+            justifyContent: "space-between",
+            fontFamily: "Space Mono",
+            fontWeight: 700,
+            fontSize: "22px",
+          },
+          [el({}, "queen.raae.codes"), el({}, config.byline)],
+        ),
+      ],
+    ),
+  ]);
 
   const svg = await satori(markup as any, {
     width: WIDTH,
     height: HEIGHT,
-    fonts: [
-      { name: "Lora", data: fontRegular!, weight: 400, style: "normal" },
-      { name: "Montserrat", data: fontBold!, weight: 900, style: "normal" },
-      { name: "Montserrat", data: fontLabel!, weight: 600, style: "normal" },
-      { name: "Montserrat", data: fontMontRegular!, weight: 400, style: "normal" },
-    ],
+    fonts: loadFonts(),
     loadAdditionalAsset: async (code: string, segment: string) => {
       if (code === "emoji") {
         return `data:image/svg+xml;base64,${Buffer.from(await loadEmoji(getIconCode(segment))).toString("base64")}`;
@@ -286,181 +251,32 @@ export async function generateOgImage(options: {
   return await sharp(Buffer.from(svg)).png().toBuffer();
 }
 
-// ── Author OG image (same avatar placement as posts) ──────────────
+// ── Log entry card ────────────────────────────────────────────────
+export async function generateOgImage(options: {
+  title: string;
+  description: string;
+  author: string;
+  type?: string;
+  date?: string;
+}): Promise<Buffer> {
+  return renderCard({
+    labels: [options.type || "Log", options.date].filter(Boolean) as string[],
+    title: truncateText(options.title, 90),
+    description: truncateText(options.description, 160),
+    author: options.author,
+  });
+}
+
+// ── Author card (same frame, "Author" label) ──────────────────────
 export async function generateAuthorOgImage(options: {
   title: string;
   description: string;
   authorKey: string;
 }): Promise<Buffer> {
-  loadFonts();
-
-  const config = AUTHOR_CONFIG[options.authorKey] || AUTHOR_CONFIG.Queen;
-  const avatarUri = getAvatarDataUri(config.avatar);
-  const title = options.title;
-  const description = truncateText(options.description, 160);
-
-  // Same avatar geometry as post OG images
-  const AVATAR_DIAMETER = HEIGHT; // 628px
-  const AVATAR_RADIUS = AVATAR_DIAMETER / 2; // 314px
-  const AVATAR_BORDER = Math.round(HEIGHT * 0.03); // ~19px
-  const AVATAR_CX = WIDTH - AVATAR_RADIUS * 0.5; // 1043
-  const AVATAR_CY = AVATAR_RADIUS * 1.2; // 376.8
-  const COPY_WIDTH = Math.round(AVATAR_CX - AVATAR_RADIUS - WIDTH * 0.05 * 2); // 609
-
-  const markup = {
-    type: "div",
-    props: {
-      style: {
-        display: "flex",
-        flexDirection: "column" as const,
-        position: "relative" as const,
-        width: `${WIDTH}px`,
-        height: `${HEIGHT}px`,
-        backgroundColor: BG_COLOR,
-        overflow: "hidden",
-      },
-      children: [
-        // Avatar — same position as post OG images
-        {
-          type: "img",
-          props: {
-            src: avatarUri,
-            style: {
-              position: "absolute" as const,
-              top: `${Math.round(AVATAR_CY - AVATAR_RADIUS)}px`,
-              left: `${Math.round(AVATAR_CX - AVATAR_RADIUS)}px`,
-              width: `${AVATAR_DIAMETER}px`,
-              height: `${AVATAR_DIAMETER}px`,
-              borderRadius: `${AVATAR_RADIUS}px`,
-              border: `${AVATAR_BORDER}px solid ${config.secondaryColor}`,
-              objectFit: "cover" as const,
-            },
-          },
-        },
-        // Top accent bar
-        {
-          type: "div",
-          props: {
-            style: {
-              width: "100%",
-              height: "12px",
-              backgroundColor: PRIMARY_COLOR,
-            },
-          },
-        },
-        // Main content area
-        {
-          type: "div",
-          props: {
-            style: {
-              display: "flex",
-              flex: 1,
-              padding: "48px 60px 0 60px",
-            },
-            children: [
-              {
-                type: "div",
-                props: {
-                  style: {
-                    display: "flex",
-                    flexDirection: "column" as const,
-                    maxWidth: `${COPY_WIDTH + 270}px`,
-                    justifyContent: "center",
-                    overflow: "hidden",
-                  },
-                  children: [
-                    // Author badge
-                    {
-                      type: "div",
-                      props: {
-                        style: {
-                          fontFamily: "Montserrat",
-                          fontWeight: 400,
-                          fontSize: "18px",
-                          color: PRIMARY_TEXT,
-                          textTransform: "uppercase" as const,
-                          letterSpacing: "2px",
-                          marginBottom: "8px",
-                        },
-                        children: "Author",
-                      },
-                    },
-                    // Name
-                    {
-                      type: "div",
-                      props: {
-                        style: {
-                          fontFamily: "Montserrat",
-                          fontWeight: 900,
-                          fontSize: "54px",
-                          color: PRIMARY_TEXT,
-                          lineHeight: 1.1,
-                          textWrap: "balance",
-                          overflow: "hidden",
-                          backgroundColor: BG_COLOR,
-                          borderRadius: "20px",
-                          padding: "12px 18px 8px 0",
-                        },
-                        children: title,
-                      },
-                    },
-                    // Description
-                    {
-                      type: "div",
-                      props: {
-                        style: {
-                          fontFamily: "Lora",
-                          fontSize: "24px",
-                          color: SECONDARY_TEXT,
-                          marginTop: "12px",
-                          lineHeight: 1.35,
-                          overflow: "hidden",
-                          maxWidth: `${COPY_WIDTH}px`,
-                        },
-                        children: description,
-                      },
-                    },
-                  ],
-                },
-              },
-            ],
-          },
-        },
-        // Footer
-        {
-          type: "div",
-          props: {
-            style: {
-              display: "flex",
-              padding: "0 60px 28px 60px",
-              fontFamily: "Montserrat",
-              fontWeight: 900,
-              fontSize: "22px",
-              color: PRIMARY_COLOR,
-            },
-            children: config.signature,
-          },
-        },
-      ],
-    },
-  };
-
-  const svg = await satori(markup as any, {
-    width: WIDTH,
-    height: HEIGHT,
-    fonts: [
-      { name: "Lora", data: fontRegular!, weight: 400, style: "normal" },
-      { name: "Montserrat", data: fontBold!, weight: 900, style: "normal" },
-      { name: "Montserrat", data: fontLabel!, weight: 600, style: "normal" },
-      { name: "Montserrat", data: fontMontRegular!, weight: 400, style: "normal" },
-    ],
-    loadAdditionalAsset: async (code: string, segment: string) => {
-      if (code === "emoji") {
-        return `data:image/svg+xml;base64,${Buffer.from(await loadEmoji(getIconCode(segment))).toString("base64")}`;
-      }
-      return code;
-    },
+  return renderCard({
+    labels: ["Author"],
+    title: options.title,
+    description: truncateText(options.description, 160),
+    author: options.authorKey,
   });
-
-  return await sharp(Buffer.from(svg)).png().toBuffer();
 }
