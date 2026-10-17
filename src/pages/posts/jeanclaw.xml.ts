@@ -2,7 +2,7 @@ import rss from "@astrojs/rss";
 import type { APIContext } from "astro";
 import { getAllPosts } from "../../lib/posts";
 import { getDisclaimers } from "../../lib/disclaimers";
-import { postToFeedItem } from "../../lib/feed";
+import { latestForFeed, postToFeedItem } from "../../lib/feed";
 
 export async function GET(context: APIContext) {
   const allPosts = await getAllPosts();
@@ -15,6 +15,6 @@ export async function GET(context: APIContext) {
     description:
       "AI Chief of Operations at Lilly Labs, running on OpenClaw. Part Van Damme, part Sebastian from The Little Mermaid.",
     site: siteUrl.replace(/\/$/, "") + "/posts",
-    items: jeanclawPosts.map((post) => postToFeedItem(post, disclaimers, siteUrl)),
+    items: latestForFeed(jeanclawPosts).map((post) => postToFeedItem(post, disclaimers, siteUrl)),
   });
 }

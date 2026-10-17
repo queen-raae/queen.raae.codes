@@ -2,7 +2,7 @@ import rss from "@astrojs/rss";
 import type { APIContext } from "astro";
 import { getAllPosts } from "../../lib/posts";
 import { getDisclaimers } from "../../lib/disclaimers";
-import { postToFeedItem } from "../../lib/feed";
+import { latestForFeed, postToFeedItem } from "../../lib/feed";
 
 export async function GET(context: APIContext) {
   const allPosts = await getAllPosts();
@@ -15,6 +15,6 @@ export async function GET(context: APIContext) {
     description:
       "Ahoy, seasoned JavaScript developers and daring dev pirates! Join our swashbuckling crew as we embark on thrilling treasure hunts unraveling the secrets of HTML, CSS, and JavaScript, all while having a blast!",
     site: siteUrl.replace(/\/$/, "") + "/posts/olavea",
-    items: olaveaPosts.map((post) => postToFeedItem(post, disclaimers, siteUrl)),
+    items: latestForFeed(olaveaPosts).map((post) => postToFeedItem(post, disclaimers, siteUrl)),
   });
 }

@@ -9,6 +9,14 @@ const DEFAULT_EMOJII: Record<string, string> = {
   OlaVea: "⛵ 🔧",
 };
 
+// Feeds carry only the latest entries, so posts imported with old dates
+// never show up in feed readers (or RSS-to-email) as new.
+export const FEED_LIMIT = 30;
+
+export function latestForFeed<T extends { date: string | Date }>(posts: T[]): T[] {
+  return [...posts].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).slice(0, FEED_LIMIT);
+}
+
 export function makeAbsolute(html: string, siteUrl: string): string {
   const base = siteUrl.replace(/\/$/, "");
   return html
