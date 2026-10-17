@@ -78,7 +78,7 @@ export const treasures: Treasure[] = [
   {
     title: "Prune your Follows",
     href: "https://pruneyourfollows.com",
-    what: "A web app to help you unfollow folks on Twitter to get a better timeline experience built with Xata.",
+    what: 'A web app to help you unfollow folks on Twitter to get a better timeline experience built with <a href="https://xata.io">Xata</a>.',
     when: "2022–2023",
     why: "Test Xata’s developer experience while live streaming.",
     actions: [{ verb: "Visit", href: "https://pruneyourfollows.com", domain: "pruneyourfollows.com" }],
