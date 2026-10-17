@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import { getAllPosts } from "../../lib/posts";
+import { getAllPosts } from "../lib/posts";
 
 export const GET: APIRoute = async () => {
   const allPosts = await getAllPosts();

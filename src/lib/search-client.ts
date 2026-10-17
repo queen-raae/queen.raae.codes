@@ -1,5 +1,5 @@
-// Browser-side search shared by the /search/ page and the search overlay.
-// The Fuse index (/search/data.json) and Fuse itself are loaded on first use only.
+// Browser-side search for the search overlay.
+// The Fuse index (/search-index.json) and Fuse itself are loaded on first use only.
 import type Fuse from "fuse.js";
 
 export interface SearchItem {
@@ -35,7 +35,7 @@ let fusePromise: Promise<Fuse<SearchItem>> | null = null;
 
 export function loadSearch(): Promise<Fuse<SearchItem>> {
   if (!fusePromise) {
-    fusePromise = Promise.all([import("fuse.js"), fetch("/search/data.json").then((res) => res.json())])
+    fusePromise = Promise.all([import("fuse.js"), fetch("/search-index.json").then((res) => res.json())])
       .then(([{ default: FuseClass }, data]) => new FuseClass<SearchItem>(data, FUSE_OPTIONS))
       .catch((error) => {
         fusePromise = null;

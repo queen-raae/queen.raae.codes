@@ -77,4 +77,5 @@ Blog post paths follow the pattern: `posts-queen/YYYY/MM/DD-slug/index.md`
 - Entry frontmatter can set `type` (Book, Link, Podcast, Life, Press), `standfirst`, `draft`, `lang` (`en` default, `no` shows "På norsk"), `importedFrom`, `originalUrl`, `creator`, `url`, `outlet`, `reread`, `lillylabs`. Press entries (articles about Queen, podcast guest spots) sit on their original date with `url` and `outlet`; a body only if Queen writes a note. `/press/` lists them. `type` is only for notes on a thing (plus Life); plain posts have none and show no label
 - `draft: true` entries show on deploy previews only (`CONTEXT !== "production"`)
 - `retired/` holds the old landing pages (bootcamps, emergency, Bridgerton…) and their components, kept but not built or linted; their content stays in `src/content/landing/`
-- Sitemap excludes `/search/`, `/tag/*`, and subscription management pages
+- Sitemap excludes `/tag/*` and subscription management pages
+- Search is an overlay (`src/components/log/SearchOverlay.astro`) over a Fuse index at `/search-index.json`; there is no search page, `/search/` redirects to `/?search`, which opens the overlay

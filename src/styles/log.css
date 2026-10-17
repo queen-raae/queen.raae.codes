@@ -2065,7 +2065,14 @@
   }
 }
 
-/* Tags stay on the search page; in the overlay they'd push results out of view.
+/* Search needs JavaScript, so its buttons aren't shown without it */
+@media (scripting: none) {
+  [data-search-open] {
+    display: none !important;
+  }
+}
+
+/* Tags are left out of overlay results, where they'd push results out of view.
    Outside the layer so it wins over the row's Tailwind flex utilities. */
 .search-overlay .row .row-tags {
   display: none;

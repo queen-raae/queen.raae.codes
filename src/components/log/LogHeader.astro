@@ -22,14 +22,14 @@ const links = [
         </a>
       ))
     }
-    <a
+    <button
+      type="button"
       class="btn btn-fire btn--sm ml-2 max-[560px]:ml-auto"
-      href="/search/"
       data-search-open
+      aria-haspopup="dialog"
       aria-keyshortcuts="/ Control+K Meta+K"
-      aria-current={path.startsWith("/search/") ? "page" : undefined}
     >
       Search
-    </a>
+    </button>
   </nav>
 </header>
