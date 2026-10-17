@@ -6,10 +6,12 @@ import { createHash } from "node:crypto";
 
 // ── Author config ─────────────────────────────────────────────────
 // Every card has a column with the author's photo and name; guests get a label.
-export const AUTHOR_CONFIG: Record<string, { name: string; photo: string; guest?: boolean }> = {
+// `focus` is Sharp's crop position for the tall column crop (default: attention)
+export const AUTHOR_CONFIG: Record<string, { name: string; photo: string; guest?: boolean; focus?: string }> = {
   Queen: {
     name: "Queen Raae",
     photo: "src/assets/og/queen-avatar.jpg",
+    focus: "centre",
   },
   OlaVea: {
     name: "Cap'n Ola",
@@ -32,13 +34,18 @@ const WIDTH = 1200;
 const HEIGHT = 628;
 const FRAME = 52; // how much of the frame shows around the page
 const COLUMN = 300; // the author column on the right
+const PAGE_HEIGHT = HEIGHT - 2 * FRAME - 4; // inside the page's 2px border
+
+// Where the author's name goes: on a strip over the bottom of the photo, or in the footer
+export type ColumnStyle = "overlay" | "footer";
+const COLUMN_STYLE: ColumnStyle = "overlay";
 const CREAM = "#fdf6ec";
 const INK = "#3d1230";
 const ACID = "#fbbf24";
 const PANEL = "#f3d7c6";
 
 // Bump when the card design changes so social caches pick up new images
-export const DESIGN_VERSION = "column-1";
+export const DESIGN_VERSION = "column-2";
 
 // ── Cached assets (loaded once per build) ─────────────────────────
 const fontsDir = path.resolve(process.cwd(), "node_modules/@fontsource");
@@ -69,11 +76,11 @@ function loadFonts() {
 }
 
 // Crop a photo once per build, so Satori only has to place it
-async function getPhotoDataUri(file: string, width = WIDTH, height = HEIGHT): Promise<string> {
-  const key = `${file}@${width}x${height}`;
+async function getPhotoDataUri(file: string, width = WIDTH, height = HEIGHT, position = "attention"): Promise<string> {
+  const key = `${file}@${width}x${height}@${position}`;
   if (photoCache.has(key)) return photoCache.get(key)!;
   const buf = await sharp(path.resolve(process.cwd(), file))
-    .resize(width, height, { fit: "cover", position: "attention" })
+    .resize(width, height, { fit: "cover", position })
     .jpeg({ quality: 82 })
     .toBuffer();
   const uri = `data:image/jpeg;base64,${buf.toString("base64")}`;
@@ -180,17 +187,25 @@ function titleSize(title: string): number {
 }
 
 // ── The card: a cream page with an author column, inside a frame ──
-async function renderCard(options: {
+export async function renderCard(options: {
   labels: string[];
   title: string;
   description: string;
   author: string;
-  guestLabel?: boolean; // "Guest post" in the column; off on author pages
+  guestLabel?: boolean; // "Guest post" by the name; off on author pages
+  column?: ColumnStyle;
 }): Promise<Buffer> {
   const config = AUTHOR_CONFIG[options.author] || AUTHOR_CONFIG.Queen;
   const wall = OUTER_FRAME === "photo" ? await getPhotoDataUri(WALL_PHOTO) : null;
-  const photoSize = COLUMN - 2;
-  const photo = await getPhotoDataUri(config.photo, photoSize, photoSize);
+  const columnStyle = options.column || COLUMN_STYLE;
+  const photoWidth = COLUMN - 2;
+  const photoHeight = PAGE_HEIGHT;
+  const photo = await getPhotoDataUri(config.photo, photoWidth, photoHeight, config.focus);
+  const guestLabel = config.guest && options.guestLabel !== false;
+  const nameBlock = (nameSize: string) => [
+    guestLabel ? el({ alignSelf: "flex-start" }, [label("Guest post", ACID, "16px")]) : null,
+    el({ fontFamily: "Archivo Black", fontSize: nameSize, lineHeight: 1 }, config.name),
+  ];
 
   const page = el({ flex: 1, flexDirection: "column", padding: "40px 48px 36px 56px" }, [
     el(
@@ -216,33 +231,51 @@ async function renderCard(options: {
       {
         borderTop: `2px solid ${INK}`,
         paddingTop: "16px",
+        justifyContent: "space-between",
+        alignItems: "center",
         fontFamily: "Space Mono",
         fontWeight: 700,
         fontSize: "22px",
       },
-      "queen.raae.codes",
+      [
+        el({}, "queen.raae.codes"),
+        columnStyle === "footer"
+          ? el({ alignItems: "center", gap: "12px" }, [
+              guestLabel ? label("Guest post", ACID, "16px") : null,
+              el({ fontFamily: "Archivo Black", fontSize: "24px" }, config.name),
+            ])
+          : null,
+      ],
     ),
   ]);
 
-  const column = el({ width: `${COLUMN}px`, flexDirection: "column", borderLeft: `2px solid ${INK}` }, [
+  // The photo fills the column top to bottom; the name sits on it, or in the footer
+  const column = el({ width: `${COLUMN}px`, position: "relative", borderLeft: `2px solid ${INK}` }, [
     {
       type: "img",
       props: {
         src: photo,
-        width: photoSize,
-        height: photoSize,
-        style: { width: `${photoSize}px`, height: `${photoSize}px`, borderBottom: `2px solid ${INK}` },
+        width: photoWidth,
+        height: photoHeight,
+        style: { width: `${photoWidth}px`, height: `${photoHeight}px` },
       },
     },
-    el(
-      { flex: 1, flexDirection: "column", justifyContent: "center", gap: "12px", padding: "0 28px", background: PANEL },
-      [
-        config.guest && options.guestLabel !== false
-          ? el({ alignSelf: "flex-start" }, [label("Guest post", ACID, "16px")])
-          : null,
-        el({ fontFamily: "Archivo Black", fontSize: "32px", lineHeight: 1 }, config.name),
-      ],
-    ),
+    columnStyle === "overlay"
+      ? el(
+          {
+            position: "absolute",
+            left: 0,
+            right: 0,
+            bottom: 0,
+            flexDirection: "column",
+            gap: "10px",
+            padding: "18px 24px 20px",
+            background: PANEL,
+            borderTop: `2px solid ${INK}`,
+          },
+          nameBlock("30px"),
+        )
+      : null,
   ]);
 
   const markup = el({ position: "relative", width: `${WIDTH}px`, height: `${HEIGHT}px`, background: PANEL }, [
