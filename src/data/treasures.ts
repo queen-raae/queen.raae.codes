@@ -37,7 +37,7 @@ export const treasures: Treasure[] = [
   },
   {
     title: "The Varsom app",
-    what: "The first app version of varsom.no. It was also a test of their docs and API developer experience.",
+    what: 'The first app version of varsom.no. It was also a test of <a href="https://www.nve.no">NVE</a>’s docs and API developer experience.',
     when: "2013–2019",
     why: "Give users a better phone experience and the option to be notified.",
     actions: [],
