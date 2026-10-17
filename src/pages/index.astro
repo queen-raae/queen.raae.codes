@@ -7,7 +7,7 @@ import SectionBar from "../components/log/SectionBar.astro";
 import ExtIcon from "../components/log/ExtIcon.astro";
 import LogPlayer from "../components/log/LogPlayer.astro";
 import { getAllPosts, getAuthorInfo, groupByYear } from "../lib/posts";
-import { getPodcastInfo, PODCAST_COVER } from "../lib/podcast";
+import { getPodcastInfo } from "../lib/podcast";
 import { now, nowUpdated } from "../data/now";
 import { treasures } from "../data/treasures";
 import { photos } from "../data/wall";
@@ -161,7 +161,7 @@ const updated = new Date(nowUpdated).toLocaleDateString("en-GB", { day: "numeric
                 src={podcast.latest.audio}
                 label={podcast.latest.title}
                 duration={podcast.latest.duration}
-                cover={PODCAST_COVER}
+                cover={podcast.latest.cover}
               >
                 <span class="pod-who">Latest episode</span>
                 <span class="pod-title">{podcast.latest.title}</span>

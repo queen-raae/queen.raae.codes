@@ -3,9 +3,6 @@
 // Every step is optional; if the network says no, the row renders without a player.
 
 export const PODCAST_SITE = "https://slowandsteadypodcast.com/";
-// The show's cover art, used as the play button
-export const PODCAST_COVER =
-  "https://img.transistorcdn.com/VJ7EWK9St1qy5IyaIOAWCNq1jUl1rR4LDhmb4MHXpqU/rs:fill:0:0:1/w:1400/h:1400/q:60/mb:500000/aHR0cHM6Ly9pbWct/dXBsb2FkLXByb2R1/Y3Rpb24udHJhbnNp/c3Rvci5mbS9zaG93/LzMzMjEvMTU2NDYw/MzU1MC1hcnR3b3Jr/LmpwZw.jpg";
 
 export interface PodcastInfo {
   site: string;
