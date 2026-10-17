@@ -405,6 +405,11 @@ const updated = new Date(nowUpdated).toLocaleDateString("en-GB", { month: "short
 
     const random = () => Math.floor(Math.random() * posts.length);
 
+    // Back to twinkling once the burst is over
+    button.addEventListener("animationend", (event) => {
+      if (event.animationName === "dig-burst") button.classList.remove("dig-burst");
+    });
+
     button.addEventListener("click", () => {
       if (rolling) return;
       rolling = true;
