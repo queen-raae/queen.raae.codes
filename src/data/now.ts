@@ -1,5 +1,5 @@
 // The "Now" boxes on the home page. Update the date whenever the boxes change.
-export const nowUpdated = "2026-10-16";
+export const nowUpdated = "2026-10-17";
 
 export const now: { label: string; html: string }[] = [
   {
@@ -8,7 +8,7 @@ export const now: { label: string; html: string }[] = [
   },
   {
     label: "Building",
-    html: "A personal homeschool log app linking our days to the Norwegian competency goals (kompetansemål). A little AI in the building, and a little AI in sorting through the unstructured input.",
+    html: "A personal homeschool system linking what we do to the Norwegian competency goals (kompetansemål). AI built and AI enabled. Unstructured inputs to structured logs.",
   },
   {
     label: "Maintaining",
