@@ -1920,6 +1920,162 @@
     border-bottom: 2px solid var(--color-ink);
     font-style: italic;
   }
+
+  /* ── Search overlay: a cream panel in a 2px plum frame over a plum-tinted page ── */
+  .search-overlay {
+    width: min(760px, calc(100vw - 32px));
+    max-width: none;
+    max-height: calc(100dvh - 32px);
+    margin: clamp(16px, 10vh, 120px) auto auto;
+    padding: 0;
+    border: 2px solid var(--color-ink);
+    border-radius: 0;
+    background: var(--color-cream);
+    color: var(--color-ink);
+  }
+
+  .search-overlay[open] {
+    display: flex;
+  }
+
+  .search-overlay::backdrop {
+    background: rgb(61 18 48 / 0.6);
+  }
+
+  :root:has(.search-overlay[open]) {
+    overflow: hidden;
+  }
+
+  .search-overlay .so-panel {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 0;
+  }
+
+  .search-overlay .so-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background: var(--color-panel);
+  }
+
+  .search-overlay .so-title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(22px, 3vw, 28px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  .search-overlay .so-title .label {
+    vertical-align: 0.2em;
+    margin-right: 0.2em;
+  }
+
+  .search-overlay .so-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .search-overlay .so-msg {
+    margin: 0;
+    padding-top: 18px;
+    padding-bottom: 18px;
+    font-size: 17px;
+  }
+
+  .search-overlay .so-body:has(.so-results:empty):has(.so-msg[hidden]) {
+    display: none;
+  }
+
+  .log-body .search-overlay .row {
+    gap: 6px 16px;
+    padding: 14px clamp(16px, 3vw, 24px);
+  }
+
+  .search-overlay .row .row-date {
+    flex-basis: 96px;
+    font-size: 12px;
+  }
+
+  .search-overlay .row .row-type {
+    flex-basis: 72px;
+    font-size: 12px;
+  }
+
+  .search-overlay .row .row-main {
+    flex-basis: 360px;
+    gap: 4px;
+  }
+
+  .search-overlay .ttl {
+    font-size: clamp(19px, 2vw, 22px);
+  }
+
+  .search-overlay .row .row-desc {
+    font-size: 15px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* The result you've arrowed to looks like a hovered one, framed inside the panel */
+  .log-body .search-overlay .row:focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: -4px;
+  }
+
+  .search-overlay .row:focus-visible .ttl {
+    background: var(--color-acid);
+  }
+
+  .search-overlay .row:focus-visible .arr {
+    transform: translateX(8px);
+  }
+
+  .search-overlay .so-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px 16px;
+    flex-wrap: wrap;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-top: 2px solid var(--color-ink);
+    font-size: 12px;
+    color: var(--color-plum-500);
+  }
+
+  .search-overlay .so-body:has(.so-results:empty):has(.so-msg[hidden]) + .sr-only-log + .so-foot {
+    border-top: 0;
+  }
+
+  @media (max-width: 560px) {
+    .search-overlay #search-overlay-keys {
+      display: none;
+    }
+  }
+}
+
+/* Search needs JavaScript, so its buttons aren't shown without it */
+@media (scripting: none) {
+  [data-search-open] {
+    display: none !important;
+  }
+}
+
+/* Tags are left out of overlay results, where they'd push results out of view.
+   Outside the layer so it wins over the row's Tailwind flex utilities. */
+.search-overlay .row .row-tags {
+  display: none;
 }
 
 .log-body [hidden] {

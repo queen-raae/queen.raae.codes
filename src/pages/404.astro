@@ -11,7 +11,7 @@ import TitleBlock from "../components/log/TitleBlock.astro";
     This page has sailed <span class="acid">off the map</span>.
     <div slot="after" class="flex gap-3 flex-wrap">
       <a class="btn btn-fire" href="/">Back to shore <span class="arr" aria-hidden="true">→</span></a>
-      <a class="btn btn-ghost" href="/search/">Search the log</a>
+      <button type="button" class="btn btn-ghost" data-search-open aria-haspopup="dialog">Search the log</button>
     </div>
   </TitleBlock>
 </LogLayout>

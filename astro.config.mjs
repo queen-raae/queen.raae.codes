@@ -24,7 +24,7 @@ export default defineConfig({
     sitemap({
       filter: (page) => {
         // Exclude certain pages from sitemap
-        const excludedPaths = ["/posts/preferences/", "/posts/welcome/", "/posts/reminders/", "/search/"];
+        const excludedPaths = ["/posts/preferences/", "/posts/welcome/", "/posts/reminders/"];
         return !excludedPaths.some((path) => page.includes(path)) && !page.includes("/tag/"); // Exclude tag archives
       },
     }),

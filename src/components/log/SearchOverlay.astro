@@ -1,0 +1,203 @@
+---
+// Search as an overlay over the current page, opened by any [data-search-open] button, `/` or Cmd/Ctrl+K.
+// Search needs JavaScript, so log.css hides those buttons when scripting is off.
+// /?q=term opens it on load; old /search/ links redirect there (netlify.toml).
+---
+
+<dialog id="search-overlay" class="search-overlay" aria-labelledby="search-overlay-title">
+  <div class="so-panel">
+    <div class="so-head gutter ruled">
+      <h2 id="search-overlay-title" class="so-title">
+        <span class="mono label">Search</span> the log
+      </h2>
+      <button type="button" class="btn btn-outline btn--sm" data-search-close>
+        Close<span class="sr-only-log"> search</span>
+      </button>
+    </div>
+    <div class="gutter py-4 ruled">
+      <label for="search-overlay-input" class="sr-only-log"> Title, tag or words from the entry </label>
+      <input
+        id="search-overlay-input"
+        type="search"
+        class="field w-full"
+        placeholder="Title, tag or words from the entry…"
+        autocomplete="off"
+        spellcheck="false"
+        aria-describedby="search-overlay-keys"
+      />
+    </div>
+    <div class="so-body">
+      <p id="search-overlay-empty" class="so-msg gutter" hidden>
+        No entries for <em id="search-overlay-term"></em>.
+      </p>
+      <div id="search-overlay-results" class="so-results"></div>
+    </div>
+    <p id="search-overlay-status" class="sr-only-log" role="status" aria-live="polite"></p>
+    <div class="so-foot gutter mono">
+      <span id="search-overlay-keys">↑↓ to move · Enter to open · Esc to close</span>
+      <a href="/posts/">All entries →</a>
+    </div>
+  </div>
+</dialog>
+
+<script>
+  import { cancelTrackSearch, loadSearch, queueTrackSearch, renderResults, trackSearch } from "../../lib/search-client";
+
+  const dialog = document.getElementById("search-overlay") as HTMLDialogElement;
+
+  function isTyping(target: EventTarget | null) {
+    const el = target as HTMLElement | null;
+    return !!el && (el.isContentEditable || ["INPUT", "TEXTAREA", "SELECT"].includes(el.tagName));
+  }
+
+  const input = document.getElementById("search-overlay-input") as HTMLInputElement;
+  const resultsContainer = document.getElementById("search-overlay-results")!;
+  const empty = document.getElementById("search-overlay-empty")!;
+  const termEl = document.getElementById("search-overlay-term")!;
+  const status = document.getElementById("search-overlay-status")!;
+
+  let opener: HTMLElement | null = null;
+  let debounceTimer: ReturnType<typeof setTimeout>;
+  let searchRun = 0;
+
+  const resultLinks = () => Array.from(resultsContainer.querySelectorAll<HTMLAnchorElement>("a.row"));
+
+  function open(from?: HTMLElement | null) {
+    if (dialog.open) {
+      input.focus();
+      input.select();
+      return;
+    }
+    opener = from ?? (document.activeElement as HTMLElement | null);
+    dialog.showModal();
+    input.focus();
+    input.select();
+    // Load Fuse and the index now, so they're ready by the time the reader has typed a few letters.
+    loadSearch().catch(() => {});
+  }
+
+  function close() {
+    if (dialog.open) dialog.close();
+  }
+
+  async function runSearch() {
+    const run = ++searchRun;
+    const term = input.value.trim();
+
+    if (term.length < 2) {
+      cancelTrackSearch();
+      resultsContainer.innerHTML = "";
+      empty.hidden = true;
+      status.textContent = "";
+      return;
+    }
+
+    let fuse;
+    try {
+      fuse = await loadSearch();
+    } catch {
+      status.textContent = "Search could not load. Try again in a moment.";
+      return;
+    }
+    if (run !== searchRun) return;
+
+    const results = fuse.search(term, { limit: 7 });
+    queueTrackSearch(term, results.length);
+
+    if (results.length === 0) {
+      resultsContainer.innerHTML = "";
+      termEl.textContent = term;
+      empty.hidden = false;
+      status.textContent = `No entries for ${term}`;
+    } else {
+      empty.hidden = true;
+      resultsContainer.innerHTML = renderResults(results);
+      status.textContent = `${results.length} ${results.length === 1 ? "entry" : "entries"} found`;
+    }
+  }
+
+  document.querySelectorAll<HTMLElement>("[data-search-open]").forEach((button) => {
+    button.addEventListener("click", () => open(button));
+  });
+
+  document.addEventListener("keydown", (event) => {
+    const cmdK = event.key.toLowerCase() === "k" && (event.metaKey || event.ctrlKey);
+    const slash = event.key === "/" && !event.metaKey && !event.ctrlKey && !event.altKey && !isTyping(event.target);
+    if (!cmdK && !slash) return;
+    event.preventDefault();
+    open(document.querySelector<HTMLElement>("[data-search-open]"));
+  });
+
+  input.addEventListener("input", () => {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(runSearch, 250);
+  });
+
+  // Arrow keys move between the field and the results; Enter in the field opens the first result.
+  dialog.addEventListener("keydown", async (event) => {
+    // A search field eats the first Esc to clear itself, so close on Esc ourselves.
+    if (event.key === "Escape") {
+      event.preventDefault();
+      close();
+      return;
+    }
+    if (event.key !== "ArrowDown" && event.key !== "ArrowUp" && event.key !== "Enter") return;
+
+    if (event.key === "Enter") {
+      if (document.activeElement !== input) return;
+      event.preventDefault();
+      clearTimeout(debounceTimer);
+      await runSearch();
+      resultLinks()[0]?.click();
+      return;
+    }
+
+    const links = resultLinks();
+    const index = links.indexOf(document.activeElement as HTMLAnchorElement);
+
+    if (!links.length || (index === -1 && document.activeElement !== input)) return;
+    event.preventDefault();
+    if (event.key === "ArrowDown") {
+      links[Math.min(index + 1, links.length - 1)].focus();
+    } else if (index <= 0) {
+      input.focus();
+    } else {
+      links[index - 1].focus();
+    }
+  });
+
+  // Clicking a result counts as settling on the term.
+  resultsContainer.addEventListener("click", trackSearch);
+
+  dialog.querySelector("[data-search-close]")!.addEventListener("click", close);
+
+  // A click on the backdrop (the dialog element itself, outside the panel) closes it.
+  // Only when the press started there too, so dragging a selection out of the field doesn't.
+  let pressedOnBackdrop = false;
+  dialog.addEventListener("pointerdown", (event) => {
+    pressedOnBackdrop = event.target === dialog;
+  });
+  dialog.addEventListener("click", (event) => {
+    if (event.target === dialog && pressedOnBackdrop) close();
+  });
+
+  dialog.addEventListener("close", () => {
+    trackSearch();
+    opener?.focus();
+    opener = null;
+  });
+
+  // /?q=term (also where old /search/ links land) opens the overlay straight away with that term.
+  const params = new URLSearchParams(location.search);
+  if (params.has("q")) {
+    const term = params.get("q") || "";
+    params.delete("q");
+    const query = params.toString();
+    history.replaceState(history.state, "", location.pathname + (query ? `?${query}` : "") + location.hash);
+    open(document.querySelector<HTMLElement>("[data-search-open]"));
+    if (term) {
+      input.value = term;
+      runSearch();
+    }
+  }
+</script>
