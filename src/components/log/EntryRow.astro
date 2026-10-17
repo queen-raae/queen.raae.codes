@@ -15,7 +15,7 @@ const byline = post.author === "Queen" ? undefined : getAuthorInfo(post.author).
   <time class="mono row-date" datetime={post.date}>{post.dateMedium}</time>
   <TypeLabel type={post.type} class="row-type" />
   <span class="row-main">
-    <span class="ttl">{post.title}&#8288;<span class="arr" aria-hidden="true">→</span></span>
+    <span class="ttl">{post.title}<span class="arr" aria-hidden="true">→</span></span>
     {byline && <span class="mono row-by">by {byline}</span>}
     <span class="row-desc">{post.standfirst || post.description}</span>
   </span>

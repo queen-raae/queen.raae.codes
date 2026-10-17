@@ -624,7 +624,7 @@
   }
 
   .front-lead:hover .arr {
-    left: 8px;
+    transform: translateX(8px);
   }
 
   /* The arrow sits right after the title (no space to break on), and balanced lines keep it from dangling */
@@ -996,19 +996,17 @@
     color: var(--color-cream);
   }
 
-  /* Sliding arrow: → stays on the site. Inline (not inline-block) and slid with `left`, so with a
-     word joiner (&#8288;) before it, it wraps together with the last word instead of dangling alone */
+  /* Sliding arrow: → stays on the site */
   .arr {
-    position: relative;
-    left: 0;
+    display: inline-block;
     margin-left: 0.3em;
     color: var(--color-amber-500);
-    transition: left 0.2s;
+    transition: transform 0.2s;
   }
 
   .row:hover .arr,
   a:hover > .arr {
-    left: 8px;
+    transform: translateX(8px);
   }
 
   /* External: the window leaves it */
@@ -2040,7 +2038,7 @@
   }
 
   .search-overlay .row:focus-visible .arr {
-    left: 8px;
+    transform: translateX(8px);
   }
 
   .search-overlay .so-foot {
