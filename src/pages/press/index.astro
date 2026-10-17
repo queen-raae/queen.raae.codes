@@ -1,13 +1,12 @@
 ---
 import LogLayout from "../../layouts/LogLayout.astro";
-import { getOgPageImage } from "../../data/og-pages";
+import { OG_PAGES, getOgPageImage } from "../../data/og-pages";
 import TitleBlock from "../../components/log/TitleBlock.astro";
 import Divider from "../../components/log/Divider.astro";
 import SectionBar from "../../components/log/SectionBar.astro";
 import { getAllPosts, groupByYear } from "../../lib/posts";
 
-const TITLE = "Press";
-const DESCRIPTION = "Articles about Queen Raae and podcasts she's been a guest on.";
+const { title: TITLE, description: DESCRIPTION } = OG_PAGES.press;
 
 // Press items are log entries with type "Press"
 const years = groupByYear((await getAllPosts()).filter((post) => post.type === "Press"));

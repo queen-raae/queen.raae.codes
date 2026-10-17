@@ -42,7 +42,7 @@ const ACID = "#fbbf24";
 const PANEL = "#f3d7c6";
 
 // Bump when the card design changes so social caches pick up new images
-export const DESIGN_VERSION = "column-4";
+export const DESIGN_VERSION = "column-5";
 
 // ── Cached assets (loaded once per build) ─────────────────────────
 const fontsDir = path.resolve(process.cwd(), "node_modules/@fontsource");
@@ -180,7 +180,8 @@ function titleSize(title: string): number {
   if (title.length <= 12) return 92;
   if (title.length <= 34) return 62;
   if (title.length <= 60) return 54;
-  return 46;
+  if (title.length <= 85) return 46;
+  return 40;
 }
 
 // ── The card: a cream page with an author column, inside a frame ──
@@ -314,8 +315,8 @@ export async function generateOgImage(options: {
 }): Promise<Buffer> {
   return renderCard({
     labels: [options.type || "Log", options.date].filter(Boolean) as string[],
-    title: truncateText(options.title, 80),
-    description: truncateText(options.description, 140),
+    title: truncateText(options.title, 120),
+    description: truncateText(options.description, 180),
     author: options.author,
   });
 }
@@ -329,7 +330,7 @@ export async function generateAuthorOgImage(options: {
   return renderCard({
     labels: [AUTHOR_CONFIG[options.authorKey]?.guest ? "Guest author" : "Author"],
     title: options.title,
-    description: truncateText(options.description, 140),
+    description: truncateText(options.description, 180),
     author: options.authorKey,
     tallPhoto: true,
   });
@@ -343,8 +344,8 @@ export async function generatePageOgImage(options: {
 }): Promise<Buffer> {
   return renderCard({
     labels: options.labels,
-    title: truncateText(options.title, 80),
-    description: truncateText(options.description, 140),
+    title: truncateText(options.title, 120),
+    description: truncateText(options.description, 180),
     author: "Queen",
   });
 }
