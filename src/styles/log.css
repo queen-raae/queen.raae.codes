@@ -259,20 +259,21 @@
     color: var(--color-cream);
   }
 
-  /* The dice button sparkles: six twinkling sparks, a burst when pressed */
-  .dig-button {
+  /* The dice button sparkles: a cream button with gold sparks around it and on it, a burst when pressed */
+  .log-body .btn-fire.dig-button {
     position: relative;
     overflow: visible;
+    background: var(--color-cream);
   }
 
   .dig-spark {
     position: absolute;
     width: 12px;
     height: 12px;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23FBBF24' d='M8 0C8.6 5 11 7.4 16 8 11 8.6 8.6 11 8 16 7.4 11 5 8.6 0 8 5 7.4 7.4 5 8 0Z'/%3E%3C/svg%3E")
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23FBBF24' stroke='%233D1230' stroke-width='1' stroke-linejoin='round' d='M8 0C8.6 5 11 7.4 16 8 11 8.6 8.6 11 8 16 7.4 11 5 8.6 0 8 5 7.4 7.4 5 8 0Z'/%3E%3C/svg%3E")
       center / contain no-repeat;
     pointer-events: none;
-    animation: dig-twinkle 1.8s ease-in-out infinite;
+    animation: dig-twinkle 1.6s ease-in-out infinite;
   }
 
   .dig-spark--1 {
@@ -323,6 +324,39 @@
     animation-delay: 1.4s;
   }
 
+  /* The sparks sitting on the button itself */
+  .dig-spark--7 {
+    top: 4px;
+    left: 7px;
+    width: 9px;
+    height: 9px;
+    animation-delay: 0.2s;
+  }
+
+  .dig-spark--8 {
+    bottom: 3px;
+    left: 30%;
+    width: 8px;
+    height: 8px;
+    animation-delay: 0.9s;
+  }
+
+  .dig-spark--9 {
+    top: 3px;
+    left: 62%;
+    width: 10px;
+    height: 10px;
+    animation-delay: 0.6s;
+  }
+
+  .dig-spark--10 {
+    bottom: 4px;
+    right: 6px;
+    width: 9px;
+    height: 9px;
+    animation-delay: 1.2s;
+  }
+
   .dig-button:hover .dig-spark {
     animation-duration: 0.9s;
   }
@@ -341,12 +375,12 @@
   @keyframes dig-twinkle {
     0%,
     100% {
-      opacity: 0.35;
-      transform: scale(0.6) rotate(0deg);
+      opacity: 0.2;
+      transform: scale(0.4) rotate(0deg);
     }
     50% {
       opacity: 1;
-      transform: scale(1.15) rotate(45deg);
+      transform: scale(1.25) rotate(45deg);
     }
   }
 
