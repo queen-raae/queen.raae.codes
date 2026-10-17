@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://queen.raae.codes/sitemap-index.xml
