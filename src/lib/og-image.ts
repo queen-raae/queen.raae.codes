@@ -42,7 +42,7 @@ const ACID = "#fbbf24";
 const PANEL = "#f3d7c6";
 
 // Bump when the card design changes so social caches pick up new images
-export const DESIGN_VERSION = "column-3";
+export const DESIGN_VERSION = "column-4";
 
 // ── Cached assets (loaded once per build) ─────────────────────────
 const fontsDir = path.resolve(process.cwd(), "node_modules/@fontsource");
@@ -189,13 +189,14 @@ async function renderCard(options: {
   title: string;
   description: string;
   author: string;
-  guestLabel?: boolean; // "Guest post" above the name; off on author pages
+  tallPhoto?: boolean; // photo fills the column even for guests (author pages)
 }): Promise<Buffer> {
   const config = AUTHOR_CONFIG[options.author] || AUTHOR_CONFIG.Queen;
   const wall = OUTER_FRAME === "photo" ? await getPhotoDataUri(WALL_PHOTO) : null;
-  // Queen's photo fills the column; a guest's is square with their name below
+  // Queen's photo fills the column; on guest posts it's square with their name below
+  const nameBlock = config.guest && !options.tallPhoto;
   const photoWidth = COLUMN - 2;
-  const photoHeight = config.guest ? photoWidth : PAGE_HEIGHT;
+  const photoHeight = nameBlock ? photoWidth : PAGE_HEIGHT;
   const photo = await getPhotoDataUri(config.photo, photoWidth, photoHeight, config.focus);
 
   const page = el({ flex: 1, flexDirection: "column", padding: "40px 48px 36px 56px" }, [
@@ -240,11 +241,11 @@ async function renderCard(options: {
         style: {
           width: `${photoWidth}px`,
           height: `${photoHeight}px`,
-          borderBottom: config.guest ? `2px solid ${INK}` : "none",
+          borderBottom: nameBlock ? `2px solid ${INK}` : "none",
         },
       },
     },
-    config.guest
+    nameBlock
       ? el(
           {
             flex: 1,
@@ -255,7 +256,7 @@ async function renderCard(options: {
             background: PANEL,
           },
           [
-            options.guestLabel !== false ? el({ alignSelf: "flex-start" }, [label("Guest post", ACID, "16px")]) : null,
+            el({ alignSelf: "flex-start" }, [label("Guest post", ACID, "16px")]),
             el({ fontFamily: "Archivo Black", fontSize: "32px", lineHeight: 1 }, config.name),
           ],
         )
@@ -326,11 +327,11 @@ export async function generateAuthorOgImage(options: {
   authorKey: string;
 }): Promise<Buffer> {
   return renderCard({
-    labels: ["Author"],
+    labels: [AUTHOR_CONFIG[options.authorKey]?.guest ? "Guest author" : "Author"],
     title: options.title,
     description: truncateText(options.description, 140),
     author: options.authorKey,
-    guestLabel: false,
+    tallPhoto: true,
   });
 }
 
