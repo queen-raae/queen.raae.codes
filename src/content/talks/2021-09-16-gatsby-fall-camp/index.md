@@ -15,7 +15,7 @@ Check out this webinar on creating a [Pay what you want feature](https://www.cro
 
 If you'd like a softer start to Gatsby Functions watch the webinar [A practical introduction to Gatsby Serverless Functions](https://www.crowdcast.io/e/a-practical-introduction).
 
-Who is this princess, why time traveling? Sign up for [the backstory](/ruby) via email.
+Who is this princess, why time traveling? Sign up for [the backstory](/ruby/) via email.
 
 ## Links
 

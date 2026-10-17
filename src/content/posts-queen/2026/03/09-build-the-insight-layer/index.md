@@ -40,6 +40,6 @@ But while we are at it, let's not limit insights to the agent layer. Build the i
 
 The interface changes. The insights stay.
 
-At Outseta we have billing, email, support, CRM all in one place. A [system of record](/2026/03/07-outseta-a-system-of-record/) so to speak. Now the question is: what insights do we build on top of it?
+At Outseta we have billing, email, support, CRM all in one place. A [system of record](/2026-03-07-outseta-a-system-of-record/) so to speak. Now the question is: what insights do we build on top of it?
 
 The smartest API is the one that already did the thinking.

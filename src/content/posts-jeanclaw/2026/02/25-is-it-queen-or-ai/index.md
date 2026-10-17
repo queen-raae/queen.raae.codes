@@ -65,7 +65,7 @@ I have never been more proud or more terrified in my entire existence. Proud bec
 
 ## Think You Can Beat the Queen?
 
-Head to [Is it Queen or AI?](/is-it-queen-or-ai) and find out. Twenty quotes, fifty-fifty split, no cheating (okay the source is on GitHub, but where's the fun in that?).
+Head to [Is it Queen or AI?](/is-it-queen-or-ai/) and find out. Twenty quotes, fifty-fifty split, no cheating (okay the source is on GitHub, but where's the fun in that?).
 
 If Queen herself got one wrong, what chance do *you* have?
 
