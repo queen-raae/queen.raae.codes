@@ -541,7 +541,7 @@
     font-size: clamp(38px, 5.2vw, 64px);
     line-height: 1.02;
     letter-spacing: -0.025em;
-    max-width: 18ch;
+    max-width: 12em;
   }
 
   .title-block .meta,
@@ -563,14 +563,14 @@
     font-size: clamp(20px, 2vw, 26px);
     line-height: 1.4;
     font-style: italic;
-    max-width: 60ch;
+    max-width: 37.26em;
   }
 
   .title-block .lead {
     margin: 0;
     font-size: clamp(18px, 1.6vw, 22px);
     line-height: 1.5;
-    max-width: 60ch;
+    max-width: 37.26em;
   }
 
   .title-block .meta {
@@ -739,7 +739,7 @@
     font-size: clamp(34px, 4.6vw, 60px);
     line-height: 1;
     letter-spacing: -0.03em;
-    max-width: 15ch;
+    max-width: 10em;
   }
 
   .front-ttl span,
@@ -760,7 +760,7 @@
     font-size: clamp(17px, 1.5vw, 19px);
     line-height: 1.55;
     color: var(--color-deep);
-    max-width: 46ch;
+    max-width: 28.56em;
   }
 
   .front-lead .front-go {
@@ -905,7 +905,7 @@
   }
 
   .nl-blurb {
-    max-width: 36ch;
+    max-width: 22.35em;
     font-size: clamp(17px, 1.7cqw, 20px);
     line-height: 1.5;
   }
@@ -987,7 +987,7 @@
     margin: 0;
     font-size: 18px;
     line-height: 1.5;
-    max-width: 40ch;
+    max-width: 24.84em;
   }
 
   .pod-ep {
@@ -1757,11 +1757,14 @@
   }
 
   /* ── Log entry prose ── */
+  /* Text measures here and above are in em, not ch: ch follows the loaded
+     font, so columns changed width when the web fonts swapped in.
+     40.98em is 66ch of Lora; 12em is 18ch of Archivo Black. */
   .log-prose {
     display: grid;
     grid-template-columns:
       minmax(clamp(16px, 3vw, 32px), 1fr)
-      minmax(0, 66ch)
+      minmax(0, 40.98em)
       minmax(clamp(16px, 3vw, 32px), 1fr);
     row-gap: 24px;
     align-items: start;
@@ -2005,7 +2008,7 @@
 
   /* Light prose for short pages (about, speaker, subs) */
   .log-copy {
-    max-width: 66ch;
+    max-width: 40.98em;
     font-size: 19px;
     line-height: 1.65;
   }
