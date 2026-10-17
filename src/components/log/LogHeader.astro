@@ -14,7 +14,7 @@ const links = [
       queen.raae.codes · <span class="max-[560px]:hidden">a developer’s </span><span class="label">logbook</span>
     </span>
   </a>
-  <nav aria-label="Main" class="flex items-center gap-x-1.5 gap-y-1 flex-wrap">
+  <nav aria-label="Main" class="flex items-center gap-x-1.5 gap-y-1 flex-wrap max-[560px]:w-full max-[560px]:-ml-2.5">
     {
       links.map((link) => (
         <a class="navlink" href={link.href} aria-current={link.match(path) ? "page" : undefined}>
@@ -23,7 +23,7 @@ const links = [
       ))
     }
     <a
-      class="btn btn-fire btn--sm ml-2"
+      class="btn btn-fire btn--sm ml-2 max-[560px]:ml-auto"
       href="/search/"
       aria-current={path.startsWith("/search/") ? "page" : undefined}
     >

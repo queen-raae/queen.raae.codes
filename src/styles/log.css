@@ -156,6 +156,34 @@
     font-weight: 700;
   }
 
+  /* Phones: section bars stay one tidy row — the number goes, the title shrinks, the side stays on the right */
+  @media (max-width: 560px) {
+    .bar:has(.bar-title) {
+      flex-wrap: nowrap;
+      gap: 8px;
+    }
+
+    .bar .bar-num {
+      display: none;
+    }
+
+    .bar .bar-title {
+      font-size: 14px;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+
+    .bar:has(.bar-title) > div:last-child {
+      flex-wrap: nowrap;
+      flex-shrink: 0;
+    }
+
+    .log-body .bar .btn--sm {
+      padding: 0 10px;
+      gap: 6px;
+    }
+  }
+
   .log-body .bar a {
     color: var(--color-cream);
   }

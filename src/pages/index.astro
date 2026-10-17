@@ -85,8 +85,8 @@ const updated = new Date(nowUpdated).toLocaleDateString("en-GB", { day: "numeric
 
   <!-- 02 Latest from the log -->
   <section id="log" class="ruled flex flex-col scroll-mt-4">
-    <SectionBar num="02" title="Latest from the log">
-      <a class="navlink" href="/posts/">All entries →</a>
+    <SectionBar num="02" title="Latest from the log" short="Latest">
+      <a class="navlink" href="/posts/">All<span class="max-[560px]:hidden"> entries</span> →</a>
       <a
         href="/posts/queen.xml"
         aria-label="RSS feed"
@@ -146,7 +146,7 @@ const updated = new Date(nowUpdated).toLocaleDateString("en-GB", { day: "numeric
   <!-- 03 Treasures: the chest -->
   <section id="treasures" class="ruled flex flex-col">
     <SectionBar num="03" title="Treasures">
-      <span class="mono">Things I made that you can poke at</span>
+      <span class="mono max-[560px]:hidden">Things I made that you can poke at</span>
     </SectionBar>
     <div class="cells cells--chest">
       <div id="podcast" class="col-span-full flex flex-wrap gap-0.5 bg-ink">
@@ -254,8 +254,8 @@ const updated = new Date(nowUpdated).toLocaleDateString("en-GB", { day: "numeric
 
   <!-- 05 From the archives -->
   <section id="archive" class="ruled flex flex-col">
-    <SectionBar num="05" title="From the archives">
-      <a class="navlink" href="/posts/">Browse by year →</a>
+    <SectionBar num="05" title="From the archives" short="Archives">
+      <a class="navlink max-[560px]:hidden" href="/posts/">Browse by year →</a>
       <button type="button" class="btn btn-fire btn--sm dig-button">
         <svg
           width="18"
