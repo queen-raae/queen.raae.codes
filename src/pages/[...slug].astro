@@ -61,6 +61,12 @@ const tagFeeds = post.tags.map((tag: { label: string; slug: string }) => ({
 }));
 const postFeeds = [...(authorFeedMap[post.author] ? [authorFeedMap[post.author]] : []), ...tagFeeds];
 
+// Older entries get a quiet note that tools and advice may have moved on.
+// Life, Book, Podcast and Press entries don't date the same way, so they're left alone.
+const AGE_NOTE_YEARS = 3;
+const ageYears = Math.floor((Date.now() - new Date(post.date).getTime()) / (365.25 * 24 * 60 * 60 * 1000));
+const showAgeNote = ageYears >= AGE_NOTE_YEARS && !["Life", "Book", "Podcast", "Press"].includes(post.type ?? "");
+
 // Schema.org structured data
 const schema = {
   "@context": "https://schema.org",
@@ -137,6 +143,15 @@ const schema = {
           <p class="mono text-plum-500!">
             Originally published{" "}
             {post.originalUrl ? <a href={post.originalUrl}>on {post.importedFrom}</a> : <>on {post.importedFrom}</>}
+          </p>
+        )
+      }
+
+      {
+        showAgeNote && (
+          <p class="mono text-plum-500!">
+            Written in {new Date(post.date).getFullYear()}, {ageYears} years ago. Tools and advice may have moved on
+            since.
           </p>
         )
       }
