@@ -15,7 +15,7 @@ const siteMetadata: SiteMetadata = {
   siteName: "Queen Raae",
   siteTagline: "A developer's logbook, kept in Oslo",
   siteDescription:
-    "Queen Raae's logbook: code, books, and the slow business of building a two-person family studio in a converted factory in Oslo.",
+    "I’m Benedicte (Queen) Raae. My co-captain Ola, our Pirate Princess and I run Lilly Labs, a small dev studio in the old family factory we also call home. Located in cosy Rodeløkka, Oslo, Norway.",
   siteLang: "en",
   siteSocialImage: "/raae.jpg",
   siteSocialImageAlt: "Queen Raae holding a laptop in front of her gallery wall",
