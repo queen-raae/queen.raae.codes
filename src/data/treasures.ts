@@ -46,7 +46,7 @@ export const treasures: Treasure[] = [
   {
     title: "Kompetansemål",
     href: "https://kompetansemål.no",
-    what: "The Norwegian school competency goals in plainer language, with an easier overview.",
+    what: "A personal homeschool system linking what we do to the Norwegian competency goals (kompetansemål). AI built and AI enabled. Unstructured inputs to structured logs.",
     when: "2026",
     why: "I could not for the life of me get an overview on the official site. Luckily, there’s an API.",
     actions: [{ verb: "Visit", href: "https://kompetansemål.no", domain: "kompetansemål.no" }],
