@@ -11,6 +11,8 @@ Source: Queen's private Instagram (@benedicteraae). Captions are word for word f
 | 2013-07-12 17:25 | [Den nye oljen](2013-07-12-den-nye-oljen.md) | Lilly Apps og Statoil er hovedoppslagene på e24.no akkurat nå! Yepp vi er den nye oljen :D | [jpg](2013-07-12-den-nye-oljen.jpg) | Done |
 | 2013-08-08 15:00 | [Dagsavisen](2013-08-08-dagsavisen.md) | Frisk ungdom speider etter de nye kundene som kommer løpende etter dagens oppslag i Dagsavisen :D | [jpg](2013-08-08-dagsavisen.jpg) | Done |
 | 2013-08-28 18:54 | [Bladet Mamma](2013-08-28-bladet-mamma.md) | En venninne av @olaholstvea tipset om at #lillygram er nådd bladet mamma, jippi :D | [jpg](2013-08-28-bladet-mamma.jpg) | Done |
+| 2013-10-04 10:56 | [Første besøk på NRK](2013-10-04-nrk.md) | Første besøk på NRK for @lilly_apps :D | [jpg](2013-10-04-nrk.jpg) (612x612) | Done |
 | 2013-11-05 10:16 | [Smidig 2013](2013-11-05-smidig.md) | Les mer på labs.lillyapps.no! #smidigedamer #smidig13 #smidig2013 | [jpg](2013-11-05-smidig.jpg) | Done |
+| 2014-02-10 13:36 | [Skatt Øst-kurs](2014-02-10-skatt-ost.md) | Nytt kurs for Skatt Øst unnagjort! Ingen OL-titting på dem, jeg går nemlig rundt og bak deltagerne når de skal gjøre oppgaver ;) | [jpg](2014-02-10-skatt-ost.jpg) | Done |
 | 2015-10-15 11:05 | [Lillygrams endelig](2015-10-15-lillygrams-endelig.md) | Endelig! Etter sykdomsproblemer og printerproblemer er Lillygramsene endelig på vei ut til besteforeldre i hele landet og noe utland :D | [jpg](2015-10-15-lillygrams-endelig.jpg) (1080) | Done |
 | 2016-12-14 17:28 | [Julegave](2016-12-14-julegave.md) | Jeg trodde det var leverandør som ga gaver til kunder, ikke omvendt :D God jul til deg og @erjohnse. Kanskje kommer det er godt nyttårskort ... | [jpg](2016-12-14-julegave.jpg) | Done |
