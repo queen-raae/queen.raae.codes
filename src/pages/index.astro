@@ -318,6 +318,16 @@ const updated = new Date(nowUpdated).toLocaleDateString("en-GB", { month: "short
             stroke="none"></circle></svg
         >
         <span class="dig-label">Dig one up</span>
+        <span class="dig-spark dig-spark--1" aria-hidden="true"></span>
+        <span class="dig-spark dig-spark--2" aria-hidden="true"></span>
+        <span class="dig-spark dig-spark--3" aria-hidden="true"></span>
+        <span class="dig-spark dig-spark--4" aria-hidden="true"></span>
+        <span class="dig-spark dig-spark--5" aria-hidden="true"></span>
+        <span class="dig-spark dig-spark--6" aria-hidden="true"></span>
+        <span class="dig-spark dig-spark--7" aria-hidden="true"></span>
+        <span class="dig-spark dig-spark--8" aria-hidden="true"></span>
+        <span class="dig-spark dig-spark--9" aria-hidden="true"></span>
+        <span class="dig-spark dig-spark--10" aria-hidden="true"></span>
       </button>
     </SectionBar>
     <p class="m-0 gutter py-[clamp(20px,3vw,32px)] max-w-[68ch] text-lg leading-[1.55] box-border">
@@ -396,16 +406,42 @@ const updated = new Date(nowUpdated).toLocaleDateString("en-GB", { month: "short
 
     const random = () => Math.floor(Math.random() * posts.length);
 
+    // The button glides to its new width when the label changes
+    const setLabel = (text: string) => {
+      if (reduced) {
+        label.textContent = text;
+        return;
+      }
+      const from = button.offsetWidth;
+      button.style.width = "";
+      label.textContent = text;
+      const to = button.offsetWidth;
+      button.style.width = `${from}px`;
+      void button.offsetWidth;
+      button.style.width = `${to}px`;
+    };
+    button.addEventListener("transitionend", (event) => {
+      if (event.propertyName === "width") button.style.width = "";
+    });
+
+    // Back to twinkling once the burst is over
+    button.addEventListener("animationend", (event) => {
+      if (event.animationName === "dig-burst") button.classList.remove("dig-burst");
+    });
+
     button.addEventListener("click", () => {
       if (rolling) return;
       rolling = true;
+      button.classList.remove("dig-burst");
+      void button.offsetWidth;
+      button.classList.add("dig-burst");
       result.classList.remove("hidden");
       result.classList.add("flex");
       status.textContent = "Digging";
       title.textContent = "…";
       title.removeAttribute("href");
       count.textContent = "";
-      label.textContent = "Digging…";
+      setLabel("Digging…");
 
       let ticks = 0;
       const spin = () => {
@@ -425,7 +461,7 @@ const updated = new Date(nowUpdated).toLocaleDateString("en-GB", { month: "short
         title.textContent = `${post.t} →`;
         title.href = post.s;
         count.textContent = counts[Math.min(dug, counts.length - 1)];
-        label.textContent = labels[Math.min(dug, labels.length - 1)];
+        setLabel(labels[Math.min(dug, labels.length - 1)]);
         rolling = false;
       };
       spin();
