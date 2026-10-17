@@ -319,12 +319,15 @@ const updated = new Date(nowUpdated).toLocaleDateString("en-GB", { day: "numeric
             stroke="none"></circle></svg
         >
         <span class="dig-label">Dig one up</span>
+        <span class="dig-spark dig-spark--1" aria-hidden="true"></span>
+        <span class="dig-spark dig-spark--2" aria-hidden="true"></span>
+        <span class="dig-spark dig-spark--3" aria-hidden="true"></span>
       </button>
     </SectionBar>
     <p class="m-0 gutter py-[clamp(20px,3vw,32px)] max-w-[68ch] text-lg leading-[1.55] box-border">
-      So far: {allPosts.length} entries, all the way back to {firstYear}, original dates kept. Cringe included, that’s
-      kinda the point 😆 I’m still digging up old blogs and newsletters, so there’s more on its way. Press the dice and
-      the archive hands you one 🎲
+      So far: {allPosts.length} entries, back to {firstYear}. Mostly Gatsby, for now. I’m collecting my old blog posts
+      and newsletters to get my whole online life into this one site. Original dates kept, cringe included 😆 Press the
+      dice for a random one.
     </p>
     <div
       class="dig-result hidden flex-wrap gap-x-7 gap-y-4 items-center bg-acid border-t-2 border-ink py-[clamp(16px,2.5vw,24px)] gutter"
@@ -400,6 +403,9 @@ const updated = new Date(nowUpdated).toLocaleDateString("en-GB", { day: "numeric
     button.addEventListener("click", () => {
       if (rolling) return;
       rolling = true;
+      button.classList.remove("dig-burst");
+      void button.offsetWidth;
+      button.classList.add("dig-burst");
       result.classList.remove("hidden");
       result.classList.add("flex");
       status.textContent = "Digging";

@@ -251,6 +251,82 @@
     color: var(--color-cream);
   }
 
+  /* The dice button sparkles: three twinkling sparks, a burst when pressed */
+  .dig-button {
+    position: relative;
+    overflow: visible;
+  }
+
+  .dig-spark {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23FBBF24' d='M8 0C8.6 5 11 7.4 16 8 11 8.6 8.6 11 8 16 7.4 11 5 8.6 0 8 5 7.4 7.4 5 8 0Z'/%3E%3C/svg%3E")
+      center / contain no-repeat;
+    pointer-events: none;
+    animation: dig-twinkle 2.4s ease-in-out infinite;
+  }
+
+  .dig-spark--1 {
+    top: -3px;
+    left: -17px;
+  }
+
+  .dig-spark--2 {
+    top: -4px;
+    right: -14px;
+    width: 9px;
+    height: 9px;
+    animation-delay: 0.8s;
+  }
+
+  .dig-spark--3 {
+    bottom: -3px;
+    right: -11px;
+    width: 8px;
+    height: 8px;
+    animation-delay: 1.6s;
+  }
+
+  .dig-burst .dig-spark {
+    animation: dig-burst 0.6s ease-out;
+  }
+
+  @keyframes dig-twinkle {
+    0%,
+    100% {
+      opacity: 0.45;
+      transform: scale(0.7) rotate(0deg);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1) rotate(45deg);
+    }
+  }
+
+  @keyframes dig-burst {
+    0% {
+      opacity: 1;
+      transform: scale(0.6);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.8) rotate(90deg);
+    }
+    100% {
+      opacity: 0.45;
+      transform: scale(0.7) rotate(180deg);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .dig-spark,
+    .dig-burst .dig-spark {
+      animation: none;
+      opacity: 0.8;
+    }
+  }
+
   .log-body .btn-ink {
     background: var(--color-ink);
     color: var(--color-cream);
