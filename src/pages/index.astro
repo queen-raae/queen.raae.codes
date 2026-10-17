@@ -19,8 +19,13 @@ const newestBy = newest.author === "Queen" ? undefined : getAuthorInfo(newest.au
 const podcast = await getPodcastInfo();
 
 const isExternal = (href: string) => /^https?:\/\//.test(href);
-const sourceOf = (post: (typeof allPosts)[number]) =>
-  post.importedFrom ?? (post.author === "Queen" ? "queen.raae.codes" : `by ${getAuthorInfo(post.author).name}`);
+// Only entries that aren't plain Queen posts get a source line
+const sourceOf = (post: (typeof allPosts)[number]) => {
+  if (post.type === "Press") return post.outlet ? `Press · ${post.outlet}` : "Press";
+  if (post.importedFrom) return post.importedFrom;
+  if (post.author !== "Queen") return `by ${getAuthorInfo(post.author).name}`;
+  return undefined;
+};
 
 // From the archives: the first entry of each of the four earliest years
 const years = groupByYear(allPosts);
@@ -281,8 +286,9 @@ const updated = new Date(nowUpdated).toLocaleDateString("en-GB", { day: "numeric
       </button>
     </SectionBar>
     <p class="m-0 gutter py-[clamp(20px,3vw,32px)] max-w-[68ch] text-lg leading-[1.55] box-border">
-      {allPosts.length} entries going back to {firstYear}, original dates kept. Cringe included; that’s rather the
-      point. Press the dice and the archive hands you one.
+      So far: {allPosts.length} entries, all the way back to {firstYear}, original dates kept. Cringe included, that’s
+      kinda the point 😆 I’m still digging up old blogs and newsletters, so there’s more on its way. Press the dice and
+      the archive hands you one 🎲
     </p>
     <div
       class="dig-result hidden flex-wrap gap-x-7 gap-y-4 items-center bg-acid border-t-2 border-ink py-[clamp(16px,2.5vw,24px)] gutter"
@@ -302,7 +308,7 @@ const updated = new Date(nowUpdated).toLocaleDateString("en-GB", { day: "numeric
         archives.map((post) => (
           <a class="arc" href={post.slug}>
             <span class="display text-[clamp(40px,4vw,56px)] leading-[0.9] tracking-[-0.03em]">{post.year}</span>
-            <span class="mono text-plum-500">{sourceOf(post)}</span>
+            {sourceOf(post) && <span class="mono text-plum-500">{sourceOf(post)}</span>}
             <span class="text-lg leading-[1.4] font-bold">{post.title}</span>
           </a>
         ))
@@ -375,7 +381,7 @@ const updated = new Date(nowUpdated).toLocaleDateString("en-GB", { day: "numeric
         dug += 1;
         const post = posts[next];
         year.textContent = post.y;
-        status.textContent = `Dug up · ${post.src}`;
+        status.textContent = post.src ? `Dug up · ${post.src}` : "Dug up";
         title.textContent = `${post.t} →`;
         title.href = post.s;
         count.textContent = counts[Math.min(dug, counts.length - 1)];
