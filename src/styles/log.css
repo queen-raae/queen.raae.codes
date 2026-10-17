@@ -223,6 +223,45 @@
     color: var(--color-ink);
   }
 
+  /* ── Header nav: links then the search button; below 760px (where it would wrap) a full-width strip of three equal ruled cells ── */
+  .log-body .site-nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 6px;
+  }
+
+  .log-body .site-nav .btn {
+    margin-left: 8px;
+  }
+
+  @media (max-width: 760px) {
+    .log-body .site-nav {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      width: calc(100% + 2 * clamp(16px, 3vw, 32px));
+      margin: 0 calc(-1 * clamp(16px, 3vw, 32px));
+      border-top: 2px solid var(--color-ink);
+    }
+
+    .log-body .site-nav > *,
+    .log-body .site-nav .btn {
+      justify-content: center;
+      min-height: 48px;
+      margin: 0;
+      border: 0;
+      border-left: 2px solid var(--color-ink);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      letter-spacing: 0.04em;
+    }
+
+    .log-body .site-nav > :first-child {
+      border-left: 0;
+    }
+  }
+
   /* ── Buttons ── */
   .log-body .btn {
     display: inline-flex;
