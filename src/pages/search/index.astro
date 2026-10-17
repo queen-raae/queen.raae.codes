@@ -1,5 +1,6 @@
 ---
 import LogLayout from "../../layouts/LogLayout.astro";
+import { getOgPageImage } from "../../data/og-pages";
 import TitleBlock from "../../components/log/TitleBlock.astro";
 import Divider from "../../components/log/Divider.astro";
 import SectionBar from "../../components/log/SectionBar.astro";
@@ -12,7 +13,7 @@ const allPosts = await getAllPosts();
 const latestPosts = allPosts.slice(0, 3);
 ---
 
-<LogLayout title={TITLE} description="Search every entry in Queen Raae's logbook.">
+<LogLayout title={TITLE} description="Search every entry in Queen Raae's logbook." image={getOgPageImage("search")}>
   <TitleBlock label="Search">
     Search <span class="acid">the log</span>.
     <div slot="after" class="flex flex-col gap-2 max-w-[720px]">

@@ -5,40 +5,40 @@ import path from "node:path";
 import { createHash } from "node:crypto";
 
 // ── Author config ─────────────────────────────────────────────────
-// Guests get a small avatar by their byline; Queen's own cards don't need one.
-export const AUTHOR_CONFIG: Record<string, { byline: string; avatar?: string }> = {
+// Every card has a column with the author's photo and name; guests get a label.
+export const AUTHOR_CONFIG: Record<string, { name: string; photo: string; guest?: boolean }> = {
   Queen: {
-    byline: "👑 Queen Raae",
+    name: "Queen Raae",
+    photo: "src/assets/og/queen-avatar.jpg",
   },
   OlaVea: {
-    byline: "🏴‍☠️ Cap'n Ola",
-    avatar: "src/assets/og/olavea-avatar.jpg",
+    name: "Cap'n Ola",
+    photo: "src/assets/og/olavea-avatar.jpg",
+    guest: true,
   },
   JeanClaw2026: {
-    byline: "🦀 Jean-Claw",
-    avatar: "src/assets/og/jeanclaw-avatar.jpg",
+    name: "Jean-Claw",
+    photo: "src/assets/og/jeanclaw-avatar.jpg",
+    guest: true,
   },
 };
 
-// Queen's photo shows as a frame around her cards
-const QUEEN_PHOTO = "src/assets/log/queen-wall.jpg";
-
-// What frames a guest's card: Queen's photo, or a flat colour
-export type GuestFrame = "photo" | "plum" | "panel";
-const GUEST_FRAME: GuestFrame = "photo";
+// What shows around the page: a flat pale rust frame, or Queen's gallery wall photo
+const OUTER_FRAME: "panel" | "photo" = "panel";
+const WALL_PHOTO = "src/assets/log/queen-wall.jpg";
 
 // ── Design constants (Organic Brutalist tokens from src/global.css) ─
 const WIDTH = 1200;
 const HEIGHT = 628;
-const FRAME = 52; // how much of the photo shows around the page
-const AVATAR = 56;
+const FRAME = 52; // how much of the frame shows around the page
+const COLUMN = 300; // the author column on the right
 const CREAM = "#fdf6ec";
 const INK = "#3d1230";
 const ACID = "#fbbf24";
 const PANEL = "#f3d7c6";
 
 // Bump when the card design changes so social caches pick up new images
-const DESIGN_VERSION = "frame-1";
+export const DESIGN_VERSION = "column-1";
 
 // ── Cached assets (loaded once per build) ─────────────────────────
 const fontsDir = path.resolve(process.cwd(), "node_modules/@fontsource");
@@ -156,12 +156,12 @@ const el = (style: Record<string, any>, children?: any): Node => ({
   props: { style: { display: "flex", ...style }, children },
 });
 
-const label = (text: string, background: string): Node =>
+const label = (text: string, background: string, fontSize = "20px"): Node =>
   el(
     {
       fontFamily: "Space Mono",
       fontWeight: 700,
-      fontSize: "20px",
+      fontSize,
       letterSpacing: "2px",
       textTransform: "uppercase",
       background,
@@ -171,27 +171,86 @@ const label = (text: string, background: string): Node =>
     text,
   );
 
-// ── The card: a cream page inset in the author's photo ────────────
+// Shorter titles get bigger type; the page column is ~690px wide
+function titleSize(title: string): number {
+  if (title.length <= 12) return 92;
+  if (title.length <= 34) return 62;
+  if (title.length <= 60) return 54;
+  return 46;
+}
+
+// ── The card: a cream page with an author column, inside a frame ──
 async function renderCard(options: {
   labels: string[];
   title: string;
   description: string;
   author: string;
-  guestFrame?: GuestFrame;
+  guestLabel?: boolean; // "Guest post" in the column; off on author pages
 }): Promise<Buffer> {
   const config = AUTHOR_CONFIG[options.author] || AUTHOR_CONFIG.Queen;
-  const frame = config.avatar ? options.guestFrame || GUEST_FRAME : "photo";
-  const photo = frame === "photo" ? await getPhotoDataUri(QUEEN_PHOTO) : null;
-  const avatar = config.avatar ? await getPhotoDataUri(config.avatar, AVATAR, AVATAR) : null;
-  const titleSize = options.title.length > 48 ? 54 : 64;
+  const wall = OUTER_FRAME === "photo" ? await getPhotoDataUri(WALL_PHOTO) : null;
+  const photoSize = COLUMN - 2;
+  const photo = await getPhotoDataUri(config.photo, photoSize, photoSize);
 
-  const background = frame === "plum" ? INK : frame === "panel" ? PANEL : CREAM;
-  const markup = el({ position: "relative", width: `${WIDTH}px`, height: `${HEIGHT}px`, background }, [
-    // Photo first so the page paints on top (SVG paint order = DOM order)
-    photo && {
+  const page = el({ flex: 1, flexDirection: "column", padding: "40px 48px 36px 56px" }, [
+    el(
+      { gap: "12px" },
+      options.labels.map((text, i) => label(text, i === 0 ? ACID : PANEL)),
+    ),
+    el({ flex: 1, flexDirection: "column", justifyContent: "center" }, [
+      el(
+        {
+          fontFamily: "Archivo Black",
+          fontSize: `${titleSize(options.title)}px`,
+          lineHeight: 1.06,
+          letterSpacing: "-1px",
+          textWrap: "balance",
+        },
+        options.title,
+      ),
+      options.description
+        ? el({ fontFamily: "Lora", fontSize: "23px", lineHeight: 1.4, marginTop: "18px" }, options.description)
+        : null,
+    ]),
+    el(
+      {
+        borderTop: `2px solid ${INK}`,
+        paddingTop: "16px",
+        fontFamily: "Space Mono",
+        fontWeight: 700,
+        fontSize: "22px",
+      },
+      "queen.raae.codes",
+    ),
+  ]);
+
+  const column = el({ width: `${COLUMN}px`, flexDirection: "column", borderLeft: `2px solid ${INK}` }, [
+    {
       type: "img",
       props: {
         src: photo,
+        width: photoSize,
+        height: photoSize,
+        style: { width: `${photoSize}px`, height: `${photoSize}px`, borderBottom: `2px solid ${INK}` },
+      },
+    },
+    el(
+      { flex: 1, flexDirection: "column", justifyContent: "center", gap: "12px", padding: "0 28px", background: PANEL },
+      [
+        config.guest && options.guestLabel !== false
+          ? el({ alignSelf: "flex-start" }, [label("Guest post", ACID, "16px")])
+          : null,
+        el({ fontFamily: "Archivo Black", fontSize: "32px", lineHeight: 1 }, config.name),
+      ],
+    ),
+  ]);
+
+  const markup = el({ position: "relative", width: `${WIDTH}px`, height: `${HEIGHT}px`, background: PANEL }, [
+    // Photo first so the page paints on top (SVG paint order = DOM order)
+    wall && {
+      type: "img",
+      props: {
+        src: wall,
         width: WIDTH,
         height: HEIGHT,
         style: { position: "absolute", top: 0, left: 0, width: `${WIDTH}px`, height: `${HEIGHT}px` },
@@ -204,62 +263,11 @@ async function renderCard(options: {
         left: `${FRAME}px`,
         right: `${FRAME}px`,
         bottom: `${FRAME}px`,
-        flexDirection: "column",
         background: CREAM,
         border: `2px solid ${INK}`,
-        padding: "44px 56px 36px",
         color: INK,
       },
-      [
-        el(
-          { gap: "12px" },
-          options.labels.map((text, i) => label(text, i === 0 ? ACID : PANEL)),
-        ),
-        el({ flex: 1, flexDirection: "column", justifyContent: "center" }, [
-          el(
-            {
-              fontFamily: "Archivo Black",
-              fontSize: `${titleSize}px`,
-              lineHeight: 1.08,
-              letterSpacing: "-1px",
-              textWrap: "balance",
-            },
-            options.title,
-          ),
-          options.description
-            ? el(
-                { fontFamily: "Lora", fontSize: "24px", lineHeight: 1.4, marginTop: "20px", maxWidth: "900px" },
-                options.description,
-              )
-            : null,
-        ]),
-        el(
-          {
-            borderTop: `2px solid ${INK}`,
-            paddingTop: "16px",
-            justifyContent: "space-between",
-            alignItems: "center",
-            fontFamily: "Space Mono",
-            fontWeight: 700,
-            fontSize: "22px",
-          },
-          [
-            el({}, "queen.raae.codes"),
-            el({ alignItems: "center", gap: "14px" }, [
-              avatar && {
-                type: "img",
-                props: {
-                  src: avatar,
-                  width: AVATAR,
-                  height: AVATAR,
-                  style: { width: `${AVATAR}px`, height: `${AVATAR}px`, border: `2px solid ${INK}` },
-                },
-              },
-              el({}, config.byline),
-            ]),
-          ],
-        ),
-      ],
+      [page, column],
     ),
   ]);
 
@@ -285,18 +293,16 @@ export async function generateOgImage(options: {
   author: string;
   type?: string;
   date?: string;
-  guestFrame?: GuestFrame;
 }): Promise<Buffer> {
   return renderCard({
-    guestFrame: options.guestFrame,
     labels: [options.type || "Log", options.date].filter(Boolean) as string[],
-    title: truncateText(options.title, 90),
-    description: truncateText(options.description, 160),
+    title: truncateText(options.title, 80),
+    description: truncateText(options.description, 140),
     author: options.author,
   });
 }
 
-// ── Author card (same frame, "Author" label) ──────────────────────
+// ── Author card ───────────────────────────────────────────────────
 export async function generateAuthorOgImage(options: {
   title: string;
   description: string;
@@ -305,7 +311,36 @@ export async function generateAuthorOgImage(options: {
   return renderCard({
     labels: ["Author"],
     title: options.title,
-    description: truncateText(options.description, 160),
+    description: truncateText(options.description, 140),
     author: options.authorKey,
+    guestLabel: false,
   });
+}
+
+// ── Page card (home, archive, tags…) — always Queen's column ──────
+export async function generatePageOgImage(options: {
+  labels: string[];
+  title: string;
+  description: string;
+}): Promise<Buffer> {
+  return renderCard({
+    labels: options.labels,
+    title: truncateText(options.title, 80),
+    description: truncateText(options.description, 140),
+    author: "Queen",
+  });
+}
+
+// Page card URL with the same cache busting as entry cards
+export function getPageOgImageUrl(name: string, title: string, description: string): string {
+  return getOgImageUrl(`page/${name}`, title, description);
+}
+
+// Tag pages: same description as the page itself, and a cache-busted card URL
+export function getTagOgDescription(label: string, blurb?: string): string {
+  return blurb || `Every entry in the log tagged #${label}.`;
+}
+
+export function getTagOgImageUrl(tagParam: string, label: string, description: string): string {
+  return getOgImageUrl(`tag/${tagParam}`, `#${label}`, description);
 }

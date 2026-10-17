@@ -1,5 +1,6 @@
 ---
 import LogLayout from "../../layouts/LogLayout.astro";
+import { getOgPageImage } from "../../data/og-pages";
 import TitleBlock from "../../components/log/TitleBlock.astro";
 import Divider from "../../components/log/Divider.astro";
 import SectionBar from "../../components/log/SectionBar.astro";
@@ -13,7 +14,7 @@ const years = groupByYear((await getAllPosts()).filter((post) => post.type === "
 const pad = (n: number) => String(n).padStart(2, "0");
 ---
 
-<LogLayout title={TITLE} description={DESCRIPTION}>
+<LogLayout title={TITLE} description={DESCRIPTION} image={getOgPageImage("press")}>
   <TitleBlock
     label="Elsewhere"
     lead="Things other people wrote or recorded with me in them. They live in the log too. Talks have their own page."
