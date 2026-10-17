@@ -1,0 +1,232 @@
+# Web search for Queen (Benedicte Raae / Queen Raae), 2026-10-17.
+# Candidates for the /press/ page and archive. Same fields as press.yml where possible.
+# `found_note` is a factual one-liner from the search, not a blurb; Queen writes blurbs herself.
+# `in_press_yml: true` means the item is already in press/press.yml.
+# `in_talks: true` means a matching entry already exists in src/content/talks/ in the repo.
+
+# ---------------------------------------------------------------------------
+# Articles and profiles (new, not in press.yml)
+# ---------------------------------------------------------------------------
+
+- title: "Tech Role Model: Benedicte Raae"
+  outlet: Tech Women Norway
+  date: 2019 # year from the URL; Ada Lovelace Day 2019
+  kind: profile
+  lang: en
+  url: https://techwomen.no/role-models/2019/benedicte-raae
+  found_note: Named a Tech Role Model in Technical Speaking and Programming.
+  in_press_yml: false
+
+- title: "Inspiring Stories: Benedicte Raae"
+  outlet: DEV Community (Azure Heroes)
+  author: Maxim Salnikov
+  date: 2020-04-15
+  kind: interview
+  lang: en
+  url: https://dev.to/azure_heroes/inspiring-stories-benedicte-raae-34jh
+  found_note: International Women's Day interview on getting into tech and building POW!.
+  in_press_yml: false
+
+- title: "Ny, norsk mens-app setter personvernet først med krypterte data"
+  outlet: Dagens Næringsliv
+  date: unknown # paywalled; she is described as 36, so likely 2019 or 2020
+  kind: article
+  lang: no
+  url: https://www.dn.no/teknologi/benedicte-raae/flo/ny-norsk-mens-app-setter-personvernet-forst-med-krypterte-data/2-1-676513
+  found_note: About POW! as a privacy-first period app with encrypted data. Behind DN's paywall, so title and date are unconfirmed beyond the teaser.
+  in_press_yml: false
+
+- title: "Her er jakkemerket som skal få folk til å reise seg for gravide"
+  outlet: Aftenposten
+  author: Olav Eggesvik
+  date: 2014-10-22
+  kind: article
+  lang: no
+  url: https://www.aftenposten.no/oslo/i/0EzlG/her-er-jakkemerket-som-skal-faa-folk-til-aa-reise-seg-for-gravide
+  found_note: Lilly Labs' Kickstarter for the "Gravid, ikke feit" pin; Queen is quoted.
+  in_press_yml: false
+
+- title: "Meet the Jammies 2021 finalists"
+  outlet: Netlify blog
+  date: 2021-09-28
+  kind: announcement
+  lang: en
+  url: https://www.netlify.com/blog/2021/09/28/meet-the-jammies-2021-finalists/
+  found_note: Lists her among five finalists for the Community Creator award. Same event as the kode24 piece already in press.yml.
+  in_press_yml: false
+
+- title: "Outseta's Benedicte Raae Named To Norway's 50 Leading Women In Tech 2025"
+  outlet: Outseta blog
+  author: Geoff Roberts
+  date: 2025-03-10
+  kind: announcement
+  lang: en
+  url: https://www.outseta.com/posts/benedicte-raae-named-to-norways-50-leading-women-in-tech-2025
+  found_note: Named to Abelia and ODA Network's 50 Leading Women in Tech 2025. Official list lives at abelia.no/50techkvinner (I could not open her entry there).
+  in_press_yml: false
+
+- title: "I'm secretly filming Queen Raae as she's being interviewed on film! For a 50 #womenintech Prize"
+  outlet: YouTube (Queen Raae & Family)
+  date: unknown # likely early 2025, tied to the 50 Women in Tech list
+  kind: video
+  lang: en
+  url: https://www.youtube.com/watch?v=xYxgcwPreOU
+  found_note: Behind-the-scenes video of the 50 Women in Tech filming. YouTube blocked fetching, so date is unconfirmed.
+  in_press_yml: false
+
+- title: "Source Usage Data for Social Proof on Your Gatsby Site"
+  outlet: Gatsby blog
+  date: 2023-03-13
+  kind: guest post
+  lang: en
+  url: https://www.gatsbyjs.com/blog/source-xata
+  found_note: Her guest tutorial on gatsbyjs.com using Xata and Tailwind.
+  in_press_yml: false
+
+# ---------------------------------------------------------------------------
+# Podcasts as a guest (new, not in press.yml)
+# ---------------------------------------------------------------------------
+
+- title: "#16: Being an Indie Hacker and Part-time Creator with Benedicte Raae"
+  outlet: Software World with Candost
+  date: 2021-05-18
+  kind: podcast
+  lang: en
+  url: https://creators.spotify.com/pod/profile/candost/episodes/16-Being-an-Indie-Hacker-and-Part-time-Creator-with-Benedicte-Raae-e10qcbm
+  found_note: Guest episode about indie hacking, POW! and staying motivated.
+  in_press_yml: false
+
+- title: "Live Streaming with Benedicte Raae"
+  outlet: Slow & Steady
+  date: 2021-06-02
+  kind: podcast
+  lang: en
+  url: https://www.slowandsteadypodcast.com/episodes/live-streaming-with-benedicte-raae
+  found_note: Her first appearance as a guest, before becoming co-host.
+  in_press_yml: false
+
+- title: "The Great Gatsby with Queen Raae"
+  outlet: React Round Up
+  date: 2022-02-02
+  kind: podcast
+  lang: en
+  url: https://reactroundup.com/the-great-gatsby-with-queen-raae-react-168
+  found_note: Episode 168 on Gatsby, her career, and no-code vs code-everything. She also wrote about it at queen.raae.codes/2022-02-02-react-roundup/.
+  in_press_yml: false
+
+- title: "Getting Into Public Speaking as a Developer"
+  outlet: Software Social
+  host: Michele Hansen
+  date: 2022-11-01
+  kind: podcast
+  lang: en
+  url: https://softwaresocial.substack.com/p/getting-into-public-speaking-as-a-1be
+  found_note: On building public speaking experience through live streaming.
+  in_press_yml: false
+
+# Her own shows, for context rather than press:
+# - Slow & Steady (co-host): https://slowandsteadypodcast.com/people/benedicte-raae
+#   Notable: "Queen Raae joins Outseta" (2023-04-13) https://slowandsteadypodcast.com/episodes/queen-raae-joins-outseta
+# - Data in the Wild (host, for Xata, 8 episodes Apr–Jul 2024): https://podnews.net/podcast/i11vhe
+
+# ---------------------------------------------------------------------------
+# Talks found online (compare with src/content/talks/)
+# ---------------------------------------------------------------------------
+
+- title: "A privacy-first web-based period tracker? Is it even possible?"
+  outlet: JavaZone 2019
+  date: 2019-09-10 # slide deck date
+  kind: talk
+  lang: en
+  url: https://noti.st/raae/4pGuWA/a-privacy-first-web-based-period-tracker-is-it-even-possible
+  found_note: Slides on noti.st and slides.com/raae.
+  in_talks: false
+
+- title: "A privacy first period tracker? Is it even possible?"
+  outlet: JSConf Budapest 2019
+  date: 2019-09-26
+  kind: talk
+  lang: en
+  url: https://2019.jsconfbp.com/speakers/benedicte_raae/
+  found_note: Speaker page; a YouTube recording exists (listed on Class Central).
+  in_talks: false
+
+- title: "A privacy-first period tracker? Is it even possible?"
+  outlet: Mobile Era 2019
+  date: 2019-11-06 # slide deck date
+  kind: talk
+  lang: en
+  url: https://slides.com/raae/privacy-first-mobile-era
+  found_note: Different from the 2017 Mobile Era talk already in the repo.
+  in_talks: false
+
+- title: "RuhrJS (period tracker talk)"
+  outlet: RuhrJS
+  date: 2019 # mentioned in the Azure Heroes interview; no page found
+  kind: talk
+  lang: en
+  url: null
+  found_note: Only mentioned in the DEV interview; deck may be slides.com/raae/a-privacy-first-period-tracker-049f69 (2020-09-26).
+  in_talks: false
+
+- title: "Gatsby + Userbase = Encrypted menstrual tracker"
+  outlet: unknown
+  date: 2020-05-22 # slide deck date
+  kind: talk
+  lang: en
+  url: https://slides.com/raae/a-privacy-first-period-tracker-f5be0e
+  found_note: Deck only; event not named.
+  in_talks: false
+
+- title: "POW! - the privacy-first menstrual cycle journal"
+  outlet: Jamstack Toronto
+  date: 2021-03-08 # slide deck date
+  kind: talk
+  lang: en
+  url: https://slides.com/raae/jamstack-toronto-march-2021
+  found_note: Meetup talk; another version of the deck is dated 2021-05-26.
+  in_talks: false
+
+- title: "Keep calm and code your own Gatsby Plugins"
+  outlet: TheJam.dev 2023
+  date: 2023-01-26
+  kind: talk
+  lang: en
+  url: https://cfe.dev/sessions/jamdev2023-gatsby-plugins/
+  found_note: Same talk as the JamstackConf 2022 and Modern Frontends entries already in the repo.
+  in_talks: false
+
+- title: "gatsby-remark-oembed"
+  outlet: unknown
+  date: 2019-05-28 # slide deck date
+  kind: talk
+  lang: en
+  url: https://slides.com/raae/oembed
+  found_note: Deck only; event not named.
+  in_talks: false
+
+# Already in src/content/talks/: Mobile Era 2017, Gatsby Fall Camp '21, Mypa (2021-12),
+# React Norway 2022, JamstackConf 2022, Modern Frontends 2022, Claude Code Meetup Oslo 2026.
+
+# ---------------------------------------------------------------------------
+# Already in press.yml (found again, nothing new)
+# ---------------------------------------------------------------------------
+# - kode24, "Slik får hun mens-appen POW! helt anonym" (2020-03-12) — in_press_yml: true
+# - kode24, "Utvikler Benedicte Raae kan vinne internasjonal kodepris" (2021-10-05) — in_press_yml: true
+# - kode24, "Benedicte må kanskje skrote prosjektet sitt etter Twitter-endringer" (2023-03-31) — in_press_yml: true
+# kode24 has moved to new URLs (e.g. /koden-bak/slik-far-hun-mens-appen-pow-helt-anonym/72233855);
+# the old /artikkel/ URLs in press.yml may redirect, worth a check before launch.
+
+# ---------------------------------------------------------------------------
+# Leads from Queen's Instagram that I could not find online
+# ---------------------------------------------------------------------------
+# - e24.no, July 2013: Lilly Apps was a top story ("Yepp vi er den nye oljen")
+# - Dagsavisen, 2013-08-08: story about Lilly Apps/Lillygram
+# - Mamma magazine, Aug 2013: Lillygram mentioned (print)
+# - NRK, 2013-10-04: first visit for Lilly Apps
+# - NRK P2 Kulturnytt, Jan 2015: interview about kollektivradio
+# - Aftenposten / Osloby, 2016-09-15: Herfra digital map magazine launch
+# These are likely in print archives or Retriever/Atekst; Queen may have the links or clippings.
+
+# Skipped as not about her: kode24 "Lær deg hvordan ting fungerer!" (Benedicte Emilie Brækken),
+# rbnett "Nå får besta Instagram i posten" (paywalled, no visible mention of Lillygram).
