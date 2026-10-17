@@ -1,0 +1,56 @@
+---
+import LogLayout from "../../layouts/LogLayout.astro";
+import TitleBlock from "../../components/log/TitleBlock.astro";
+import Divider from "../../components/log/Divider.astro";
+import SectionBar from "../../components/log/SectionBar.astro";
+import { getAllPosts, groupByYear } from "../../lib/posts";
+
+const TITLE = "Press";
+const DESCRIPTION = "Articles about Queen Raae and podcasts she's been a guest on.";
+
+// Press items are log entries with type "Press"
+const years = groupByYear((await getAllPosts()).filter((post) => post.type === "Press"));
+const pad = (n: number) => String(n).padStart(2, "0");
+---
+
+<LogLayout title={TITLE} description={DESCRIPTION}>
+  <TitleBlock
+    label="Elsewhere"
+    lead="Things other people wrote or recorded with me in them. They live in the log too. Talks have their own page."
+  >
+    In the <span class="acid">press</span>.
+    <div slot="after" class="flex gap-3 flex-wrap">
+      <a class="btn btn-ghost" href="/speaker/">Talks <span class="arr" aria-hidden="true">→</span></a>
+    </div>
+  </TitleBlock>
+
+  <Divider />
+
+  {
+    years.map(({ year, posts }, index) => (
+      <section id={`y${year}`} class="ruled flex flex-col">
+        <SectionBar num={pad(index + 1)} title={year} />
+        {posts.map((post) => (
+          <a class="row" href={post.slug} lang={post.lang === "no" ? "nb" : undefined}>
+            <time class="mono row-date" datetime={post.date}>
+              {post.dateMedium}
+            </time>
+            <span class="row-main">
+              <span class="ttl">
+                {post.title}
+                <span class="arr" aria-hidden="true">
+                  →
+                </span>
+              </span>
+              <span class="mono row-by" lang="en">
+                {post.outlet}
+                {post.lang === "no" && <> · På norsk</>}
+              </span>
+              {post.blurb && <span class="row-desc">{post.blurb}</span>}
+            </span>
+          </a>
+        ))}
+      </section>
+    ))
+  }
+</LogLayout>

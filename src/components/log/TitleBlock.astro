@@ -1,0 +1,48 @@
+---
+// Title block on every inner page: the pale rust panel, same anatomy as the home hero's text half: same anatomy as the hero's text column.
+interface Props {
+  label?: string;
+  back?: { href: string; label: string };
+  lead?: string;
+  standfirst?: string;
+  size?: "entry" | "page" | "small";
+}
+
+const { label, back, lead, standfirst, size = "page" } = Astro.props;
+---
+
+<section class:list={["title-block", size !== "page" && `title-block--${size}`]}>
+  {
+    back && (
+      <div class="flex">
+        <a href={back.href} class="navlink -ml-2.5">
+          ← {back.label}
+        </a>
+      </div>
+    )
+  }
+  {
+    Astro.slots.has("meta") ? (
+      <div class="mono meta">
+        <slot name="meta" />
+      </div>
+    ) : (
+      label && (
+        <p class="mono m-0">
+          <span class="label">{label}</span>
+        </p>
+      )
+    )
+  }
+  <h1><slot /></h1>
+  {
+    Astro.slots.has("tags") && (
+      <div class="tags -mt-2">
+        <slot name="tags" />
+      </div>
+    )
+  }
+  {standfirst && <p class="standfirst">{standfirst}</p>}
+  {lead && <p class="lead">{lead}</p>}
+  <slot name="after" />
+</section>

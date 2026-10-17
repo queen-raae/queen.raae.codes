@@ -1,0 +1,133 @@
+---
+// Square amber play button, a ruled progress bar and mono times.
+// `tape` makes it one thick bar: the play button is its first square, the times sit inside it.
+// Without `tape`, the default slot sits between the button and the bar, the "track" slot under the bar.
+interface Props {
+  src: string;
+  label: string;
+  duration?: string;
+  tape?: boolean;
+}
+
+const { src, label, duration = "--:--", tape = false } = Astro.props;
+const hasSlot = Astro.slots.has("default");
+---
+
+<div class:list={["log-player", tape ? "lp-tape" : "flex items-center gap-3.5 flex-wrap"]} data-src={src}>
+  <button
+    type="button"
+    class:list={[
+      "lp-play shrink-0 text-ink inline-flex items-center justify-center cursor-pointer p-0 bg-acid hover:bg-ink hover:text-cream",
+      !tape && "w-[52px] h-[52px] border-2 border-ink",
+    ]}
+    aria-label={`Play: ${label}`}
+    data-label={label}
+  >
+    <svg class="lp-icon-play" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"
+      ><path d="M5 3l12 7-12 7z" fill="currentColor"></path></svg
+    >
+    <svg class="lp-icon-pause hidden" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"
+      ><path d="M4 3h4v14H4zM12 3h4v14h-4z" fill="currentColor"></path></svg
+    >
+  </button>
+  {
+    tape ? (
+      <div
+        class="lp-bar"
+        role="slider"
+        tabindex="0"
+        aria-label="Seek"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-valuenow="0"
+      >
+        <div class="lp-fill" />
+        <span class="lp-current mono">00:00</span>
+        <span class="lp-duration mono">{duration}</span>
+      </div>
+    ) : (
+      <>
+        {hasSlot && (
+          <div class="lp-text flex-[1_1_200px] min-w-0">
+            <slot />
+          </div>
+        )}
+        <div
+          class:list={["flex flex-col gap-1.5 min-w-0", hasSlot ? "lp-track flex-[1.4_1_260px]" : "flex-[1_1_160px]"]}
+        >
+          <div
+            class="lp-bar h-2.5 border-2 border-ink bg-cream box-border relative cursor-pointer"
+            role="slider"
+            tabindex="0"
+            aria-label="Seek"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="0"
+          >
+            <div class="lp-fill absolute left-0 top-0 bottom-0 w-0 bg-ink" />
+          </div>
+          <div class="mono flex justify-between text-plum-500 text-xs!">
+            <span class="lp-current">00:00</span>
+            <span class="lp-duration">{duration}</span>
+          </div>
+          <slot name="track" />
+        </div>
+      </>
+    )
+  }
+</div>
+
+<script>
+  const pad = (n: number) => String(Math.floor(n)).padStart(2, "0");
+  const time = (s: number) => (isFinite(s) ? `${pad(s / 60)}:${pad(s % 60)}` : "--:--");
+
+  document.querySelectorAll<HTMLElement>(".log-player").forEach((player) => {
+    const audio = new Audio();
+    audio.preload = "none";
+    audio.src = player.dataset.src || "";
+
+    const button = player.querySelector<HTMLButtonElement>(".lp-play")!;
+    const bar = player.querySelector<HTMLElement>(".lp-bar")!;
+    const fill = player.querySelector<HTMLElement>(".lp-fill")!;
+    const current = player.querySelector<HTMLElement>(".lp-current")!;
+    const duration = player.querySelector<HTMLElement>(".lp-duration")!;
+    const label = button.dataset.label;
+
+    const render = () => {
+      const pct = audio.duration ? (audio.currentTime / audio.duration) * 100 : 0;
+      fill.style.width = `${pct}%`;
+      bar.setAttribute("aria-valuenow", String(Math.round(pct)));
+      current.textContent = time(audio.currentTime);
+      if (audio.duration) duration.textContent = time(audio.duration);
+    };
+
+    const setPlaying = (playing: boolean) => {
+      button.querySelector(".lp-icon-play")!.classList.toggle("hidden", playing);
+      button.querySelector(".lp-icon-pause")!.classList.toggle("hidden", !playing);
+      button.setAttribute("aria-label", `${playing ? "Pause" : "Play"}: ${label}`);
+    };
+
+    button.addEventListener("click", () => (audio.paused ? audio.play() : audio.pause()));
+    audio.addEventListener("play", () => setPlaying(true));
+    audio.addEventListener("pause", () => setPlaying(false));
+    audio.addEventListener("timeupdate", render);
+    audio.addEventListener("loadedmetadata", render);
+
+    const seek = (ratio: number) => {
+      if (!audio.duration) return;
+      audio.currentTime = Math.min(Math.max(ratio, 0), 1) * audio.duration;
+      render();
+    };
+
+    bar.addEventListener("click", (event) => {
+      const rect = bar.getBoundingClientRect();
+      seek((event.clientX - rect.left) / rect.width);
+    });
+
+    bar.addEventListener("keydown", (event) => {
+      if (!audio.duration) return;
+      if (event.key === "ArrowRight") seek((audio.currentTime + 15) / audio.duration);
+      if (event.key === "ArrowLeft") seek((audio.currentTime - 15) / audio.duration);
+    });
+  });
+</script>

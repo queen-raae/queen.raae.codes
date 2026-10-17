@@ -80,3 +80,61 @@
   from = "/modern/"
   to = "/speaker/2022-12-17-modern-frontends/"
   status = 301
+
+# Retired landing pages (Oct 2026 logbook redesign)
+[[redirects]]
+  from = "/gatsby-bootcamps/*"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/gatsby-code-review/"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/gatsby-emergency/"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/emergency/"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/done-for-you-demo/"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/dev-task-cheatsheet/"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/react-gotchas/"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/ruby/"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/bridgerton/"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/bridgerton-v2/"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/bridgerton-v3/"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/bridgerton-v4/"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/notices-v1/"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/audio-player-variants/"
+  to = "/"
+  status = 301

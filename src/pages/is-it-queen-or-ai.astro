@@ -1,60 +1,32 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import SiteHeader from '../components/SiteHeader.astro';
-import QueenAiQuiz from '../components/QueenAiQuiz.astro';
-import PageSectionHeader from '../components/PageSectionHeader.astro';
+import LogLayout from "../layouts/LogLayout.astro";
+import TitleBlock from "../components/log/TitleBlock.astro";
+import Divider from "../components/log/Divider.astro";
+import QueenAiQuiz from "../components/QueenAiQuiz.astro";
 
-const title = 'Is it Queen or AI? Quiz';
-const description = 'Test your ability to distinguish between authentic Queen Raae quotes from her podcasts and AI-generated quotes that sound like her.';
-const ogImage = '/og/is-it-queen-or-ai.png';
+const title = "Is it Queen or AI? Quiz";
+const description =
+  "Test your ability to distinguish between authentic Queen Raae quotes from her podcasts and AI-generated quotes that sound like her.";
+const ogImage = "/og/is-it-queen-or-ai.png";
 ---
 
-<BaseLayout title={title} description={description} image={ogImage} imageAlt="Is it Queen or AI? — Queen Raae vs Jean-Claw quiz">
-  <SiteHeader />
-  <PageSectionHeader 
-    title="Is it Queen or AI?" 
-    lead="Can you tell the difference between authentic Queen&nbsp;Raae quotes and AI&#8209;generated ones?"
-    hLevel={1}
-    class="text-center"
-    breadcrumbs={[
-      { href: '/', title: 'Home' },
-      { href: '/is-it-queen-or-ai', title: 'Queen vs AI Quiz' }
-    ]} 
-  />
-  
-  <section class="py-6 md:py-12 px-4">
-    <div class="container mx-auto">
-      <QueenAiQuiz />
-    </div>
+<LogLayout
+  title={title}
+  description={description}
+  image={ogImage}
+  imageAlt="Is it Queen or AI? — Queen Raae vs Jean-Claw quiz"
+>
+  <TitleBlock
+    label="Quiz game"
+    back={{ href: "/#treasures", label: "Treasures" }}
+    lead="Can you tell the difference between real Queen Raae quotes and AI‑generated ones?"
+  >
+    Is it Queen or <span class="acid">AI</span>?
+  </TitleBlock>
+
+  <Divider />
+
+  <section class="ruled gutter py-[clamp(24px,4vw,48px)]">
+    <QueenAiQuiz />
   </section>
-  
-  <!-- Meta Info Section -->
-  <section class="py-8 px-4 bg-brown-50">
-    <div class="container mx-auto max-w-4xl">
-      <div class="grid md:grid-cols-2 gap-8">
-        <div>
-          <h3 class="text-xl font-heading font-bold text-plum-900 mb-4">About the Quiz</h3>
-          <p class="text-plum-700 mb-4">
-            This interactive quiz tests your ability to distinguish between authentic quotes 
-            from Queen Raae's "Slow & Steady" podcast and AI-generated quotes that mimic her voice.
-          </p>
-          <p class="text-plum-700">
-            Real quotes are extracted from actual podcast transcripts, while AI quotes are 
-            generated to match Queen's perspective on topics like bootstrapping, family integration, 
-            and developer experience.
-          </p>
-        </div>
-        
-        <div>
-          <h3 class="text-xl font-heading font-bold text-plum-900 mb-4">Data Sources</h3>
-          <ul class="text-plum-700 space-y-2">
-            <li>• <strong>30 curated quotes</strong> from Slow & Steady podcast episodes</li>
-            <li>• <strong>30 AI-generated quotes</strong> crafted in Queen's authentic voice</li>
-            <li>• <strong>Thematic categories</strong> including AI, bootstrapping, family life</li>
-            <li>• <strong>Open source</strong> - check the code on GitHub!</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-</BaseLayout>
+</LogLayout>

@@ -1,0 +1,93 @@
+---
+// Newsletter N3: the full-width plum block. The one place the page "breaks character".
+// Phone: stacked. Medium: title and blurb left, form right. Large: title left, blurb and form right.
+interface Props {
+  formId?: string;
+  tags?: string[];
+  copy?: string;
+  cta?: string;
+}
+
+// ConvertKit form "QUEEN"
+const {
+  formId = "2454187",
+  tags = [],
+  copy = "New entries straight to your inbox. Not often, and no fuss if you leave.",
+  cta = "Aye, sign me up",
+} = Astro.props;
+const emailId = `email-${crypto.randomUUID().slice(0, 8)}`;
+---
+
+<section id="mail" class="nl on-plum ruled gutter py-[clamp(48px,6vw,80px)]">
+  <div class="nl-grid">
+    <h2 class="nl-title display m-0">
+      <slot name="title">The log,<br /><span class="acid">by email</span>.</slot>
+    </h2>
+    <p class="nl-blurb m-0">{copy}</p>
+    <form class="nl-form log-newsletter flex flex-col gap-3" data-form-id={formId} data-tags={JSON.stringify(tags)}>
+      <div class="flex gap-2.5 flex-wrap">
+        <label for={emailId} class="sr-only-log">Email address</label>
+        <input
+          id={emailId}
+          name="email"
+          type="email"
+          required
+          placeholder="you@somewhere.no"
+          class="field flex-[1_1_220px]"
+        />
+        <button type="submit" class="btn btn-fire border-acid!">{cta}</button>
+      </div>
+      <p class="mono m-0 min-h-5 text-acid" role="status" aria-live="polite" data-status></p>
+    </form>
+  </div>
+</section>
+
+<script>
+  const messages = {
+    pending: "Hold on…",
+    success: "Almost there. Check your inbox to confirm.",
+    error: "Something went wrong. Try again?",
+  };
+
+  document.querySelectorAll<HTMLFormElement>(".log-newsletter").forEach((form) => {
+    const status = form.querySelector<HTMLElement>("[data-status]");
+    const input = form.querySelector<HTMLInputElement>('input[name="email"]');
+    const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+    const tags = JSON.parse(form.dataset.tags || "[]");
+
+    const setStatus = (key: keyof typeof messages) => {
+      if (status) status.textContent = messages[key];
+    };
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (!input || !button) return;
+
+      button.disabled = true;
+      setStatus("pending");
+
+      try {
+        const response = await fetch(`https://api.convertkit.com/v3/forms/${form.dataset.formId}/subscribe`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            api_key: import.meta.env.PUBLIC_CK_API_KEY,
+            email: input.value,
+            tags,
+          }),
+        });
+
+        if (!response.ok) throw new Error("Subscription failed");
+
+        input.value = "";
+        setStatus("success");
+        if ((window as any).fathom) (window as any).fathom.trackGoal("LPC2JAXX", 0);
+      } catch (error) {
+        console.warn(error);
+        setStatus("error");
+      } finally {
+        button.disabled = false;
+      }
+    });
+  });
+</script>

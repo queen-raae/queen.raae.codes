@@ -1,21 +1,18 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import SiteHeader from "../../components/SiteHeader.astro";
-import PageSection from "../../components/PageSection.astro";
-import PageSectionHeader from "../../components/PageSectionHeader.astro";
-import Newsletter from "../../components/Newsletter.astro";
-
-const BADGE = "Ship's log";
-const TITLE = "Join the crew!";
-const DESCRIPTION = "Stay up to date on all things Queen Raae & Family as a Ship's Log subscriber.";
+import LogLayout from "../../layouts/LogLayout.astro";
+import TitleBlock from "../../components/log/TitleBlock.astro";
+import Divider from "../../components/log/Divider.astro";
 ---
 
-<BaseLayout title={`${BADGE} - ${TITLE}`} description={DESCRIPTION}>
-  <SiteHeader />
-  <main>
-    <PageSection component="header">
-      <PageSectionHeader badge={BADGE} title={TITLE} lead={DESCRIPTION} hLevel={1} />
-      <Newsletter class="mt-8" cta="Yes, please!" message="" tagline="" />
-    </PageSection>
-  </main>
-</BaseLayout>
+<LogLayout
+  title="The log, by email"
+  description="New entries from Queen Raae's logbook straight to your inbox. Not often, and no fuss if you leave."
+>
+  <TitleBlock
+    label="Subscribe"
+    lead="Sign up below and you’ll get a short note whenever something new lands in the log."
+  >
+    Get the log <span class="acid">by email</span>.
+  </TitleBlock>
+  <Divider />
+</LogLayout>

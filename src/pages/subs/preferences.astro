@@ -1,21 +1,12 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import SiteHeader from "../../components/SiteHeader.astro";
-import PageSection from "../../components/PageSection.astro";
-import PageSectionHeader from "../../components/PageSectionHeader.astro";
-import PageSectionBreadcrumbs from "../../components/PageSectionBreadcrumbs.astro";
-
-const BADGE = "Emails";
-const TITLE = "Preferences";
-const DESCRIPTION = "Your preferences have been saved 📩";
+import LogLayout from "../../layouts/LogLayout.astro";
+import TitleBlock from "../../components/log/TitleBlock.astro";
+import Divider from "../../components/log/Divider.astro";
 ---
 
-<BaseLayout title={`${BADGE} - ${TITLE}`} description={DESCRIPTION}>
-  <SiteHeader />
-  <main>
-    <PageSection component="header">
-      <PageSectionBreadcrumbs class="mt-4" items={[{ label: BADGE, to: "/subs/" }, { label: TITLE }]} />
-      <PageSectionHeader title={DESCRIPTION} hLevel={1} />
-    </PageSection>
-  </main>
-</BaseLayout>
+<LogLayout title="Preferences saved" description="Your preferences have been saved 📩" newsletter={false}>
+  <TitleBlock label="Email preferences" back={{ href: "/", label: "Home" }}>
+    Your preferences have been <span class="acid">saved</span>.
+  </TitleBlock>
+  <Divider />
+</LogLayout>

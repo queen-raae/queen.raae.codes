@@ -1,0 +1,56 @@
+---
+// Entries grouped by year. Wide screens: the year sits big in a panel-coloured left margin (L3).
+// Small screens: the numbered year bar on top.
+import SectionBar from "./SectionBar.astro";
+import ArchiveRow from "./ArchiveRow.astro";
+import { groupByYear, type ProcessedPost } from "../../lib/posts";
+
+interface Props {
+  posts: ProcessedPost[];
+  startAt?: number;
+  jumpTo?: string;
+}
+
+const { posts, startAt = 1, jumpTo } = Astro.props;
+const years = groupByYear(posts);
+const pad = (n: number) => String(n).padStart(2, "0");
+const count = (n: number) => `${n} ${n === 1 ? "entry" : "entries"}`;
+---
+
+{
+  years.map(({ year, posts }, index) => {
+    const guests = posts.filter((post) => post.author !== "Queen").length;
+    return (
+      <section id={`y${year}`} class="ruled year-section scroll-mt-4">
+        <div class="year-bar">
+          <SectionBar num={pad(startAt + index)} title={year} note={`· ${count(posts.length)}`}>
+            {jumpTo && (
+              <a class="navlink" href={jumpTo}>
+                ↑ Years
+              </a>
+            )}
+          </SectionBar>
+        </div>
+        <aside class="year-margin">
+          <div class="year-margin-inner">
+            <span class="display year-big" aria-hidden="true">
+              {year}
+            </span>
+            <span class="mono">{count(posts.length)}</span>
+            {guests > 0 && <span class="mono">{guests} by guests</span>}
+            {jumpTo && (
+              <a class="navlink -ml-2.5 self-start" href={jumpTo}>
+                ↑ Years
+              </a>
+            )}
+          </div>
+        </aside>
+        <div class="year-rows">
+          {posts.map((post) => (
+            <ArchiveRow post={post} />
+          ))}
+        </div>
+      </section>
+    );
+  })
+}

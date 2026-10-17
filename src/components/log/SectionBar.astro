@@ -1,0 +1,38 @@
+---
+interface Props {
+  num?: string;
+  title: string;
+  /** Shorter title for narrow phones, so the bar stays one row */
+  short?: string;
+  note?: string;
+  tag?: "h2" | "h3";
+}
+
+const { num, title, short, note, tag: Tag = "h2" } = Astro.props;
+---
+
+<div class="bar">
+  <div class="flex items-center gap-4 flex-wrap">
+    {num && <span class="mono bar-num">{num}</span>}
+    <Tag class="bar-title">
+      {
+        short ? (
+          <>
+            <span class="max-[560px]:hidden">{title}</span>
+            <span class="min-[561px]:hidden">{short}</span>
+          </>
+        ) : (
+          title
+        )
+      }
+    </Tag>
+    {note && <span class="mono">{note}</span>}
+  </div>
+  {
+    Astro.slots.has("default") && (
+      <div class="flex gap-2.5 items-center flex-wrap">
+        <slot />
+      </div>
+    )
+  }
+</div>

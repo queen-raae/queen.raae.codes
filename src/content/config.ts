@@ -1,4 +1,5 @@
 import { defineCollection, z } from "astro:content";
+import { ENTRY_TYPES } from "../lib/entry-types";
 
 // Slugify function for tag URLs
 function slugify(str: string): string {
@@ -45,6 +46,20 @@ const postSchema = z
     brands: z.string().optional(),
     peeps: z.string().optional(),
     projects: z.string().optional(),
+    // Logbook fields (all optional; see src/lib/posts.ts for defaults)
+    type: z.enum(ENTRY_TYPES).optional(), // Book, Link, Podcast, Life, Press; plain posts have none
+    standfirst: z.string().optional(), // Italic line under the headline
+    draft: z.boolean().optional(), // Hidden in production, shown on deploy previews
+    importedFrom: z.string().optional(), // e.g. "kindle", "mailchimp", "convertkit", "bgraphic.no"
+    source: z.string().optional(), // Alias for importedFrom, as named in the brief
+    lang: z.enum(["en", "no"]).optional(), // "no" shows a "På norsk" label
+    originalUrl: z.string().optional(), // Where an imported entry used to live
+    creator: z.string().optional(), // Book author, or the publication for a Link
+    url: z.string().optional(), // The thing a Link, Book, Podcast or Press entry points at
+    outlet: z.string().optional(), // Press: the publication or podcast, e.g. "kode24"
+    blurb: z.string().optional(), // Press: one line on how Queen is involved, shown under the row
+    reread: z.boolean().optional(),
+    lillylabs: z.boolean().optional(), // Show the "På norsk, for bedrifter" cross-link box
   })
   .transform((data) => ({
     title: data.title,
@@ -52,6 +67,18 @@ const postSchema = z
     audio: data.audio,
     tags: parseTags(data.tags, data.brands, data.peeps, data.projects),
     isRelatable: !data.title.includes("week around the Gatsby islands"),
+    type: data.type,
+    standfirst: data.standfirst,
+    draft: data.draft ?? false,
+    importedFrom: data.importedFrom ?? data.source,
+    lang: data.lang ?? "en",
+    originalUrl: data.originalUrl,
+    creator: data.creator,
+    url: data.url,
+    outlet: data.outlet,
+    blurb: data.blurb,
+    reread: data.reread ?? false,
+    lillylabs: data.lillylabs ?? false,
   }));
 
 // Posts collections (queen and olavea share the same schema)

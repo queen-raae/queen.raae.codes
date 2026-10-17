@@ -1,0 +1,33 @@
+---
+const path = Astro.url.pathname;
+
+const links = [
+  { label: "Log", href: "/posts/", match: (p: string) => p.startsWith("/posts/") || p.startsWith("/tag/") },
+  { label: "About", href: "/about/", match: (p: string) => p.startsWith("/about/") },
+];
+---
+
+<header class="ruled gutter flex items-center justify-between gap-x-6 gap-y-2 flex-wrap py-2.5">
+  <a href="/" class="inline-flex items-center gap-3 min-h-11 pr-2 leading-none no-underline! hover:bg-transparent!">
+    <span aria-hidden="true" class="relative -top-[3px] -left-[4px] text-[28px]">👑</span>
+    <span class="mono font-bold">
+      queen.raae.codes · <span class="max-[560px]:hidden">a developer’s </span><span class="label">logbook</span>
+    </span>
+  </a>
+  <nav aria-label="Main" class="flex items-center gap-x-1.5 gap-y-1 flex-wrap max-[560px]:w-full max-[560px]:-ml-2.5">
+    {
+      links.map((link) => (
+        <a class="navlink" href={link.href} aria-current={link.match(path) ? "page" : undefined}>
+          {link.label}
+        </a>
+      ))
+    }
+    <a
+      class="btn btn-fire btn--sm ml-2 max-[560px]:ml-auto"
+      href="/search/"
+      aria-current={path.startsWith("/search/") ? "page" : undefined}
+    >
+      Search
+    </a>
+  </nav>
+</header>

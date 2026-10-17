@@ -2,11 +2,10 @@
 @import "prismjs/themes/prism-solarizedlight.css" layer(base);
 
 @import "tailwindcss";
+@import "./styles/log.css";
 
 @plugin "@tailwindcss/forms";
-@plugin "@tailwindcss/typography";
 
-@config '../tailwind.config.js';
 
 @theme {
   --color-brown-50: #fbf6f5;
@@ -32,9 +31,20 @@
   --color-plum-800: #4a1638;
   --color-plum-900: #3d1230;
 
-  /* Font families — two-font system */
-  --font-heading: "Montserrat", system-ui, sans-serif;
-  --font-label: "Montserrat", system-ui, sans-serif;
+  /* Organic Brutalist (v9) tokens */
+  --color-cream: #fdf6ec;
+  --color-ink: #3d1230;
+  --color-acid: #fbbf24;
+  --color-deep: #5a1c43;
+  --color-panel: #f3d7c6;
+
+  /* Font families */
+  --font-display: "Archivo Black", Archivo, system-ui, sans-serif;
+  --font-button: Archivo, system-ui, sans-serif;
+  --font-mono: "Space Mono", ui-monospace, monospace;
+  --font-tag: "Montserrat", system-ui, sans-serif;
+  --font-heading: var(--font-display);
+  --font-label: var(--font-mono);
   --font-body: "Lora", Georgia, serif;
 }
 
@@ -76,95 +86,4 @@
 
 .mermaid svg {
   @apply max-w-full;
-}
-
-/* ── Ornamental HR ── */
-.ornamental-hr,
-.prose hr {
-  border: none;
-  text-align: center;
-  margin: 2.5rem 0;
-  color: var(--color-amber-500);
-  font-size: 1.25rem;
-  letter-spacing: 0.75rem;
-  overflow: visible;
-  height: auto;
-}
-
-.ornamental-hr::after,
-.prose hr::after {
-  content: "⚜  👑  ⚜";
-}
-
-/* ── Blockquote: Short Centered ── */
-.prose blockquote.quote--short {
-  border: none;
-  text-align: center;
-  margin: 2.5rem 0;
-  padding: 0 1rem;
-  position: relative;
-  background: none;
-}
-
-.prose blockquote.quote--short::before {
-  content: "⚜";
-  display: block;
-  font-size: 1rem;
-  color: var(--color-amber-500);
-  margin-bottom: 0.65rem;
-  font-style: normal;
-}
-
-.prose blockquote.quote--short p {
-  font-family: var(--font-body);
-  font-style: italic;
-  font-weight: 500;
-  font-size: 1.4rem;
-  line-height: 1.4;
-  color: var(--color-plum-800);
-  margin: 0;
-}
-
-.prose blockquote.quote--short cite {
-  text-align: center;
-}
-
-/* ── Blockquote: Long Left-aligned ── */
-.prose blockquote.quote--long {
-  border: none;
-  margin: 2rem 0;
-  padding-left: 2rem;
-  position: relative;
-  background: none;
-}
-
-.prose blockquote.quote--long::before {
-  content: "⚜";
-  position: absolute;
-  left: 0;
-  top: 0.15rem;
-  font-size: 1.1rem;
-  color: var(--color-amber-500);
-  font-style: normal;
-}
-
-.prose blockquote.quote--long p {
-  font-family: var(--font-body);
-  font-style: italic;
-  font-weight: 400;
-  font-size: 1.05rem;
-  line-height: 1.6;
-  color: var(--color-plum-800);
-  margin: 0;
-}
-
-.prose cite {
-  @apply block text-sm mt-2 not-italic;
-  @apply before:content-['—'] before:mr-2;
-  font-family: var(--font-heading);
-  font-size: 0.65rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--color-plum-400);
 }

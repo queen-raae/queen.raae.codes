@@ -3,7 +3,7 @@ import tsParser from "@typescript-eslint/parser";
 
 export default [
   {
-    ignores: ["dist/", "node_modules/", ".astro/", "content/"],
+    ignores: ["dist/", "node_modules/", ".astro/", "content/", "retired/"],
   },
   {
     languageOptions: {
