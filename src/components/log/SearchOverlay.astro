@@ -1,7 +1,7 @@
 ---
 // Search as an overlay over the current page, opened by any [data-search-open] button, `/` or Cmd/Ctrl+K.
 // Search needs JavaScript, so log.css hides those buttons when scripting is off.
-// /?q=term opens it on load; old /search/ links redirect there (netlify.toml).
+// The address carries ?q=<term> while it is open, so /?q=term opens it on load; old /search/ links redirect there.
 ---
 
 <dialog id="search-overlay" class="search-overlay" aria-labelledby="search-overlay-title">
@@ -62,6 +62,16 @@
 
   const resultLinks = () => Array.from(resultsContainer.querySelectorAll<HTMLAnchorElement>("a.row"));
 
+  // The address mirrors the overlay: ?q=<what's typed> while it's open, gone once it closes.
+  // replaceState, so typing doesn't add a back-button step per letter.
+  function syncAddress(open: boolean) {
+    const params = new URLSearchParams(location.search);
+    if (open) params.set("q", input.value.trim());
+    else params.delete("q");
+    const query = params.toString();
+    history.replaceState(history.state, "", location.pathname + (query ? `?${query}` : "") + location.hash);
+  }
+
   function open(from?: HTMLElement | null) {
     if (dialog.open) {
       input.focus();
@@ -70,6 +80,7 @@
     }
     opener = from ?? (document.activeElement as HTMLElement | null);
     dialog.showModal();
+    syncAddress(true);
     input.focus();
     input.select();
     // Load Fuse and the index now, so they're ready by the time the reader has typed a few letters.
@@ -129,6 +140,7 @@
   });
 
   input.addEventListener("input", () => {
+    syncAddress(true);
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(runSearch, 250);
   });
@@ -182,22 +194,17 @@
   });
 
   dialog.addEventListener("close", () => {
+    syncAddress(false);
     trackSearch();
     opener?.focus();
     opener = null;
   });
 
   // /?q=term (also where old /search/ links land) opens the overlay straight away with that term.
-  const params = new URLSearchParams(location.search);
-  if (params.has("q")) {
-    const term = params.get("q") || "";
-    params.delete("q");
-    const query = params.toString();
-    history.replaceState(history.state, "", location.pathname + (query ? `?${query}` : "") + location.hash);
+  const initialTerm = new URLSearchParams(location.search).get("q");
+  if (initialTerm !== null) {
+    input.value = initialTerm;
     open(document.querySelector<HTMLElement>("[data-search-open]"));
-    if (term) {
-      input.value = term;
-      runSearch();
-    }
+    if (initialTerm) runSearch();
   }
 </script>
