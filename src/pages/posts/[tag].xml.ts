@@ -2,7 +2,7 @@ import rss from "@astrojs/rss";
 import type { APIRoute, GetStaticPaths } from "astro";
 import { getAllTags } from "../../lib/posts";
 import { getDisclaimers } from "../../lib/disclaimers";
-import { postToFeedItem } from "../../lib/feed";
+import { latestForFeed, postToFeedItem } from "../../lib/feed";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const tagsMap = await getAllTags();
@@ -23,8 +23,8 @@ export const GET: APIRoute = async (context) => {
 
   return rss({
     title: `Posts tagged #${label}`,
-    description: `All posts tagged with ${label} on queen.raae.codes`,
+    description: `The latest posts tagged with ${label} on queen.raae.codes`,
     site: siteUrl.replace(/\/$/, "") + `/tag/${context.params.tag}`,
-    items: posts.map((post: any) => postToFeedItem(post, disclaimers, siteUrl)),
+    items: latestForFeed(posts).map((post: any) => postToFeedItem(post, disclaimers, siteUrl)),
   });
 };
