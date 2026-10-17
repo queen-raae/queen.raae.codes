@@ -42,7 +42,7 @@ const ACID = "#fbbf24";
 const PANEL = "#f3d7c6";
 
 // Bump when the card design changes so social caches pick up new images
-export const DESIGN_VERSION = "column-5";
+export const DESIGN_VERSION = "column-6";
 
 // ── Cached assets (loaded once per build) ─────────────────────────
 const fontsDir = path.resolve(process.cwd(), "node_modules/@fontsource");
@@ -217,7 +217,10 @@ async function renderCard(options: {
         options.title,
       ),
       options.description
-        ? el({ fontFamily: "Lora", fontSize: "23px", lineHeight: 1.4, marginTop: "18px" }, options.description)
+        ? el(
+            { fontFamily: "Lora", fontSize: "23px", lineHeight: 1.4, marginTop: "18px", textWrap: "balance" },
+            options.description,
+          )
         : null,
     ]),
     el(
