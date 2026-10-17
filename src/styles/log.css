@@ -532,7 +532,7 @@
   }
 
   .front-ttl span,
-  .front-item .front-item-ttl {
+  .front-item-ttl > span:first-child {
     padding: 0 0.08em;
     margin-left: -0.08em;
     box-decoration-break: clone;
@@ -540,7 +540,7 @@
   }
 
   .front-lead:hover .front-ttl span,
-  .front-item:hover .front-item-ttl {
+  .front-item:hover .front-item-ttl > span:first-child {
     background: var(--color-acid);
   }
 
@@ -558,7 +558,25 @@
     font-weight: 700;
   }
 
+  .log-body .front-lead:hover,
+  .log-body .front-item:hover {
+    background: transparent;
+    color: var(--color-ink);
+  }
+
   .front-lead:hover .arr {
+    transform: translateX(8px);
+  }
+
+  .front-item .arr {
+    opacity: 0;
+    transition:
+      opacity 0.15s,
+      transform 0.2s;
+  }
+
+  .front-item:hover .arr {
+    opacity: 1;
     transform: translateX(8px);
   }
 

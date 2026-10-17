@@ -44,8 +44,9 @@ const updated = new Date(nowUpdated).toLocaleDateString("en-GB", { day: "numeric
         Hello <span aria-hidden="true">👋</span>
       </h1>
       <p class="m-0 max-w-[44ch] text-[clamp(18px,1.6vw,21px)] leading-normal">
-        Developer in Oslo, running <a href="https://lillylabs.no">Lilly Labs</a> with Cap’n Ola and our pirate princess Lillian.
-        This is my logbook. What I’m building, reading and figuring out, kept in one place for the long haul.
+        I’m Benedicte (Queen) Raae. My co-captain Ola, our Pirate Princess and I run <a href="https://lillylabs.no"
+          >Lilly Labs</a
+        >, a small dev studio in the old family factory we also call home, in Rodeløkka, Oslo. This is my logbook!
       </p>
       <div class="flex gap-3 flex-wrap">
         <a class="btn btn-fire" href="#log">Read the log <span aria-hidden="true">→</span></a>
@@ -131,7 +132,12 @@ const updated = new Date(nowUpdated).toLocaleDateString("en-GB", { day: "numeric
               <time class="mono" datetime={post.date}>
                 {post.dateMedium}
               </time>
-              <span class="front-item-ttl">{post.title}</span>
+              <span class="front-item-ttl">
+                <span>{post.title}</span>
+                <span class="arr" aria-hidden="true">
+                  →
+                </span>
+              </span>
               {post.author !== "Queen" && <span class="mono">by {getAuthorInfo(post.author).name}</span>}
             </a>
           ))
