@@ -6,7 +6,8 @@ export const OG_PAGES = {
   home: {
     labels: ["Logbook"],
     title: siteMetadata.siteName,
-    description: siteMetadata.siteDescription,
+    // The intro minus its last sentence, so it fits the card without an ellipsis
+    description: siteMetadata.siteDescription.replace(/ Located in .*$/, ""),
   },
   posts: {
     labels: ["The archive"],
