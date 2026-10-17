@@ -171,9 +171,17 @@
       font-size: 14px;
       letter-spacing: 0.04em;
       white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
-    .bar:has(.bar-title) > div:last-child {
+    /* A long title gives way to the actions instead of pushing the page sideways */
+    .bar:has(.bar-title) > div:first-child {
+      min-width: 0;
+      flex-wrap: nowrap;
+    }
+
+    .bar:has(.bar-title) > div:last-child:not(:first-child) {
       flex-wrap: nowrap;
       flex-shrink: 0;
     }
@@ -836,6 +844,69 @@
     font-size: 12px;
   }
 
+  /* Newsletter (N3): sizes follow the block's own width, not the window */
+  .nl {
+    container-type: inline-size;
+  }
+
+  .nl-grid {
+    display: grid;
+    gap: 20px;
+  }
+
+  .nl-title {
+    font-size: clamp(40px, 7.4cqw, 92px);
+    line-height: 0.98;
+    letter-spacing: -0.03em;
+  }
+
+  .nl-blurb {
+    max-width: 36ch;
+    font-size: clamp(17px, 1.7cqw, 20px);
+    line-height: 1.5;
+  }
+
+  .nl-form {
+    width: 100%;
+    max-width: 560px;
+  }
+
+  @container (min-width: 700px) {
+    .nl-grid {
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas:
+        "title form"
+        "blurb form";
+      column-gap: clamp(28px, 4cqw, 56px);
+    }
+
+    .nl-title {
+      grid-area: title;
+    }
+
+    .nl-blurb {
+      grid-area: blurb;
+    }
+
+    .nl-form {
+      grid-area: form;
+      align-self: end;
+    }
+  }
+
+  @container (min-width: 1100px) {
+    .nl-grid {
+      grid-template-areas:
+        "title blurb"
+        "title form";
+      align-items: end;
+    }
+
+    .nl-title {
+      align-self: end;
+    }
+  }
+
   /* Podcast row: cover and description on the left, the latest episode on a tape on the right */
   .pod-row {
     display: flex;
@@ -845,10 +916,11 @@
     padding: clamp(20px, 3vw, 32px);
     background: var(--color-cream);
     border-bottom: 2px solid var(--color-ink);
+    container-type: inline-size;
   }
 
   .pod-show {
-    flex: 1 1 380px;
+    flex: 1 1 100%;
     min-width: 0;
     display: grid;
     grid-template-columns: clamp(112px, 11vw, 148px) minmax(0, 1fr);
@@ -875,7 +947,7 @@
   }
 
   .pod-ep {
-    flex: 1 1 340px;
+    flex: 1 1 100%;
     min-width: 0;
   }
 
@@ -906,8 +978,26 @@
     margin-top: 14px;
   }
 
+  /* Stacked, the links sit centred under the tape */
   .pod-ep .pod-links {
-    margin: 8px 0 0 -10px;
+    margin: 8px 0 0;
+    justify-content: center;
+  }
+
+  /* Side by side with the description, they line up with the tape's right edge */
+  @container (min-width: 760px) {
+    .pod-show {
+      flex-basis: 380px;
+    }
+
+    .pod-ep {
+      flex-basis: 340px;
+    }
+
+    .pod-ep .pod-links {
+      margin-right: -10px;
+      justify-content: flex-end;
+    }
   }
 
   .pod-ep .pod-links .navlink {
@@ -1216,8 +1306,21 @@
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
   }
 
+  /* Four archive cells: one, two or four across, never three */
   .cells--arc {
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 520px) {
+    .cells--arc {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .cells--arc {
+      grid-template-columns: repeat(4, 1fr);
+    }
   }
 
   .cell-box {

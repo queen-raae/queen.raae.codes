@@ -65,7 +65,7 @@ const ctaLabel = page.cta?.label?.replace(/^\p{Extended_Pictographic}\s*/u, "");
   </section>
 
   <section class="ruled flex flex-col">
-    <SectionBar num="01" title={page.archive?.title ?? "Talks"}>
+    <SectionBar num="01" title={page.archive?.title ?? "Talks"} short="Talks">
       {
         page.archive?.moreHref && (
           <a class="navlink" href={page.archive.moreHref} target="_blank" rel="noopener">

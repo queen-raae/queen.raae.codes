@@ -24,7 +24,7 @@ It might also know that "Ulsteinvik" is geography part of Norway and thus semant
 
 For a great rundown of how to get started and the article I used to kick start my journey, check out [Swizec](https://twitter.com/Swizec)'s [Build semantic search in an afternoon? Yep 🤯](https://swizec.com/blog/build-semantic-search-in-an-afternoon-yep/) even if it took me longer than an afternoon 😬
 
-The next step is to use what I have learned to explore [a similar accounts feature](/2023-03-25-similar-accounts) for Prune your Follows on this week's [unauthorized and rum-fueled treasure hunt](https://www.youtube.com/live/PmbSFeDzg0U).
+The next step is to use what I have learned to explore [a similar accounts feature](/2023-03-25-similar-accounts/) for Prune your Follows on this week's [unauthorized and rum-fueled treasure hunt](https://www.youtube.com/live/PmbSFeDzg0U).
 
 &nbsp;
 

@@ -35,7 +35,7 @@ const archives = groupByYear(allPosts.filter((post) => post.type !== "Press"))
 // Everything the dice can dig up
 const diggable = allPosts.map((post) => ({ y: post.year, t: post.title, s: post.slug, src: sourceOf(post) }));
 
-const updated = new Date(nowUpdated).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+const updated = new Date(nowUpdated).toLocaleDateString("en-GB", { month: "short", year: "numeric" });
 ---
 
 <LogLayout feeds={[{ title: "Queen Raae's log", href: "/posts/queen.xml" }]}>

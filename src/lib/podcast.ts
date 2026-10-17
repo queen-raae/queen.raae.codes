@@ -80,6 +80,7 @@ async function load(): Promise<PodcastInfo> {
   const item = /<item[\s>][\s\S]*?<\/item>/.exec(xml)?.[0];
   if (!item) return info;
 
+  const episode = tag(item, "itunes:episode")?.match(/^\d+$/)?.[0];
   const pubDate = tag(item, "pubDate");
   const date = pubDate ? new Date(pubDate) : undefined;
 
@@ -89,7 +90,8 @@ async function load(): Promise<PodcastInfo> {
       date && !isNaN(date.valueOf())
         ? date.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" })
         : "",
-    link: tag(item, "link"),
+    // Show notes on the podcast's own site (slowandsteadypodcast.com/250), not the Transistor share page
+    link: episode ? new URL(episode, PODCAST_SITE).toString() : tag(item, "link"),
     audio: attr(item, "enclosure", "url"),
     duration: formatDuration(tag(item, "itunes:duration")),
     cover: attr(item, "itunes:image", "href") ?? attr(xml, "itunes:image", "href"),
