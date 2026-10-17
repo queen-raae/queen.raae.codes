@@ -26,10 +26,10 @@ const sourceOf = (post: (typeof allPosts)[number]) => {
   return undefined;
 };
 
-// From the archives: the first entry of each of the four earliest years
+// From the archives: the first entry of each of the four earliest years, press left out
 const years = groupByYear(allPosts);
 const firstYear = years[years.length - 1]?.year;
-const archives = years
+const archives = groupByYear(allPosts.filter((post) => post.type !== "Press"))
   .slice(-4)
   .reverse()
   .map(({ posts }) => posts[posts.length - 1]);
