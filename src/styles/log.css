@@ -737,10 +737,11 @@
     padding: clamp(20px, 3vw, 32px);
     background: var(--color-cream);
     border-bottom: 2px solid var(--color-ink);
+    container-type: inline-size;
   }
 
   .pod-show {
-    flex: 1 1 380px;
+    flex: 1 1 100%;
     min-width: 0;
     display: grid;
     grid-template-columns: clamp(112px, 11vw, 148px) minmax(0, 1fr);
@@ -767,7 +768,7 @@
   }
 
   .pod-ep {
-    flex: 1 1 340px;
+    flex: 1 1 100%;
     min-width: 0;
   }
 
@@ -798,8 +799,26 @@
     margin-top: 14px;
   }
 
+  /* Stacked, the links sit centred under the tape */
   .pod-ep .pod-links {
-    margin: 8px 0 0 -10px;
+    margin: 8px 0 0;
+    justify-content: center;
+  }
+
+  /* Side by side with the description, they line up with the tape's right edge */
+  @container (min-width: 760px) {
+    .pod-show {
+      flex-basis: 380px;
+    }
+
+    .pod-ep {
+      flex-basis: 340px;
+    }
+
+    .pod-ep .pod-links {
+      margin-right: -10px;
+      justify-content: flex-end;
+    }
   }
 
   .pod-ep .pod-links .navlink {
