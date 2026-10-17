@@ -23,11 +23,6 @@ export const OG_PAGES = {
     title: "About",
     description: "Queen Raae is Benedicte Raae, a developer in Oslo and co-captain of Lilly Labs.",
   },
-  search: {
-    labels: ["Search"],
-    title: "Search the log",
-    description: "Search every entry in Queen Raae's logbook.",
-  },
 } satisfies Record<string, { labels: string[]; title: string; description: string }>;
 
 export type OgPage = keyof typeof OG_PAGES;

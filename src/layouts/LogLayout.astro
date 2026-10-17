@@ -3,6 +3,7 @@ import BaseLayout from "./BaseLayout.astro";
 import LogHeader from "../components/log/LogHeader.astro";
 import LogFooter from "../components/log/LogFooter.astro";
 import NewsletterBlock from "../components/log/NewsletterBlock.astro";
+import SearchOverlay from "../components/log/SearchOverlay.astro";
 
 interface Props {
   title?: string;
@@ -31,4 +32,5 @@ const { newsletter = true, ...baseProps } = Astro.props;
       <LogFooter />
     </div>
   </div>
+  <SearchOverlay />
 </BaseLayout>

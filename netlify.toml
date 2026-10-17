@@ -138,3 +138,9 @@
   from = "/audio-player-variants/"
   to = "/"
   status = 301
+
+# The search page became an overlay; /?q= opens it
+[[redirects]]
+  from = "/search/*"
+  to = "/?q="
+  status = 301
