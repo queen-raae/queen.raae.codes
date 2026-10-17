@@ -241,6 +241,16 @@
     color: var(--color-cream);
   }
 
+  .log-body .btn-outline {
+    background: transparent;
+    color: var(--color-ink);
+  }
+
+  .log-body .btn-outline:hover {
+    background: var(--color-ink);
+    color: var(--color-cream);
+  }
+
   .log-body .btn-cream {
     background: transparent;
     color: var(--color-cream);
