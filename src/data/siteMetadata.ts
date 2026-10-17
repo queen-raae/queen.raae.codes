@@ -13,7 +13,7 @@ interface SiteMetadata {
 const siteMetadata: SiteMetadata = {
   siteUrl: "https://queen.raae.codes",
   siteName: "Queen Raae",
-  siteTagline: "A developer's logbook, kept in Oslo",
+  siteTagline: "A developer's logbook",
   siteDescription:
     "I’m Benedicte (Queen) Raae. My co-captain Ola, our Pirate Princess and I run Lilly Labs, a small dev studio in the old family factory we also call home. Located in cosy Rodeløkka, Oslo, Norway.",
   siteLang: "en",
