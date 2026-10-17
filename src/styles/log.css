@@ -171,9 +171,17 @@
       font-size: 14px;
       letter-spacing: 0.04em;
       white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
-    .bar:has(.bar-title) > div:last-child {
+    /* A long title gives way to the actions instead of pushing the page sideways */
+    .bar:has(.bar-title) > div:first-child {
+      min-width: 0;
+      flex-wrap: nowrap;
+    }
+
+    .bar:has(.bar-title) > div:last-child:not(:first-child) {
       flex-wrap: nowrap;
       flex-shrink: 0;
     }

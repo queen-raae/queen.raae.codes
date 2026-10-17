@@ -18,8 +18,8 @@ const { num, title, short, note, tag: Tag = "h2" } = Astro.props;
       {
         short ? (
           <>
-            <span class="max-[400px]:hidden">{title}</span>
-            <span class="min-[401px]:hidden">{short}</span>
+            <span class="max-[560px]:hidden">{title}</span>
+            <span class="min-[561px]:hidden">{short}</span>
           </>
         ) : (
           title
