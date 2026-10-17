@@ -1075,7 +1075,7 @@
   /* ── Archive rows (compact) ── */
   .log-body .arow {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 10px 20px;
     flex-wrap: wrap;
     padding: 14px clamp(16px, 3vw, 32px);
@@ -1093,14 +1093,20 @@
     color: var(--color-ink);
   }
 
+  /* Date with the type label stacked under it */
+  .arow .dk {
+    flex: 0 0 88px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
   .arow .d {
-    flex: 0 0 72px;
     color: var(--color-plum-500);
   }
 
   .arow .k {
-    flex: 0 0 88px;
-    text-align: center;
     padding: 4px 6px;
   }
 
@@ -1117,22 +1123,6 @@
 
   .arow .by {
     color: var(--color-plum-500);
-  }
-
-  /* Press blurb: its own line, lined up under the title */
-  .arow .b {
-    flex: 1 0 100%;
-    padding-left: 200px;
-    box-sizing: border-box;
-    font-size: 16px;
-    line-height: 1.45;
-    color: var(--color-deep);
-  }
-
-  @media (max-width: 640px) {
-    .arow .b {
-      padding-left: 0;
-    }
   }
 
   /* ── Density strip ── */
