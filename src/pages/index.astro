@@ -12,6 +12,7 @@ import { now, nowUpdated } from "../data/now";
 import { treasures } from "../data/treasures";
 import { photos } from "../data/wall";
 import heroPhoto from "../assets/log/queen-wall.jpg";
+import twitterAvatar from "../assets/log/avatar-early.jpg";
 
 const allPosts = await getAllPosts();
 const [newest, ...earlier] = allPosts.slice(0, 5);
@@ -65,6 +66,16 @@ const updated = new Date(nowUpdated).toLocaleDateString("en-GB", { month: "short
         sizes="(min-width: 1200px) 600px, (min-width: 820px) 50vw, 100vw"
         loading="eager"
       />
+      <!-- My old Twitter avatar as a sticker on the photo; hover or tap makes it bigger -->
+      <button type="button" class="hero-avatar sticker" aria-pressed="false">
+        <Image
+          src={twitterAvatar}
+          alt="My Twitter avatar, a black and white photo of me smiling"
+          width={320}
+          densities={[1]}
+        />
+        <span>This avatar might be more familiar to you</span>
+      </button>
     </div>
   </section>
 
@@ -373,6 +384,14 @@ const updated = new Date(nowUpdated).toLocaleDateString("en-GB", { month: "short
     set:html={JSON.stringify(diggable).replace(/</g, "\\u003c")}
   />
 </LogLayout>
+
+<script>
+  // The Twitter avatar on the hero photo: tap to make it bigger, tap again to shrink
+  const heroAvatar = document.querySelector<HTMLButtonElement>(".hero-avatar");
+  heroAvatar?.addEventListener("click", () => {
+    heroAvatar.setAttribute("aria-pressed", String(heroAvatar.getAttribute("aria-pressed") !== "true"));
+  });
+</script>
 
 <script>
   // The dice: only the year animates while digging.
