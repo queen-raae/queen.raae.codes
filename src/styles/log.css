@@ -727,7 +727,7 @@
     object-position: 78% 45%;
   }
 
-  /* My old Twitter avatar, a straight sticker in the photo's bottom left corner; bigger on hover or when pressed */
+  /* My old Twitter avatar, a straight sticker in the photo's bottom left corner; only the image grows, on hover or when pressed */
   .hero-split .hero-avatar {
     position: absolute;
     left: clamp(16px, 3vw, 32px);
@@ -736,7 +736,8 @@
     align-items: center;
     gap: 12px;
     max-width: calc(100% - 2 * clamp(16px, 3vw, 32px));
-    padding: 6px 14px 6px 6px;
+    min-height: 60px;
+    padding: 6px 14px 6px 62px;
     transform: none;
     font: inherit;
     font-weight: 700;
@@ -746,9 +747,10 @@
     cursor: pointer;
   }
 
+  /* The image is pinned to the sticker's bottom left corner, so growing it leaves the sticker as it is */
   .hero-split .hero-avatar img {
-    position: static;
-    flex: none;
+    inset: auto auto 6px 6px;
+    z-index: 1;
     width: 44px;
     height: 44px;
     object-fit: cover;
