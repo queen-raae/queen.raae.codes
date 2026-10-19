@@ -42,7 +42,7 @@ const ACID = "#fbbf24";
 const PANEL = "#f3d7c6";
 
 // Bump when the card design changes so social caches pick up new images
-export const DESIGN_VERSION = "column-6";
+export const DESIGN_VERSION = "column-7";
 
 // ── Cached assets (loaded once per build) ─────────────────────────
 const fontsDir = path.resolve(process.cwd(), "node_modules/@fontsource");
@@ -191,6 +191,7 @@ async function renderCard(options: {
   description: string;
   author: string;
   tallPhoto?: boolean; // photo fills the column even for guests (author pages)
+  plainLabels?: boolean; // no yellow first label, e.g. a Link entry's card shows just its date
 }): Promise<Buffer> {
   const config = AUTHOR_CONFIG[options.author] || AUTHOR_CONFIG.Queen;
   const wall = OUTER_FRAME === "photo" ? await getPhotoDataUri(WALL_PHOTO) : null;
@@ -203,7 +204,7 @@ async function renderCard(options: {
   const page = el({ flex: 1, flexDirection: "column", padding: "40px 48px 36px 56px" }, [
     el(
       { gap: "12px" },
-      options.labels.map((text, i) => label(text, i === 0 ? ACID : PANEL)),
+      options.labels.map((text, i) => label(text, i === 0 && !options.plainLabels ? ACID : PANEL)),
     ),
     el({ flex: 1, flexDirection: "column", justifyContent: "center" }, [
       el(
@@ -317,7 +318,8 @@ export async function generateOgImage(options: {
   date?: string;
 }): Promise<Buffer> {
   return renderCard({
-    labels: [options.type || "Log", options.date].filter(Boolean) as string[],
+    labels: [options.type, options.date].filter(Boolean) as string[],
+    plainLabels: !options.type,
     title: truncateText(options.title, 120),
     description: truncateText(options.description, 180),
     author: options.author,

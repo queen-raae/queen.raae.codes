@@ -13,7 +13,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
         title: post.title,
         description: post.description,
         author: post.author,
-        type: post.typeLabel,
+        type: post.type ? post.typeLabel : "Log", // Link entries: just the date, "Notes on:" says the rest
         date: post.dateMedium,
       },
     };
