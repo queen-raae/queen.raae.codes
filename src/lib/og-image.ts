@@ -42,7 +42,7 @@ const ACID = "#fbbf24";
 const PANEL = "#f3d7c6";
 
 // Bump when the card design changes so social caches pick up new images
-export const DESIGN_VERSION = "column-8";
+export const DESIGN_VERSION = "column-9";
 
 // ── Cached assets (loaded once per build) ─────────────────────────
 const fontsDir = path.resolve(process.cwd(), "node_modules/@fontsource");
@@ -181,7 +181,7 @@ function titleChildren(title: string, prefix?: string): any {
   const lead = prefix ? `${prefix}:` : "";
   if (!lead || !title.startsWith(`${lead} `)) return title;
   return el({ flexWrap: "wrap", columnGap: "0.25em" }, [
-    el({ background: PANEL, padding: "0 10px", margin: "0 -10px" }, lead),
+    el({ background: ACID, padding: "0 10px", margin: "0 -10px" }, lead),
     ...title
       .slice(lead.length + 1)
       .split(" ")
@@ -206,7 +206,7 @@ async function renderCard(options: {
   author: string;
   tallPhoto?: boolean; // photo fills the column even for guests (author pages)
   plainLabels?: boolean; // no yellow first label, e.g. a Link entry's card shows just its date
-  titlePrefix?: string; // "Notes on" gets the pale rust highlight it has on the site
+  titlePrefix?: string; // "Notes on" gets a yellow highlight (the date label is already pale rust)
 }): Promise<Buffer> {
   const config = AUTHOR_CONFIG[options.author] || AUTHOR_CONFIG.Queen;
   const wall = OUTER_FRAME === "photo" ? await getPhotoDataUri(WALL_PHOTO) : null;
