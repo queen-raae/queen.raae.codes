@@ -1241,11 +1241,16 @@
 
   /* "Notes on:" in front of a Link entry's title */
   .title-prefix {
-    background: var(--color-acid);
+    background: var(--color-panel);
     color: var(--color-ink);
     padding: 0 0.12em;
     box-decoration-break: clone;
     -webkit-box-decoration-break: clone;
+  }
+
+  /* The entry header is pale rust itself, so the prefix sits on cream there */
+  .title-block .title-prefix {
+    background: var(--color-cream);
   }
 
   /* Selected state: a yellow label inside a hovered link flips to plum, so it never sits yellow on yellow */
