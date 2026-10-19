@@ -24,7 +24,9 @@ function parsePostPath(id: string): { date: string; slug: string } {
 export interface ProcessedPost {
   id: string;
   slug: string;
-  title: string;
+  title: string; // Full title, "Notes on: …" for Link entries; used for meta, social cards, feeds and search
+  titlePrefix?: string; // Shown highlighted before titleText on the site
+  titleText: string; // The title as written in frontmatter, plus " (YouTube)" when the url is a YouTube video
   emojii: string;
   description: string;
   audio?: string;
@@ -38,6 +40,7 @@ export interface ProcessedPost {
   render: () => Promise<{ Content: any }>;
   // Logbook
   type?: EntryType;
+  typeLabel?: EntryType; // The type as shown in labels; Link entries have none, "Notes on:" says it
   standfirst?: string;
   draft: boolean;
   year: string;
@@ -67,8 +70,13 @@ export async function getAllPosts(): Promise<ProcessedPost[]> {
     const { date, slug } = parsePostPath(entry.id);
     const tags = entry.data.tags;
 
-    const title = entry.data.title || "";
-    const isRelatable = !title.includes("week around the Gatsby islands");
+    const rawTitle = entry.data.title || "";
+    const isRelatable = !rawTitle.includes("week around the Gatsby islands");
+    const isYouTube = /^https?:\/\/(www\.)?(youtube\.com|youtu\.be)\//.test(entry.data.url || "");
+    const titleText = isYouTube ? `${rawTitle} (YouTube)` : rawTitle;
+    // Link entries are notes on someone else's thing; the prefix rides along everywhere the title goes
+    const titlePrefix = entry.data.type === "Link" ? "Notes on" : undefined;
+    const title = titlePrefix ? `${titlePrefix}: ${titleText}` : titleText;
 
     // Generate description from body content (excerpt), matching Gatsby's behavior
     const body = entry.body || "";
@@ -122,6 +130,8 @@ export async function getAllPosts(): Promise<ProcessedPost[]> {
       id: entry.id,
       slug,
       title,
+      titlePrefix,
+      titleText,
       emojii: entry.data.emojii || "",
       description,
       audio: entry.data.audio,
@@ -134,6 +144,7 @@ export async function getAllPosts(): Promise<ProcessedPost[]> {
       content: entry.body || "",
       render: entry.render.bind(entry),
       type,
+      typeLabel: type === "Link" ? undefined : type,
       standfirst: entry.data.standfirst,
       draft: entry.data.draft,
       year: date.slice(0, 4),

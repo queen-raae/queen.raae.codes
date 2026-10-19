@@ -1,0 +1,34 @@
+---
+title: "The Only SaaS Moats Left in 2026"
+type: Link
+creator: Rob Walling
+url: https://www.youtube.com/watch?v=KpILHX2D-AA
+tags: SaaS, AI
+peeps: robwalling
+brands: MicroConf
+---
+
+I found this to be a level-headed take on the whole "SaaS is dead" debacle that has been floating through our community, and the world in general.
+
+<div class="float-group">
+
+![Oprah pointing at the audience, you get a car, above Rob Walling’s slide "Everyone gets AI"](./framed-everyone-gets-ai.gif)
+
+I LOL'ed hard at one of the first slides stating "Everyone gets AI" as it reminded me of this meme from the olden days of the internet: "You get a car, and you get a car."
+
+The moats summarized as questions for the founder:
+
+- Who's built their business, or their career, around recommending you?
+- Do you hold the definitive record of the work, or just a view of it?
+- Do you take the action, or just recommend it?
+- Do customers trust your output enough that they don't check it?
+- What approval do you hold that a newcomer has to wait for?
+- Who has to agree to replace you: a person, a team, or a whole community?
+- Does one customer's experience make your product smarter for the next one?
+- What do you maintain that you resent maintaining?
+
+</div>
+
+![Rob Walling’s slide "Answer these honestly" with eight questions, ending with "What do you maintain that you resent maintaining?"](./answer-these-honestly.png)
+
+But I do recommend watching the full talk for the structured approach to what "AI will come for your SaaS" actually means, **[laid out as 10 attacks](https://www.youtube.com/watch?v=KpILHX2D-AA)**.

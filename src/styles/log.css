@@ -1246,8 +1246,23 @@
     -webkit-box-decoration-break: clone;
   }
 
+  /* "Notes on:" in front of a Link entry's title */
+  .title-prefix {
+    background: var(--color-panel);
+    color: var(--color-ink);
+    padding: 0 0.12em;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+
+  /* The entry header is pale rust itself, so the prefix sits on cream there */
+  .title-block .title-prefix {
+    background: var(--color-cream);
+  }
+
   /* Selected state: a yellow label inside a hovered link flips to plum, so it never sits yellow on yellow */
-  .log-body a:hover .label {
+  .log-body a:hover .label,
+  .log-body a:hover .title-prefix {
     background: var(--color-ink);
     color: var(--color-cream);
   }
@@ -2028,6 +2043,67 @@
   .log-prose iframe {
     width: 100%;
     aspect-ratio: 16 / 9;
+  }
+
+  /* A "framed-" image is a 1080 square social graphic: its 984×912 stage sits on a cream
+     frame with the vanity link. The page shows only the stage; saving the image gets it all. */
+  .log-prose p:has(> img[src*="/framed-"]) {
+    overflow: hidden;
+    aspect-ratio: 984 / 912;
+  }
+
+  .log-prose img[src*="/framed-"] {
+    display: block;
+    max-width: none;
+    width: calc(100% * 1080 / 984);
+    margin: calc(-100% * 84 / 984) 0 0 calc(-100% * 48 / 984);
+    border: 0;
+  }
+
+  /* A float group floats its first child (an image) right on wide screens, beside the
+     text after it. Narrow screens stack it after the first paragraph, as it reads. */
+  .log-prose .float-group {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .log-prose .float-group > * {
+    order: 2;
+    margin: 0;
+  }
+
+  .log-prose .float-group > :first-child {
+    order: 1;
+  }
+
+  .log-prose .float-group > :first-child + * {
+    order: 0;
+  }
+
+  @media (min-width: 900px) {
+    .log-prose .float-group {
+      display: flow-root;
+    }
+
+    .log-prose .float-group > :first-child {
+      float: right;
+      width: 45%;
+      margin: 6px 0 16px 32px;
+    }
+
+    .log-prose .float-group > :not(:first-child) + * {
+      margin-top: 24px;
+    }
+
+    /* A flex list keeps clear of the float as a column; a block list wraps under it */
+    .log-prose .float-group :is(ul, ol) {
+      display: block;
+    }
+
+    .log-prose .float-group li + li {
+      margin-top: 12px;
+    }
   }
 
   .log-prose figure {

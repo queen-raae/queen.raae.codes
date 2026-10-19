@@ -1,11 +1,15 @@
 ---
 // A title followed by the sliding → arrow. The word joiner (&#8288;) glues them, so the arrow
 // always wraps together with the last word instead of dangling on a line of its own.
+import EntryTitle from "./EntryTitle.astro";
+import type { ProcessedPost } from "../../lib/posts";
+
 interface Props {
-  title: string;
+  title?: string;
+  post?: Pick<ProcessedPost, "titlePrefix" | "titleText">;
 }
 
-const { title } = Astro.props;
+const { title, post } = Astro.props;
 ---
 
-{title}&#8288;<span class="arr" aria-hidden="true">→</span>
+{post ? <EntryTitle post={post} /> : title}&#8288;<span class="arr" aria-hidden="true">→</span>
