@@ -12,7 +12,7 @@ I found this to be a level-headed take on the whole "SaaS is dead" debacle that 
 
 I LOL'ed hard at one of the first slides stating "Everyone gets AI" as it reminded me of this meme from the olden days of the internet: "You get a car, and you get a car."
 
-![Oprah pointing at the audience: you get a car, and you get a car](./oprah-you-get-a-car.gif)
+![Oprah pointing at the audience, you get a car, above Rob Walling's slide "Everyone gets AI"](./everyone-gets-ai.gif)
 
 The moats summarized as questions for the founder:
 
