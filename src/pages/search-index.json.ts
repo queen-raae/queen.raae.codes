@@ -9,7 +9,7 @@ export const GET: APIRoute = async () => {
     description: post.description,
     slug: post.slug,
     date: post.dateMedium,
-    type: post.type,
+    type: post.typeLabel,
     tags: post.tags,
   }));
 

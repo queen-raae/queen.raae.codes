@@ -40,6 +40,7 @@ export interface ProcessedPost {
   render: () => Promise<{ Content: any }>;
   // Logbook
   type?: EntryType;
+  typeLabel?: EntryType; // The type as shown in labels; Link entries have none, "Notes on:" says it
   standfirst?: string;
   draft: boolean;
   year: string;
@@ -143,6 +144,7 @@ export async function getAllPosts(): Promise<ProcessedPost[]> {
       content: entry.body || "",
       render: entry.render.bind(entry),
       type,
+      typeLabel: type === "Link" ? undefined : type,
       standfirst: entry.data.standfirst,
       draft: entry.data.draft,
       year: date.slice(0, 4),
