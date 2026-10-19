@@ -2027,6 +2027,21 @@
     aspect-ratio: 16 / 9;
   }
 
+  /* A "framed-" image is a 1080 square social graphic: its 984×912 stage sits on a cream
+     frame with the vanity link. The page shows only the stage; saving the image gets it all. */
+  .log-prose p:has(> img[src*="/framed-"]) {
+    overflow: hidden;
+    aspect-ratio: 984 / 912;
+  }
+
+  .log-prose img[src*="/framed-"] {
+    display: block;
+    max-width: none;
+    width: calc(100% * 1080 / 984);
+    margin: calc(-100% * 84 / 984) 0 0 calc(-100% * 48 / 984);
+    border: 0;
+  }
+
   .log-prose figure {
     display: flex;
     flex-direction: column;
