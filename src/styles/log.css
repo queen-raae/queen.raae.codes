@@ -1030,11 +1030,22 @@
 
     .nl-blurb {
       grid-area: blurb;
+      align-self: center;
+      font-size: 16px;
     }
 
     .nl-form {
       grid-area: form;
+      align-self: center;
       max-width: none;
+      position: relative;
+    }
+
+    /* Status line hangs below, so the field and button centre on the blurb */
+    .nl-form [data-status] {
+      position: absolute;
+      top: 100%;
+      margin-top: 12px;
     }
   }
 
