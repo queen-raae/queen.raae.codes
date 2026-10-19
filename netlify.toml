@@ -81,6 +81,12 @@
   to = "/speaker/2022-12-17-modern-frontends/"
   status = 301
 
+# Vanity links (social posts)
+[[redirects]]
+  from = "/rob-ai/"
+  to = "/2026-10-19-notes-on-the-only-saas-moats-left-in-2026/"
+  status = 301
+
 # Retired landing pages (Oct 2026 logbook redesign)
 [[redirects]]
   from = "/gatsby-bootcamps/*"
