@@ -36,6 +36,13 @@ const { label, back, lead, standfirst, size = "page" } = Astro.props;
   }
   <h1><slot /></h1>
   {
+    Astro.slots.has("action") && (
+      <div class="flex">
+        <slot name="action" />
+      </div>
+    )
+  }
+  {
     Astro.slots.has("tags") && (
       <div class="tags -mt-2">
         <slot name="tags" />

@@ -1,4 +1,5 @@
 ---
+import EntryTitle from "../components/log/EntryTitle.astro";
 import { Image } from "astro:assets";
 import LogLayout from "../layouts/LogLayout.astro";
 import { getOgPageImage } from "../data/og-pages";
@@ -132,7 +133,7 @@ const updated = new Date(nowUpdated).toLocaleDateString("en-GB", { month: "short
             <span class="label">Newest</span>
             <time class="font-bold text-plum-500" datetime={newest.date}>{newest.dateMedium}</time>
           </div>
-          <h3 class="front-ttl"><span>{newest.title}</span></h3>
+          <h3 class="front-ttl"><span><EntryTitle post={newest} /></span></h3>
           {newestBy && <p class="mono m-0 mt-3 text-plum-500">by {newestBy}</p>}
           <p class="front-deck">{newest.standfirst || newest.description}</p>
         </div>
@@ -147,7 +148,9 @@ const updated = new Date(nowUpdated).toLocaleDateString("en-GB", { month: "short
                 {post.dateMedium}
               </time>
               <span class="front-item-ttl">
-                <span>{post.title}</span>
+                <span>
+                  <EntryTitle post={post} />
+                </span>
               </span>
               {post.author !== "Queen" && <span class="mono">by {getAuthorInfo(post.author).name}</span>}
             </a>

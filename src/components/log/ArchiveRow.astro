@@ -1,6 +1,7 @@
 ---
 // A compact archive row: date with the type under it · title. Press rows add the outlet.
 import TypeLabel from "./TypeLabel.astro";
+import EntryTitle from "./EntryTitle.astro";
 import { getAuthorInfo, type ProcessedPost } from "../../lib/posts";
 
 interface Props {
@@ -16,7 +17,7 @@ const byline = post.author === "Queen" ? undefined : getAuthorInfo(post.author).
     <time class="mono d" datetime={post.date}>{post.dateShort}</time>
     <TypeLabel type={post.type} class="k" />
   </span>
-  <span class="t"><span>{post.title}</span></span>
+  <span class="t"><span><EntryTitle post={post} /></span></span>
   {byline && <span class="mono by">by {byline}</span>}
   {post.type === "Press" && post.outlet && <span class="mono by">{post.outlet}</span>}
 </a>

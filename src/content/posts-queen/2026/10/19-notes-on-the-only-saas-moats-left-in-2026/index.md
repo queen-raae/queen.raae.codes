@@ -1,5 +1,5 @@
 ---
-title: "Notes on: The Only SaaS Moats Left in 2026"
+title: "The Only SaaS Moats Left in 2026"
 type: Link
 creator: Rob Walling
 url: https://www.youtube.com/watch?v=KpILHX2D-AA

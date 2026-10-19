@@ -1239,8 +1239,18 @@
     -webkit-box-decoration-break: clone;
   }
 
+  /* "Notes on:" in front of a Link entry's title */
+  .title-prefix {
+    background: var(--color-acid);
+    color: var(--color-ink);
+    padding: 0 0.12em;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+
   /* Selected state: a yellow label inside a hovered link flips to plum, so it never sits yellow on yellow */
-  .log-body a:hover .label {
+  .log-body a:hover .label,
+  .log-body a:hover .title-prefix {
     background: var(--color-ink);
     color: var(--color-cream);
   }

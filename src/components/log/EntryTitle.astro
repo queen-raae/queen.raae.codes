@@ -1,0 +1,19 @@
+---
+// An entry's title as shown on the site: a Link entry's "Notes on:" sits highlighted in front of it.
+// Meta, social cards, feeds and search use post.title, which already carries the prefix as plain text.
+import type { ProcessedPost } from "../../lib/posts";
+
+interface Props {
+  post: Pick<ProcessedPost, "titlePrefix" | "titleText">;
+}
+
+const { post } = Astro.props;
+---
+
+{
+  post.titlePrefix && (
+    <>
+      <span class="title-prefix">{post.titlePrefix}:</span>{" "}
+    </>
+  )
+}{post.titleText}
