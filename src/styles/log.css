@@ -2077,6 +2077,15 @@
     .log-prose .float-group > :not(:first-child) + * {
       margin-top: 24px;
     }
+
+    /* A flex list keeps clear of the float as a column; a block list wraps under it */
+    .log-prose .float-group :is(ul, ol) {
+      display: block;
+    }
+
+    .log-prose .float-group li + li {
+      margin-top: 12px;
+    }
   }
 
   .log-prose figure {
