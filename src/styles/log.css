@@ -2042,6 +2042,34 @@
     border: 0;
   }
 
+  /* A float group puts its first image beside the paragraphs after it on wide screens.
+     Narrow screens stack it, with the image after the text as written. */
+  .log-prose .float-group {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .log-prose .float-group > p:has(> img) {
+    order: 1;
+  }
+
+  @media (min-width: 900px) {
+    .log-prose .float-group {
+      display: flow-root;
+    }
+
+    .log-prose .float-group > p:has(> img) {
+      float: right;
+      width: 45%;
+      margin: 6px 0 16px 32px;
+    }
+
+    .log-prose .float-group > p:not(:first-child) + p {
+      margin-top: 24px;
+    }
+  }
+
   .log-prose figure {
     display: flex;
     flex-direction: column;
