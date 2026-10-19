@@ -6,6 +6,7 @@ import PersonJsonLd from "../components/log/PersonJsonLd.astro";
 import Divider from "../components/log/Divider.astro";
 import SectionBar from "../components/log/SectionBar.astro";
 import LogPlayer from "../components/log/LogPlayer.astro";
+import LoveLetterIcon from "../components/log/LoveLetterIcon.astro";
 import { getAllPosts, getAuthorInfo, groupByYear } from "../lib/posts";
 import { getPodcastInfo } from "../lib/podcast";
 import { now, nowUpdated } from "../data/now";
@@ -54,7 +55,9 @@ const updated = new Date(nowUpdated).toLocaleDateString("en-GB", { month: "short
         >, a small dev studio in the old family factory we also call home. Located in cosy Rodeløkka, Oslo, Norway.
       </p>
       <div class="flex gap-3 flex-wrap">
-        <a class="btn btn-outline" href="#log">Read the log <span class="arr" aria-hidden="true">→</span></a>
+        <a class="btn btn-fire" href="#mail"
+          ><LoveLetterIcon />Subscribe <span class="arr arr--down" aria-hidden="true">↓</span></a
+        >
       </div>
     </div>
     <div class="divider-v" aria-hidden="true"></div>

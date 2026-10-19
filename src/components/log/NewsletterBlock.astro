@@ -12,7 +12,7 @@ interface Props {
 const {
   formId = "2454187",
   tags = [],
-  copy = "New entries straight to your inbox. Not often, and no fuss if you leave.",
+  copy = "All the shenanigans from me and my piratical family, straight to your inbox.",
   cta = "Aye, sign me up",
 } = Astro.props;
 const emailId = `email-${crypto.randomUUID().slice(0, 8)}`;
@@ -21,7 +21,7 @@ const emailId = `email-${crypto.randomUUID().slice(0, 8)}`;
 <section id="mail" class="nl on-plum ruled gutter py-[clamp(48px,6vw,80px)]">
   <div class="nl-grid">
     <h2 class="nl-title display m-0">
-      <slot name="title">The log,<br /><span class="acid">by email</span>.</slot>
+      <slot name="title">Join the <span class="acid">crew</span>!</slot>
     </h2>
     <p class="nl-blurb m-0">{copy}</p>
     <form class="nl-form log-newsletter flex flex-col gap-3" data-form-id={formId} data-tags={JSON.stringify(tags)}>
