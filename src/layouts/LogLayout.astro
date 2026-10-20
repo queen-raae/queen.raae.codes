@@ -14,6 +14,8 @@ interface Props {
   creator?: string;
   canonical?: string;
   feeds?: { title: string; href: string }[];
+  lang?: string;
+  article?: { publishedTime: string; author?: string; tags?: string[] };
   newsletter?: boolean;
 }
 

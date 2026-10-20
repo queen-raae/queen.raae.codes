@@ -103,6 +103,8 @@ const schema = {
   type="article"
   creator={post.author === "OlaVea" ? "@OlaHolstVea" : undefined}
   feeds={postFeeds}
+  lang={post.lang}
+  article={{ publishedTime: post.dateISO, author: authorName, tags: post.tags.map((tag) => tag.label) }}
 >
   <script type="application/ld+json" set:html={JSON.stringify(schema, null, 2)} slot="head" />
 
