@@ -139,6 +139,37 @@ const socialImageIsCard = pageImage?.startsWith("/og/");
       data-included-domains="queen.raae.codes"
       defer></script>
 
+    <!-- Log every click out of the site as a Fathom event, e.g. "Outbound: github.com" -->
+    <script is:inline>
+      (function () {
+        function track(event) {
+          var link = event.target.closest && event.target.closest("a[href]");
+          if (!link || !window.fathom) return;
+          var url;
+          try {
+            url = new URL(link.href, location.href);
+          } catch (e) {
+            return;
+          }
+          var name;
+          if (url.protocol === "mailto:") name = "Outbound: email";
+          else if (url.protocol === "http:" || url.protocol === "https:") {
+            if (url.hostname === location.hostname) return;
+            name = "Outbound: " + url.hostname.replace(/^www\./, "");
+          } else return;
+          window.fathom.trackEvent(name);
+        }
+        document.addEventListener("click", track, true);
+        document.addEventListener(
+          "auxclick",
+          function (event) {
+            if (event.button === 1) track(event);
+          },
+          true,
+        );
+      })();
+    </script>
+
     <slot name="head" />
 
     <script type="module" is:inline>
