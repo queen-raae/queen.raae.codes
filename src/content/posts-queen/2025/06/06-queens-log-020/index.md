@@ -43,7 +43,7 @@ Here's hoping my mobile 4G is as decent as this when we're out at sea all summer
 >
 > But all I did was email in this photo while waiting for @fjellflyt and the gang to finish up their photo session :D https://twitter.com/raae/status/1135796080942223360
 >
-> ![](./tweet-1.jpg)
+> [![](./tweet-1.jpg)](https://x.com/raae/status/1136020765969723392)
 >
 > > Yesterday I went from the city into the mountains of the #slowbusiness adventure conference by @fjellflyt 👉 https://www.slowbusinessadventure.com/.
 > >

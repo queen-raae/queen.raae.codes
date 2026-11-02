@@ -43,7 +43,7 @@ Four years ago, we also took the Pirate Princess on a pirate ship during a mini-
 
 > What a magnificent and piratical mini-vacay 🏴‍☠️ https://twitter.com/raae/status/1408514417940119552
 >
-> ![](./tweet-1.jpg)
+> [![](./tweet-1.jpg)](https://x.com/raae/status/1409827036781285381)
 >
 > > Sailing on a real pirate ship for the next few days with @OlaHolstVea and the Intern, but I will be back on this here app next week to do a proper sales launch for #GatsbySummerFunctions 🏴‍☠️👑 https://twitter.com/raae/status/1402225214071660554
 > >

@@ -49,7 +49,7 @@ That visit definitely took me back to the early 2000s 😄
 
 > Not much had changed since my uni days in Trondheim...not even the entertainment...pretty sure I went to a 50 Cent concert at @UKA my first semester in town back in 2023...
 >
-> ![](./tweet-1.jpg)
+> [![](./tweet-1.jpg)](https://x.com/raae/status/1660768965121957893)
 >
 > — Benedicte (Queen) Raae 👑 (@raae), [May 23, 2023](https://x.com/raae/status/1660768965121957893)
 

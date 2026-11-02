@@ -40,6 +40,6 @@ Last year, we joined Amy Dutton's #TwoWeekBuild challenge to create [datainthewi
 > Gonna build a site for the Data in the Wild podcast as my #TwoWeekBuild with @selfteachme!\
 > Not coding until the official start on March 1st, but found my design inspiration on @icons_8 today 🏴‍☠️
 >
-> ![](./tweet-1.png)
+> [![](./tweet-1.png)](https://x.com/raae/status/1761107715416322173)
 >
 > — Benedicte (Queen) Raae 👑 (@raae), [Feb 23, 2024](https://x.com/raae/status/1761107715416322173)

@@ -54,6 +54,6 @@ POW! celebrates its 5th birthday this year 🎂 Want to help give POW! a dev and
 >
 > #usepowapp
 >
-> ![](./tweet-1.jpg)
+> [![](./tweet-1.jpg)](https://x.com/raae/status/1236567073511411713)
 >
 > — Benedicte (Queen) Raae 👑 (@raae), [Mar 8, 2020](https://x.com/raae/status/1236567073511411713)

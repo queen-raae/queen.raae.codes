@@ -44,7 +44,7 @@ Three years ago, I also baked a lot for the holidays, even while recording an ep
 
 > And I do talk about baking quite a lot in this one...
 >
-> ![](./tweet-1.jpg)
+> [![](./tweet-1.jpg)](https://x.com/raae/status/1466062188804771841)
 >
 > > We (@benediktdeicke and I) might have gone a little overboard in our praise of @stripe... https://twitter.com/SlowSteadyPod/status/1466029381743226881
 > >

@@ -42,7 +42,7 @@ The family on the 17th of May a couple of years back; if we are tired on stream 
 
 > The fam in our finest for Norway's Constitution Day! Sun + family + friends makes for a great day 😍
 >
-> ![](./tweet-1.jpg)
+> [![](./tweet-1.jpg)](https://twitter.com/raae/status/1526811316349984768)
 >
 > — Benedicte (Queen) Raae 👑 (@raae), [May 18, 2022](https://twitter.com/raae/status/1526811316349984768)
 

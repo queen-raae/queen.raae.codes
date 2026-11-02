@@ -42,7 +42,7 @@ Here's more proof that Nordic weather is crazy 🤪 Two years ago, we had a spri
 
 > At one point there was even sun ☀️ However I didn't manage to capture that 😬
 >
-> ![](./tweet-1.jpg)
+> [![](./tweet-1.jpg)](https://x.com/raae/status/1653091421023354894)
 >
 > > Day of May 1st BBQ:\
 > > The universe: "I was just kidding, no more spring for you" 🌧️🌨️\

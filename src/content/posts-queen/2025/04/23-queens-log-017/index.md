@@ -39,7 +39,7 @@ Fast forward to today, and she's playing around with the backgrounds on our site
 
 > Major milestone: Setting up her first hand-me-down begging the question "Where are my stickers, Mom?" Cross your fingers that we find them
 >
-> ![](./tweet-1.jpg)
+> [![](./tweet-1.jpg)](https://x.com/raae/status/1647176033093709826)
 >
 > — Benedicte (Queen) Raae 👑 (@raae), [Apr 15, 2023](https://x.com/raae/status/1647176033093709826)
 

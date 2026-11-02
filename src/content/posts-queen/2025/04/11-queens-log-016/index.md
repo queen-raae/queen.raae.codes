@@ -42,7 +42,7 @@ Super looking forward to our summer sailing adventure. Leaving June 10th and aim
 
 > Anniversary lunch date on the beach while the Pirate Princess went to the water park with my sister: 10/10 would do again 😍
 >
-> ![](./tweet-1.jpg)
+> [![](./tweet-1.jpg)](https://x.com/raae/status/1776532792530055505)
 >
 > > Celebrating 15 years with Captain @OlaHolstVea today!\
 > > The photo is one of my favs 😆 It's from our 3rd-anniversary lunch date on Hydra. We spent that easter sailing around the Greek islands with a group of friends.\
