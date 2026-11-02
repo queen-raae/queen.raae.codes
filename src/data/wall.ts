@@ -28,7 +28,7 @@ export const photos = [
   {
     src: crew,
     alt: "Ola, our daughter and Queen Raae holding hands in a backyard, all three laughing",
-    caption: "The POW! launch March 8th 2020",
+    caption: "POW! launch March 8th 2020",
   },
   {
     src: anniversary,
