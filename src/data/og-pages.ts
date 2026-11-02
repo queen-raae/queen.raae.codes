@@ -19,9 +19,9 @@ export const OG_PAGES = {
     title: "Press",
     description: "Articles about Queen Raae and podcasts she's been a guest on.",
   },
-  "small-joys": {
-    labels: ["Small joys"],
-    title: "Small joys",
+  happiness: {
+    labels: ["Happiness"],
+    title: "Happiness",
     description: "Photos of small things that made Queen Raae happy.",
   },
   about: {

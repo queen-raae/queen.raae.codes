@@ -37,7 +37,7 @@ function parseTags(
 
 // Post schema with transform: pre-processes tags and computes isRelatable
 // so the content layer caches these derived fields
-// Joy entries (Small joys) may skip the title: they fall back to the place, then "Small joy"
+// Happiness entries (Happiness) may skip the title: they fall back to the place, then "Happiness"
 const postSchema = ({ image }: { image: () => z.ZodTypeAny }) =>
   z
     .object({
@@ -49,10 +49,10 @@ const postSchema = ({ image }: { image: () => z.ZodTypeAny }) =>
       peeps: z.string().optional(),
       projects: z.string().optional(),
       // Logbook fields (all optional; see src/lib/posts.ts for defaults)
-      type: z.enum(ENTRY_TYPES).optional(), // Book, Link, Podcast, Life, Press, Joy; plain posts have none
-      photo: image().optional(), // Joy: the photo, next to index.md
+      type: z.enum(ENTRY_TYPES).optional(), // Book, Link, Podcast, Life, Press, Happiness; plain posts have none
+      photo: image().optional(), // Happiness: the photo, next to index.md
       photoAlt: z.string().optional(),
-      place: z.string().optional(), // Joy: where it was, e.g. "Rodeløkka, Oslo"
+      place: z.string().optional(), // Happiness: where it was, e.g. "Rodeløkka, Oslo"
       standfirst: z.string().optional(), // Italic line under the headline
       draft: z.boolean().optional(), // Hidden in production, shown on deploy previews
       importedFrom: z.string().optional(), // e.g. "kindle", "mailchimp", "convertkit", "bgraphic.no"
@@ -67,7 +67,7 @@ const postSchema = ({ image }: { image: () => z.ZodTypeAny }) =>
       lillylabs: z.boolean().optional(), // Show the "På norsk, for bedrifter" cross-link box
     })
     .transform((data) => {
-      const title = data.title ?? (data.type === "Joy" ? (data.place ?? "Small joy") : "");
+      const title = data.title ?? (data.type === "Happiness" ? (data.place ?? "Happiness") : "");
       return {
         title,
         emojii: data.emojii,

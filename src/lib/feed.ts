@@ -40,7 +40,7 @@ export function postToFeedItem(post: ProcessedPost, disclaimers: Map<string, str
   // Render markdown to HTML via markdown-it, then make relative URLs absolute
   let content = makeAbsolute(md.render(post.content), siteUrl);
 
-  // Joy entries: the photo is in frontmatter, not the body, so put it first
+  // Happiness entries: the photo is in frontmatter, not the body, so put it first
   if (post.photo) {
     const src = new URL(post.photo.src, siteUrl).href;
     const alt = (post.photoAlt ?? "").replace(/"/g, "&quot;");

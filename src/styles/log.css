@@ -657,8 +657,8 @@
     border-color: var(--color-acid);
   }
 
-  /* ── Small joys: photos in plum frames, label attached under when there is one ── */
-  .joys-wall {
+  /* ── Happiness: photos in plum frames, label attached under when there is one ── */
+  .happy-wall {
     padding-top: clamp(24px, 3vw, 40px);
     padding-bottom: clamp(32px, 4vw, 56px);
     columns: 3 300px;
@@ -667,7 +667,7 @@
 
   /* CSS masonry where the browser has it; the columns above are the fallback */
   @supports (display: grid-lanes) {
-    .joys-wall {
+    .happy-wall {
       display: grid-lanes;
       grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
       gap: clamp(16px, 2vw, 24px);
@@ -675,7 +675,7 @@
     }
   }
 
-  .joys-photo {
+  .happy-photo {
     break-inside: avoid;
     margin: 0 0 clamp(16px, 2vw, 24px);
     border: 2px solid var(--color-ink);
@@ -684,26 +684,26 @@
   }
 
   @supports (display: grid-lanes) {
-    .joys-photo {
+    .happy-photo {
       margin-bottom: 0;
     }
   }
 
-  .joys-photo img {
+  .happy-photo img {
     display: block;
     width: 100%;
     height: auto;
   }
 
-  .joys-shot {
+  .happy-shot {
     display: block;
   }
 
-  .log-body .joys-shot:hover {
+  .log-body .happy-shot:hover {
     background: none;
   }
 
-  .joys-label {
+  .happy-label {
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -712,29 +712,29 @@
   }
 
   /* Text only: no photo above, so no rule and bigger words */
-  .joys-photo--text .joys-label {
+  .happy-photo--text .happy-label {
     border-top: 0;
     padding: 20px 20px 16px;
   }
 
-  .joys-words {
+  .happy-words {
     font-size: 17px;
     line-height: 1.45;
   }
 
-  .joys-photo--text .joys-words {
+  .happy-photo--text .happy-words {
     font-size: 21px;
   }
 
-  .joys-words p {
+  .happy-words p {
     margin: 0 0 0.5em;
   }
 
-  .joys-words .joys-title {
+  .happy-words .happy-title {
     font-weight: 700;
   }
 
-  .log-body .joys-meta {
+  .log-body .happy-meta {
     align-self: flex-start;
     font-size: 12px;
     text-transform: uppercase;
@@ -742,19 +742,19 @@
     text-decoration: none;
   }
 
-  /* Joy entry page: the photo leads the entry */
-  .joy-entry {
+  /* Happiness entry page: the photo leads the entry */
+  .happy-entry {
     margin: 0;
     border: 2px solid var(--color-ink);
   }
 
-  .joy-entry img {
+  .happy-entry img {
     display: block;
     width: 100%;
     height: auto;
   }
 
-  .joy-entry figcaption {
+  .happy-entry figcaption {
     padding: 8px 12px;
     border-top: 2px solid var(--color-ink);
     font-size: 12px;
