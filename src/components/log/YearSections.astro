@@ -3,15 +3,19 @@
 // Small screens: the numbered year bar on top.
 import SectionBar from "./SectionBar.astro";
 import ArchiveRow from "./ArchiveRow.astro";
+import CollectedStrip from "./CollectedStrip.astro";
+import { findsByYear } from "../../data/collected";
 import { groupByYear, type ProcessedPost } from "../../lib/posts";
 
 interface Props {
   posts: ProcessedPost[];
   startAt?: number;
   jumpTo?: string;
+  /** Show the year's Collected specimens as a strip above its entries (the log archive only) */
+  withCollected?: boolean;
 }
 
-const { posts, startAt = 1, jumpTo } = Astro.props;
+const { posts, startAt = 1, jumpTo, withCollected = false } = Astro.props;
 const years = groupByYear(posts);
 const pad = (n: number) => String(n).padStart(2, "0");
 const count = (n: number) => `${n} ${n === 1 ? "entry" : "entries"}`;
@@ -20,6 +24,7 @@ const count = (n: number) => `${n} ${n === 1 ? "entry" : "entries"}`;
 {
   years.map(({ year, posts }, index) => {
     const guests = posts.filter((post) => post.author !== "Queen").length;
+    const finds = withCollected ? findsByYear(year) : [];
     return (
       <section id={`y${year}`} class="ruled year-section scroll-mt-4">
         <div class="year-bar">
@@ -38,6 +43,9 @@ const count = (n: number) => `${n} ${n === 1 ? "entry" : "entries"}`;
             </span>
             <span class="mono">{count(posts.length)}</span>
             {guests > 0 && <span class="mono">{guests} by guests</span>}
+            {finds.length > 0 && (
+              <span class="mono">{finds.length === 1 ? "1 specimen" : `${finds.length} specimens`}</span>
+            )}
             {jumpTo && (
               <a class="navlink -ml-2.5 self-start" href={jumpTo}>
                 ↑ Years
@@ -46,6 +54,7 @@ const count = (n: number) => `${n} ${n === 1 ? "entry" : "entries"}`;
           </div>
         </aside>
         <div class="year-rows">
+          {finds.length > 0 && <CollectedStrip heading={`Collected in ${year}`} finds={finds} />}
           {posts.map((post) => (
             <ArchiveRow post={post} />
           ))}

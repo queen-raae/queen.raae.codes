@@ -1,0 +1,63 @@
+---
+// One Collected find on its own: the specimen bigger on the mount, then the other finds as a strip.
+import { Image } from "astro:assets";
+import LogLayout from "../../layouts/LogLayout.astro";
+import { getOgPageImage } from "../../data/og-pages";
+import Divider from "../../components/log/Divider.astro";
+import CollectedStrip from "../../components/log/CollectedStrip.astro";
+import { collected, formatFindDate, type Find } from "../../data/collected";
+
+export function getStaticPaths() {
+  return collected.map((find) => ({ params: { id: find.id }, props: { find } }));
+}
+
+const { find } = Astro.props as { find: Find };
+const others = collected.filter((other) => other.id !== find.id);
+---
+
+<LogLayout
+  title={find.note}
+  description={`Collected from ${find.site}, ${formatFindDate(find.date)}.`}
+  image={getOgPageImage("collected")}
+>
+  <section class="collected-head collected-head--back ruled gutter">
+    <a class="display collected-back" href="/collected/">← Collected</a>
+    <p class="mono m-0">{find.tags.map((tag) => `#${tag}`).join(" ")}</p>
+  </section>
+
+  <section class="collected-mount ruled">
+    <div class="collected-stage">
+      <figure class="specimen specimen--big">
+        <span class="specimen-shot">
+          <span class="specimen-pin" aria-hidden="true"></span>
+          <Image
+            src={find.image}
+            alt={find.alt}
+            widths={[find.image.width]}
+            sizes={`${find.image.width}px`}
+            loading="eager"
+          />
+        </span>
+        <figcaption class="specimen-label">
+          <h1 class="specimen-note">{find.note}</h1>
+          <span class="mono specimen-meta">
+            {
+              find.url ? (
+                <a href={find.url} target="_blank" rel="noopener">
+                  {find.site} <span aria-hidden="true">↗</span>
+                </a>
+              ) : (
+                find.site
+              )
+            }{" "}
+            · <time datetime={find.date}>{formatFindDate(find.date)}</time>
+          </span>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  {others.length > 0 && <CollectedStrip heading="Also collected" finds={others} />}
+
+  <Divider />
+</LogLayout>

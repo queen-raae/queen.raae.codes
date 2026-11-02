@@ -657,6 +657,246 @@
     border-color: var(--color-acid);
   }
 
+  /* ── Collected: UI specimens pinned to a dot-grid sheet on a plum mount ── */
+  .collected-head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 12px 24px;
+    padding-top: clamp(24px, 3vw, 32px);
+    padding-bottom: clamp(24px, 3vw, 32px);
+  }
+
+  .collected-head h1 {
+    margin: 0;
+    font-size: clamp(44px, 6vw, 72px);
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+
+  .collected-head .mono {
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .log-body .collected-back {
+    font-size: clamp(28px, 3vw, 36px);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    text-decoration: none;
+  }
+
+  .collected-head--back {
+    align-items: center;
+    padding-top: 18px;
+    padding-bottom: 18px;
+  }
+
+  .collected-mount {
+    background: var(--color-ink);
+    padding: clamp(12px, 3vw, 40px);
+  }
+
+  .collected-sheet {
+    background: var(--color-cream)
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14'%3E%3Crect x='6' y='6' width='2' height='2' fill='%23F3D7C6'/%3E%3C/svg%3E")
+      0 0 / 14px 14px repeat;
+    padding: clamp(32px, 4vw, 56px) clamp(20px, 4vw, 64px);
+    columns: 2 380px;
+    column-gap: clamp(32px, 5vw, 72px);
+  }
+
+  /* CSS masonry where the browser has it; the columns above are the fallback */
+  @supports (display: grid-lanes) {
+    .collected-sheet {
+      display: grid-lanes;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 380px), 1fr));
+      gap: clamp(40px, 5vw, 56px) clamp(32px, 5vw, 72px);
+      columns: auto;
+    }
+  }
+
+  .specimen {
+    break-inside: avoid;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 0 0 clamp(40px, 5vw, 56px);
+    scroll-margin-top: 24px;
+  }
+
+  @supports (display: grid-lanes) {
+    .specimen {
+      margin-bottom: 0;
+    }
+  }
+
+  .specimen-shot {
+    position: relative;
+    display: block;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    background: #fff;
+    border: 2px solid var(--color-ink);
+  }
+
+  .log-body a.specimen-shot:hover {
+    background: #fff;
+    outline: 3px solid var(--color-acid);
+  }
+
+  .specimen-shot img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* A single find: centred on the sheet, a little bigger */
+  .collected-stage {
+    display: flex;
+    justify-content: center;
+    padding: clamp(40px, 5vw, 64px) clamp(16px, 4vw, 48px) clamp(32px, 4vw, 48px);
+    background: var(--color-cream)
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14'%3E%3Crect x='6' y='6' width='2' height='2' fill='%23F3D7C6'/%3E%3C/svg%3E")
+      0 0 / 14px 14px repeat;
+  }
+
+  .specimen--big {
+    margin: 0;
+  }
+
+  .specimen--big .specimen-shot {
+    padding: 16px;
+  }
+
+  .specimen--big .specimen-label {
+    max-width: min(440px, calc(100% - 36px));
+    margin-left: 36px;
+  }
+
+  .specimen--big .specimen-note {
+    margin: 0;
+    padding: 14px 16px 12px;
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: clamp(19px, 2vw, 22px);
+    line-height: 1.35;
+  }
+
+  .specimen--big .specimen-meta {
+    padding: 7px 16px;
+    font-size: 12px;
+  }
+
+  /* The pin: a small plum square at the top edge */
+  .specimen-pin {
+    position: absolute;
+    top: -7px;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    margin-left: -5px;
+    background: var(--color-ink);
+  }
+
+  /* The label hangs off the bottom of the screenshot, sharing its border */
+  .specimen-label {
+    display: flex;
+    flex-direction: column;
+    max-width: min(300px, calc(100% - 24px));
+    margin: -2px 0 0 24px;
+    background: var(--color-cream);
+    border: 2px solid var(--color-ink);
+  }
+
+  .specimen-note {
+    padding: 10px 12px 8px;
+    font-style: italic;
+    font-size: 16px;
+    line-height: 1.4;
+  }
+
+  .specimen-meta {
+    padding: 5px 12px;
+    border-top: 2px solid var(--color-ink);
+    background: var(--color-acid);
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  .log-body .specimen-meta a {
+    text-decoration: none;
+  }
+
+  .log-body .specimen-meta a:hover {
+    background: var(--color-cream);
+  }
+
+  /* ── Collected strip at the top of a year in the log archive ── */
+  /* The first archive row drops its top rule, so the strip carries the line under it */
+  .cstrip {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    border-bottom: 2px solid var(--color-ink);
+    padding: 16px clamp(16px, 3vw, 32px) 24px;
+    background: var(--color-cream)
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14'%3E%3Crect x='6' y='6' width='2' height='2' fill='%23F3D7C6'/%3E%3C/svg%3E")
+      0 0 / 14px 14px repeat;
+  }
+
+  .cstrip-hd {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .log-body .cstrip-hd a {
+    text-decoration: none;
+  }
+
+  .cstrip-row {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding-top: 8px;
+  }
+
+  .log-body .cstrip-find {
+    flex: 0 0 auto;
+    width: 240px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+
+  .log-body .cstrip-find:hover {
+    background: none;
+  }
+
+  .cstrip-find .specimen-shot {
+    padding: 8px;
+  }
+
+  .cstrip-label {
+    margin: -2px 0 0 16px;
+    padding: 4px 10px;
+    border: 2px solid var(--color-ink);
+    background: var(--color-acid);
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  .cstrip-find:hover .cstrip-label {
+    background: var(--color-cream);
+  }
+
   /* ── Divider strip ── */
   .divider {
     box-sizing: content-box;

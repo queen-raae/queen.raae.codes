@@ -19,6 +19,11 @@ export const OG_PAGES = {
     title: "Press",
     description: "Articles about Queen Raae and podcasts she's been a guest on.",
   },
+  collected: {
+    labels: ["Collected"],
+    title: "Collected",
+    description: "UI details Queen Raae has spotted around the web, pinned like specimens.",
+  },
   about: {
     labels: ["About"],
     title: "About",

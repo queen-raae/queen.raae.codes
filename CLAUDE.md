@@ -39,6 +39,7 @@ Blog post paths follow the pattern: `posts-queen/YYYY/MM/DD-slug/index.md`
 - `astro.config.mjs` — Astro config: site URL, integrations (MDX, Tailwind, Sitemap)
 - `src/styles/log.css` — Design system classes (bars, title blocks, rows, cells, dividers, log-prose)
 - `src/data/now.ts`, `src/data/treasures.ts`, `src/data/wall.ts` — Home page content
+- `src/data/collected.ts` — Collected (`/collected/`): UI screenshots as pinned specimens with a label (Queen's own note, site, date), images in `src/assets/collected/`. Each find has its own page at `/collected/<id>/` with the others as an "Also collected" strip. The log archive shows each year's finds as a strip (`CollectedStrip.astro`). Masonry via `display: grid-lanes` with CSS columns as fallback
 - `src/lib/podcast.ts` — Slow & Steady latest episode, fetched at build time (fails soft)
 - `netlify.toml` — Build config and redirects (legacy email URLs, speaker shortcuts)
 - `src/content/config.ts` — Zod schemas for all content collections
