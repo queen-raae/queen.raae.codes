@@ -900,6 +900,110 @@
     background: var(--color-cream);
   }
 
+  /* ── Happiness: photos in plum frames, label attached under when there is one ── */
+  .happy-wall {
+    padding-top: clamp(24px, 3vw, 40px);
+    padding-bottom: clamp(32px, 4vw, 56px);
+    columns: 3 300px;
+    column-gap: clamp(16px, 2vw, 24px);
+  }
+
+  /* CSS masonry where the browser has it; the columns above are the fallback */
+  @supports (display: grid-lanes) {
+    .happy-wall {
+      display: grid-lanes;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+      gap: clamp(16px, 2vw, 24px);
+      columns: auto;
+    }
+  }
+
+  .happy-photo {
+    break-inside: avoid;
+    margin: 0 0 clamp(16px, 2vw, 24px);
+    border: 2px solid var(--color-ink);
+    background: var(--color-cream);
+    scroll-margin-top: 24px;
+  }
+
+  @supports (display: grid-lanes) {
+    .happy-photo {
+      margin-bottom: 0;
+    }
+  }
+
+  .happy-photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .happy-shot {
+    display: block;
+  }
+
+  .log-body .happy-shot:hover {
+    background: none;
+  }
+
+  .happy-label {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px 14px 14px;
+    border-top: 2px solid var(--color-ink);
+  }
+
+  /* Text only: no photo above, so no rule and bigger words */
+  .happy-photo--text .happy-label {
+    border-top: 0;
+    padding: 20px 20px 16px;
+  }
+
+  .happy-words {
+    font-size: 17px;
+    line-height: 1.45;
+  }
+
+  .happy-photo--text .happy-words {
+    font-size: 21px;
+  }
+
+  .happy-words p {
+    margin: 0 0 0.5em;
+  }
+
+  .happy-words .happy-title {
+    font-weight: 700;
+  }
+
+  .log-body .happy-meta {
+    align-self: flex-start;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+  }
+
+  /* Happiness entry page: the photo leads the entry */
+  .happy-entry {
+    margin: 0;
+    border: 2px solid var(--color-ink);
+  }
+
+  .happy-entry img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .happy-entry figcaption {
+    padding: 8px 12px;
+    border-top: 2px solid var(--color-ink);
+    font-size: 12px;
+    text-transform: uppercase;
+  }
+
   /* ── Divider strip ── */
   .divider {
     box-sizing: content-box;

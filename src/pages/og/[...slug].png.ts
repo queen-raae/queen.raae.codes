@@ -1,9 +1,9 @@
 import type { APIRoute, GetStaticPaths } from "astro";
-import { getAllPosts } from "../../lib/posts";
+import { getEveryPost } from "../../lib/posts";
 import { generateOgImage } from "../../lib/og-image";
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const allPosts = await getAllPosts();
+  const allPosts = await getEveryPost();
 
   return allPosts.map((post) => {
     const slugParam = post.slug.replace(/^\/|\/$/g, "");

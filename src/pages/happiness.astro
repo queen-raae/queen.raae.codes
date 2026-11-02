@@ -1,0 +1,56 @@
+---
+import { Image } from "astro:assets";
+import LogLayout from "../layouts/LogLayout.astro";
+import TitleBlock from "../components/log/TitleBlock.astro";
+import Divider from "../components/log/Divider.astro";
+import { OG_PAGES, getOgPageImage } from "../data/og-pages";
+import { getHappiness } from "../lib/posts";
+
+// Happiness entries are log entries with type: Happiness. Photo, words (the body), place and title are all optional.
+const { title: TITLE, description: DESCRIPTION } = OG_PAGES["happiness"];
+const entries = await Promise.all(
+  (await getHappiness()).map(async (post) => ({ post, Content: (await post.render()).Content })),
+);
+---
+
+<LogLayout title={TITLE} description={DESCRIPTION} image={getOgPageImage("happiness")}>
+  <TitleBlock><span class="acid">Happiness</span>.</TitleBlock>
+
+  <section class="happy-wall ruled gutter">
+    {
+      entries.map(({ post, Content }) => {
+        // A title she wrote herself shows as words; the fallback (place or "Happiness") doesn't
+        const ownTitle = post.titleText !== post.place && post.titleText !== "Happiness" ? post.titleText : undefined;
+        const hasWords = !!ownTitle || post.wordCount > 0;
+        return (
+          <figure class:list={["happy-photo", !post.photo && "happy-photo--text"]}>
+            {post.photo && (
+              <a href={post.slug} class="happy-shot" aria-label={post.title}>
+                <Image
+                  src={post.photo}
+                  alt={post.photoAlt ?? ""}
+                  widths={[400, 800, Math.min(post.photo.width, 1200)]}
+                  sizes="(min-width: 1100px) 33vw, (min-width: 700px) 50vw, 100vw"
+                />
+              </a>
+            )}
+            <figcaption class="happy-label">
+              {hasWords && (
+                <div class="happy-words">
+                  {ownTitle && <p class="happy-title">{ownTitle}</p>}
+                  {post.wordCount > 0 && <Content />}
+                </div>
+              )}
+              <a href={post.slug} class="mono happy-meta">
+                <time datetime={post.date}>{post.dateLong}</time>
+                {post.place && <> · {post.place}</>}
+              </a>
+            </figcaption>
+          </figure>
+        );
+      })
+    }
+  </section>
+
+  <Divider />
+</LogLayout>
