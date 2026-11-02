@@ -1,9 +1,9 @@
 ---
 import { Image } from "astro:assets";
-import LogLayout from "../layouts/LogLayout.astro";
-import { OG_PAGES, getOgPageImage } from "../data/og-pages";
-import Divider from "../components/log/Divider.astro";
-import { collected, formatFindDate } from "../data/collected";
+import LogLayout from "../../layouts/LogLayout.astro";
+import { OG_PAGES, getOgPageImage } from "../../data/og-pages";
+import Divider from "../../components/log/Divider.astro";
+import { collected, formatFindDate } from "../../data/collected";
 
 const { title: TITLE, description: DESCRIPTION } = OG_PAGES.collected;
 const tags = [...new Set(collected.flatMap((find) => find.tags))];
@@ -11,7 +11,7 @@ const tags = [...new Set(collected.flatMap((find) => find.tags))];
 
 <LogLayout title={TITLE} description={DESCRIPTION} image={getOgPageImage("collected")}>
   <section class="collected-head ruled gutter">
-    <h1 class="display"><span class="acid">Collected</span>.</h1>
+    <h1 class="display">Collected.</h1>
     <p class="mono m-0">{tags.map((tag) => `#${tag}`).join(" ")}</p>
   </section>
 
@@ -20,7 +20,7 @@ const tags = [...new Set(collected.flatMap((find) => find.tags))];
       {
         collected.map((find) => (
           <figure id={find.id} class="specimen">
-            <span class="specimen-shot">
+            <a class="specimen-shot" href={`/collected/${find.id}/`}>
               <span class="specimen-pin" aria-hidden="true" />
               <Image
                 src={find.image}
@@ -28,7 +28,7 @@ const tags = [...new Set(collected.flatMap((find) => find.tags))];
                 widths={[find.image.width]}
                 sizes={`(min-width: 900px) ${Math.min(find.image.width, 440)}px, 100vw`}
               />
-            </span>
+            </a>
             <figcaption class="specimen-label">
               <span class="specimen-note">{find.note}</span>
               <span class="mono specimen-meta">

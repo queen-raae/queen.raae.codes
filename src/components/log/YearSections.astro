@@ -54,7 +54,7 @@ const count = (n: number) => `${n} ${n === 1 ? "entry" : "entries"}`;
           </div>
         </aside>
         <div class="year-rows">
-          {finds.length > 0 && <CollectedStrip year={year} finds={finds} />}
+          {finds.length > 0 && <CollectedStrip heading={`Collected in ${year}`} finds={finds} />}
           {posts.map((post) => (
             <ArchiveRow post={post} />
           ))}
