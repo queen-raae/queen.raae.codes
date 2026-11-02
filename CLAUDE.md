@@ -39,6 +39,7 @@ Blog post paths follow the pattern: `posts-queen/YYYY/MM/DD-slug/index.md`
 - `astro.config.mjs` — Astro config: site URL, integrations (MDX, Tailwind, Sitemap)
 - `src/styles/log.css` — Design system classes (bars, title blocks, rows, cells, dividers, log-prose)
 - `src/data/now.ts`, `src/data/treasures.ts`, `src/data/wall.ts` — Home page content
+- `src/data/ui-inspo.ts` — UI inspo page (`/ui-inspo/`): screenshots in `src/assets/ui-inspo/`, newest first, with Queen's own note
 - `src/lib/podcast.ts` — Slow & Steady latest episode, fetched at build time (fails soft)
 - `netlify.toml` — Build config and redirects (legacy email URLs, speaker shortcuts)
 - `src/content/config.ts` — Zod schemas for all content collections

@@ -657,6 +657,50 @@
     border-color: var(--color-acid);
   }
 
+  /* ── UI inspo: screenshots in plum frames, Queen's note under each ── */
+  .inspo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr));
+    gap: clamp(20px, 3vw, 40px);
+    padding: clamp(24px, 3vw, 40px) clamp(16px, 3vw, 32px);
+  }
+
+  .inspo {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid var(--color-ink);
+  }
+
+  .inspo-shot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(12px, 2vw, 24px);
+    background: #fff;
+    border-bottom: 2px solid var(--color-ink);
+  }
+
+  .inspo-shot img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .inspo-cap {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 14px clamp(14px, 2vw, 20px) 16px;
+    font-size: 17px;
+    line-height: 1.5;
+  }
+
+  .inspo-meta {
+    margin: 0;
+    font-size: 13px;
+  }
+
   /* ── Divider strip ── */
   .divider {
     box-sizing: content-box;

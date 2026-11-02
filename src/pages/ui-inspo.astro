@@ -1,0 +1,41 @@
+---
+import { Image } from "astro:assets";
+import LogLayout from "../layouts/LogLayout.astro";
+import { OG_PAGES, getOgPageImage } from "../data/og-pages";
+import TitleBlock from "../components/log/TitleBlock.astro";
+import Divider from "../components/log/Divider.astro";
+import { uiInspo } from "../data/ui-inspo";
+
+const { title: TITLE, description: DESCRIPTION } = OG_PAGES["ui-inspo"];
+
+const formatDate = (date: string) =>
+  new Date(`${date}T12:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+---
+
+<LogLayout title={TITLE} description={DESCRIPTION} image={getOgPageImage("ui-inspo")}>
+  <TitleBlock label="Collected">
+    UI <span class="acid">inspo</span>.
+  </TitleBlock>
+
+  <Divider />
+
+  <section class="inspo-grid ruled">
+    {
+      uiInspo.map((item) => (
+        <figure id={item.id} class="inspo">
+          <div class="inspo-shot">
+            <Image src={item.image} alt={item.alt} widths={[item.image.width]} sizes={`${item.image.width}px`} />
+          </div>
+          <figcaption class="inspo-cap">
+            <p class="m-0">{item.note}</p>
+            <p class="mono inspo-meta">
+              {item.sourceUrl ? <a href={item.sourceUrl}>{item.source}</a> : item.source}
+              {" · "}
+              <time datetime={item.date}>{formatDate(item.date)}</time>
+            </p>
+          </figcaption>
+        </figure>
+      ))
+    }
+  </section>
+</LogLayout>

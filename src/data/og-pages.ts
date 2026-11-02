@@ -19,6 +19,11 @@ export const OG_PAGES = {
     title: "Press",
     description: "Articles about Queen Raae and podcasts she's been a guest on.",
   },
+  "ui-inspo": {
+    labels: ["Collected"],
+    title: "UI inspo",
+    description: "Interface details from around the web that caught Queen Raae's eye.",
+  },
   about: {
     labels: ["About"],
     title: "About",
