@@ -23,14 +23,14 @@ npm run prettier   # Format code
 
 ## Content collections
 
-| Collection       | Type    | Location                      | Format   |
-| ---------------- | ------- | ----------------------------- | -------- |
-| `posts-queen`    | content | `src/content/posts-queen/`    | Markdown |
-| `posts-olavea`   | content | `src/content/posts-olavea/`   | Markdown |
-| `landing`        | content | `src/content/landing/`        | Markdown |
-| `talks`          | content | `src/content/talks/`          | Markdown |
-| `tags`           | data    | `src/content/tags/`           | YAML     |
-| `testimonials`   | data    | `src/content/testimonials/`   | YAML     |
+| Collection     | Type    | Location                    | Format   |
+| -------------- | ------- | --------------------------- | -------- |
+| `posts-queen`  | content | `src/content/posts-queen/`  | Markdown |
+| `posts-olavea` | content | `src/content/posts-olavea/` | Markdown |
+| `landing`      | content | `src/content/landing/`      | Markdown |
+| `talks`        | content | `src/content/talks/`        | Markdown |
+| `tags`         | data    | `src/content/tags/`         | YAML     |
+| `testimonials` | data    | `src/content/testimonials/` | YAML     |
 
 Blog post paths follow the pattern: `posts-queen/YYYY/MM/DD-slug/index.md`
 
@@ -39,6 +39,7 @@ Blog post paths follow the pattern: `posts-queen/YYYY/MM/DD-slug/index.md`
 - `astro.config.mjs` — Astro config: site URL, integrations (MDX, Tailwind, Sitemap)
 - `src/styles/log.css` — Design system classes (bars, title blocks, rows, cells, dividers, log-prose)
 - `src/data/now.ts`, `src/data/treasures.ts`, `src/data/wall.ts` — Home page content
+- `src/data/happy.ts` — Happy things (`/happy/`): photos in plum frames, masonry. Each photo can have Queen's own words, a place and a date, all optional; no label when it has none. Images in `src/assets/happy/`
 - `src/lib/podcast.ts` — Slow & Steady latest episode, fetched at build time (fails soft)
 - `netlify.toml` — Build config and redirects (legacy email URLs, speaker shortcuts)
 - `src/content/config.ts` — Zod schemas for all content collections

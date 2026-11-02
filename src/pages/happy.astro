@@ -1,0 +1,40 @@
+---
+import { Image } from "astro:assets";
+import LogLayout from "../layouts/LogLayout.astro";
+import TitleBlock from "../components/log/TitleBlock.astro";
+import Divider from "../components/log/Divider.astro";
+import { OG_PAGES, getOgPageImage } from "../data/og-pages";
+import { happy, formatHappyDate } from "../data/happy";
+
+const { title: TITLE, description: DESCRIPTION } = OG_PAGES.happy;
+---
+
+<LogLayout title={TITLE} description={DESCRIPTION} image={getOgPageImage("happy")}>
+  <TitleBlock>Happy <span class="acid">things</span>.</TitleBlock>
+
+  <section class="happy-wall ruled gutter">
+    {
+      happy.map((photo) => {
+        const meta = [photo.date && formatHappyDate(photo.date), photo.place].filter(Boolean).join(" · ");
+        return (
+          <figure id={photo.id} class="happy-photo">
+            <Image
+              src={photo.image}
+              alt={photo.alt}
+              widths={[400, 800, Math.min(photo.image.width, 1200)]}
+              sizes="(min-width: 1100px) 33vw, (min-width: 700px) 50vw, 100vw"
+            />
+            {(photo.words || meta) && (
+              <figcaption class="happy-label">
+                {photo.words && <span class="happy-words">{photo.words}</span>}
+                {meta && <span class="mono happy-meta">{meta}</span>}
+              </figcaption>
+            )}
+          </figure>
+        );
+      })
+    }
+  </section>
+
+  <Divider />
+</LogLayout>
