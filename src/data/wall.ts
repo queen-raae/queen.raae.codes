@@ -6,6 +6,8 @@ import mpya from "../assets/log/mpya-speaking.jpg";
 import powLaunch from "../assets/log/pow-launch.jpg";
 import apps4norge from "../assets/log/apps4norge.jpg";
 import avatar from "../assets/log/avatar-early.jpg";
+import techWomen from "../assets/log/tech-women-2025.jpg";
+import anniversary from "../assets/log/anniversary-beach-2024.jpg";
 
 export const photos = [
   {
@@ -22,6 +24,16 @@ export const photos = [
     src: crew,
     alt: "Ola, our daughter and Queen Raae holding hands in a backyard, all three laughing",
     caption: "The crew",
+  },
+  {
+    src: techWomen,
+    alt: "Queen Raae laughing in a flowery dress between our daughter, flashing a peace sign, and Ola in a flower-trimmed straw hat, in front of a Norges 50 fremste techkvinner backdrop",
+    caption: "One of Norway's 50 leading tech women, 2025",
+  },
+  {
+    src: anniversary,
+    alt: "Selfie of Queen Raae in a cap and Ola in a straw hat, smiling on a sunny beach with waves behind them",
+    caption: "Anniversary lunch date on the beach, Portugal 2024",
   },
   {
     src: reactNorway,
