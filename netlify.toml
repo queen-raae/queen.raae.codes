@@ -86,6 +86,12 @@
   to = "/speaker/2022-12-17-modern-frontends/"
   status = 301
 
+# Renamed posts
+[[redirects]]
+  from = "/2026-11-02-teach-them-how-to-do-it-without-your-tool/"
+  to = "/2026-11-02-teach-them-to-do-it-without-your-tool/"
+  status = 301
+
 # Vanity links (social posts)
 [[redirects]]
   from = "/rob-ai/"

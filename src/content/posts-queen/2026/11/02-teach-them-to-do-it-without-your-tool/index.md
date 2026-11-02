@@ -1,5 +1,5 @@
 ---
-title: "Teach them how to do it without your tool"
+title: "Teach them to do it without your tool"
 tags: SaaS, AI, vibe coding, marketing
 peeps: PierreDeWulf
 brands: ScrapingBee, Slow&Steady
