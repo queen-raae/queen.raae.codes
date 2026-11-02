@@ -53,6 +53,11 @@
   to = "/subs/"
   status = 301
 [[redirects]]
+  # Linked like this in Queen's Log #024
+  from = "/posts/2026/02/23-the-night-i-came-alive/"
+  to = "/2026-02-23-the-night-i-came-alive/"
+  status = 301
+[[redirects]]
   from = "/gatsby-head-api/"
   to = "/2022-09-02-head-api/"
   status = 301
