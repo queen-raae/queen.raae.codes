@@ -693,9 +693,9 @@
     padding-bottom: 18px;
   }
 
-  /* Light pink, not plum, so the mount doesn't run into the plum newsletter block below */
+  /* Panel, not plum, so the mount doesn't run into the plum newsletter block below */
   .collected-mount {
-    background: var(--color-plum-200);
+    background: var(--color-panel);
     padding: clamp(12px, 3vw, 40px);
   }
 
