@@ -5,7 +5,9 @@ peeps: PierreDeWulf
 brands: ScrapingBee, Slow&Steady
 ---
 
-I am writing this up as I keep suggesting it to founders. Today included, over lunch with Svein.
+I am writing this up as I keep suggesting it to founders.
+
+Today included, over lunch with Svein.
 
 It's not something I have personal experience with (yet), but something I know has worked really well for a company I admire, ScrapingBee.
 
