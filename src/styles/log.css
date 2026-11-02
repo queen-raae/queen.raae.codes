@@ -780,10 +780,12 @@
   }
 
   /* ── Collected strip at the top of a year in the log archive ── */
+  /* The first archive row drops its top rule, so the strip carries the line under it */
   .cstrip {
     display: flex;
     flex-direction: column;
     gap: 18px;
+    border-bottom: 2px solid var(--color-ink);
     padding: 16px clamp(16px, 3vw, 32px) 24px;
     background: var(--color-cream)
       url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14'%3E%3Crect x='6' y='6' width='2' height='2' fill='%23F3D7C6'/%3E%3C/svg%3E")
