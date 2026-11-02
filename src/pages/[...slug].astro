@@ -128,6 +128,30 @@ const schema = {
     </Fragment>
     <EntryTitle post={post} />
     {
+      post.issue && (
+        <div slot="action" class="flex items-stretch border-2 border-ink bg-cream">
+          <span class="flex items-center bg-ink px-4 text-cream">
+            <svg
+              width="30"
+              height="30"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              aria-hidden="true"
+            >
+              <rect x="2.5" y="5" width="19" height="14" />
+              <path d="M2.5 6l9.5 7.5 9.5-7.5" />
+            </svg>
+          </span>
+          <span class="flex flex-col gap-1 px-5 py-3">
+            <span class="font-display text-[20px] leading-tight">{post.issue}</span>
+            <span class="mono text-[12px] text-plum-500">Originally sent as a newsletter</span>
+          </span>
+        </div>
+      )
+    }
+    {
       post.url && post.type !== "Press" && (
         <a slot="action" class="btn btn-ink btn--sm" href={post.url} target="_blank" rel="noopener">
           {linkHost === "youtube.com" || linkHost === "youtu.be" ? "Watch on YouTube" : `View on ${linkHost}`}{" "}
@@ -151,26 +175,11 @@ const schema = {
   <article class="ruled py-[clamp(32px,4vw,56px)]" lang={post.lang === "no" ? "nb" : undefined}>
     <div class="log-prose">
       {
-        post.importedFrom && (
+        post.importedFrom && !post.issue && (
           <aside class="cross">
-            <svg
-              width="28"
-              height="28"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.8"
-              aria-hidden="true"
-              class="flex-none"
-            >
-              <rect x="2.5" y="5" width="19" height="14" />
-              <path d="M2.5 6l9.5 7.5 9.5-7.5" />
-            </svg>
-            <p class="m-0 text-[17px] leading-normal flex-[1_1_240px]">
+            <p class="m-0 text-[17px] leading-normal">
               <strong>Originally published</strong>{" "}
-              {post.issue ? (
-                <>as {post.issue}, my newsletter.</>
-              ) : post.originalUrl ? (
+              {post.originalUrl ? (
                 <>
                   on <a href={post.originalUrl}>{post.importedFrom}</a>.
                 </>
