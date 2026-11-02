@@ -52,6 +52,7 @@ export interface ProcessedPost {
   importedFrom?: string;
   lang: "en" | "no";
   originalUrl?: string;
+  issue?: string; // Newsletter issue, shown at the right of list rows and in the entry's banner
   creator?: string;
   url?: string;
   outlet?: string;
@@ -156,6 +157,7 @@ export async function getAllPosts(): Promise<ProcessedPost[]> {
       importedFrom: entry.data.importedFrom,
       lang: entry.data.lang,
       originalUrl: entry.data.originalUrl,
+      issue: entry.data.issue,
       creator: entry.data.creator,
       url: entry.data.url,
       outlet: entry.data.outlet,

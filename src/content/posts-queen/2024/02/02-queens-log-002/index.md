@@ -1,7 +1,8 @@
 ---
-title: "Queen's Log #002 | What is \"to scale\"?"
+title: "What is \"to scale\"?"
 tags: newsletter
 importedFrom: convertkit
+issue: "Queen's Log #002"
 ---
 
 Ahoy Shipmate,

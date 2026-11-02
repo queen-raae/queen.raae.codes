@@ -1,7 +1,8 @@
 ---
-title: "Queen's Log #009 | Like mother like daughter: CTO"
+title: "Like mother like daughter: CTO"
 tags: newsletter
 importedFrom: convertkit
+issue: "Queen's Log #009"
 ---
 
 Ahoy Shipmate,

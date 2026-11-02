@@ -1,7 +1,8 @@
 ---
-title: "Queen's Log #013 | Happy new year - it's been rough 🎆 🤪"
+title: "Happy new year - it's been rough 🎆 🤪"
 tags: newsletter
 importedFrom: convertkit
+issue: "Queen's Log #013"
 ---
 
 Hello there,

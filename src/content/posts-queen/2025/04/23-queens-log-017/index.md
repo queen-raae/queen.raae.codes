@@ -1,7 +1,8 @@
 ---
-title: "Queen's Log #017 | First Galleon hire - videographer!"
+title: "First Galleon hire - videographer!"
 tags: newsletter
 importedFrom: convertkit
+issue: "Queen's Log #017"
 ---
 
 Hello there,

@@ -1,7 +1,8 @@
 ---
-title: "Queen's Log #000: Piraaaaty Neeew Yeeear to YOU 🏴‍☠️ 🥳 🚀"
+title: "Piraaaaty Neeew Yeeear to YOU 🏴‍☠️ 🥳 🚀"
 tags: newsletter
 importedFrom: convertkit
+issue: "Queen's Log #000"
 ---
 
 Ahoy Shipmate,

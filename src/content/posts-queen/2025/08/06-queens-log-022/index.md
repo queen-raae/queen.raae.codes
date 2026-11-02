@@ -1,7 +1,8 @@
 ---
-title: "Queen's Log #022 | Family-Product Fit"
+title: "Family-Product Fit"
 tags: newsletter
 importedFrom: convertkit
+issue: "Queen's Log #022"
 ---
 
 Hello there,

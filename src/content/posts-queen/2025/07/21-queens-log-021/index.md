@@ -1,7 +1,8 @@
 ---
-title: "Queen's Log #021 | Abort mission 😅"
+title: "Abort mission 😅"
 tags: newsletter
 importedFrom: convertkit
+issue: "Queen's Log #021"
 ---
 
 Hello there,

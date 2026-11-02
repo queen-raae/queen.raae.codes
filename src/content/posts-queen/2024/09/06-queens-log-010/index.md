@@ -1,7 +1,8 @@
 ---
-title: "Queen's Log #010 | Summer has come and gone—or has it?"
+title: "Summer has come and gone—or has it?"
 tags: newsletter
 importedFrom: convertkit
+issue: "Queen's Log #010"
 ---
 
 Ahoy Shipmate,

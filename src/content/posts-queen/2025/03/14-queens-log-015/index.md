@@ -1,7 +1,8 @@
 ---
-title: "Queen's Log #015 | The power of role models (and a science teacher)"
+title: "The power of role models (and a science teacher)"
 tags: newsletter
 importedFrom: convertkit
+issue: "Queen's Log #015"
 ---
 
 Hello there,

@@ -1,7 +1,8 @@
 ---
-title: "Queen's Log #011 | WYSIWYG is not what it used to be"
+title: "WYSIWYG is not what it used to be"
 tags: newsletter
 importedFrom: convertkit
+issue: "Queen's Log #011"
 ---
 
 Ahoy Shipmate,

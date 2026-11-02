@@ -1,7 +1,8 @@
 ---
-title: "Queen's Log #003 | Can we get away with no client-side Javascript?"
+title: "Can we get away with no client-side Javascript?"
 tags: newsletter
 importedFrom: convertkit
+issue: "Queen's Log #003"
 ---
 
 Ahoy Shipmate,

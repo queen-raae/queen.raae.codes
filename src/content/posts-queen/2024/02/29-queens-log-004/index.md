@@ -1,7 +1,8 @@
 ---
-title: "Queen's Log #004 | Two Week Build is on!"
+title: "Two Week Build is on!"
 tags: newsletter
 importedFrom: convertkit
+issue: "Queen's Log #004"
 ---
 
 Ahoy Shipmate,

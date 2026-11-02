@@ -1,7 +1,8 @@
 ---
-title: "Queen's Log #018 | Sailing adventure ahead"
+title: "Sailing adventure ahead"
 tags: newsletter
 importedFrom: convertkit
+issue: "Queen's Log #018"
 ---
 
 Hello there,

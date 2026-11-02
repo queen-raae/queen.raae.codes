@@ -54,6 +54,7 @@ const postSchema = z
     source: z.string().optional(), // Alias for importedFrom, as named in the brief
     lang: z.enum(["en", "no"]).optional(), // "no" shows a "På norsk" label
     originalUrl: z.string().optional(), // Where an imported entry used to live
+    issue: z.string().optional(), // Newsletter issue an imported entry was sent as, e.g. "Queen's Log #016"
     creator: z.string().optional(), // Book author, or the publication for a Link
     url: z.string().optional(), // The thing a Link, Book, Podcast or Press entry points at
     outlet: z.string().optional(), // Press: the publication or podcast, e.g. "kode24"
@@ -73,6 +74,7 @@ const postSchema = z
     importedFrom: data.importedFrom ?? data.source,
     lang: data.lang ?? "en",
     originalUrl: data.originalUrl,
+    issue: data.issue,
     creator: data.creator,
     url: data.url,
     outlet: data.outlet,

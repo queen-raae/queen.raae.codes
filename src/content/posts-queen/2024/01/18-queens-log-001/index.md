@@ -1,7 +1,8 @@
 ---
-title: "Queen's Log #001 | Kind of annoyed at React"
+title: "Kind of annoyed at React"
 tags: newsletter
 importedFrom: convertkit
+issue: "Queen's Log #001"
 ---
 
 Ahoy Shipmate,

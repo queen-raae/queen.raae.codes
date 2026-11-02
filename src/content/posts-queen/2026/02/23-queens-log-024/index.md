@@ -1,7 +1,8 @@
 ---
-title: "Queen’s Log #024 | And down the AI rabbit hole she went 🦀"
+title: "And down the AI rabbit hole she went 🦀"
 tags: newsletter
 importedFrom: convertkit
+issue: "Queen's Log #024"
 ---
 
 Hello there,

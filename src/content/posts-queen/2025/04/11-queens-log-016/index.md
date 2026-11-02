@@ -1,7 +1,8 @@
 ---
-title: "Queen's Log #016 | Introducing Galleon Attributes (for Webflow)"
+title: "Introducing Galleon Attributes (for Webflow)"
 tags: newsletter
 importedFrom: convertkit
+issue: "Queen's Log #016"
 ---
 
 Hello there,

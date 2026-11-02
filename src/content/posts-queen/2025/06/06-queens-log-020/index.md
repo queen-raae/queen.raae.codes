@@ -1,7 +1,8 @@
 ---
-title: "Queen's Log #020 | You'll never be a 100% ready"
+title: "You'll never be a 100% ready"
 tags: newsletter
 importedFrom: convertkit
+issue: "Queen's Log #020"
 ---
 
 Hello there,

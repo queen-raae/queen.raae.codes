@@ -1,7 +1,8 @@
 ---
-title: "Queen's Log #006 | Data in the Wild"
+title: "Data in the Wild"
 tags: newsletter
 importedFrom: convertkit
+issue: "Queen's Log #006"
 ---
 
 Ahoy Shipmate,

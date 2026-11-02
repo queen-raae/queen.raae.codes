@@ -152,10 +152,20 @@ const schema = {
     <div class="log-prose">
       {
         post.importedFrom && (
-          <p class="mono text-plum-500!">
-            Originally published{" "}
-            {post.originalUrl ? <a href={post.originalUrl}>on {post.importedFrom}</a> : <>on {post.importedFrom}</>}
-          </p>
+          <aside class="cross">
+            <p class="m-0 text-[17px] leading-normal">
+              <strong>Originally published</strong>{" "}
+              {post.issue ? (
+                <>as {post.issue}, my newsletter.</>
+              ) : post.originalUrl ? (
+                <>
+                  on <a href={post.originalUrl}>{post.importedFrom}</a>.
+                </>
+              ) : (
+                <>on {post.importedFrom}.</>
+              )}
+            </p>
+          </aside>
         )
       }
 

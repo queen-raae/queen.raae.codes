@@ -1,7 +1,8 @@
 ---
-title: "Queen's Log #023 | A second change for that audio guide idea?"
+title: "A second change for that audio guide idea?"
 tags: newsletter
 importedFrom: convertkit
+issue: "Queen's Log #023"
 ---
 
 Hello there,

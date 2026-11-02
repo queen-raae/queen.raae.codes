@@ -1,7 +1,8 @@
 ---
-title: "Queen's Log #014 | Where AI shines 🌟"
+title: "Where AI shines 🌟"
 tags: newsletter
 importedFrom: convertkit
+issue: "Queen's Log #014"
 ---
 
 Hello there,

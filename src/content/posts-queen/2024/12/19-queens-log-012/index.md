@@ -1,7 +1,8 @@
 ---
-title: "Queen's Log #012 | Let it snow"
+title: "Let it snow"
 tags: newsletter
 importedFrom: convertkit
+issue: "Queen's Log #012"
 ---
 
 Ahoy Shipmate,

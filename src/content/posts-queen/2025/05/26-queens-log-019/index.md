@@ -1,7 +1,8 @@
 ---
-title: "Queen's Log #019 | Feeling overwhelmed? Get in on the wall!"
+title: "Feeling overwhelmed? Get in on the wall!"
 tags: newsletter
 importedFrom: convertkit
+issue: "Queen's Log #019"
 ---
 
 Hello there,

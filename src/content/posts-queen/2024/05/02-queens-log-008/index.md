@@ -1,7 +1,8 @@
 ---
-title: "Queen's Log #008 | Join us for the 200th episode of Slow & Steady  🥳"
+title: "Join us for the 200th episode of Slow & Steady 🥳"
 tags: newsletter
 importedFrom: convertkit
+issue: "Queen's Log #008"
 ---
 
 Ahoy Shipmate,

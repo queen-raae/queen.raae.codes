@@ -1,7 +1,8 @@
 ---
-title: "Queen's Log #007 | Workcations are the best"
+title: "Workcations are the best"
 tags: newsletter
 importedFrom: convertkit
+issue: "Queen's Log #007"
 ---
 
 Ahoy Shipmate,

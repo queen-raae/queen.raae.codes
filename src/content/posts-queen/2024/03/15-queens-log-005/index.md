@@ -1,7 +1,8 @@
 ---
-title: "Queen's Log #005 | Exhausted, but in a good way!"
+title: "Exhausted, but in a good way!"
 tags: newsletter
 importedFrom: convertkit
+issue: "Queen's Log #005"
 ---
 
 Ahoy Shipmate,
