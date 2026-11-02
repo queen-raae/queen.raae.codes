@@ -1,11 +1,11 @@
 import type { ImageMetadata } from "astro";
-import rodelokka from "../assets/happy/2026-11-02-rodelokka.jpeg";
+import rodelokka from "../assets/small-joys/2026-11-02-rodelokka.jpeg";
 
-// Happy things: photos that made Queen happy or grateful, shown on /happy/. Newest first.
+// Small joys: photos that made Queen happy or grateful, shown on /small-joys/. Newest first.
 // `words`, `place` and `date` are all optional. `words` is Queen's own; never write it for her.
 // A photo with none of them shows without a label.
-export interface HappyPhoto {
-  id: string; // Anchor on /happy/
+export interface SmallJoy {
+  id: string; // Anchor on /small-joys/
   image: ImageMetadata;
   alt: string;
   words?: string;
@@ -13,7 +13,7 @@ export interface HappyPhoto {
   date?: string; // YYYY-MM-DD
 }
 
-export const happy: HappyPhoto[] = [
+export const smallJoys: SmallJoy[] = [
   {
     id: "rodelokka-2026-11-02",
     image: rodelokka,
@@ -23,7 +23,7 @@ export const happy: HappyPhoto[] = [
   },
 ];
 
-export const formatHappyDate = (date: string) =>
+export const formatJoyDate = (date: string) =>
   new Date(`${date}T12:00:00Z`).toLocaleDateString("en-GB", {
     day: "numeric",
     month: "short",

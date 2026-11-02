@@ -657,8 +657,8 @@
     border-color: var(--color-acid);
   }
 
-  /* ── Happy things: photos in plum frames, label attached under when there is one ── */
-  .happy-wall {
+  /* ── Small joys: photos in plum frames, label attached under when there is one ── */
+  .joys-wall {
     padding-top: clamp(24px, 3vw, 40px);
     padding-bottom: clamp(32px, 4vw, 56px);
     columns: 3 300px;
@@ -667,7 +667,7 @@
 
   /* CSS masonry where the browser has it; the columns above are the fallback */
   @supports (display: grid-lanes) {
-    .happy-wall {
+    .joys-wall {
       display: grid-lanes;
       grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
       gap: clamp(16px, 2vw, 24px);
@@ -675,7 +675,7 @@
     }
   }
 
-  .happy-photo {
+  .joys-photo {
     break-inside: avoid;
     margin: 0 0 clamp(16px, 2vw, 24px);
     border: 2px solid var(--color-ink);
@@ -684,18 +684,18 @@
   }
 
   @supports (display: grid-lanes) {
-    .happy-photo {
+    .joys-photo {
       margin-bottom: 0;
     }
   }
 
-  .happy-photo img {
+  .joys-photo img {
     display: block;
     width: 100%;
     height: auto;
   }
 
-  .happy-label {
+  .joys-label {
     display: flex;
     flex-direction: column;
     gap: 6px;
@@ -703,12 +703,12 @@
     border-top: 2px solid var(--color-ink);
   }
 
-  .happy-words {
+  .joys-words {
     font-size: 17px;
     line-height: 1.4;
   }
 
-  .happy-meta {
+  .joys-meta {
     font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 0.05em;

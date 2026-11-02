@@ -1,0 +1,40 @@
+---
+import { Image } from "astro:assets";
+import LogLayout from "../layouts/LogLayout.astro";
+import TitleBlock from "../components/log/TitleBlock.astro";
+import Divider from "../components/log/Divider.astro";
+import { OG_PAGES, getOgPageImage } from "../data/og-pages";
+import { smallJoys, formatJoyDate } from "../data/small-joys";
+
+const { title: TITLE, description: DESCRIPTION } = OG_PAGES["small-joys"];
+---
+
+<LogLayout title={TITLE} description={DESCRIPTION} image={getOgPageImage("small-joys")}>
+  <TitleBlock>Small <span class="acid">joys</span>.</TitleBlock>
+
+  <section class="joys-wall ruled gutter">
+    {
+      smallJoys.map((photo) => {
+        const meta = [photo.date && formatJoyDate(photo.date), photo.place].filter(Boolean).join(" · ");
+        return (
+          <figure id={photo.id} class="joys-photo">
+            <Image
+              src={photo.image}
+              alt={photo.alt}
+              widths={[400, 800, Math.min(photo.image.width, 1200)]}
+              sizes="(min-width: 1100px) 33vw, (min-width: 700px) 50vw, 100vw"
+            />
+            {(photo.words || meta) && (
+              <figcaption class="joys-label">
+                {photo.words && <span class="joys-words">{photo.words}</span>}
+                {meta && <span class="mono joys-meta">{meta}</span>}
+              </figcaption>
+            )}
+          </figure>
+        );
+      })
+    }
+  </section>
+
+  <Divider />
+</LogLayout>
