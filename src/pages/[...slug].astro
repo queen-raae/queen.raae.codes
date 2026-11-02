@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import EntryTitle from "../components/log/EntryTitle.astro";
 import LogLayout from "../layouts/LogLayout.astro";
 import TitleBlock from "../components/log/TitleBlock.astro";
@@ -67,7 +68,8 @@ const postFeeds = [...(authorFeedMap[post.author] ? [authorFeedMap[post.author]]
 // Life, Book, Podcast and Press entries don't date the same way, so they're left alone.
 const AGE_NOTE_YEARS = 3;
 const ageYears = Math.floor((Date.now() - new Date(post.date).getTime()) / (365.25 * 24 * 60 * 60 * 1000));
-const showAgeNote = ageYears >= AGE_NOTE_YEARS && !["Life", "Book", "Podcast", "Press"].includes(post.type ?? "");
+const showAgeNote =
+  ageYears >= AGE_NOTE_YEARS && !["Life", "Book", "Podcast", "Press", "Joy"].includes(post.type ?? "");
 
 // Schema.org structured data
 const schema = {
@@ -206,6 +208,20 @@ const schema = {
               Read it <ExtIcon />
             </a>
           </aside>
+        )
+      }
+
+      {
+        post.photo && (
+          <figure class="joy-entry">
+            <Image
+              src={post.photo}
+              alt={post.photoAlt ?? ""}
+              widths={[480, 960, Math.min(post.photo.width, 1440)]}
+              sizes="(min-width: 800px) 720px, 100vw"
+            />
+            {post.place && post.place !== post.title && <figcaption class="mono">{post.place}</figcaption>}
+          </figure>
         )
       }
 

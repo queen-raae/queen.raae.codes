@@ -1,5 +1,6 @@
 import { getCollection } from "astro:content";
 import { format } from "date-fns";
+import type { ImageMetadata } from "astro";
 import type { EntryType } from "./entry-types";
 
 // Drafts (and preview-only stand-ins) never ship to production
@@ -58,6 +59,9 @@ export interface ProcessedPost {
   blurb?: string;
   reread: boolean;
   lillylabs: boolean;
+  photo?: ImageMetadata; // Joy entries
+  photoAlt?: string;
+  place?: string;
 }
 
 // Get all posts from both queen and olavea collections
@@ -162,6 +166,9 @@ export async function getAllPosts(): Promise<ProcessedPost[]> {
       blurb: entry.data.blurb,
       reread: entry.data.reread,
       lillylabs: entry.data.lillylabs,
+      photo: entry.data.photo,
+      photoAlt: entry.data.photoAlt,
+      place: entry.data.place,
     };
   };
 

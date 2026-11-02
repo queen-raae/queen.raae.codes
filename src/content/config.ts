@@ -37,49 +37,60 @@ function parseTags(
 
 // Post schema with transform: pre-processes tags and computes isRelatable
 // so the content layer caches these derived fields
-const postSchema = z
-  .object({
-    title: z.string(),
-    emojii: z.string().optional(),
-    audio: z.string().optional(), // Path to audio narration file
-    tags: z.string().optional(), // Comma-separated string in frontmatter
-    brands: z.string().optional(),
-    peeps: z.string().optional(),
-    projects: z.string().optional(),
-    // Logbook fields (all optional; see src/lib/posts.ts for defaults)
-    type: z.enum(ENTRY_TYPES).optional(), // Book, Link, Podcast, Life, Press; plain posts have none
-    standfirst: z.string().optional(), // Italic line under the headline
-    draft: z.boolean().optional(), // Hidden in production, shown on deploy previews
-    importedFrom: z.string().optional(), // e.g. "kindle", "mailchimp", "convertkit", "bgraphic.no"
-    source: z.string().optional(), // Alias for importedFrom, as named in the brief
-    lang: z.enum(["en", "no"]).optional(), // "no" shows a "På norsk" label
-    originalUrl: z.string().optional(), // Where an imported entry used to live
-    creator: z.string().optional(), // Book author, or the publication for a Link
-    url: z.string().optional(), // The thing a Link, Book, Podcast or Press entry points at
-    outlet: z.string().optional(), // Press: the publication or podcast, e.g. "kode24"
-    blurb: z.string().optional(), // Press: one line on how Queen is involved, shown under the row
-    reread: z.boolean().optional(),
-    lillylabs: z.boolean().optional(), // Show the "På norsk, for bedrifter" cross-link box
-  })
-  .transform((data) => ({
-    title: data.title,
-    emojii: data.emojii,
-    audio: data.audio,
-    tags: parseTags(data.tags, data.brands, data.peeps, data.projects),
-    isRelatable: !data.title.includes("week around the Gatsby islands"),
-    type: data.type,
-    standfirst: data.standfirst,
-    draft: data.draft ?? false,
-    importedFrom: data.importedFrom ?? data.source,
-    lang: data.lang ?? "en",
-    originalUrl: data.originalUrl,
-    creator: data.creator,
-    url: data.url,
-    outlet: data.outlet,
-    blurb: data.blurb,
-    reread: data.reread ?? false,
-    lillylabs: data.lillylabs ?? false,
-  }));
+// Joy entries (Small joys) may skip the title: they fall back to the place, then "Small joy"
+const postSchema = ({ image }: { image: () => z.ZodTypeAny }) =>
+  z
+    .object({
+      title: z.string().optional(),
+      emojii: z.string().optional(),
+      audio: z.string().optional(), // Path to audio narration file
+      tags: z.string().optional(), // Comma-separated string in frontmatter
+      brands: z.string().optional(),
+      peeps: z.string().optional(),
+      projects: z.string().optional(),
+      // Logbook fields (all optional; see src/lib/posts.ts for defaults)
+      type: z.enum(ENTRY_TYPES).optional(), // Book, Link, Podcast, Life, Press, Joy; plain posts have none
+      photo: image().optional(), // Joy: the photo, next to index.md
+      photoAlt: z.string().optional(),
+      place: z.string().optional(), // Joy: where it was, e.g. "Rodeløkka, Oslo"
+      standfirst: z.string().optional(), // Italic line under the headline
+      draft: z.boolean().optional(), // Hidden in production, shown on deploy previews
+      importedFrom: z.string().optional(), // e.g. "kindle", "mailchimp", "convertkit", "bgraphic.no"
+      source: z.string().optional(), // Alias for importedFrom, as named in the brief
+      lang: z.enum(["en", "no"]).optional(), // "no" shows a "På norsk" label
+      originalUrl: z.string().optional(), // Where an imported entry used to live
+      creator: z.string().optional(), // Book author, or the publication for a Link
+      url: z.string().optional(), // The thing a Link, Book, Podcast or Press entry points at
+      outlet: z.string().optional(), // Press: the publication or podcast, e.g. "kode24"
+      blurb: z.string().optional(), // Press: one line on how Queen is involved, shown under the row
+      reread: z.boolean().optional(),
+      lillylabs: z.boolean().optional(), // Show the "På norsk, for bedrifter" cross-link box
+    })
+    .transform((data) => {
+      const title = data.title ?? (data.type === "Joy" ? (data.place ?? "Small joy") : "");
+      return {
+        title,
+        emojii: data.emojii,
+        audio: data.audio,
+        tags: parseTags(data.tags, data.brands, data.peeps, data.projects),
+        isRelatable: !title.includes("week around the Gatsby islands"),
+        type: data.type,
+        standfirst: data.standfirst,
+        draft: data.draft ?? false,
+        importedFrom: data.importedFrom ?? data.source,
+        lang: data.lang ?? "en",
+        originalUrl: data.originalUrl,
+        creator: data.creator,
+        url: data.url,
+        outlet: data.outlet,
+        blurb: data.blurb,
+        reread: data.reread ?? false,
+        lillylabs: data.lillylabs ?? false,
+        photo: data.photo,
+        photoAlt: data.photoAlt,
+        place: data.place,
+      };
+    });
 
 // Posts collections (queen and olavea share the same schema)
 const postsQueen = defineCollection({

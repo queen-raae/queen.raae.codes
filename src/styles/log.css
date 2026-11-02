@@ -695,23 +695,70 @@
     height: auto;
   }
 
+  .joys-shot {
+    display: block;
+  }
+
+  .log-body .joys-shot:hover {
+    background: none;
+  }
+
   .joys-label {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 8px;
     padding: 12px 14px 14px;
     border-top: 2px solid var(--color-ink);
   }
 
-  .joys-words {
-    font-size: 17px;
-    line-height: 1.4;
+  /* Text only: no photo above, so no rule and bigger words */
+  .joys-photo--text .joys-label {
+    border-top: 0;
+    padding: 20px 20px 16px;
   }
 
-  .joys-meta {
+  .joys-words {
+    font-size: 17px;
+    line-height: 1.45;
+  }
+
+  .joys-photo--text .joys-words {
+    font-size: 21px;
+  }
+
+  .joys-words p {
+    margin: 0 0 0.5em;
+  }
+
+  .joys-words .joys-title {
+    font-weight: 700;
+  }
+
+  .log-body .joys-meta {
+    align-self: flex-start;
     font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    text-decoration: none;
+  }
+
+  /* Joy entry page: the photo leads the entry */
+  .joy-entry {
+    margin: 0;
+    border: 2px solid var(--color-ink);
+  }
+
+  .joy-entry img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .joy-entry figcaption {
+    padding: 8px 12px;
+    border-top: 2px solid var(--color-ink);
+    font-size: 12px;
+    text-transform: uppercase;
   }
 
   /* ── Divider strip ── */

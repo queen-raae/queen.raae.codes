@@ -40,6 +40,14 @@ export function postToFeedItem(post: ProcessedPost, disclaimers: Map<string, str
   // Render markdown to HTML via markdown-it, then make relative URLs absolute
   let content = makeAbsolute(md.render(post.content), siteUrl);
 
+  // Joy entries: the photo is in frontmatter, not the body, so put it first
+  if (post.photo) {
+    const src = new URL(post.photo.src, siteUrl).href;
+    const alt = (post.photoAlt ?? "").replace(/"/g, "&quot;");
+    const place = post.place && post.title !== post.place ? `<p>${post.place}</p>` : "";
+    content = `<p><img src="${src}" alt="${alt}"/></p>${place}${content}`;
+  }
+
   if (postDisclaimers.length > 0) {
     content += `<br/><ul>${postDisclaimers.map((d) => `<li>${d}</li>`).join("")}</ul>`;
   }
