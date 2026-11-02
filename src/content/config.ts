@@ -47,7 +47,7 @@ const postSchema = z
     peeps: z.string().optional(),
     projects: z.string().optional(),
     // Logbook fields (all optional; see src/lib/posts.ts for defaults)
-    type: z.enum(ENTRY_TYPES).optional(), // Book, Link, Podcast, Life, Press, Collected; plain posts have none
+    type: z.enum(ENTRY_TYPES).optional(), // Book, Link, Podcast, Life, Press; plain posts have none
     standfirst: z.string().optional(), // Italic line under the headline
     draft: z.boolean().optional(), // Hidden in production, shown on deploy previews
     importedFrom: z.string().optional(), // e.g. "kindle", "mailchimp", "convertkit", "bgraphic.no"

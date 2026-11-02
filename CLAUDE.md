@@ -23,14 +23,14 @@ npm run prettier   # Format code
 
 ## Content collections
 
-| Collection     | Type    | Location                    | Format   |
-| -------------- | ------- | --------------------------- | -------- |
-| `posts-queen`  | content | `src/content/posts-queen/`  | Markdown |
-| `posts-olavea` | content | `src/content/posts-olavea/` | Markdown |
-| `landing`      | content | `src/content/landing/`      | Markdown |
-| `talks`        | content | `src/content/talks/`        | Markdown |
-| `tags`         | data    | `src/content/tags/`         | YAML     |
-| `testimonials` | data    | `src/content/testimonials/` | YAML     |
+| Collection       | Type    | Location                      | Format   |
+| ---------------- | ------- | ----------------------------- | -------- |
+| `posts-queen`    | content | `src/content/posts-queen/`    | Markdown |
+| `posts-olavea`   | content | `src/content/posts-olavea/`   | Markdown |
+| `landing`        | content | `src/content/landing/`        | Markdown |
+| `talks`          | content | `src/content/talks/`          | Markdown |
+| `tags`           | data    | `src/content/tags/`           | YAML     |
+| `testimonials`   | data    | `src/content/testimonials/`   | YAML     |
 
 Blog post paths follow the pattern: `posts-queen/YYYY/MM/DD-slug/index.md`
 
@@ -39,6 +39,7 @@ Blog post paths follow the pattern: `posts-queen/YYYY/MM/DD-slug/index.md`
 - `astro.config.mjs` — Astro config: site URL, integrations (MDX, Tailwind, Sitemap)
 - `src/styles/log.css` — Design system classes (bars, title blocks, rows, cells, dividers, log-prose)
 - `src/data/now.ts`, `src/data/treasures.ts`, `src/data/wall.ts` — Home page content
+- `src/data/collected.ts` — Collected (`/collected/`): UI screenshots as pinned specimens with a label (Queen's own note, site, date), images in `src/assets/collected/`. The log archive shows each year's finds as a strip (`CollectedStrip.astro`). Masonry via `display: grid-lanes` with CSS columns as fallback
 - `src/lib/podcast.ts` — Slow & Steady latest episode, fetched at build time (fails soft)
 - `netlify.toml` — Build config and redirects (legacy email URLs, speaker shortcuts)
 - `src/content/config.ts` — Zod schemas for all content collections
@@ -74,7 +75,7 @@ Blog post paths follow the pattern: `posts-queen/YYYY/MM/DD-slug/index.md`
 - Trailing slashes are enforced (`trailingSlash: 'always'` in astro config)
 - The `content/` directory at the project root mirrors `src/content/` — the canonical source is `src/content/`
 - OG image generation uses Satori which renders a JSX-like structure to SVG, then Sharp converts to PNG
-- Entry frontmatter can set `type` (Book, Link, Podcast, Life, Press, Collected), `standfirst`, `draft`, `lang` (`en` default, `no` shows "På norsk"), `importedFrom`, `originalUrl`, `creator`, `url`, `outlet`, `reread`, `lillylabs`. Press entries (articles about Queen, podcast guest spots) sit on their original date with `url` and `outlet`; a body only if Queen writes a note. `/press/` lists them. `type` is only for notes on a thing (plus Life); Collected is for UI inspo screenshots, tagged `UI inspo` (the footer links `/tag/ui-inspo/`); plain posts have none and show no label. Link entries get "Notes on:" in front of the title (`post.title`, used for meta, cards, feeds, search; shown highlighted on the site via `EntryTitle.astro`) and no "Link" type label (`post.typeLabel`), a YouTube `url` adds " (YouTube)", and a non-Press `url` shows as a "Watch on YouTube" / "View on <domain>" button under the title
+- Entry frontmatter can set `type` (Book, Link, Podcast, Life, Press), `standfirst`, `draft`, `lang` (`en` default, `no` shows "På norsk"), `importedFrom`, `originalUrl`, `creator`, `url`, `outlet`, `reread`, `lillylabs`. Press entries (articles about Queen, podcast guest spots) sit on their original date with `url` and `outlet`; a body only if Queen writes a note. `/press/` lists them. `type` is only for notes on a thing (plus Life); plain posts have none and show no label. Link entries get "Notes on:" in front of the title (`post.title`, used for meta, cards, feeds, search; shown highlighted on the site via `EntryTitle.astro`) and no "Link" type label (`post.typeLabel`), a YouTube `url` adds " (YouTube)", and a non-Press `url` shows as a "Watch on YouTube" / "View on <domain>" button under the title
 - A post image named `framed-*` is a 1080 square social graphic (984×912 stage on a cream frame with a vanity link); `log.css` crops the page view to the stage, saving the image gets the whole thing. Vanity links for social posts live in `netlify.toml`. Wrap an image and the paragraphs it should sit beside in `<div class="float-group">` (image first) to float it right on wide screens; phones stack it after the first paragraph
 - `draft: true` entries show on deploy previews only (`CONTEXT !== "production"`)
 - `retired/` holds the old landing pages (bootcamps, emergency, Bridgerton…) and their components, kept but not built or linted; their content stays in `src/content/landing/`

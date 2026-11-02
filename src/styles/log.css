@@ -657,6 +657,189 @@
     border-color: var(--color-acid);
   }
 
+  /* ── Collected: UI specimens pinned to a dot-grid sheet on a plum mount ── */
+  .collected-head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 12px 24px;
+    padding-top: clamp(24px, 3vw, 32px);
+    padding-bottom: clamp(24px, 3vw, 32px);
+  }
+
+  .collected-head h1 {
+    margin: 0;
+    font-size: clamp(44px, 6vw, 72px);
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+
+  .collected-head .mono {
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .collected-mount {
+    background: var(--color-ink);
+    padding: clamp(12px, 3vw, 40px);
+  }
+
+  .collected-sheet {
+    background: var(--color-cream)
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14'%3E%3Crect x='6' y='6' width='2' height='2' fill='%23F3D7C6'/%3E%3C/svg%3E")
+      0 0 / 14px 14px repeat;
+    padding: clamp(32px, 4vw, 56px) clamp(20px, 4vw, 64px);
+    columns: 2 380px;
+    column-gap: clamp(32px, 5vw, 72px);
+  }
+
+  /* CSS masonry where the browser has it; the columns above are the fallback */
+  @supports (display: grid-lanes) {
+    .collected-sheet {
+      display: grid-lanes;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 380px), 1fr));
+      gap: clamp(40px, 5vw, 56px) clamp(32px, 5vw, 72px);
+      columns: auto;
+    }
+  }
+
+  .specimen {
+    break-inside: avoid;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 0 0 clamp(40px, 5vw, 56px);
+    scroll-margin-top: 24px;
+  }
+
+  @supports (display: grid-lanes) {
+    .specimen {
+      margin-bottom: 0;
+    }
+  }
+
+  .specimen-shot {
+    position: relative;
+    display: block;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    background: #fff;
+    border: 2px solid var(--color-ink);
+  }
+
+  .specimen-shot img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* The pin: a small plum square at the top edge */
+  .specimen-pin {
+    position: absolute;
+    top: -7px;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    margin-left: -5px;
+    background: var(--color-ink);
+  }
+
+  /* The label hangs off the bottom of the screenshot, sharing its border */
+  .specimen-label {
+    display: flex;
+    flex-direction: column;
+    max-width: min(300px, calc(100% - 24px));
+    margin: -2px 0 0 24px;
+    background: var(--color-cream);
+    border: 2px solid var(--color-ink);
+  }
+
+  .specimen-note {
+    padding: 10px 12px 8px;
+    font-style: italic;
+    font-size: 16px;
+    line-height: 1.4;
+  }
+
+  .specimen-meta {
+    padding: 5px 12px;
+    border-top: 2px solid var(--color-ink);
+    background: var(--color-acid);
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  .log-body .specimen-meta a {
+    text-decoration: none;
+  }
+
+  .log-body .specimen-meta a:hover {
+    background: var(--color-cream);
+  }
+
+  /* ── Collected strip at the top of a year in the log archive ── */
+  .cstrip {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 16px clamp(16px, 3vw, 32px) 24px;
+    background: var(--color-cream)
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14'%3E%3Crect x='6' y='6' width='2' height='2' fill='%23F3D7C6'/%3E%3C/svg%3E")
+      0 0 / 14px 14px repeat;
+  }
+
+  .cstrip-hd {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .log-body .cstrip-hd a {
+    text-decoration: none;
+  }
+
+  .cstrip-row {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding-top: 8px;
+  }
+
+  .log-body .cstrip-find {
+    flex: 0 0 auto;
+    width: 240px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+
+  .log-body .cstrip-find:hover {
+    background: none;
+  }
+
+  .cstrip-find .specimen-shot {
+    padding: 8px;
+  }
+
+  .cstrip-label {
+    margin: -2px 0 0 16px;
+    padding: 4px 10px;
+    border: 2px solid var(--color-ink);
+    background: var(--color-acid);
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  .cstrip-find:hover .cstrip-label {
+    background: var(--color-cream);
+  }
+
   /* ── Divider strip ── */
   .divider {
     box-sizing: content-box;
