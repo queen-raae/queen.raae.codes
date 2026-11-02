@@ -21,14 +21,14 @@ export const photos = [
     caption: "Still my avatar on Twitter, ca 2006",
   },
   {
-    src: crew,
-    alt: "Ola, our daughter and Queen Raae holding hands in a backyard, all three laughing",
-    caption: "The crew",
-  },
-  {
     src: techWomen,
     alt: "Queen Raae laughing in a flowery dress between our daughter, flashing a peace sign, and Ola in a flower-trimmed straw hat, in front of a Norges 50 fremste techkvinner backdrop",
     caption: "One of Norway's 50 leading tech women, 2025",
+  },
+  {
+    src: crew,
+    alt: "Ola, our daughter and Queen Raae holding hands in a backyard, all three laughing",
+    caption: "The POW! launch March 8th 2020",
   },
   {
     src: anniversary,
