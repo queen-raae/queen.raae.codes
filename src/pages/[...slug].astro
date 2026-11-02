@@ -153,7 +153,20 @@ const schema = {
       {
         post.importedFrom && (
           <aside class="cross">
-            <p class="m-0 text-[17px] leading-normal">
+            <svg
+              width="28"
+              height="28"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              aria-hidden="true"
+              class="flex-none"
+            >
+              <rect x="2.5" y="5" width="19" height="14" />
+              <path d="M2.5 6l9.5 7.5 9.5-7.5" />
+            </svg>
+            <p class="m-0 text-[17px] leading-normal flex-[1_1_240px]">
               <strong>Originally published</strong>{" "}
               {post.issue ? (
                 <>as {post.issue}, my newsletter.</>
