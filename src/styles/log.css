@@ -1643,6 +1643,7 @@
 
   /* External: the window leaves it */
   .ext {
+    display: inline-block;
     width: 0.68em;
     height: 0.68em;
     margin-left: 0.3em;
