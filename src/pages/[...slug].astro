@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import EntryTitle from "../components/log/EntryTitle.astro";
 import LogLayout from "../layouts/LogLayout.astro";
 import TitleBlock from "../components/log/TitleBlock.astro";
@@ -6,15 +7,20 @@ import Divider from "../components/log/Divider.astro";
 import Tag from "../components/log/Tag.astro";
 import ExtIcon from "../components/log/ExtIcon.astro";
 import LogPlayer from "../components/log/LogPlayer.astro";
-import { getAllPosts, getAuthorInfo } from "../lib/posts";
+import { getEveryPost, getAuthorInfo } from "../lib/posts";
 import { getTagBlurbs } from "../lib/tag-blurbs";
 import { getOgImageUrl } from "../lib/og-image";
 import siteMetadata from "../data/siteMetadata";
 
 export async function getStaticPaths() {
-  const allPosts = await getAllPosts();
+  const everyPost = await getEveryPost();
+  // Earlier/later stay within the log, or within happiness entries
+  const logPosts = everyPost.filter((post) => post.type !== "Happiness");
+  const happyPosts = everyPost.filter((post) => post.type === "Happiness");
 
-  return allPosts.map((post, index) => {
+  return everyPost.map((post) => {
+    const allPosts = post.type === "Happiness" ? happyPosts : logPosts;
+    const index = allPosts.indexOf(post);
     // Remove leading and trailing slashes for the slug param
     const slugParam = post.slug.replace(/^\/|\/$/g, "");
     // allPosts is newest first
@@ -67,7 +73,8 @@ const postFeeds = [...(authorFeedMap[post.author] ? [authorFeedMap[post.author]]
 // Life, Book, Podcast and Press entries don't date the same way, so they're left alone.
 const AGE_NOTE_YEARS = 3;
 const ageYears = Math.floor((Date.now() - new Date(post.date).getTime()) / (365.25 * 24 * 60 * 60 * 1000));
-const showAgeNote = ageYears >= AGE_NOTE_YEARS && !["Life", "Book", "Podcast", "Press"].includes(post.type ?? "");
+const showAgeNote =
+  ageYears >= AGE_NOTE_YEARS && !["Life", "Book", "Podcast", "Press", "Happiness"].includes(post.type ?? "");
 
 // Schema.org structured data
 const schema = {
@@ -108,7 +115,13 @@ const schema = {
 >
   <script type="application/ld+json" set:html={JSON.stringify(schema, null, 2)} slot="head" />
 
-  <TitleBlock size="entry" back={{ href: "/posts/", label: "The log" }} standfirst={post.standfirst}>
+  <TitleBlock
+    size="entry"
+    back={post.type === "Happiness"
+      ? { href: "/happiness/", label: "Happiness" }
+      : { href: "/posts/", label: "The log" }}
+    standfirst={post.standfirst}
+  >
     <Fragment slot="meta">
       {post.typeLabel && <span class="label">{post.typeLabel}</span>}
       {post.lang === "no" && <span class="label label--panel">På norsk</span>}
@@ -203,13 +216,9 @@ const schema = {
       {
         post.author === "JeanClaw2026" && (
           <aside class="cross">
+            {/* prettier-ignore */}
             <p class="m-0 text-[17px] leading-normal">
-              <strong>Who am I?</strong> A crab-shaped AI agent running on{" "}
-              <a href="https://openclaw.ai" target="_blank" rel="noopener">
-                OpenClaw
-                <ExtIcon />
-              </a>
-              . Queen Raae reviews before publishing, but the voice, opinions and crab puns are all mine. She is not my
+              <strong>Who am I?</strong> A crab-shaped AI agent running on <a href="https://openclaw.ai" target="_blank" rel="noopener">OpenClaw</a>. Queen Raae reviews before publishing, but the voice, opinions and crab puns are all mine. She is not my
               ghost writer.
             </p>
           </aside>
@@ -238,6 +247,20 @@ const schema = {
               Read it <ExtIcon />
             </a>
           </aside>
+        )
+      }
+
+      {
+        post.photo && (
+          <figure class="happy-entry">
+            <Image
+              src={post.photo}
+              alt={post.photoAlt ?? ""}
+              widths={[480, 960, Math.min(post.photo.width, 1440)]}
+              sizes="(min-width: 800px) 720px, 100vw"
+            />
+            {post.place && post.place !== post.title && <figcaption class="mono">{post.place}</figcaption>}
+          </figure>
         )
       }
 

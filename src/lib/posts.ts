@@ -1,5 +1,6 @@
 import { getCollection } from "astro:content";
 import { format } from "date-fns";
+import type { ImageMetadata } from "astro";
 import type { EntryType } from "./entry-types";
 
 // Drafts (and preview-only stand-ins) never ship to production
@@ -59,10 +60,23 @@ export interface ProcessedPost {
   blurb?: string;
   reread: boolean;
   lillylabs: boolean;
+  photo?: ImageMetadata; // Happiness entries
+  photoAlt?: string;
+  place?: string;
 }
 
-// Get all posts from both queen and olavea collections
+// The log: every entry except happiness entries, which only show on /happiness/ (and their own pages)
 export async function getAllPosts(): Promise<ProcessedPost[]> {
+  return (await getEveryPost()).filter((post) => post.type !== "Happiness");
+}
+
+// Happiness (type: Happiness), newest first
+export async function getHappiness(): Promise<ProcessedPost[]> {
+  return (await getEveryPost()).filter((post) => post.type === "Happiness");
+}
+
+// Every entry from all author collections, happiness entries included
+export async function getEveryPost(): Promise<ProcessedPost[]> {
   const queenPosts = await getCollection("posts-queen");
   const olaveaPosts = await getCollection("posts-olavea");
   const jeanclawPosts = await getCollection("posts-jeanclaw");
@@ -164,6 +178,9 @@ export async function getAllPosts(): Promise<ProcessedPost[]> {
       blurb: entry.data.blurb,
       reread: entry.data.reread,
       lillylabs: entry.data.lillylabs,
+      photo: entry.data.photo,
+      photoAlt: entry.data.photoAlt,
+      place: entry.data.place,
     };
   };
 

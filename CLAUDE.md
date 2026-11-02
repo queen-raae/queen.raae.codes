@@ -23,14 +23,14 @@ npm run prettier   # Format code
 
 ## Content collections
 
-| Collection       | Type    | Location                      | Format   |
-| ---------------- | ------- | ----------------------------- | -------- |
-| `posts-queen`    | content | `src/content/posts-queen/`    | Markdown |
-| `posts-olavea`   | content | `src/content/posts-olavea/`   | Markdown |
-| `landing`        | content | `src/content/landing/`        | Markdown |
-| `talks`          | content | `src/content/talks/`          | Markdown |
-| `tags`           | data    | `src/content/tags/`           | YAML     |
-| `testimonials`   | data    | `src/content/testimonials/`   | YAML     |
+| Collection     | Type    | Location                    | Format   |
+| -------------- | ------- | --------------------------- | -------- |
+| `posts-queen`  | content | `src/content/posts-queen/`  | Markdown |
+| `posts-olavea` | content | `src/content/posts-olavea/` | Markdown |
+| `landing`      | content | `src/content/landing/`      | Markdown |
+| `talks`        | content | `src/content/talks/`        | Markdown |
+| `tags`         | data    | `src/content/tags/`         | YAML     |
+| `testimonials` | data    | `src/content/testimonials/` | YAML     |
 
 Blog post paths follow the pattern: `posts-queen/YYYY/MM/DD-slug/index.md`
 
@@ -75,7 +75,7 @@ Blog post paths follow the pattern: `posts-queen/YYYY/MM/DD-slug/index.md`
 - Trailing slashes are enforced (`trailingSlash: 'always'` in astro config)
 - The `content/` directory at the project root mirrors `src/content/` — the canonical source is `src/content/`
 - OG image generation uses Satori which renders a JSX-like structure to SVG, then Sharp converts to PNG
-- Entry frontmatter can set `type` (Book, Link, Podcast, Life, Press), `standfirst`, `draft`, `lang` (`en` default, `no` shows "På norsk"), `importedFrom`, `originalUrl`, `creator`, `url`, `outlet`, `reread`, `lillylabs`. Press entries (articles about Queen, podcast guest spots) sit on their original date with `url` and `outlet`; a body only if Queen writes a note. `/press/` lists them. `type` is only for notes on a thing (plus Life); plain posts have none and show no label. Link entries get "Notes on:" in front of the title (`post.title`, used for meta, cards, feeds, search; shown highlighted on the site via `EntryTitle.astro`) and no "Link" type label (`post.typeLabel`), a YouTube `url` adds " (YouTube)", and a non-Press `url` shows as a "Watch on YouTube" / "View on <domain>" button under the title
+- Entry frontmatter can set `type` (Book, Link, Podcast, Life, Press), `standfirst`, `draft`, `lang` (`en` default, `no` shows "På norsk"), `importedFrom`, `originalUrl`, `creator`, `url`, `outlet`, `reread`, `lillylabs`. Happiness entries (`type: Happiness`) are things that made Queen happy: optional `photo` (next to `index.md`) with `photoAlt`, optional `place`, the body is Queen's own words (never write them for her), and `title` is optional (falls back to the place, then "Happiness"). They are kept out of the log, archive, feeds and search (`getAllPosts` skips them; `getHappiness` and `getEveryPost` include them); `/happiness/` shows them as a masonry wall of plum-framed cards, text-only ones too. Press entries (articles about Queen, podcast guest spots) sit on their original date with `url` and `outlet`; a body only if Queen writes a note. `/press/` lists them. `type` is only for notes on a thing (plus Life); plain posts have none and show no label. Link entries get "Notes on:" in front of the title (`post.title`, used for meta, cards, feeds, search; shown highlighted on the site via `EntryTitle.astro`) and no "Link" type label (`post.typeLabel`), a YouTube `url` adds " (YouTube)", and a non-Press `url` shows as a "Watch on YouTube" / "View on <domain>" button under the title
 - A post image named `framed-*` is a 1080 square social graphic (984×912 stage on a cream frame with a vanity link); `log.css` crops the page view to the stage, saving the image gets the whole thing. Vanity links for social posts live in `netlify.toml`. Wrap an image and the paragraphs it should sit beside in `<div class="float-group">` (image first) to float it right on wide screens; phones stack it after the first paragraph
 - `draft: true` entries show on deploy previews only (`CONTEXT !== "production"`)
 - `retired/` holds the old landing pages (bootcamps, emergency, Bridgerton…) and their components, kept but not built or linted; their content stays in `src/content/landing/`

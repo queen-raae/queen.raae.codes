@@ -24,6 +24,11 @@ export const OG_PAGES = {
     title: "Collected",
     description: "UI details Queen Raae has spotted around the web, pinned like specimens.",
   },
+  happiness: {
+    labels: ["Happiness"],
+    title: "Happiness",
+    description: "Photos of small things that made Queen Raae happy.",
+  },
   about: {
     labels: ["About"],
     title: "About",
