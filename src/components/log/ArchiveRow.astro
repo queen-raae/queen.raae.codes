@@ -19,5 +19,6 @@ const byline = post.author === "Queen" ? undefined : getAuthorInfo(post.author).
   </span>
   <span class="t"><span><EntryTitle post={post} /></span></span>
   {byline && <span class="mono by">by {byline}</span>}
+  {post.issue && <span class="mono by">{post.issue}</span>}
   {post.type === "Press" && post.outlet && <span class="mono by">{post.outlet}</span>}
 </a>

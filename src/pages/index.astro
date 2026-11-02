@@ -25,6 +25,7 @@ const isExternal = (href: string) => /^https?:\/\//.test(href);
 // Only entries that aren't plain Queen posts get a source line
 const sourceOf = (post: (typeof allPosts)[number]) => {
   if (post.type === "Press") return post.outlet ? `Press · ${post.outlet}` : "Press";
+  if (post.issue) return post.issue;
   if (post.importedFrom) return post.importedFrom;
   if (post.author !== "Queen") return `by ${getAuthorInfo(post.author).name}`;
   return undefined;
