@@ -1,0 +1,52 @@
+---
+import { Image } from "astro:assets";
+import LogLayout from "../../layouts/LogLayout.astro";
+import { OG_PAGES, getOgPageImage } from "../../data/og-pages";
+import Divider from "../../components/log/Divider.astro";
+import { collected, formatFindDate } from "../../data/collected";
+
+const { title: TITLE, description: DESCRIPTION } = OG_PAGES.collected;
+const tags = [...new Set(collected.flatMap((find) => find.tags))];
+---
+
+<LogLayout title={TITLE} description={DESCRIPTION} image={getOgPageImage("collected")}>
+  <section class="collected-head ruled gutter">
+    <h1 class="display">Collected.</h1>
+    <p class="mono m-0">{tags.map((tag) => `#${tag}`).join(" ")}</p>
+  </section>
+
+  <section class="collected-mount ruled">
+    <div class="collected-sheet">
+      {
+        collected.map((find) => (
+          <figure id={find.id} class="specimen">
+            <a class="specimen-shot" href={`/collected/${find.id}/`}>
+              <span class="specimen-pin" aria-hidden="true" />
+              <Image
+                src={find.image}
+                alt={find.alt}
+                widths={[find.image.width]}
+                sizes={`(min-width: 900px) ${Math.min(find.image.width, 440)}px, 100vw`}
+              />
+            </a>
+            <figcaption class="specimen-label">
+              <span class="specimen-note">{find.note}</span>
+              <span class="mono specimen-meta">
+                {find.url ? (
+                  <a href={find.url} target="_blank" rel="noopener">
+                    {find.site}
+                  </a>
+                ) : (
+                  find.site
+                )}{" "}
+                · <time datetime={find.date}>{formatFindDate(find.date)}</time>
+              </span>
+            </figcaption>
+          </figure>
+        ))
+      }
+    </div>
+  </section>
+
+  <Divider />
+</LogLayout>

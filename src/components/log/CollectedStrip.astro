@@ -1,0 +1,36 @@
+---
+// A year's Collected specimens as a strip at the top of that year in the log archive.
+// Each tile is a pinned screenshot with a small label; it opens the find's own page.
+// Also used for "Also collected" under a single find.
+import { Image } from "astro:assets";
+import { formatFindDate, type Find } from "../../data/collected";
+
+interface Props {
+  heading: string;
+  finds: Find[];
+}
+
+const { heading, finds } = Astro.props;
+---
+
+<div class="cstrip">
+  <div class="mono cstrip-hd">
+    <span>{heading}</span>
+    <a href="/collected/">The collection <span aria-hidden="true">→</span></a>
+  </div>
+  <div class="cstrip-row">
+    {
+      finds.map((find) => (
+        <a class="cstrip-find" href={`/collected/${find.id}/`}>
+          <span class="specimen-shot">
+            <span class="specimen-pin" aria-hidden="true" />
+            <Image src={find.image} alt={find.alt} widths={[440]} sizes="216px" />
+          </span>
+          <span class="mono cstrip-label">
+            {find.site} · <time datetime={find.date}>{formatFindDate(find.date, false)}</time>
+          </span>
+        </a>
+      ))
+    }
+  </div>
+</div>
