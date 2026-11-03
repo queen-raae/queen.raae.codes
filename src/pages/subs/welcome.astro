@@ -18,7 +18,7 @@ const latestPosts = (await getAllPosts()).slice(0, 5);
   </TitleBlock>
   <Divider />
   <section class="ruled flex flex-col">
-    <SectionBar num="01" title="Latest from the log">
+    <SectionBar title="Latest from the log">
       <a class="navlink" href="/posts/">All entries →</a>
     </SectionBar>
     {latestPosts.map((post) => <EntryRow post={post} />)}

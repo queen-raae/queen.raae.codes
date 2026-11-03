@@ -1,6 +1,6 @@
 ---
 // Entries grouped by year. Wide screens: the year sits big in a panel-coloured left margin (L3).
-// Small screens: the numbered year bar on top.
+// Small screens: the year bar on top.
 import SectionBar from "./SectionBar.astro";
 import ArchiveRow from "./ArchiveRow.astro";
 import CollectedStrip from "./CollectedStrip.astro";
@@ -9,26 +9,24 @@ import { groupByYear, type ProcessedPost } from "../../lib/posts";
 
 interface Props {
   posts: ProcessedPost[];
-  startAt?: number;
   jumpTo?: string;
   /** Show the year's Collected specimens as a strip above its entries (the log archive only) */
   withCollected?: boolean;
 }
 
-const { posts, startAt = 1, jumpTo, withCollected = false } = Astro.props;
+const { posts, jumpTo, withCollected = false } = Astro.props;
 const years = groupByYear(posts);
-const pad = (n: number) => String(n).padStart(2, "0");
 const count = (n: number) => `${n} ${n === 1 ? "entry" : "entries"}`;
 ---
 
 {
-  years.map(({ year, posts }, index) => {
+  years.map(({ year, posts }) => {
     const guests = posts.filter((post) => post.author !== "Queen").length;
     const finds = withCollected ? findsByYear(year) : [];
     return (
       <section id={`y${year}`} class="ruled year-section scroll-mt-4">
         <div class="year-bar">
-          <SectionBar num={pad(startAt + index)} title={year} note={`· ${count(posts.length)}`}>
+          <SectionBar title={year} note={`· ${count(posts.length)}`}>
             {jumpTo && (
               <a class="navlink" href={jumpTo}>
                 ↑ Years

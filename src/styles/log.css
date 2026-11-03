@@ -126,7 +126,7 @@
     white-space: nowrap;
   }
 
-  /* ── Numbered section bar ── */
+  /* ── Section bar ── */
   .bar {
     display: flex;
     align-items: center;
@@ -151,20 +151,25 @@
     line-height: 1.2;
   }
 
-  .bar .bar-num {
-    color: var(--color-acid);
-    font-weight: 700;
+  /* An amber spark (the divider's four-point star) in front of the title */
+  .bar .bar-spark {
+    flex: none;
+    width: 17px;
+    height: 17px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23FBBF24' d='M8 1.5C8.5 5.6 10.4 7.5 14.5 8 10.4 8.5 8.5 10.4 8 14.5 7.5 10.4 5.6 8.5 1.5 8 5.6 7.5 7.5 5.6 8 1.5Z'/%3E%3C/svg%3E")
+      center / contain no-repeat;
   }
 
-  /* Phones: section bars stay one tidy row — the number goes, the title shrinks, the side stays on the right */
+  /* Phones: section bars stay one tidy row — the title shrinks, the side stays on the right */
   @media (max-width: 560px) {
     .bar:has(.bar-title) {
       flex-wrap: nowrap;
       gap: 8px;
     }
 
-    .bar .bar-num {
-      display: none;
+    .bar .bar-spark {
+      width: 14px;
+      height: 14px;
     }
 
     .bar .bar-title {
