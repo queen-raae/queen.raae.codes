@@ -8,7 +8,8 @@
   /* ── Page ── */
   .log-body {
     margin: 0;
-    background: var(--color-cream);
+    /* Dark plum around the cream page frame */
+    background: var(--color-ink);
     color: var(--color-ink);
     font-family: var(--font-body);
     font-size: 18px;
@@ -39,6 +40,7 @@
     flex-direction: column;
     flex: 1 0 auto;
     background: var(--color-cream);
+    color: var(--color-ink);
   }
 
   .log-frame > main {
