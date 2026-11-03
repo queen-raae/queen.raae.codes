@@ -53,6 +53,11 @@
   to = "/subs/"
   status = 301
 [[redirects]]
+  # Merged into Queen's Log #001, which sent the same essay
+  from = "/2024-01-18-annoyed-at-react/"
+  to = "/2024-01-18-queens-log-001/"
+  status = 301
+[[redirects]]
   # Linked like this in Queen's Log #024
   from = "/posts/2026/02/23-the-night-i-came-alive/"
   to = "/2026-02-23-the-night-i-came-alive/"
