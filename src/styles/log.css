@@ -620,7 +620,7 @@
 
   /* ── Log entry: back button + date above the title on cream ──
      Wider screens: two boxes sitting in the .log-prose column, a cream back tag and the date on pale rust.
-     Phones: a full-width pale rust strip with an amber back button, standing in for the menu row. */
+     Phones: a full-width pale rust strip with the cream back button, standing in for the menu row. */
   .entry-strip {
     display: grid;
     grid-template-columns:
@@ -694,7 +694,6 @@
     }
 
     .log-body .entry-back {
-      background: var(--color-acid);
       border-width: 0 2px 0 0;
     }
 
