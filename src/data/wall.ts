@@ -12,11 +12,6 @@ import retreat from "../assets/log/retreat-torild-fjellflyt.jpg";
 
 export const photos = [
   {
-    src: retreat,
-    alt: "Windswept selfie of Queen Raae and Torild smiling on a mountaintop under a blue sky",
-    caption: "Business retreat with Torild of Fjellflyt",
-  },
-  {
     src: wedding,
     alt: "Queen Raae in a lace wedding dress and Ola in flower shorts and a straw hat walking hand in hand across a lawn as guests cheer",
     caption: "Just married after 17 years, August 2026",
@@ -30,6 +25,11 @@ export const photos = [
     src: techWomen,
     alt: "Queen Raae laughing in a flowery dress between our daughter, flashing a peace sign, and Ola in a flower-trimmed straw hat, in front of a Norges 50 fremste techkvinner backdrop",
     caption: "One of Norway's 50 leading tech women, 2025",
+  },
+  {
+    src: retreat,
+    alt: "Windswept selfie of Queen Raae and Torild smiling on a mountaintop under a blue sky",
+    caption: "Business retreat with Torild of Fjellflyt",
   },
   {
     src: crew,
