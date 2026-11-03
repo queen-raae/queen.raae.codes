@@ -143,30 +143,6 @@ const schema = {
     <div class="log-prose">
       <h1 class="entry-title"><EntryTitle post={post} /></h1>
       {
-        post.issue && (
-          <div class="entry-action flex items-stretch border-2 border-ink bg-cream">
-            <span class="flex items-center bg-ink px-4 text-cream">
-              <svg
-                width="30"
-                height="30"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.8"
-                aria-hidden="true"
-              >
-                <rect x="2.5" y="5" width="19" height="14" />
-                <path d="M2.5 6l9.5 7.5 9.5-7.5" />
-              </svg>
-            </span>
-            <span class="flex flex-col gap-1 px-5 py-3">
-              <span class="font-display text-[20px] leading-tight">{post.issue}</span>
-              <span class="mono text-[12px] text-plum-500">Originally sent as a newsletter</span>
-            </span>
-          </div>
-        )
-      }
-      {
         post.url && post.type !== "Press" && (
           <div class="entry-action flex">
             <a class="btn btn-ink btn--sm" href={post.url} target="_blank" rel="noopener">
@@ -179,7 +155,7 @@ const schema = {
       {post.standfirst && <p class="entry-lead">{post.standfirst}</p>}
 
       {
-        post.importedFrom && !post.issue && (
+        post.importedFrom && post.importedFrom !== "convertkit" && (
           <aside class="cross">
             <p class="m-0 text-[17px] leading-normal">
               <strong>Originally published</strong>{" "}
@@ -192,6 +168,12 @@ const schema = {
               )}
             </p>
           </aside>
+        )
+      }
+
+      {
+        post.importedFrom === "convertkit" && (
+          <p class="mono text-plum-500!">Originally sent as a newsletter{post.issue ? `: ${post.issue}` : ""}.</p>
         )
       }
 

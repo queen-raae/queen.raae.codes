@@ -1,6 +1,7 @@
 ---
 title: "Can we get away with no client-side Javascript?"
-tags: newsletter
+tags: newsletter, musings, client-side, javascript
+projects: MixPod
 importedFrom: convertkit
 issue: "Queen's Log #003"
 ---

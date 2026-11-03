@@ -1,6 +1,7 @@
 ---
 title: "Kind of annoyed at React"
-tags: newsletter
+tags: newsletter, react, musings, RSC
+peeps: cassidoo
 importedFrom: convertkit
 issue: "Queen's Log #001"
 ---

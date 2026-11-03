@@ -1,6 +1,6 @@
 ---
 title: "What is \"to scale\"?"
-tags: newsletter
+tags: newsletter, musings
 importedFrom: convertkit
 issue: "Queen's Log #002"
 ---

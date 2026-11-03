@@ -1,6 +1,7 @@
 ---
 title: "Two Week Build is on!"
-tags: newsletter
+tags: newsletter, Astro
+projects: Data in the Wild, Two Week Build
 importedFrom: convertkit
 issue: "Queen's Log #004"
 ---
