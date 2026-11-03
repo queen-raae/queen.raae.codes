@@ -2393,6 +2393,12 @@
     aspect-ratio: 16 / 9;
   }
 
+  /* Transistor podcast players are a fixed 180px tall at any width, plus the 2px border */
+  .log-prose iframe[src*="transistor.fm"] {
+    aspect-ratio: auto;
+    height: 184px;
+  }
+
   /* A "framed-" image is a 1080 square social graphic: its 984×912 stage sits on a cream
      frame with the vanity link. The page shows only the stage; saving the image gets it all. */
   .log-prose p:has(> img[src*="/framed-"]) {
