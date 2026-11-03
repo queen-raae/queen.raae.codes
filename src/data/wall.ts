@@ -8,6 +8,7 @@ import apps4norge from "../assets/log/apps4norge.jpg";
 import avatar from "../assets/log/avatar-early.jpg";
 import techWomen from "../assets/log/tech-women-2025.jpg";
 import anniversary from "../assets/log/anniversary-beach-2024.jpg";
+import retreat from "../assets/log/retreat-torild-fjellflyt.jpg";
 
 export const photos = [
   {
@@ -24,6 +25,11 @@ export const photos = [
     src: techWomen,
     alt: "Queen Raae laughing in a flowery dress between our daughter, flashing a peace sign, and Ola in a flower-trimmed straw hat, in front of a Norges 50 fremste techkvinner backdrop",
     caption: "One of Norway's 50 leading tech women, 2025",
+  },
+  {
+    src: retreat,
+    alt: "Windswept selfie of Queen Raae and Torild smiling on a mountaintop under a blue sky",
+    caption: "Business retreat with Torild of Fjellflyt",
   },
   {
     src: crew,
