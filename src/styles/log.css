@@ -1503,24 +1503,6 @@
     font-size: 12px;
   }
 
-  /* Where the quote starts in the episode: a dashed plum line with a small notch on top */
-  .lp-tape .lp-mark {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    border-left: 2px dashed var(--color-ink);
-    pointer-events: none;
-  }
-
-  .lp-tape .lp-mark::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -6px;
-    border: 5px solid transparent;
-    border-top: 7px solid var(--color-ink);
-  }
-
   /* A Slow & Steady player in an entry sits in the prose, often inside the quote */
   .log-prose .lp-episode {
     font-family: var(--font-body);
