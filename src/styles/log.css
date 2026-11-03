@@ -1494,13 +1494,22 @@
     background: var(--color-panel);
   }
 
-  .lp-tape .lp-fill[style] {
-    border-right: 2px solid var(--color-ink);
-  }
-
   .lp-tape .lp-bar .mono {
     position: relative;
     font-size: 12px;
+  }
+
+  /* Where the quote starts in the episode: a small plum arrow pointing up from the bottom edge */
+  .lp-tape .lp-start {
+    position: absolute;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    margin-left: -6px;
+    border: 6px solid transparent;
+    border-top: 0;
+    border-bottom: 8px solid var(--color-ink);
+    pointer-events: none;
   }
 
   /* A Slow & Steady player in an entry sits in the prose, often inside the quote */

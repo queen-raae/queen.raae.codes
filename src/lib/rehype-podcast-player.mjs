@@ -70,6 +70,10 @@ function player(episode, start) {
   const label = `Slow & Steady${episode.number ? ` ${episode.number}` : ""}: ${episode.title}`;
   const startPct = episode.duration ? (start / episode.duration) * 100 : 0;
   const bar = [el("div", { className: ["lp-fill"] })];
+  // A small arrow from below points at where the quote starts
+  if (start > 0 && episode.duration) {
+    bar.push(el("span", { className: ["lp-start"], style: `left:${startPct.toFixed(2)}%`, ariaHidden: "true" }));
+  }
   bar.push(
     el("span", { className: ["lp-current", "mono"] }, [text(clock(start))]),
     el("span", { className: ["lp-duration", "mono"] }, [text(episode.duration ? clock(episode.duration) : "--:--")]),
