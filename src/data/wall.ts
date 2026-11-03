@@ -8,8 +8,14 @@ import apps4norge from "../assets/log/apps4norge.jpg";
 import avatar from "../assets/log/avatar-early.jpg";
 import techWomen from "../assets/log/tech-women-2025.jpg";
 import anniversary from "../assets/log/anniversary-beach-2024.jpg";
+import retreat from "../assets/log/retreat-torild-fjellflyt.jpg";
 
 export const photos = [
+  {
+    src: retreat,
+    alt: "Windswept selfie of Queen Raae and Torild smiling on a mountaintop under a blue sky",
+    caption: "Business retreat with Torild of Fjellflyt",
+  },
   {
     src: wedding,
     alt: "Queen Raae in a lace wedding dress and Ola in flower shorts and a straw hat walking hand in hand across a lawn as guests cheer",
