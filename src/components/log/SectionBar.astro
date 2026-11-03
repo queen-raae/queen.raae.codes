@@ -1,6 +1,5 @@
 ---
 interface Props {
-  num?: string;
   title: string;
   /** Shorter title for narrow phones, so the bar stays one row */
   short?: string;
@@ -8,12 +7,12 @@ interface Props {
   tag?: "h2" | "h3";
 }
 
-const { num, title, short, note, tag: Tag = "h2" } = Astro.props;
+const { title, short, note, tag: Tag = "h2" } = Astro.props;
 ---
 
 <div class="bar">
   <div class="flex items-center gap-4 flex-wrap">
-    {num && <span class="mono bar-num">{num}</span>}
+    <span class="bar-spark" aria-hidden="true"></span>
     <Tag class="bar-title">
       {
         short ? (

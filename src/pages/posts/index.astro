@@ -51,7 +51,7 @@ const busiest = strip.find((s) => s.count === max)?.year;
   <YearSections posts={allPosts} jumpTo="#years" withCollected />
 
   <section id="density" class="ruled flex flex-col">
-    <SectionBar num={String(years.length + 1).padStart(2, "0")} title="Entries per year">
+    <SectionBar title="Entries per year">
       <span class="mono max-[560px]:hidden">{allPosts.length} entries · {first} → {last} · busiest year {busiest}</span>
       <a class="navlink" href="/posts/queen.xml" aria-label="RSS feed">RSS</a>
     </SectionBar>
