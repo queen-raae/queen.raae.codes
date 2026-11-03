@@ -3,12 +3,13 @@ import mdx from "@astrojs/mdx";
 import tailwindcss from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
 import rehypeBlockquoteClass from "./src/lib/rehype-blockquote-class.mjs";
+import rehypePodcastPlayer from "./src/lib/rehype-podcast-player.mjs";
 
 export default defineConfig({
   site: "https://queen.raae.codes",
   trailingSlash: "always",
   markdown: {
-    rehypePlugins: [rehypeBlockquoteClass],
+    rehypePlugins: [rehypeBlockquoteClass, rehypePodcastPlayer],
   },
   image: {
     // Skip processing for GIF files which can be too large
