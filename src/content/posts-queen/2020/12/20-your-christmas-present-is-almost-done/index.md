@@ -1,5 +1,6 @@
 ---
-title: "🎁Your Christmas present is almost done 🎁"
+title: "Your Christmas present is almost done"
+emojii: "🎁"
 tags: newsletter
 importedFrom: convertkit
 ---

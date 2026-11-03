@@ -14,7 +14,8 @@ While August was a fun month with 12 new customers, September has been more of a
 
 - 5 new customers and 5 cancellations, so standing still at 39 customers.
 - Finally, moved the marketing pages to Squarespace.
-- I tried out an email service that lets you turn off tracking (link clicks and opens) on an account level.
+- I tried out an email service that lets you turn off tracking (link clicks and\
+  opens) on an account level.
 - Ola finished the code that enables a user to change their password.
 - Marit planned a full day of user testing for existing users, but also one for potential users in November.
 

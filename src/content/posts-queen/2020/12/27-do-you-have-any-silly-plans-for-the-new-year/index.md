@@ -1,5 +1,6 @@
 ---
-title: "🤪 Do you have any silly plans for the new year?"
+title: "Do you have any silly plans for the new year?"
+emojii: "🤪"
 tags: newsletter
 importedFrom: convertkit
 ---

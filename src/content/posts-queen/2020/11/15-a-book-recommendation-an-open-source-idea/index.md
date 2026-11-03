@@ -1,5 +1,6 @@
 ---
-title: "📙A book recommendation + An open source idea 💡"
+title: "A book recommendation + An open source idea"
+emojii: "📙"
 tags: newsletter
 importedFrom: convertkit
 ---

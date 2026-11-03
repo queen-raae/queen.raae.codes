@@ -8,7 +8,9 @@ Hello,
 
 On Tuesday, I streamed the POW! Status Update for November. Quite pleased with this one. If you would like to be notified an hour before I go live every month on the 8th, click here.
 
-[![](https://img.youtube.com/vi/w50s_d_qkeo/0.jpg)  ](https://youtu.be/w50s_d_qkeo)November was a good month for POW!
+[![Video on YouTube](./video-1.jpg)](https://youtu.be/w50s_d_qkeo)
+
+November was a good month for POW!
 
 - 48 customers after 8 new people subscribed and 1 canceled.
 
