@@ -618,18 +618,17 @@
     line-height: 1.5;
   }
 
-  /* ── Log entry: the pale rust strip (back button + date) and the title on cream, right above the text ──
-     The strip's row sits in the same column as .log-prose: the button lines up with the title, the date with the right edge. */
+  /* ── Log entry: back button + date above the title on cream ──
+     Wider screens: two boxes sitting in the .log-prose column, a cream back tag and the date on pale rust.
+     Phones: a full-width pale rust strip with an amber back button, standing in for the menu row. */
   .entry-strip {
     display: grid;
     grid-template-columns:
       minmax(clamp(16px, 3vw, 32px), 1fr)
       minmax(0, 40.98em)
       minmax(clamp(16px, 3vw, 32px), 1fr);
+    padding-top: clamp(32px, 3.4vw, 40px);
     font-size: 19px;
-    background: var(--color-panel);
-    border-bottom: 2px solid var(--color-ink);
-    container-type: inline-size;
   }
 
   .entry-strip__row {
@@ -638,7 +637,7 @@
     flex-wrap: nowrap;
     align-items: stretch;
     justify-content: space-between;
-    column-gap: 18px;
+    gap: 12px;
     min-width: 0;
   }
 
@@ -648,10 +647,9 @@
     align-items: center;
     min-height: 48px;
     padding: 0 16px;
-    background: var(--color-acid);
+    background: var(--color-cream);
     color: var(--color-ink);
-    border-left: 2px solid var(--color-ink);
-    border-right: 2px solid var(--color-ink);
+    border: 2px solid var(--color-ink);
     font-family: var(--font-mono);
     font-size: 13px;
     font-weight: 700;
@@ -675,32 +673,41 @@
     flex: 1 1 auto;
     min-width: 0;
     min-height: 48px;
-    padding: 6px 0;
+    padding: 6px 16px;
     text-align: right;
     box-sizing: border-box;
     color: var(--color-deep);
+    background: var(--color-panel);
+    border: 2px solid var(--color-ink);
   }
 
-  /* Once the text column fills the page (little margin left), the strip runs edge to edge:
-     the button sits flush left with its label on the page gutter, the date on the right gutter */
-  @container (max-width: 900px) {
+  @media (max-width: 760px) {
+    .entry-strip {
+      padding-top: 0;
+      background: var(--color-panel);
+      border-bottom: 2px solid var(--color-ink);
+    }
+
     .entry-strip__row {
       grid-column: 1 / -1;
+      gap: 18px;
     }
 
     .log-body .entry-back {
-      padding-left: clamp(16px, 3vw, 32px);
-      border-left: 0;
+      background: var(--color-acid);
+      border-width: 0 2px 0 0;
     }
 
     .entry-strip .meta {
-      padding-right: clamp(16px, 3vw, 32px);
+      padding: 6px clamp(16px, 3vw, 32px) 6px 0;
+      background: none;
+      border: 0;
     }
   }
 
   /* More room above the title than below it, so it belongs to the text */
   .log-body article.entry {
-    padding: clamp(72px, 11.6vw, 112px) 0 clamp(32px, 4vw, 56px);
+    padding: 72px 0 clamp(32px, 4vw, 56px);
   }
 
   .log-prose .entry-title {
