@@ -262,6 +262,31 @@
     }
   }
 
+  /* Log entry pages on phones: no Log/About row, Search stays beside the logo; the entry strip below holds the way back */
+  @media (max-width: 760px) {
+    .log-body .site-header--entry {
+      flex-wrap: nowrap;
+    }
+
+    .log-body .site-nav--entry {
+      display: flex;
+      width: auto;
+      margin: 0;
+      border-top: 0;
+    }
+
+    .log-body .site-nav--entry .navlink {
+      display: none;
+    }
+
+    .log-body .site-nav--entry .btn {
+      min-height: 44px;
+      padding: 0 14px;
+      border: 2px solid var(--color-ink);
+      font-family: var(--font-button);
+    }
+  }
+
   /* ── Buttons ── */
   .log-body .btn {
     display: inline-flex;
@@ -591,6 +616,147 @@
   .title-block--entry .standfirst {
     font-size: clamp(19px, 1.8vw, 22px);
     line-height: 1.5;
+  }
+
+  /* ── Log entry: back button + date above the title on cream ──
+     Wider screens: two boxes sitting in the .log-prose column, a cream back tag and the date on pale rust.
+     Phones: a full-width pale rust strip with the cream back button, standing in for the menu row. */
+  .entry-strip {
+    display: grid;
+    grid-template-columns:
+      minmax(clamp(16px, 3vw, 32px), 1fr)
+      minmax(0, 40.98em)
+      minmax(clamp(16px, 3vw, 32px), 1fr);
+    padding-top: clamp(32px, 3.4vw, 40px);
+    font-size: 19px;
+  }
+
+  .entry-strip__row {
+    grid-column: 2;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    justify-content: space-between;
+    gap: 12px;
+    min-width: 0;
+  }
+
+  .log-body .entry-back {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    min-height: 48px;
+    padding: 0 16px;
+    background: var(--color-cream);
+    color: var(--color-ink);
+    border: 2px solid var(--color-ink);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-decoration: none;
+    box-sizing: border-box;
+  }
+
+  .log-body .entry-back:hover {
+    background: var(--color-ink);
+    color: var(--color-cream);
+  }
+
+  .entry-strip .meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px 18px;
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 48px;
+    padding: 6px 16px;
+    text-align: right;
+    box-sizing: border-box;
+    color: var(--color-deep);
+    background: var(--color-panel);
+    border: 2px solid var(--color-ink);
+  }
+
+  @media (max-width: 760px) {
+    .entry-strip {
+      padding-top: 0;
+      background: var(--color-panel);
+      border-bottom: 2px solid var(--color-ink);
+    }
+
+    .entry-strip__row {
+      grid-column: 1 / -1;
+      gap: 18px;
+    }
+
+    .log-body .entry-back {
+      border-width: 0 2px 0 0;
+    }
+
+    .entry-strip .meta {
+      padding: 6px clamp(16px, 3vw, 32px) 6px 0;
+      background: none;
+      border: 0;
+    }
+  }
+
+  /* More room above the title than below it, so it belongs to the text */
+  .log-body article.entry {
+    padding: 72px 0 clamp(32px, 4vw, 56px);
+  }
+
+  .log-prose .entry-title {
+    margin: 0;
+    color: var(--color-ink);
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(48px, 8.2vw, 76px);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    overflow-wrap: anywhere;
+    text-wrap: balance;
+  }
+
+  /* 28px from the title to the lead on wider screens, 20px on phones */
+  .log-prose > .entry-title {
+    margin-bottom: 4px;
+  }
+
+  @media (max-width: 760px) {
+    .log-prose:has(> .entry-title) {
+      row-gap: 20px;
+    }
+
+    .log-prose > .entry-title {
+      margin-bottom: 0;
+    }
+  }
+
+  /* The opening paragraph (or the standfirst) is set larger, so the title runs straight into it */
+  .log-prose .entry-lead,
+  .log-prose > :is(.entry-title, .entry-action) + p:not(.mono) {
+    font-size: clamp(20px, 1.8vw, 23px);
+    line-height: 1.5;
+  }
+
+  /* Tags and brand notes close the entry */
+  .log-prose .entry-foot {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 16px;
+    border-top: 2px solid var(--color-ink);
+  }
+
+  /* An entry ending on a quote already has a plum rule there */
+  .log-prose > blockquote + .entry-foot {
+    margin-top: -12px;
+    padding-top: 0;
+    border-top: 0;
   }
 
   .title-block--small h1 {
