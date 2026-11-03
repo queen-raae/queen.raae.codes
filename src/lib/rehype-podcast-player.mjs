@@ -70,9 +70,6 @@ function player(episode, start) {
   const label = `Slow & Steady${episode.number ? ` ${episode.number}` : ""}: ${episode.title}`;
   const startPct = episode.duration ? (start / episode.duration) * 100 : 0;
   const bar = [el("div", { className: ["lp-fill"] })];
-  if (start > 0 && episode.duration) {
-    bar.push(el("div", { className: ["lp-mark"], style: `left:${startPct.toFixed(2)}%`, ariaHidden: "true" }));
-  }
   bar.push(
     el("span", { className: ["lp-current", "mono"] }, [text(clock(start))]),
     el("span", { className: ["lp-duration", "mono"] }, [text(episode.duration ? clock(episode.duration) : "--:--")]),
