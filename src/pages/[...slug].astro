@@ -2,8 +2,6 @@
 import { Image } from "astro:assets";
 import EntryTitle from "../components/log/EntryTitle.astro";
 import LogLayout from "../layouts/LogLayout.astro";
-import TitleBlock from "../components/log/TitleBlock.astro";
-import Divider from "../components/log/Divider.astro";
 import Tag from "../components/log/Tag.astro";
 import ExtIcon from "../components/log/ExtIcon.astro";
 import LogPlayer from "../components/log/LogPlayer.astro";
@@ -54,6 +52,8 @@ const authorInfo = getAuthorInfo(post.author);
 const authorName = authorInfo.name;
 const authorTwitter = authorInfo.twitter;
 const isQueen = post.author === "Queen";
+const back =
+  post.type === "Happiness" ? { href: "/happiness/", label: "Happiness" } : { href: "/posts/", label: "The log" };
 
 const linkHost = post.url ? new URL(post.url).hostname.replace(/^www\./, "") : undefined;
 const ogImagePath = getOgImageUrl(post.slug, post.title, post.description);
@@ -104,6 +104,7 @@ const schema = {
 ---
 
 <LogLayout
+  entry
   title={post.title}
   description={post.standfirst || post.description}
   image={ogImagePath}
@@ -115,78 +116,68 @@ const schema = {
 >
   <script type="application/ld+json" set:html={JSON.stringify(schema, null, 2)} slot="head" />
 
-  <TitleBlock
-    size="entry"
-    back={post.type === "Happiness"
-      ? { href: "/happiness/", label: "Happiness" }
-      : { href: "/posts/", label: "The log" }}
-    standfirst={post.standfirst}
-  >
-    <Fragment slot="meta">
-      {post.typeLabel && <span class="label">{post.typeLabel}</span>}
-      {post.lang === "no" && <span class="label label--panel">På norsk</span>}
-      {post.draft && <span class="label label--outline">Draft</span>}
-      <time datetime={post.date}>{post.dateLong}</time>
-      {post.wordCount > 0 && <span>{post.readingMinutes} min read</span>}
+  <div class="entry-strip">
+    <div class="entry-strip__row">
+      <a class="entry-back" href={back.href}>← {back.label}</a>
+      <div class="mono meta">
+        {post.typeLabel && post.type !== "Happiness" && <span class="label">{post.typeLabel}</span>}
+        {post.lang === "no" && <span class="label label--outline">På norsk</span>}
+        {post.draft && <span class="label label--outline">Draft</span>}
+        <time datetime={post.date}>{post.dateLong}</time>
+        {post.wordCount > 0 && <span>{post.readingMinutes} min read</span>}
+        {
+          !isQueen && (
+            <span>
+              <span class="normal-case italic font-[Lora]">by</span>{" "}
+              <a href={authorInfo.slug} class="no-underline">
+                {authorName}
+              </a>
+            </span>
+          )
+        }
+      </div>
+    </div>
+  </div>
+
+  <article class="ruled entry" lang={post.lang === "no" ? "nb" : undefined}>
+    <div class="log-prose">
+      <h1 class="entry-title"><EntryTitle post={post} /></h1>
       {
-        !isQueen && (
-          <span>
-            <span class="normal-case italic font-[Lora]">by</span>{" "}
-            <a href={authorInfo.slug} class="no-underline">
-              {authorName}
-            </a>
-          </span>
+        post.issue && (
+          <div class="entry-action flex items-stretch border-2 border-ink bg-cream">
+            <span class="flex items-center bg-ink px-4 text-cream">
+              <svg
+                width="30"
+                height="30"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                aria-hidden="true"
+              >
+                <rect x="2.5" y="5" width="19" height="14" />
+                <path d="M2.5 6l9.5 7.5 9.5-7.5" />
+              </svg>
+            </span>
+            <span class="flex flex-col gap-1 px-5 py-3">
+              <span class="font-display text-[20px] leading-tight">{post.issue}</span>
+              <span class="mono text-[12px] text-plum-500">Originally sent as a newsletter</span>
+            </span>
+          </div>
         )
       }
-    </Fragment>
-    <EntryTitle post={post} />
-    {
-      post.issue && (
-        <div slot="action" class="flex items-stretch border-2 border-ink bg-cream">
-          <span class="flex items-center bg-ink px-4 text-cream">
-            <svg
-              width="30"
-              height="30"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.8"
-              aria-hidden="true"
-            >
-              <rect x="2.5" y="5" width="19" height="14" />
-              <path d="M2.5 6l9.5 7.5 9.5-7.5" />
-            </svg>
-          </span>
-          <span class="flex flex-col gap-1 px-5 py-3">
-            <span class="font-display text-[20px] leading-tight">{post.issue}</span>
-            <span class="mono text-[12px] text-plum-500">Originally sent as a newsletter</span>
-          </span>
-        </div>
-      )
-    }
-    {
-      post.url && post.type !== "Press" && (
-        <a slot="action" class="btn btn-ink btn--sm" href={post.url} target="_blank" rel="noopener">
-          {linkHost === "youtube.com" || linkHost === "youtu.be" ? "Watch on YouTube" : `View on ${linkHost}`}{" "}
-          <ExtIcon />
-        </a>
-      )
-    }
-    {
-      post.tags.length > 0 && (
-        <Fragment slot="tags">
-          {post.tags.map(({ label, slug }) => (
-            <Tag href={slug} label={label} />
-          ))}
-        </Fragment>
-      )
-    }
-  </TitleBlock>
+      {
+        post.url && post.type !== "Press" && (
+          <div class="entry-action flex">
+            <a class="btn btn-ink btn--sm" href={post.url} target="_blank" rel="noopener">
+              {linkHost === "youtube.com" || linkHost === "youtu.be" ? "Watch on YouTube" : `View on ${linkHost}`}{" "}
+              <ExtIcon />
+            </a>
+          </div>
+        )
+      }
+      {post.standfirst && <p class="entry-lead">{post.standfirst}</p>}
 
-  <Divider />
-
-  <article class="ruled py-[clamp(32px,4vw,56px)]" lang={post.lang === "no" ? "nb" : undefined}>
-    <div class="log-prose">
       {
         post.importedFrom && !post.issue && (
           <aside class="cross">
@@ -284,8 +275,15 @@ const schema = {
       }
 
       {
-        tagBlurbs.length > 0 && (
-          <aside class="flex flex-col gap-2 pt-4 border-t-2 border-ink">
+        (post.tags.length > 0 || tagBlurbs.length > 0) && (
+          <aside class="entry-foot">
+            {post.tags.length > 0 && (
+              <div class="tags">
+                {post.tags.map(({ label, slug }) => (
+                  <Tag href={slug} label={label} />
+                ))}
+              </div>
+            )}
             {tagBlurbs.map((blurb) => (
               <p class="m-0 text-base leading-normal text-deep">
                 <a href={blurb.tagSlug} class="font-bold">
