@@ -1499,17 +1499,45 @@
     font-size: 12px;
   }
 
-  /* Where the quote starts in the episode: a small plum arrow pointing up from the bottom edge */
-  .lp-tape .lp-start {
+  /* Where the quote starts: a triangle down from the top edge, one up from the bottom, the amber time between */
+  .lp-tape .lp-pinch {
     position: absolute;
+    top: 0;
     bottom: 0;
-    width: 0;
-    height: 0;
-    margin-left: -6px;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    pointer-events: none;
+  }
+
+  .lp-tape .lp-pinch::before,
+  .lp-tape .lp-pinch::after {
+    content: "";
     border: 6px solid transparent;
+  }
+
+  .lp-tape .lp-pinch::before {
+    border-bottom: 0;
+    border-top: 8px solid var(--color-ink);
+  }
+
+  .lp-tape .lp-pinch::after {
     border-top: 0;
     border-bottom: 8px solid var(--color-ink);
-    pointer-events: none;
+  }
+
+  .lp-tape .lp-pinch .mono {
+    font-size: 12px;
+    line-height: 1;
+    padding: 2px 5px;
+    background: var(--color-acid);
+  }
+
+  /* Until the first play the time tag shows where it starts, so the running time stays hidden */
+  .lp-cued .lp-current {
+    visibility: hidden;
   }
 
   /* A Slow & Steady player in an entry sits in the prose, often inside the quote */

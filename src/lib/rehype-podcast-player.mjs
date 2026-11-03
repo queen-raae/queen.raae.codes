@@ -70,9 +70,13 @@ function player(episode, start) {
   const label = `Slow & Steady${episode.number ? ` ${episode.number}` : ""}: ${episode.title}`;
   const startPct = episode.duration ? (start / episode.duration) * 100 : 0;
   const bar = [el("div", { className: ["lp-fill"] })];
-  // A small arrow from below points at where the quote starts
+  // Where the quote starts: a triangle from the top edge, one from the bottom, the time between them
   if (start > 0 && episode.duration) {
-    bar.push(el("span", { className: ["lp-start"], style: `left:${startPct.toFixed(2)}%`, ariaHidden: "true" }));
+    bar.push(
+      el("span", { className: ["lp-pinch"], style: `left:${startPct.toFixed(2)}%`, ariaHidden: "true" }, [
+        el("span", { className: ["mono"] }, [text(clock(start))]),
+      ]),
+    );
   }
   bar.push(
     el("span", { className: ["lp-current", "mono"] }, [text(clock(start))]),
@@ -81,7 +85,7 @@ function player(episode, start) {
   return el(
     "div",
     {
-      className: ["log-player", "lp-tape", "lp-episode"],
+      className: ["log-player", "lp-tape", "lp-episode", ...(start > 0 ? ["lp-cued"] : [])],
       dataSrc: episode.audio,
       dataStart: String(start),
       dataDuration: String(episode.duration || ""),
@@ -137,8 +141,16 @@ function findCite(blockquote) {
   return found;
 }
 
-// Drop the trailing "↓" from the cite: the player now sits above it.
+// Drop the trailing "↓" from the cite, the player now sits above it.
+// The episode link goes too, you can listen right there.
 function dropArrow(cite) {
+  cite.children = cite.children.flatMap((child) =>
+    child.type === "element" && child.tagName === "a" ? child.children : [child],
+  );
+  // The time tag in the bar shows where it starts, so "236@21:39" becomes "236"
+  for (const child of cite.children) {
+    if (child.type === "text") child.value = child.value.replace(/@\d{1,2}:\d{2}(?::\d{2})?/g, "");
+  }
   const last = cite.children.at(-1);
   if (last?.type === "text") last.value = last.value.replace(/\s*↓\s*$/, "");
 }
