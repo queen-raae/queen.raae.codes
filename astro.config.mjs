@@ -11,7 +11,7 @@ export default defineConfig({
   markdown: {
     // Rendered entries are cached between builds (Netlify too) until this config changes:
     // bump `markup` when the podcast player's HTML changes, or old entries keep the old player.
-    rehypePlugins: [rehypeBlockquoteClass, [rehypePodcastPlayer, { markup: 3 }]],
+    rehypePlugins: [rehypeBlockquoteClass, [rehypePodcastPlayer, { markup: 5 }]],
   },
   image: {
     // Skip processing for GIF files which can be too large

@@ -54,6 +54,7 @@ document.querySelectorAll<HTMLElement>(".log-player").forEach((player) => {
   button.addEventListener("click", () => {
     if (!audio.paused) return audio.pause();
     load();
+    player.classList.remove("lp-cued");
     all.forEach((other) => other !== audio && other.pause());
     audio.play();
   });
