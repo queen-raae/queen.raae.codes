@@ -9,7 +9,9 @@ export default defineConfig({
   site: "https://queen.raae.codes",
   trailingSlash: "always",
   markdown: {
-    rehypePlugins: [rehypeBlockquoteClass, rehypePodcastPlayer],
+    // Rendered entries are cached between builds (Netlify too) until this config changes:
+    // bump `markup` when the podcast player's HTML changes, or old entries keep the old player.
+    rehypePlugins: [rehypeBlockquoteClass, [rehypePodcastPlayer, { markup: 3 }]],
   },
   image: {
     // Skip processing for GIF files which can be too large
