@@ -629,6 +629,7 @@
     font-size: 19px;
     background: var(--color-panel);
     border-bottom: 2px solid var(--color-ink);
+    container-type: inline-size;
   }
 
   .entry-strip__row {
@@ -680,9 +681,26 @@
     color: var(--color-deep);
   }
 
-  /* S2 spacing: more room above the title than below it, so it belongs to the text */
+  /* Once the text column fills the page (little margin left), the strip runs edge to edge:
+     the button sits flush left with its label on the page gutter, the date on the right gutter */
+  @container (max-width: 900px) {
+    .entry-strip__row {
+      grid-column: 1 / -1;
+    }
+
+    .log-body .entry-back {
+      padding-left: clamp(16px, 3vw, 32px);
+      border-left: 0;
+    }
+
+    .entry-strip .meta {
+      padding-right: clamp(16px, 3vw, 32px);
+    }
+  }
+
+  /* More room above the title than below it, so it belongs to the text */
   .log-body article.entry {
-    padding: clamp(44px, 5.6vw, 72px) 0 clamp(32px, 4vw, 56px);
+    padding: clamp(64px, 7.5vw, 96px) 0 clamp(32px, 4vw, 56px);
   }
 
   .log-prose .entry-title {
@@ -690,7 +708,7 @@
     color: var(--color-ink);
     font-family: var(--font-display);
     font-weight: 400;
-    font-size: clamp(44px, 5.3vw, 68px);
+    font-size: clamp(44px, 7vw, 68px);
     line-height: 1;
     letter-spacing: -0.03em;
     overflow-wrap: anywhere;
