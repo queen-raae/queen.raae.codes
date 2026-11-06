@@ -17,16 +17,18 @@ interface Props {
   lang?: string;
   article?: { publishedTime: string; author?: string; tags?: string[] };
   newsletter?: boolean;
+  /** Log entry page: on phones the entry strip under the header stands in for the menu row */
+  entry?: boolean;
 }
 
-const { newsletter = true, ...baseProps } = Astro.props;
+const { newsletter = true, entry = false, ...baseProps } = Astro.props;
 ---
 
 <BaseLayout {...baseProps}>
   <slot name="head" slot="head" />
   <div class="log-page">
     <div class="log-frame">
-      <LogHeader />
+      <LogHeader entry={entry} />
       <main>
         <slot />
       </main>

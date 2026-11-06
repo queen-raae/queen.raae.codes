@@ -18,6 +18,7 @@ const byline = post.author === "Queen" ? undefined : getAuthorInfo(post.author).
   <span class="row-main">
     <span class="ttl"><TitleArrow post={post} /></span>
     {byline && <span class="mono row-by">by {byline}</span>}
+    {post.issue && <span class="mono row-by">{post.issue}</span>}
     <span class="row-desc">{post.standfirst || post.description}</span>
   </span>
 </a>

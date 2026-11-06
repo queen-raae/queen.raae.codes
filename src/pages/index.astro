@@ -25,6 +25,7 @@ const isExternal = (href: string) => /^https?:\/\//.test(href);
 // Only entries that aren't plain Queen posts get a source line
 const sourceOf = (post: (typeof allPosts)[number]) => {
   if (post.type === "Press") return post.outlet ? `Press · ${post.outlet}` : "Press";
+  if (post.issue) return post.issue;
   if (post.importedFrom) return post.importedFrom;
   if (post.author !== "Queen") return `by ${getAuthorInfo(post.author).name}`;
   return undefined;
@@ -83,9 +84,9 @@ const updated = new Date(nowUpdated).toLocaleDateString("en-GB", { month: "short
     </div>
   </section>
 
-  <!-- 01 Now -->
+  <!-- Now -->
   <section id="now" class="ruled flex flex-col relative scroll-mt-4">
-    <SectionBar num="01" title="Now" />
+    <SectionBar title="Now" />
     <span class="mono sticker absolute top-14 right-[clamp(16px,3vw,32px)] z-1 -translate-y-1/2">
       Updated {updated}
     </span>
@@ -101,9 +102,9 @@ const updated = new Date(nowUpdated).toLocaleDateString("en-GB", { month: "short
     </div>
   </section>
 
-  <!-- 02 Latest from the log -->
+  <!-- Latest from the log -->
   <section id="log" class="ruled flex flex-col scroll-mt-4">
-    <SectionBar num="02" title="Latest from the log" short="Latest">
+    <SectionBar title="Latest from the log" short="Latest">
       <a class="navlink" href="/posts/">All<span class="max-[560px]:hidden"> entries</span> →</a>
       <a
         href="/posts/queen.xml"
@@ -163,9 +164,9 @@ const updated = new Date(nowUpdated).toLocaleDateString("en-GB", { month: "short
     </div>
   </section>
 
-  <!-- 03 Treasures: the chest -->
+  <!-- Treasures: the chest -->
   <section id="treasures" class="ruled flex flex-col">
-    <SectionBar num="03" title="Treasures">
+    <SectionBar title="Treasures">
       <span class="mono max-[560px]:hidden">Built, shipped, some of them sunk</span>
     </SectionBar>
     <div id="podcast" class="pod-row">
@@ -288,9 +289,9 @@ const updated = new Date(nowUpdated).toLocaleDateString("en-GB", { month: "short
     </div>
   </section>
 
-  <!-- 04 The wall -->
+  <!-- The wall -->
   <section id="wall" class="ruled flex flex-col">
-    <SectionBar num="04" title="The wall" />
+    <SectionBar title="The wall" />
     <div class="wall" tabindex="0" role="region" aria-label="Photos, scroll sideways for more">
       {
         photos.map((photo) => (
@@ -303,9 +304,9 @@ const updated = new Date(nowUpdated).toLocaleDateString("en-GB", { month: "short
     </div>
   </section>
 
-  <!-- 05 From the archives -->
+  <!-- From the archives -->
   <section id="archive" class="ruled flex flex-col">
-    <SectionBar num="05" title="From the archives" short="Archives">
+    <SectionBar title="From the archives" short="Archives">
       <a class="navlink max-[560px]:hidden" href="/posts/">Browse by year →</a>
       <button type="button" class="btn btn-fire btn--sm dig-button">
         <svg

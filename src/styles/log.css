@@ -126,7 +126,7 @@
     white-space: nowrap;
   }
 
-  /* ── Numbered section bar ── */
+  /* ── Section bar ── */
   .bar {
     display: flex;
     align-items: center;
@@ -151,20 +151,25 @@
     line-height: 1.2;
   }
 
-  .bar .bar-num {
-    color: var(--color-acid);
-    font-weight: 700;
+  /* An amber spark (the divider's four-point star) in front of the title */
+  .bar .bar-spark {
+    flex: none;
+    width: 17px;
+    height: 17px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23FBBF24' d='M8 1.5C8.5 5.6 10.4 7.5 14.5 8 10.4 8.5 8.5 10.4 8 14.5 7.5 10.4 5.6 8.5 1.5 8 5.6 7.5 7.5 5.6 8 1.5Z'/%3E%3C/svg%3E")
+      center / contain no-repeat;
   }
 
-  /* Phones: section bars stay one tidy row — the number goes, the title shrinks, the side stays on the right */
+  /* Phones: section bars stay one tidy row — the title shrinks, the side stays on the right */
   @media (max-width: 560px) {
     .bar:has(.bar-title) {
       flex-wrap: nowrap;
       gap: 8px;
     }
 
-    .bar .bar-num {
-      display: none;
+    .bar .bar-spark {
+      width: 14px;
+      height: 14px;
     }
 
     .bar .bar-title {
@@ -259,6 +264,31 @@
 
     .log-body .site-nav > :first-child {
       border-left: 0;
+    }
+  }
+
+  /* Log entry pages on phones: no Log/About row, Search stays beside the logo; the entry strip below holds the way back */
+  @media (max-width: 760px) {
+    .log-body .site-header--entry {
+      flex-wrap: nowrap;
+    }
+
+    .log-body .site-nav--entry {
+      display: flex;
+      width: auto;
+      margin: 0;
+      border-top: 0;
+    }
+
+    .log-body .site-nav--entry .navlink {
+      display: none;
+    }
+
+    .log-body .site-nav--entry .btn {
+      min-height: 44px;
+      padding: 0 14px;
+      border: 2px solid var(--color-ink);
+      font-family: var(--font-button);
     }
   }
 
@@ -591,6 +621,147 @@
   .title-block--entry .standfirst {
     font-size: clamp(19px, 1.8vw, 22px);
     line-height: 1.5;
+  }
+
+  /* ── Log entry: back button + date above the title on cream ──
+     Wider screens: two boxes sitting in the .log-prose column, a cream back tag and the date on pale rust.
+     Phones: a full-width pale rust strip with the cream back button, standing in for the menu row. */
+  .entry-strip {
+    display: grid;
+    grid-template-columns:
+      minmax(clamp(16px, 3vw, 32px), 1fr)
+      minmax(0, 40.98em)
+      minmax(clamp(16px, 3vw, 32px), 1fr);
+    padding-top: clamp(32px, 3.4vw, 40px);
+    font-size: 19px;
+  }
+
+  .entry-strip__row {
+    grid-column: 2;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    justify-content: space-between;
+    gap: 12px;
+    min-width: 0;
+  }
+
+  .log-body .entry-back {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    min-height: 48px;
+    padding: 0 16px;
+    background: var(--color-cream);
+    color: var(--color-ink);
+    border: 2px solid var(--color-ink);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-decoration: none;
+    box-sizing: border-box;
+  }
+
+  .log-body .entry-back:hover {
+    background: var(--color-ink);
+    color: var(--color-cream);
+  }
+
+  .entry-strip .meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px 18px;
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 48px;
+    padding: 6px 16px;
+    text-align: right;
+    box-sizing: border-box;
+    color: var(--color-deep);
+    background: var(--color-panel);
+    border: 2px solid var(--color-ink);
+  }
+
+  @media (max-width: 760px) {
+    .entry-strip {
+      padding-top: 0;
+      background: var(--color-panel);
+      border-bottom: 2px solid var(--color-ink);
+    }
+
+    .entry-strip__row {
+      grid-column: 1 / -1;
+      gap: 18px;
+    }
+
+    .log-body .entry-back {
+      border-width: 0 2px 0 0;
+    }
+
+    .entry-strip .meta {
+      padding: 6px clamp(16px, 3vw, 32px) 6px 0;
+      background: none;
+      border: 0;
+    }
+  }
+
+  /* More room above the title than below it, so it belongs to the text */
+  .log-body article.entry {
+    padding: 72px 0 clamp(32px, 4vw, 56px);
+  }
+
+  .log-prose .entry-title {
+    margin: 0;
+    color: var(--color-ink);
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(48px, 8.2vw, 76px);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    overflow-wrap: anywhere;
+    text-wrap: balance;
+  }
+
+  /* 28px from the title to the lead on wider screens, 20px on phones */
+  .log-prose > .entry-title {
+    margin-bottom: 4px;
+  }
+
+  @media (max-width: 760px) {
+    .log-prose:has(> .entry-title) {
+      row-gap: 20px;
+    }
+
+    .log-prose > .entry-title {
+      margin-bottom: 0;
+    }
+  }
+
+  /* The opening paragraph (or the standfirst) is set larger, so the title runs straight into it */
+  .log-prose .entry-lead,
+  .log-prose > :is(.entry-title, .entry-action) + p:not(.mono) {
+    font-size: clamp(20px, 1.8vw, 23px);
+    line-height: 1.5;
+  }
+
+  /* Tags and brand notes close the entry */
+  .log-prose .entry-foot {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 16px;
+    border-top: 2px solid var(--color-ink);
+  }
+
+  /* An entry ending on a quote already has a plum rule there */
+  .log-prose > blockquote + .entry-foot {
+    margin-top: -12px;
+    padding-top: 0;
+    border-top: 0;
   }
 
   .title-block--small h1 {
@@ -1323,13 +1494,58 @@
     background: var(--color-panel);
   }
 
-  .lp-tape .lp-fill[style] {
-    border-right: 2px solid var(--color-ink);
-  }
-
   .lp-tape .lp-bar .mono {
     position: relative;
     font-size: 12px;
+  }
+
+  /* Where the quote starts: a triangle down from the top edge, one up from the bottom, the amber time between */
+  .lp-tape .lp-pinch {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    pointer-events: none;
+  }
+
+  .lp-tape .lp-pinch::before,
+  .lp-tape .lp-pinch::after {
+    content: "";
+    border: 6px solid transparent;
+  }
+
+  .lp-tape .lp-pinch::before {
+    border-bottom: 0;
+    border-top: 8px solid var(--color-ink);
+  }
+
+  .lp-tape .lp-pinch::after {
+    border-top: 0;
+    border-bottom: 8px solid var(--color-ink);
+  }
+
+  .lp-tape .lp-pinch .mono {
+    font-size: 12px;
+    line-height: 1;
+    padding: 2px 5px;
+    background: var(--color-acid);
+  }
+
+  /* Until the first play the time tag shows where it starts, so the running time stays hidden */
+  .lp-cued .lp-current {
+    visibility: hidden;
+  }
+
+  /* A Slow & Steady player in an entry sits in the prose, often inside the quote */
+  .log-prose .lp-episode {
+    font-family: var(--font-body);
+    font-style: normal;
+    font-size: 16px;
+    color: var(--color-ink);
   }
 
   /* Newsletter (N3): sizes follow the block's own width, not the window */
@@ -1643,6 +1859,7 @@
 
   /* External: the window leaves it */
   .ext {
+    display: inline-block;
     width: 0.68em;
     height: 0.68em;
     margin-left: 0.3em;
@@ -2390,6 +2607,12 @@
   .log-prose iframe {
     width: 100%;
     aspect-ratio: 16 / 9;
+  }
+
+  /* Transistor podcast players are a fixed 180px tall at any width, plus the 2px border */
+  .log-prose iframe[src*="transistor.fm"] {
+    aspect-ratio: auto;
+    height: 184px;
   }
 
   /* A "framed-" image is a 1080 square social graphic: its 984×912 stage sits on a cream

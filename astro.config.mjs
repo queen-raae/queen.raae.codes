@@ -3,12 +3,15 @@ import mdx from "@astrojs/mdx";
 import tailwindcss from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
 import rehypeBlockquoteClass from "./src/lib/rehype-blockquote-class.mjs";
+import rehypePodcastPlayer from "./src/lib/rehype-podcast-player.mjs";
 
 export default defineConfig({
   site: "https://queen.raae.codes",
   trailingSlash: "always",
   markdown: {
-    rehypePlugins: [rehypeBlockquoteClass],
+    // Rendered entries are cached between builds (Netlify too) until this config changes:
+    // bump `markup` when the podcast player's HTML changes, or old entries keep the old player.
+    rehypePlugins: [rehypeBlockquoteClass, [rehypePodcastPlayer, { markup: 5 }]],
   },
   image: {
     // Skip processing for GIF files which can be too large
